@@ -1,0 +1,45 @@
+# -*- mode: bash -*-
+# vi: set ft=bash :
+
+export INITIAL_COMMIT_MSG="The same thing we do every night, Pinky - try to take over the world!"
+
+[[ -s "$HOME/.zsh_auto_complete" ]] && source "$HOME/.zsh_auto_complete"
+
+alias n="nemo"
+alias n.="nemo ."
+alias code="cd ~/Code"
+
+alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 200 -i ~/Code/key_ok.png 'Public Key copied to clipboard'"
+
+alias zshrc="subl ~/.zshrc"
+alias aliases="subl ~/.aliases"
+
+lias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress -r"
+alias uu="sudo apt-get update && sudo apt-get upgrade -y"
+alias cpwd="pwd | xclip -sel clip"
+
+# Laravel
+alias artisan="php artisan"
+alias gmig="php artisan make:migration:schema"
+alias migrate="php artisan migrate"
+alias ql="artisan queue:listen --timeout=360"
+
+# Testing
+alias phpunit="vendor/bin/phpunit"
+alias phpspec="vendor/bin/phpspec"
+alias codecept="vendor/bin/codecept"
+alias rspec="_rspec_command"
+alias crf="vendor/bin/codecept run functional"
+
+# Others
+alias gfirst="git commit -m '$INITIAL_COMMIT_MSG'"
+alias reset_wifi="nmcli nm sleep false"
+
+# Rails
+alias browser-sync-rails="browser-sync start --port 3001 --no-notify --no-open --files \"app/assets/stylesheets/**/*.scss, app/assets/javascripts/**/*.coffee, app/views/**/*.html.haml\" --proxy "
+alias rdoc_to_md="ruby -r rdoc -e 'puts RDoc::Markup::ToMarkdown.new.convert File.read(ARGV[0] || \"README.rdoc\")' >README.md && rm README.rdoc"
+alias start_unicorn="unicorn_rails -c config/unicorn.rb -D"
+alias stop_unicorn="kill \`cat ./tmp/pids/unicorn.pid\`"
+alias restart_unicorn="stop_unicorn && start_unicorn"
+
+alias git_count="git rev-list master --count"
