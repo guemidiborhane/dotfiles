@@ -1,0 +1,10 @@
+[core]
+	fileMode = false
+	editor = vim
+[user]
+	email = guemidiborhane@gmail.com
+	name = Borhane Eddine Guemidi
+[push]
+	default = simple
+[color]
+	ui = true
