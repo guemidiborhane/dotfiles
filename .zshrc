@@ -1,3 +1,5 @@
+# start a new tmux session or attach to the one existing
+if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 # Path to your oh-my-zsh installation.
 export ZSH=/home/borhane/.oh-my-zsh
 
@@ -84,9 +86,6 @@ export rvmsudo_secure_path=1
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-if [[ ! $TERM =~ screen ]]; then
-	exec tmux
-fi
 
 source /etc/zsh_command_not_found
 [[ -e $HOME/Sources/undistract-me/notifyosd.zsh ]] && . $HOME/Sources/undistract-me/notifyosd.zsh
