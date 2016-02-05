@@ -1,5 +1,3 @@
-# start a new tmux session or attach to the one existing
-if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 # Path to your oh-my-zsh installation.
 export ZSH=/home/borhane/.oh-my-zsh
 
@@ -8,6 +6,7 @@ export ZSH=/home/borhane/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="beardie"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -16,7 +15,7 @@ ZSH_THEME="beardie"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -50,7 +49,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails)
+plugins=(git rails git-flow)
 
 # User configuration
 # export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:~/npm-global/bin"
