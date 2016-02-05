@@ -17,6 +17,7 @@ alias aliases="subl ~/.aliases"
 lias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress -r"
 alias uu="sudo apt-get update && sudo apt-get upgrade -y"
 alias cpwd="pwd | xclip -sel clip"
+alias t="tmux new-session -As"
 
 # Laravel
 alias artisan="php artisan"
