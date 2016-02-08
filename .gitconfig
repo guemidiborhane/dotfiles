@@ -8,3 +8,5 @@
 	default = simple
 [color]
 	ui = true
+[alias]
+	lg = !git --no-pager log --graph --oneline --decorate
