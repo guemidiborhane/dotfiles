@@ -41,3 +41,10 @@ function zap() {
             ;;
     esac
 }
+
+_zap()
+{
+  compadd $(ls -1 ~/.bookmarks/)
+}
+
+compdef _zap zap
