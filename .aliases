@@ -17,7 +17,6 @@ alias aliases="subl ~/.aliases"
 lias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress -r"
 alias uu="sudo apt-get update && sudo apt-get upgrade -y"
 alias cpwd="pwd | xclip -sel clip"
-alias t='tmux new-session -As $(basename $(pwd))'
 
 # Laravel
 alias artisan="php artisan"
@@ -33,7 +32,6 @@ alias rspec="_rspec_command"
 alias crf="vendor/bin/codecept run functional"
 
 # Others
-alias gfirst="git commit -m '$INITIAL_COMMIT_MSG'"
 alias reset_wifi="nmcli nm sleep false"
 
 # Rails
