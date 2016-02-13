@@ -6,3 +6,8 @@ function _rspec_command () {
     bin/rspec $@
   fi
 }
+
+function t() {
+  TMUX= tmux new-session -d -s $(basename $(pwd))
+  tmux switch-client -t $(basename $(pwd))
+}
