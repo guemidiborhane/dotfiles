@@ -42,5 +42,3 @@ alias rdoc_to_md="ruby -r rdoc -e 'puts RDoc::Markup::ToMarkdown.new.convert Fil
 alias start_unicorn="unicorn_rails -c config/unicorn.rb -D"
 alias stop_unicorn="kill \`cat ./tmp/pids/unicorn.pid\`"
 alias restart_unicorn="stop_unicorn && start_unicorn"
-
-alias git_count="git rev-list master --count"
