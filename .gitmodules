@@ -4,3 +4,6 @@
 [submodule ".oh-my-zsh/themes"]
 	path = .oh-my-zsh/themes
 	url = git@github.com:guemidiborhane/shell.git
+[submodule "Code/Lab/rails_template"]
+	path = Code/Lab/rails_template
+	url = git@github.com:guemidiborhane/rails_template.git
