@@ -1,3 +1,6 @@
+# start a new tmux session or attach to the one existing
+if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=/home/borhane/.oh-my-zsh
 
