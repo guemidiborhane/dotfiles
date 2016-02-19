@@ -8,6 +8,12 @@ function _rspec_command () {
 }
 
 function t() {
-  TMUX= tmux new-session -d -s $(basename $(pwd))
-  tmux switch-client -t $(basename $(pwd))
+  if [ "$#" -gt 0 ]
+  then
+    SESSION_NAME="$1"
+  else
+    SESSION_NAME=$(basename $(pwd))
+  fi
+  TMUX= tmux new-session -d -s $SESSION_NAME
+  tmux switch-client -t $SESSION_NAME
 }
