@@ -1,3 +1,5 @@
+export ZSH=/home/$USER/.oh-my-zsh
+
 if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 
 ZSH_THEME="beardie"
@@ -7,6 +9,8 @@ DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(git rails git-flow)
+
+source $ZSH/oh-my-zsh.sh
 
 export rvmsudo_secure_path=1
 
