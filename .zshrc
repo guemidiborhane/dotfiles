@@ -28,3 +28,5 @@ export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 export PATH="$PATH:/usr/local/heroku/bin" # Add Heroku Toolbelt to PATH
 export PATH="$PATH:$HOME/.npm-global/bin" # Add NPM to PATH for scripting
 export PATH="$PATH:$HOME/.composer/vendor/bin" # Add Composer to PATH for scripting
+
+export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
