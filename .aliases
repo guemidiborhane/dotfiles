@@ -28,7 +28,6 @@ alias ql="artisan queue:listen --timeout=360"
 alias phpunit="vendor/bin/phpunit"
 alias phpspec="vendor/bin/phpspec"
 alias codecept="vendor/bin/codecept"
-alias rspec="_rspec_command"
 alias crf="vendor/bin/codecept run functional"
 
 # Others
@@ -39,3 +38,4 @@ alias rdoc_to_md="ruby -r rdoc -e 'puts RDoc::Markup::ToMarkdown.new.convert Fil
 alias start_unicorn="unicorn_rails -c config/unicorn.rb -D"
 alias stop_unicorn="kill \`cat ./tmp/pids/unicorn.pid\`"
 alias restart_unicorn="stop_unicorn && start_unicorn"
+alias rspec="_rspec_command"
