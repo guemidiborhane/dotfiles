@@ -7,3 +7,4 @@ ln -fsv $dir/.zshrc $HOME
 ln -fsv $dir/.tmux.conf $HOME
 
 ln -fsv $dir/.oh-my-zsh/themes/* $HOME/.oh-my-zsh/themes 
+ln -fsv $dir/bin $HOME/.bin
