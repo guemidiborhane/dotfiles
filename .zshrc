@@ -20,7 +20,7 @@ source /etc/zsh_command_not_found
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
 
 # RVM
-export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
+export PATH="$PATH:$GEM_HOME/bin:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -f "$HOME/.bin/zap.sh" ]] && source "$HOME/.bin/zap.sh"
 
