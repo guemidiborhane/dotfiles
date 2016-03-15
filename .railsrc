@@ -1,1 +1,1 @@
--m ~/Code/Lab/rails_template/template.rb --skip-turbolinks --skip-javascript --skip-test-unit --skip-sprockets
+-m ~/Code/Lab/rails_template/template.rb --skip-test-unit
