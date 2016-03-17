@@ -4,6 +4,3 @@
 [submodule "Code/lab/rails-template"]
 	path = Code/lab/rails-template
 	url = git@github.com:guemidiborhane/rails-template.git
-[submodule ".vim_runtime"]
-	path = .vim_runtime
-	url = git@github.com:amix/vimrc.git
