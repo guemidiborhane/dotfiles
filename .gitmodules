@@ -1,9 +1,9 @@
-[submodule ".vim_runtime"]
-	path = .vim_runtime
-	url = git@github.com:amix/vimrc.git
 [submodule ".oh-my-zsh/themes"]
 	path = .oh-my-zsh/themes
 	url = git@github.com:guemidiborhane/shell.git
-[submodule "Code/Lab/rails_template"]
-	path = Code/Lab/rails_template
-	url = git@github.com:guemidiborhane/rails_template.git
+[submodule "Code/lab/rails-template"]
+	path = Code/lab/rails-template
+	url = git@github.com:guemidiborhane/rails-template.git
+[submodule ".vim_runtime"]
+	path = .vim_runtime
+	url = git@github.com:amix/vimrc.git
