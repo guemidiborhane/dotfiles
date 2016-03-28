@@ -1,1 +1,1 @@
--m ~/Code/lab/rails-template/template.rb --skip-test-unit
+--skip-test-unit
