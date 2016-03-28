@@ -8,7 +8,7 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git rails git-flow)
+plugins=(sudo git git-flow rails)
 
 source $ZSH/oh-my-zsh.sh
 
