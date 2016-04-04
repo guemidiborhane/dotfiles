@@ -1,6 +1,3 @@
 [submodule ".oh-my-zsh/themes"]
 	path = .oh-my-zsh/themes
 	url = git@github.com:guemidiborhane/shell.git
-[submodule "Code/lab/rails-template"]
-	path = Code/lab/rails-template
-	url = git@github.com:guemidiborhane/rails-template.git
