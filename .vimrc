@@ -11,3 +11,8 @@ set tabstop=2
 
 let g:ctrlp_custom_ignore = 'tmp\|log\|node_modules\|^\.DS_Store\|^\.git\|^\.coffee|' 
 let g:airline_theme="simple"
+
+" Enable mouse support
+set ttyfast
+set mouse=a
+set ttymouse=xterm2
