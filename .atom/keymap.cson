@@ -17,8 +17,8 @@
   'tab': 'emmet:expand-abbreviation-with-tab'
 
 'atom-workspace atom-text-editor:not([mini])':
-	'ctrl-[': 'editor:outdent-selected-rows'
-	'ctrl-5': 'editor:indent-selected-rows'
+  'ctrl-[': 'editor:outdent-selected-rows'
+  'ctrl-5': 'editor:indent-selected-rows'
 
 '.platform-win32 .tree-view, .platform-linux .tree-view':
   'ctrl-5': 'unset!'
