@@ -39,3 +39,5 @@ alias start_unicorn="unicorn_rails -c config/unicorn.rb -D"
 alias stop_unicorn="kill \`cat ./tmp/pids/unicorn.pid\`"
 alias restart_unicorn="stop_unicorn && start_unicorn"
 alias rspec="_rspec_command"
+
+alias nah="git reset --hard;git clean -df"
