@@ -1,9 +1,9 @@
 [core]
 	fileMode = false
-	editor = vim
+	editor   = vim
 [user]
 	email = guemidiborhane@gmail.com
-	name = Borhane Eddine Guemidi
+	name  = Borhane E. Guemidi
 [push]
 	default = simple
 [color]
