@@ -1,0 +1,26 @@
+"*":
+  "atom-material-ui":
+    tabs: {}
+    treeView:
+      compactList: true
+  core:
+    autoHideMenuBar: true
+    themes: [
+      "atom-material-ui"
+      "ptx-solarized-dark-syntax"
+    ]
+  editor:
+    fontSize: 20
+    scrollPastEnd: true
+  "exception-reporting":
+    userId: "69150a68-0599-409b-2624-4d3e2f22a1dc"
+  fonts:
+    fontFamily: "FiraCode"
+    preview: "The Quick brown fox { 0 !== \"O\" } ~>"
+  "genesis-ui":
+    distractionFree:
+      hideBottom: false
+    treeView: {}
+  "vim-mode": {}
+  welcome:
+    showOnStartup: false
