@@ -1,6 +1,6 @@
 export ZSH=/home/$USER/.oh-my-zsh
 
-if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
+# if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 
 ZSH_THEME="beardie"
 
@@ -14,7 +14,7 @@ source $ZSH/oh-my-zsh.sh
 
 export rvmsudo_secure_path=1
 
-source /etc/zsh_command_not_found
+# source /etc/zsh_command_not_found
 # [[ -e $HOME/Sources/undistract-me/notifyosd.zsh ]] && . $HOME/Sources/undistract-me/notifyosd.zsh
 
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
@@ -29,6 +29,6 @@ export LD_LIBRARY_PATH="/opt/oracle/instantclient_11_2/"
 export NLS_LANG="FRENCH_FRANCE.AL32UTF8"
 
 # PATHS
-export PATH="$PATH:$HOME/.bin:$HOME/.npm-global/bin:$HOME/.composer/vendor/bin:$LD_LIBRARY_PATH"
+export PATH="$PATH:$HOME/.bin:$HOME/.npm-global/bin:$HOME/.config/composer/vendor/bin:$LD_LIBRARY_PATH:$HOME/.fasta"
 export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
 
