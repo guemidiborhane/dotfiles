@@ -9,4 +9,5 @@
 [color]
 	ui = true
 [alias]
-	lg = !git --no-pager log --graph --oneline --decorate
+  lg = !git --no-pager log --graph --oneline --decorate
+  st = status -s

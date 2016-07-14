@@ -22,3 +22,8 @@
 
 '.platform-win32 .tree-view, .platform-linux .tree-view':
   'ctrl-5': 'unset!'
+
+'atom-text-editor.vim-mode':
+  'ctrl-c': 'core:copy'
+'atom-text-editor.vim-mode:not(.insert-mode)':
+  'ctrl-w': 'core:close'
