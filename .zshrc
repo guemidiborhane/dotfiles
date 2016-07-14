@@ -27,6 +27,7 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # ORACLE
 export LD_LIBRARY_PATH="/opt/oracle/instantclient_11_2/"
 export NLS_LANG="FRENCH_FRANCE.AL32UTF8"
+export JAVA_HOME="/usr/java/jdk1.8.0_91"
 
 # PATHS
 export PATH="$PATH:$HOME/.bin:$HOME/.npm-global/bin:$HOME/.config/composer/vendor/bin:$LD_LIBRARY_PATH:$HOME/.fasta"
