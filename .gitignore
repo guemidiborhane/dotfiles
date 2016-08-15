@@ -5,3 +5,5 @@
 .atom/blob-store
 .atom/storage
 .atom/nohup*
+
+albert.conf.*
