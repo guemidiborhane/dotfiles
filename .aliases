@@ -45,3 +45,5 @@ alias nah="git reset --hard;git clean -df"
 alias npm_local="npm set registry http://127.0.0.1:5080"
 alias npm_world="npm set registry https://registry.npmjs.org"
 
+
+alias where_was_i="git rev-list --count develop"

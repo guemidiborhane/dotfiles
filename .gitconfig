@@ -1,13 +1,13 @@
 [core]
-	fileMode = false
-	editor   = vim
+  fileMode = false
+  editor   = vim
 [user]
-	email = guemidiborhane@gmail.com
-	name  = Borhane E. Guemidi
+  email = guemidiborhane@gmail.com
+  name  = Borhane E. Guemidi
 [push]
-	default = simple
+  default = simple
 [color]
-	ui = true
+  ui = true
 [alias]
-  lg = !git --no-pager log --graph --oneline --decorate
   st = status -s
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --

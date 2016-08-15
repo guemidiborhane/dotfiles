@@ -14,18 +14,19 @@ source $ZSH/oh-my-zsh.sh
 
 export rvmsudo_secure_path=1
 
+export EDITOR='vim'
+
 # source /etc/zsh_command_not_found
 # [[ -e $HOME/Sources/undistract-me/notifyosd.zsh ]] && . $HOME/Sources/undistract-me/notifyosd.zsh
 
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
 [[ -f "$HOME/.bin/zap.sh" ]] && source "$HOME/.bin/zap.sh"
 
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # ORACLE
-export LD_LIBRARY_PATH="/opt/oracle/instantclient_11_2/"
+export LD_LIBRARY_PATH="/usr/local/lib:/opt/oracle/instantclient_11_2"
 export NLS_LANG="FRENCH_FRANCE.AL32UTF8"
 export JAVA_HOME="/usr/java/jdk1.8.0_91"
 
