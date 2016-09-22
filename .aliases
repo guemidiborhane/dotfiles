@@ -22,7 +22,7 @@ alias cpwd="pwd | xclip -sel clip"
 alias artisan="php artisan"
 alias gmig="php artisan make:migration:schema"
 alias migrate="php artisan migrate"
-alias ql="artisan queue:listen --timeout=360"
+alias ql="php artisan queue:listen --timeout=360"
 
 # Testing
 alias phpunit="vendor/bin/phpunit"
