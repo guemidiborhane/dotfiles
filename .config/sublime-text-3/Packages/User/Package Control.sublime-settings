@@ -1,0 +1,46 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AdvancedNewFile",
+		"Alignment",
+		"ApplySyntax",
+		"Auto Close HTML Tags",
+		"Better CoffeeScript",
+		"Block Cursor Everywhere",
+		"Color Highlighter",
+		"ColorPicker",
+		"DotENV",
+		"Ecmascript Syntax",
+		"EditorConfig",
+		"Emmet",
+		"GitGutter",
+		"Gitignore",
+		"Handlebars",
+		"HTML2Slim",
+		"Jade",
+		"Laravel Blade Highlighter",
+		"Liquid",
+		"Material Theme",
+		"nginx",
+		"Origami",
+		"Package Control",
+		"PlainTasks",
+		"ProjectManager",
+		"Ruby Slim",
+		"Sass",
+		"SCSS",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-contrib-eslint",
+		"SublimeLinter-jshint",
+		"SublimeLinter-json",
+		"SublimeLinter-php",
+		"SublimeLinter-ruby",
+		"Terminal",
+		"Vue Syntax Highlight"
+	]
+}

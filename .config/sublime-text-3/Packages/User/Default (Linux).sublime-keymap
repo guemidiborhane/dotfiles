@@ -1,0 +1,12 @@
+[
+  {"keys": ["ctrl+shift+k"], "command": "toggle_side_bar"},
+  {"keys": ["ctrl+shift+r"], "command": "reindent", "args": {"single_line": false}},
+  {"keys": ["ctrl+alt+n"], "command": "advanced_new_file_new"},
+  {"keys": ["shift+alt+m"], "command": "project_manager"},
+  {"keys": ["shift+alt+p"], "command": "project_manager", "args": {"action": "switch"}},
+  {"keys": ["shift+alt+w"], "command": "close_workspace"},
+  {"keys": ["ctrl+shift+a"], "command": "alignment"},
+  {"keys": ["ctrl+/"], "command": "toggle_comment", "args": { "block": false } },
+  {"keys": ["ctrl+shift+/"], "command": "toggle_comment", "args": { "block": true } },
+  {"keys": ["ctrl+,"], "command": "open_file", "args": {"file": "${packages}/User/Preferences.sublime-settings"}}
+]
