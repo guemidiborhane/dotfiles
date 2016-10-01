@@ -10,3 +10,6 @@ ln -fsv $dir/.gitconfig $HOME
 ln -fsv $dir/.oh-my-zsh/themes/* $HOME/.oh-my-zsh/themes
 ln -fsv $dir/bin $HOME/.bin
 ln -fsv $dir/.vim_runtime $HOME
+
+mkdir $HOME/Code
+ln -fsv $dir/Code/key_ok.png $HOME/Code
