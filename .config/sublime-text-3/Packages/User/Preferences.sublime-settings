@@ -61,6 +61,7 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"Vintage"
 	],
 	"indent_guide_options":
 	[
@@ -81,5 +82,6 @@
 	"trim_trailing_white_space_on_save": true,
 	"vintage_start_in_command_mode": true,
 	"vintage_use_clipboard": true,
-	"word_wrap": false
+	"word_wrap": false,
+  "vintageous_use_sys_clipboard": true
 }

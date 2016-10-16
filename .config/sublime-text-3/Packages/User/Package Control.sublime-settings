@@ -24,6 +24,7 @@
 		"Jade",
 		"Laravel Blade Highlighter",
 		"Liquid",
+		"MarkdownEditing",
 		"Material Theme",
 		"nginx",
 		"Origami",
@@ -41,6 +42,7 @@
 		"SublimeLinter-php",
 		"SublimeLinter-ruby",
 		"Terminal",
+		"Vintageous",
 		"Vue Syntax Highlight"
 	]
 }
