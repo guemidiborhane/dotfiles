@@ -6,7 +6,8 @@
   {"keys": ["shift+alt+p"], "command": "project_manager", "args": {"action": "switch"}},
   {"keys": ["shift+alt+w"], "command": "close_workspace"},
   {"keys": ["ctrl+shift+a"], "command": "alignment"},
-  {"keys": ["ctrl+/"], "command": "toggle_comment", "args": { "block": false } },
-  {"keys": ["ctrl+shift+/"], "command": "toggle_comment", "args": { "block": true } },
-  {"keys": ["ctrl+,"], "command": "open_file", "args": {"file": "${packages}/User/Preferences.sublime-settings"}}
+  {"keys": ["ctrl+,"], "command": "open_file", "args": {"file": "${packages}/User/Preferences.sublime-settings"}},
+  {"keys": ["ctrl+shift+,"], "command": "open_file", "args": {"file": "${packages}/User/Default (Linux).sublime-keymap"}},
+  { "keys": ["control+:"], "command": "toggle_comment", "args": { "block": false } },
+  { "keys": ["ctrl+shift+:"], "command": "toggle_comment", "args": { "block": true } },
 ]
