@@ -12,7 +12,7 @@
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
 	"copy_with_empty_selection": true,
-	"detect_indentation": false,
+	"detect_indentation": true,
 	"ensure_newline_at_eof_on_save": true,
 	"expand_tabs_on_save": true,
 	"file_exclude_patterns":
@@ -82,6 +82,6 @@
 	"trim_trailing_white_space_on_save": true,
 	"vintage_start_in_command_mode": true,
 	"vintage_use_clipboard": true,
-	"word_wrap": false,
-  "vintageous_use_sys_clipboard": true
+	"vintageous_use_sys_clipboard": true,
+	"word_wrap": false
 }
