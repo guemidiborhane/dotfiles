@@ -1,15 +1,14 @@
 # ~/.tmuxinator/rails.yml
 
-name: rails
-root: ~/<%= @args[0] %>
+name: <%= @args[0] %>
+root: <%= @args[1] %>
 
 windows:
   - background:
       layout: 14f8,135x26,0,0[136x13,0,0{97x13,0,0,16,38x13,98,0,18},136x12,0,14{93x12,0,14,19,42x12,94,14,20}]
       panes:
         - bundle exec rails server -b 0.0.0.0
-        #- cd ~/Code/geoserver && ./bin/startup.sh
+        - cd ~/Code/geoserver && ./bin/startup.sh
         - bundle exec rails console
         - npm run dev
   - shell: #empty
-
