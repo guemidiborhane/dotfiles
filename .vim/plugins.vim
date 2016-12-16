@@ -18,7 +18,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'mattn/emmet-vim'
-
+Plugin 'wavded/vim-stylus'
 
 
 " All of your Plugins must be added before the following line

@@ -14,6 +14,8 @@ filetype indent on
 set autoread
 " Show line number.
 set number
+" Highlight current line.
+set cursorline
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -148,6 +150,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 
 nmap <Leader>co :cd ~/Code/
+nmap <Leader>: :Commentary<cr>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -193,7 +196,7 @@ augroup END
 "/
 "/ CtrlP
 "/
-let g:ctrlp_custom_ignore = 'tmp\|log\|node_modules\|^\.DS_Store\|^\.git\' 
+let g:ctrlp_custom_ignore = 'tmp\|log\|node_modules\|vendor\|^\.DS_Store\|^\.git\' 
 let g:ctrlp_working_path_mode = 'ra'
 
 nmap <C-p> :CtrlP<cr>
