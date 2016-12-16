@@ -26,7 +26,7 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
 
@@ -37,14 +37,14 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " No damn bells!
 set noerrorbells visualbell t_vb=
@@ -52,7 +52,7 @@ set noerrorbells visualbell t_vb=
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
@@ -78,8 +78,12 @@ if has("gui_running")
     set guioptions-=T
     set linespace=14   						        "Macvim-specific line-height.
     set t_Co=256
-    set guifont=Fira\ Code\ 13
+    set guifont=Fira\ Mono\ for\ Powerline\ 13
 endif
+
+set laststatus=2
+let g:airline_powerline_fonts=1
+let g:airline_theme='luna'
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -140,8 +144,8 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -160,7 +164,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 nnoremap <Leader><Leader> :e#<CR>
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -185,8 +189,8 @@ nmap <Leader>es :e ~/.vim/snippets/
 "Automatically source the Vimrc file on save.
 
 augroup autosourcing
-	autocmd!
-	autocmd BufWritePost .vimrc source %
+  autocmd!
+  autocmd BufWritePost .vimrc source %
 augroup END
 
 
@@ -196,7 +200,7 @@ augroup END
 "/
 "/ CtrlP
 "/
-let g:ctrlp_custom_ignore = 'tmp\|log\|node_modules\|vendor\|^\.DS_Store\|^\.git\' 
+let g:ctrlp_custom_ignore = 'tmp\|log\|node_modules\|vendor\|^\.DS_Store\|^\.git\'
 let g:ctrlp_working_path_mode = 'ra'
 
 nmap <C-p> :CtrlP<cr>
