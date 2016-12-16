@@ -19,6 +19,9 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'mattn/emmet-vim'
 Plugin 'wavded/vim-stylus'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
 
 
 " All of your Plugins must be added before the following line
