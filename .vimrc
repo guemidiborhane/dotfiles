@@ -12,6 +12,8 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+" Show line number.
+set number
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -56,7 +58,8 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme atom-dark
+    " colorscheme atom-dark
+    colorscheme Tomorrow-Night
 catch
 endtry
 
@@ -144,6 +147,8 @@ nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 
+nmap <Leader>co :cd ~/Code/
+
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
@@ -151,6 +156,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+nnoremap <Leader><Leader> :e#<CR>
 " Specify the behavior when switching between buffers 
 try
   set switchbuf=useopen,usetab,newtab
