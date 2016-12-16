@@ -9,7 +9,7 @@ ln -fsv $dir/.gitconfig $HOME
 
 ln -fsv $dir/.oh-my-zsh/themes/* $HOME/.oh-my-zsh/themes
 ln -fsv $dir/bin $HOME/.bin
-ln -fsv $dir/.vim_runtime $HOME
+ln -fsv $dir/.vim $HOME
 ln -fsv $dir/.tmuxinator $HOME
 
 mkdir $HOME/Code
