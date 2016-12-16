@@ -37,6 +37,7 @@
 		"Sass",
 		"SCSS",
 		"SideBarEnhancements",
+		"Stylus",
 		"SublimeLinter",
 		"SublimeLinter-contrib-eslint",
 		"SublimeLinter-jshint",
@@ -44,6 +45,7 @@
 		"SublimeLinter-php",
 		"SublimeLinter-ruby",
 		"Terminal",
+		"VimL",
 		"Vintageous",
 		"Vue Syntax Highlight"
 	]
