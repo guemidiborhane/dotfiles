@@ -67,10 +67,11 @@ nmap <leader>tc :tabclose<cr>
 nmap <leader>tm :tabmove
 nmap <leader>t<leader> :tabnext
 
-
-nmap <Leader>co :cd ~/Code/                                       " Quickly open a Project.
 nmap <Leader>ev :e $MYVIMRC<cr>                                   " Make it easy to edit the Vimrc file.
-nmap <Leader>es :e ~/.vim/snippets/                               " Make it easy to manage snippets.
+" Quickly open a Project.
+nmap <Leader>co :cd ~/Code/
+" Make it easy to manage snippets.
+nmap <Leader>es :e ~/.vim/snippets/
 
 nmap <Leader>: :Commentary<cr>                                    " Toggle comment.
 nmap <leader>cd :cd %:p:h<cr>:pwd<cr>                             " Switch CWD to the directory of the open buffer.
@@ -87,13 +88,10 @@ nmap <C-r> :CtrlPBufTag<cr>
 nmap <C-e> :CtrlPMRUFiles<cr>
 
 " NERDTree
-nmap <Leader>n :NERDTreeToggle<cr>
+nmap <Leader>nn :NERDTreeToggle<cr>
 
 " Emmet
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-
-
-command! W w !sudo tee % > /dev/null                              " For saving using sudo.
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -156,3 +154,6 @@ augroup autosourcing
   autocmd!
   autocmd BufWritePost $MYVIMRC source %
 augroup END
+
+" For saving using sudo.
+command! W w !sudo tee % > /dev/null
