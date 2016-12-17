@@ -34,6 +34,8 @@ set si                                                            " Smart indent
 set splitbelow                                                    " Make splits default to below...
 set splitright                                                    " And to the right. This feels more natural.
 set nowrap                                                        " Disable line wrapping.
+set textwidth=0 wrapmargin=0                                      " Turn off physical line wrapping.
+
 set nobackup
 set noswapfile                                                    " Don't make *.swp files. Just use GIT.
 
