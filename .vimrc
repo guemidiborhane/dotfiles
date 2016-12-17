@@ -15,7 +15,7 @@ set ffs=unix,dos,mac                                              " Use Unix as 
 set shiftwidth=2                                                  " 1 tab == 2 spaces
 set tabstop=2
 set switchbuf=useopen,usetab,newtab                               " Specify the behavior when switching between buffers.
-set stal=2                                                        " Always show tabline.
+set stal=1                                                        " Show tabline only when there is more then two tabs.
 set foldcolumn=1
 set pastetoggle=<F2>                                              " When in INSERT mode just press <F2> to switch to paste mode.
 
