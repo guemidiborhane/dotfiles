@@ -22,6 +22,8 @@ Plugin 'wavded/vim-stylus'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'airblade/vim-gitgutter'
 
 
 " All of your Plugins must be added before the following line

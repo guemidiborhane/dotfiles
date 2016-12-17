@@ -1,226 +1,158 @@
-set nocompatible              " be iMproved, required
+set nocompatible                                                  " be iMproved, required
+source ~/.vim/plugins.vim                                         " load Plugins using Vundle.
 
-source ~/.vim/plugins.vim
 
-" Sets how many lines of history VIM has to remember
-set history=500
-set clipboard=unnamedplus
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
+"------------------ Basics ------------------"
+set history=500                                                   " Sets how many lines of history VIM has to remember.
+set clipboard=unnamedplus                                         " Use the system clipboard.
+set backspace=eol,start,indent                                    " Configure backspace so it acts as it should act.
+set whichwrap+=<,>,h,l
+set noerrorbells visualbell t_vb=                                 " No damn bells!
+set background=dark
+set encoding=utf8                                                 " Set utf8 as standard encoding and en_US as the standard language.
+set ffs=unix,dos,mac                                              " Use Unix as the standard file type.
+set shiftwidth=2                                                  " 1 tab == 2 spaces
+set tabstop=2
+set switchbuf=useopen,usetab,newtab                               " Specify the behavior when switching between buffers.
+set stal=2                                                        " Always show tabline.
+set foldcolumn=1
+set pastetoggle=<F2>                                              " When in INSERT mode just press <F2> to switch to paste mode.
 
-" Set to auto read when a file is changed from the outside
-set autoread
-" Show line number.
-set number
-" Highlight current line.
-set cursorline
+set autoread                                                      " Reload files when edited outside of vim.
+set number                                                        " Show line number.
+set cursorline                                                    " Highlight current line.
+set autowriteall                                                  " Automatically write the file when switching buffers.
+set ignorecase                                                    " Ignore case when searching.
+set smartcase                                                     " When searching try to be smart about cases.
+set hlsearch                                                      " Highlight search results.
+set incsearch                                                     " Makes search act like search in modern browsers.
+set expandtab                                                     " Use spaces instead of tabs.
+set smarttab                                                      " Be smart when using tabs ;)
+set ai                                                            " Auto indent.
+set si                                                            " Smart indent.
+set splitbelow                                                    " Make splits default to below...
+set splitright                                                    " And to the right. This feels more natural.
+set nowrap                                                        " Disable line wrapping.
+set nobackup
+set noswapfile                                                    " Don't make *.swp files. Just use GIT.
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
+let mapleader = ","                                               " Set leader to comma, which is more convenient.
 let g:mapleader = ","
 
 
-" Fast saving
-nmap <leader>w :w!<cr>
+"------------------ Mappings ------------------"
+nmap <leader>w :w!<cr>                                            " Fast saving.
 
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command! W w !sudo tee % > /dev/null
+nmap <silent> <leader><cr> :noh<cr>                               " Disable search highlight.
 
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
+nmap <leader>bd :bd                                               " Close the current buffer.
+nmap <leader>ba :bufdo bd<cr>                                     " Close all the buffers.
 
-" Ignore case when searching
-set ignorecase
+" We'll set simpler mappings to switch between splits.
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-H> <C-W><C-H>
+nmap <C-L> <C-W><C-L>
 
-" When searching try to be smart about cases
-set smartcase
+let g:lasttab = 1
+au TabLeave * let g:lasttab = tabpagenr()
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>                        " Toggle between current and last tab.
+nmap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/               " Opens a new tab with the current buffer's path.
 
-" Highlight search results
-set hlsearch
+" Useful mappings for managing tabs.
+nmap <leader>tn :tabnew<cr>
+nmap <leader>to :tabonly<cr>
+nmap <leader>tc :tabclose<cr>
+nmap <leader>tm :tabmove
+nmap <leader>t<leader> :tabnext
 
-" Makes search act like search in modern browsers
-set incsearch
 
-" No damn bells!
-set noerrorbells visualbell t_vb=
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
+nmap <Leader>co :cd ~/Code/                                       " Quickly open a Project.
+nmap <Leader>ev :e $MYVIMRC<cr>                                   " Make it easy to edit the Vimrc file.
+nmap <Leader>es :e ~/.vim/snippets/                               " Make it easy to manage snippets.
 
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
+nmap <Leader>: :Commentary<cr>                                    " Toggle comment.
+nmap <leader>cd :cd %:p:h<cr>:pwd<cr>                             " Switch CWD to the directory of the open buffer.
 
-try
-    " colorscheme atom-dark
-    colorscheme Tomorrow-Night
-catch
-endtry
+imap <C-s> <C-o>:w<cr>                                            " Save with <C-s> in INSERT mode.
+imap <C-w> :tabclose!<cr>                                         " Close tab in INSERT mode like in sublime.
 
-set background=dark
+nnoremap <Leader><Leader> :e#<CR>                                 " Switch between current & latest opened file.
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=L
-    set guioptions-=l
-    set guioptions-=R
-    set guioptions-=r
-    set guioptions-=e
-    set guioptions-=m
-    set guioptions-=T
-    set linespace=14   						        "Macvim-specific line-height.
-    set t_Co=256
-    set guifont=Fira\ Mono\ for\ Powerline\ 13
-endif
+" Plugins mappings.
+" CtrlP
+nmap <C-p> :CtrlP<cr>
+nmap <C-r> :CtrlPBufTag<cr>
+nmap <C-e> :CtrlPMRUFiles<cr>
 
-set laststatus=2
-let g:airline_powerline_fonts=1
-let g:airline_theme='luna'
+" NERDTree
+nmap <Leader>n :NERDTreeToggle<cr>
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+" Emmet
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
+command! W w !sudo tee % > /dev/null                              " For saving using sudo.
 
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 2 spaces
-set shiftwidth=2
-set tabstop=2
-
-set ai "Auto indent
-set si "Smart indent
-
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Close the current buffer
-map <leader>bd :bd
-
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
-
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
 
 
-nmap <Leader>co :cd ~/Code/
-nmap <Leader>: :Commentary<cr>
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-nnoremap <Leader><Leader> :e#<CR>
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-"-------------Split Management--------------"
-set splitbelow 								"Make splits default to below...
-set splitright								"And to the right. This feels more natural.
-
-
-"-------------Mappings--------------"
-"Make it easy to edit the Vimrc file.
-nmap <Leader>ev :tabedit $MYVIMRC<cr>
-nmap <Leader>es :e ~/.vim/snippets/
-
-
-"-------------Auto-Commands--------------"
-"Automatically source the Vimrc file on save.
-
-augroup autosourcing
-  autocmd!
-  autocmd BufWritePost .vimrc source %
-augroup END
+"------------------ Color/Fonts ------------------"
+syntax enable                                                     " Enable syntax highlighting.
+colorscheme Tomorrow-Night
+set t_Co=256                                                      " Enable 256 colors palette.
 
 
 
-"-------------Plugins--------------"
+"------------------ Visual ------------------"
+if has("gui_running")
+  if has("vim_starting")
+    set guioptions-=L                                             " Remove gVim scrollbars.
+    set guioptions-=l
+    set guioptions-=R
+    set guioptions-=r
 
-"/
-"/ CtrlP
-"/
+    set guioptions-=e                                             " We don't want Gui tabs.
+    set guioptions-=m                                             " Neither Gui menus and toolbar.
+    set guioptions-=T
+
+    set linespace=14
+    set t_Co=256
+    set guifont=Fira\ Mono\ for\ Powerline\ 13
+  endif
+endif
+
+highlight FoldColumn guifg=bg guibg=bg                            " Set foldcolumn background.
+highlight VertSplit guifg=bg guibg=bg                             " Get rid of ugly split borders.
+
+
+
+"------------------ Plugins ------------------"
+" Airline
+set laststatus=2
+let g:airline_powerline_fonts=1                                   " Enable powerline symbols.
+let g:airline_theme='luna'
+
+" CtrlP
 let g:ctrlp_custom_ignore = 'tmp\|log\|node_modules\|vendor\|^\.DS_Store\|^\.git\'
 let g:ctrlp_working_path_mode = 'ra'
 
-nmap <C-p> :CtrlP<cr>
-nmap <C-r> :CtrlPBufTag<cr>
-nmap <C-e> :CtrlPMRUFiles<cr>
-
-"/
-"/ NERDTree
-"/
+" NERDTree
 let NERDTreeHijackNetrw = 0
 
-nmap <Leader>nn :NERDTreeToggle<cr>
 
 
-"/
-"/ Emmet
-"/
-imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+"------------------ Commands ------------------"
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
-set foldcolumn=1
-highlight FoldColumn guifg=bg guibg=bg
-highlight VertSplit guifg=bg guibg=bg
+" Autosource .vimrc when saved.
+augroup autosourcing
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source %
+augroup END
