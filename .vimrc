@@ -69,7 +69,7 @@ nmap <leader>tc :tabclose<cr>
 nmap <leader>tm :tabmove
 nmap <leader>t<leader> :tabnext
 
-nmap <Leader>ev :e $MYVIMRC<cr>                                   " Make it easy to edit the Vimrc file.
+nmap <Leader>ev :tabedit $MYVIMRC<cr>                                   " Make it easy to edit the Vimrc file.
 " Quickly open a Project.
 nmap <Leader>co :cd ~/Code/
 " Make it easy to manage snippets.
