@@ -154,7 +154,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Autosource .vimrc when saved.
 augroup autosourcing
   autocmd!
-  autocmd BufWritePost $MYVIMRC source %
+  autocmd BufWritePost $MYVIMRC source % | AirlineRefresh
 augroup END
 
 " For saving using sudo.
