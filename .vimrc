@@ -90,6 +90,7 @@ nmap <C-r> :CtrlPBufTag<cr>
 nmap <C-e> :CtrlPMRUFiles<cr>
 
 " NERDTree
+imap <C-S-k> :NERDTreeToggle %<cr>
 nmap <Leader>nn :NERDTreeToggle<cr>
 
 " Emmet
