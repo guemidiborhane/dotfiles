@@ -1,5 +1,5 @@
-# -*- mode: bash -*-
-# vi: set ft=bash :
+# -*- mode: sh -*-
+# vi: set ft=sh :
 
 export INITIAL_COMMIT_MSG="The same thing we do every night, Pinky - try to take over the world!"
 
