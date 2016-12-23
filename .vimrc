@@ -70,6 +70,7 @@ nmap <leader>tm :tabmove
 nmap <leader>t<leader> :tabnext
 
 nmap <Leader>ev :tabedit $MYVIMRC<cr>                                   " Make it easy to edit the Vimrc file.
+nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>                         " Make it easy to manage plugins file.
 " Quickly open a Project.
 nmap <Leader>co :cd ~/Code/
 " Make it easy to manage snippets.
@@ -78,7 +79,7 @@ nmap <Leader>es :e ~/.vim/snippets/
 nmap <Leader>: :Commentary<cr>                                    " Toggle comment.
 nmap <leader>cd :cd %:p:h<cr>:pwd<cr>                             " Switch CWD to the directory of the open buffer.
 
-imap <C-s> <C-o>:w<cr>                                            " Save with <C-s> in INSERT mode.
+" imap <C-s> <C-o>:w<cr>                                            " Save with <C-s> in INSERT mode.
 imap <C-w> :tabclose!<cr>                                         " Close tab in INSERT mode like in sublime.
 
 nnoremap <Leader><Leader> :e#<CR>                                 " Switch between current & latest opened file.
@@ -156,6 +157,12 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 augroup autosourcing
   autocmd!
   autocmd BufWritePost $MYVIMRC source % | AirlineRefresh
+augroup END
+
+" Source .vimrc and install plugins whenever plugins.vim gets updated.
+augroup plugins
+  autocmd!
+  autocmd BufWritePost ~/.vim/plugins.vim source $MYVIMRC | PluginInstall
 augroup END
 
 " For saving using sudo.

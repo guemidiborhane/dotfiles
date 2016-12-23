@@ -22,9 +22,6 @@ export EDITOR='vim'
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
 [[ -f "$HOME/.bin/zap.sh" ]] && source "$HOME/.bin/zap.sh"
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 # ORACLE
 export LD_LIBRARY_PATH="/usr/local/lib:/opt/oracle/instantclient_11_2"
 export NLS_LANG="FRENCH_FRANCE.AL32UTF8"
@@ -36,3 +33,6 @@ export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
 
 source ~/.bin/tmuxinator.zsh
 eval "$(thefuck --alias)"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
