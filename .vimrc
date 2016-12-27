@@ -59,8 +59,11 @@ nmap <C-L> <C-W><C-L>
 
 let g:lasttab = 1
 au TabLeave * let g:lasttab = tabpagenr()
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>                        " Toggle between current and last tab.
-nmap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/               " Opens a new tab with the current buffer's path.
+
+" Toggle between current and last tab.
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+" Opens a new tab with the current buffer's path.
+nmap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Useful mappings for managing tabs.
 nmap <leader>tn :tabnew<cr>
@@ -69,20 +72,28 @@ nmap <leader>tc :tabclose<cr>
 nmap <leader>tm :tabmove
 nmap <leader>t<leader> :tabnext
 
-nmap <Leader>ev :tabedit $MYVIMRC<cr>                                   " Make it easy to edit the Vimrc file.
-nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>                         " Make it easy to manage plugins file.
+" Make it easy to edit the Vimrc file.
+nmap <Leader>ev :tabedit $MYVIMRC<cr>
+" Make it easy to manage plugins file.
+nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
+
 " Quickly open a Project.
 nmap <Leader>co :cd ~/Code/
 " Make it easy to manage snippets.
 nmap <Leader>es :e ~/.vim/snippets/
 
-nmap <Leader>: :Commentary<cr>                                    " Toggle comment.
-nmap <leader>cd :cd %:p:h<cr>:pwd<cr>                             " Switch CWD to the directory of the open buffer.
+" Toggle comment.
+nmap <Leader>: :Commentary<cr>
+" Switch CWD to the directory of the open buffer.
+nmap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" imap <C-s> <C-o>:w<cr>                                            " Save with <C-s> in INSERT mode.
-imap <C-w> :tabclose!<cr>                                         " Close tab in INSERT mode like in sublime.
+" Save with <C-s> in INSERT mode.
+" imap <C-s> <C-o>:w<cr>
+" Close tab in INSERT mode like in sublime.
+imap <C-w> :tabclose!<cr>
 
-nnoremap <Leader><Leader> :e#<CR>                                 " Switch between current & latest opened file.
+" Switch between current & latest opened file.
+nnoremap <Leader><Leader> :e#<CR>
 
 " Plugins mappings.
 " CtrlP
