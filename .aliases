@@ -11,8 +11,8 @@ alias code="cd ~/Code"
 
 alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 200 -i ~/Code/key_ok.png 'Public Key copied to clipboard'"
 
-alias zshrc="subl ~/.zshrc"
-alias aliases="subl ~/.aliases"
+alias zshrc="vim ~/.zshrc"
+alias aliases="vim ~/.aliases"
 
 alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress -r"
 # alias uu="sudo apt-get update && sudo apt-get upgrade -y"
