@@ -44,12 +44,19 @@ let g:mapleader = ","
 
 
 "------------------ Mappings ------------------"
-nmap <leader>w :w!<cr>                                            " Fast saving.
+" Fast saving.
+nmap <leader>w :w!<cr>
 
-nmap <silent> <leader><cr> :noh<cr>                               " Disable search highlight.
+" Disable search highlight.
+nmap <silent> <leader><cr> :noh<cr>
 
-nmap <leader>bd :bd                                               " Close the current buffer.
-nmap <leader>ba :bufdo bd<cr>                                     " Close all the buffers.
+" Close the current buffer.
+nmap <leader>bd :bd
+" Close all the buffers.
+nmap <leader>ba :bufdo bd<cr>
+
+" Select All.
+nmap <C-S-a> ggVG
 
 " We'll set simpler mappings to switch between splits.
 nmap <C-J> <C-W><C-J>
@@ -100,6 +107,9 @@ nnoremap <Leader><Leader> :e#<CR>
 nmap <C-p> :CtrlP<cr>
 nmap <C-r> :CtrlPBufTag<cr>
 nmap <C-e> :CtrlPMRUFiles<cr>
+
+" CtrlPCmdPaltette
+nmap <C-S-p> :CtrlPCmdPalette<cr>
 
 " NERDTree
 imap <C-S-k> :NERDTreeToggle %<cr>
