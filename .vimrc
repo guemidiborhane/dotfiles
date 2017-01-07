@@ -51,7 +51,7 @@ nmap <leader>w :w!<cr>
 nmap <silent> <leader><cr> :noh<cr>
 
 " Close the current buffer.
-nmap <leader>bd :bd
+nmap <leader>bd :bd<cr>
 " Close all the buffers.
 nmap <leader>ba :bufdo bd<cr>
 
@@ -73,9 +73,9 @@ nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 nmap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Useful mappings for managing tabs.
-nmap <leader>tn :tabnew<cr>
+nmap <C-n> :tabnew<cr>:CtrlP<cr>
+nmap <C-w> :tabclose<cr>
 nmap <leader>to :tabonly<cr>
-nmap <leader>tc :tabclose<cr>
 nmap <leader>tm :tabmove
 nmap <leader>t<leader> :tabnext
 
