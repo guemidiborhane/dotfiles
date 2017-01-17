@@ -186,5 +186,7 @@ augroup plugins
   autocmd BufWritePost ~/.vim/plugins.vim source $MYVIMRC | PluginInstall
 augroup END
 
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+
 " For saving using sudo.
 command! W w !sudo tee % > /dev/null
