@@ -14,7 +14,6 @@ alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 200 -i ~/Cod
 alias zshrc="vim ~/.zshrc"
 alias aliases="vim ~/.aliases"
 
-alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress -r"
 # alias uu="sudo apt-get update && sudo apt-get upgrade -y"
 alias cpwd="pwd | xclip -sel clip"
 
@@ -41,3 +40,9 @@ alias restart_unicorn="stop_unicorn && start_unicorn"
 alias rspec="_rspec_command"
 
 alias nah="git reset --hard;git clean -df"
+alias oops="git commit --amend --no-edit"
+alias gc="git commit -m"
+alias gs="git status"
+
+alias be="bundle exec"
+
