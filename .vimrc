@@ -109,7 +109,7 @@ nmap <C-r> :CtrlPBufTag<cr>
 nmap <C-e> :CtrlPMRUFiles<cr>
 
 " CtrlPCmdPaltette
-nmap <C-S-p> :CtrlPCmdPalette<cr>
+nmap <A-p> :CtrlPCmdPalette<cr>
 
 " NERDTree
 imap <C-S-k> :NERDTreeToggle %<cr>
