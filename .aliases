@@ -10,6 +10,7 @@ alias n.="xdg-open ."
 alias code="cd ~/Code"
 
 alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 200 -i ~/Code/key_ok.png 'Public Key copied to clipboard'"
+alias tn="tmux new-session -As $USERNAME"
 
 alias zshrc="vim ~/.zshrc"
 alias aliases="vim ~/.aliases"
