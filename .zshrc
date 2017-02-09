@@ -1,6 +1,6 @@
 export ZSH=/home/$USER/.oh-my-zsh
 
-if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
+# if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 
 ZSH_THEME="beardie"
 
