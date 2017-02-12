@@ -5,6 +5,7 @@
 	],
 	"installed_packages":
 	[
+		"A File Icon",
 		"AdvancedNewFile",
 		"Alignment",
 		"ApplySyntax",
@@ -46,7 +47,6 @@
 		"Terminal",
 		"VimL",
 		"Vintageous",
-		"Vue Syntax Highlight",
-		"zz File Icons"
+		"Vue Syntax Highlight"
 	]
 }
