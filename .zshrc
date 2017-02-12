@@ -23,10 +23,10 @@ export EDITOR='vim'
 # ORACLE
 export LD_LIBRARY_PATH="/usr/local/lib:/opt/oracle/instantclient_11_2"
 export NLS_LANG="FRENCH_FRANCE.AL32UTF8"
-export JAVA_HOME="/usr/java/jdk1.8.0_101"
+export JAVA_HOME="/usr/java/jdk1.8.0_121"
 
 # PATHS
-export PATH="$PATH:$HOME/.bin:$HOME/.npm-global/bin:$HOME/.config/composer/vendor/bin:$LD_LIBRARY_PATH:$HOME/.fasta"
+export PATH="$HOME/.bin:$HOME/.npm-global/bin:$PATH:$HOME/.config/composer/vendor/bin:$LD_LIBRARY_PATH:$HOME/.fasta"
 export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
 
 source ~/.bin/tmuxinator.zsh
