@@ -90,14 +90,14 @@ nmap <Leader>co :cd ~/Code/
 nmap <Leader>es :e ~/.vim/snippets/
 
 " Toggle comment.
-nmap <Leader>: :Commentary<cr>
+nmap <leader>: :Commentary<cr>
 " Switch CWD to the directory of the open buffer.
 nmap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Save with <C-s> in INSERT mode.
 " imap <C-s> <C-o>:w<cr>
 " Close tab in INSERT mode like in sublime.
-imap <C-w> :tabclose!<cr>
+imap <C-w> <C-o>:tabclose!<cr>
 
 " Switch between current & latest opened file.
 nnoremap <Leader><Leader> :e#<CR>
@@ -112,7 +112,7 @@ nmap <C-e> :CtrlPMRUFiles<cr>
 nmap <A-p> :CtrlPCmdPalette<cr>
 
 " NERDTree
-imap <C-S-k> :NERDTreeToggle %<cr>
+imap <C-S-k> <C-o>:NERDTreeToggle %<cr>
 nmap <Leader>nn :NERDTreeToggle<cr>
 
 " Emmet
