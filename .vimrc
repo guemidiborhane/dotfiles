@@ -146,7 +146,7 @@ if has("gui_running")
 
     set linespace=14
     set t_Co=256
-    set guifont=Fira\ Mono\ for\ Powerline\ 13
+    set guifont=Fira\ Mono\ for\ Powerline\ 14
   endif
 endif
 
