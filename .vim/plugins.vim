@@ -29,6 +29,8 @@ Plugin 'matze/vim-move'
 Plugin 'jwalton512/vim-blade'
 Plugin 'fisadev/vim-ctrlp-cmdpalette'
 Plugin 'slim-template/vim-slim'
+Plugin 'altercation/vim-colors-solarized'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
