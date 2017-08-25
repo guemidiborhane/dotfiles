@@ -2,13 +2,13 @@ export ZSH=/home/$USER/.oh-my-zsh
 
 # if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 
-ZSH_THEME="beardie"
+ZSH_THEME="refined"
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(sudo git git-flow rails yarn dotenv)
+plugins=(sudo git git-flow rails yarn dotenv adb)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -35,3 +35,6 @@ eval "$(thefuck --alias)"
 export rvmsudo_secure_path=1
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"

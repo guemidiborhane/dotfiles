@@ -114,6 +114,7 @@ nmap <A-p> :CtrlPCmdPalette<cr>
 " NERDTree
 imap <C-S-k> <C-o>:NERDTreeToggle %<cr>
 nmap <Leader>nn :NERDTreeToggle<cr>
+nmap <Leader>nf :NERDTreeFocus<cr>
 
 " Emmet
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
@@ -127,7 +128,8 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 "------------------ Color/Fonts ------------------"
 syntax enable                                                     " Enable syntax highlighting.
-colorscheme Tomorrow-Night
+colorscheme hybrid
+" colorscheme Tomorrow-Night
 set t_Co=256                                                      " Enable 256 colors palette.
 
 
@@ -146,7 +148,7 @@ if has("gui_running")
 
     set linespace=14
     set t_Co=256
-    set guifont=Fira\ Mono\ for\ Powerline\ 14
+    set guifont=FuraMonoForPowerline\ NF\ 14
   endif
 endif
 

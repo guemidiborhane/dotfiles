@@ -1,5 +1,5 @@
 [core]
-  fileMode = false
+	fileMode = false
   editor   = vim
 [user]
   email = guemidiborhane@gmail.com
