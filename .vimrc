@@ -128,7 +128,8 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 "------------------ Color/Fonts ------------------"
 syntax enable                                                     " Enable syntax highlighting.
-colorscheme hybrid
+colorscheme nord
+" colorscheme hybrid
 " colorscheme Tomorrow-Night
 set t_Co=256                                                      " Enable 256 colors palette.
 
