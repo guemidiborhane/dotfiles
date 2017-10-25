@@ -2,12 +2,14 @@
 # vi: set ft=sh :
 
 export INITIAL_COMMIT_MSG="The same thing we do every night, Pinky - try to take over the world!"
+export BATMAN_INITIAL_COMMIT_MSG="Batman! (this commit has no parents)"
 
 [[ -s "$HOME/.zsh_auto_complete" ]] && source "$HOME/.zsh_auto_complete"
 
 alias n="xdg-open"
 alias n.="xdg-open ."
 # alias code="cd ~/Code"
+alias get=wget
 
 alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 200 -i ~/Code/key_ok.png 'Public Key copied to clipboard'"
 alias tn="TERM=screen-256color tmux new-session -As $USERNAME"
