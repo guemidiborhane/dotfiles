@@ -77,7 +77,7 @@ nmap <C-n> :tabnew<cr>:CtrlP<cr>
 nmap <C-w> :tabclose<cr>
 nmap <leader>to :tabonly<cr>
 nmap <leader>tm :tabmove
-nmap <leader>t<leader> :tabnext
+nmap <leader>t<leader> :tabnext<cr>
 
 " Make it easy to edit the Vimrc file.
 nmap <Leader>ev :tabedit $MYVIMRC<cr>
