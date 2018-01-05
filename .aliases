@@ -53,3 +53,7 @@ alias be="bundle exec"
 
 alias lc="colorls"
 alias license="/home/borhane/Code/IntelliJIDEALicenseServer_linux_amd64 -p 2131"
+
+alias docker="sudo docker"
+
+alias sshconfig="vim ~/.ssh/config"
