@@ -11,3 +11,4 @@
 [alias]
   st = status -s
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  deploy = !git push  $1 $2 && bundle exec cap production deploy
