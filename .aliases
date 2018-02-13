@@ -12,6 +12,8 @@ alias n.="xdg-open ."
 alias get=wget
 
 alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 200 -i ~/Code/key_ok.png 'Public Key copied to clipboard'"
+alias sshconfig="vim ~/.ssh/config"
+
 alias tn="TERM=screen-256color tmux new-session -As $USERNAME"
 
 alias zshrc="vim ~/.zshrc"
@@ -55,5 +57,3 @@ alias lc="colorls"
 alias license="/home/borhane/Code/IntelliJIDEALicenseServer_linux_amd64 -p 2131"
 
 alias docker="sudo docker"
-
-alias sshconfig="vim ~/.ssh/config"
