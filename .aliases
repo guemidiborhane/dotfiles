@@ -57,3 +57,4 @@ alias lc="colorls"
 alias license="/home/borhane/Code/IntelliJIDEALicenseServer_linux_amd64 -p 2131"
 
 alias docker="sudo docker"
+alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
