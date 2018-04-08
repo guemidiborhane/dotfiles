@@ -37,7 +37,7 @@ function zap() {
         list) shift
             ls -l ~/.bookmarks/ ;
             ;;
-         *) echo "$USAGE" ;
+         *) zap to $1 ;
             ;;
     esac
 }
