@@ -2,8 +2,8 @@
 
 if [[ "$1" && "$2" ]]
 then
-    sudo dos2unix /home/borhane/bin/_serve.sh
-    sudo bash /home/borhane/bin/_serve.sh "$1" "$2" 80
+    sudo dos2unix /home/borhane/.bin/_serve.sh
+    sudo bash /home/borhane/.bin/_serve.sh "$1" "$2" 80
 else
     echo "Error: missing required parameters."
     echo "Usage: "
