@@ -30,7 +30,7 @@ export PATH="$HOME/.bin:$HOME/.npm-global/bin:$PATH:$HOME/.config/composer/vendo
 export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
 
 source ~/.bin/tmuxinator.zsh
-eval "$(thefuck --alias)"
+# eval "$(thefuck --alias)"
 
 export rvmsudo_secure_path=1
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
