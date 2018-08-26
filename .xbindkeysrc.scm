@@ -67,8 +67,8 @@
 
 
 (xbindkey '("m:0x10" "c:248") "xte 'keydown Control_L' 'key w' 'keyup Control_L'")
-(xbindkey '(control b:8) "amixer set Master 10%-")
-(xbindkey '(control b:9) "amixer set Master 10%+")
+(xbindkey '(control b:8) "amixer -D pulse sset Master 10%-")
+(xbindkey '(control b:9) "amixer -D pulse sset Master 10%+")
 
 ;; second alist can define long hold click maps.
 ;; `long hold' means `last one click holds longer than click-separation-threshold-nanosec time'
