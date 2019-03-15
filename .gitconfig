@@ -4,6 +4,7 @@
 [user]
   email = guemidiborhane@gmail.com
   name  = Borhane E. Guemidi
+	signingkey = 6C10F2454FD97736
 [push]
   default = simple
 [color]
@@ -17,3 +18,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[gpg]
+	program = gpg2
+[commit]
+	gpgsign = true
