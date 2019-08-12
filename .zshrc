@@ -2,13 +2,14 @@ export ZSH=/home/$USER/.oh-my-zsh
 
 # if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 
-ZSH_THEME="refined"
+# ZSH_THEME="refined"
+ZSH_THEME="spaceship"
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(sudo git git-flow rails yarn dotenv adb)
+plugins=(sudo git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -40,3 +41,4 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
 export GEOSERVER_HOME=$HOME/Code/geoserver
+export SPACESHIP_BATTERY_SHOW=false
