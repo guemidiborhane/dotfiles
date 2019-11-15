@@ -27,7 +27,7 @@ export NLS_LANG="FRENCH_FRANCE.AL32UTF8"
 export JAVA_HOME="/usr/lib/jvm/java-8-oracle/"
 
 # PATHS
-export PATH="$PATH:$HOME/.bin:$HOME/.npm-global/bin:$HOME/.config/composer/vendor/bin:$LD_LIBRARY_PATH:$HOME/.fasta"
+export PATH="$PATH:$HOME/.bin:$(yarn global bin):$HOME/.config/composer/vendor/bin:$LD_LIBRARY_PATH:$HOME/.fasta"
 export NODE_PATH="$NODE_PATH:$HOME/.npm-global/lib/node_modules"
 
 source ~/.bin/tmuxinator.zsh
