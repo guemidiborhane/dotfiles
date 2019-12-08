@@ -3,7 +3,8 @@ export ZSH=/home/$USER/.oh-my-zsh
 # if [[ ! $TERM =~ screen ]]; then exec tmux new-session -As $USERNAME; fi
 
 # ZSH_THEME="refined"
-ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"

@@ -11,6 +11,7 @@ ln -fsv $dir/.oh-my-zsh/themes/* $HOME/.oh-my-zsh/themes
 ln -fsv $dir/bin $HOME/.bin
 ln -fsv $dir/.vim $HOME
 ln -fsv $dir/.tmuxinator $HOME
+ln -fsv $dir/p10k.zsh $HOME/.p10k.zsh
 
 mkdir $HOME/Code
 ln -fsv $dir/Code/key_ok.png $HOME/Code
