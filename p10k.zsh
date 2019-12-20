@@ -41,7 +41,7 @@
       rvm                       # ruby version
       vcs                       # git status
       context                   # user@host
-      nordvpn
+      nordvpn                   # NordVPN status
       command_execution_time    # previous command duration
       newline                   # \n
       virtualenv                # python virtual environment
@@ -56,6 +56,9 @@
   typeset -g POWERLEVEL9K_RVM_SHOW_GEMSET=false
   # Don't show ruby- at the front.
   typeset -g POWERLEVEL9K_RVM_SHOW_PREFIX=false
+  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+  typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=""
+  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_from_right
 
  # Hide NordVPN connection indicator when not connected.
   typeset -g POWERLEVEL9K_NORDVPN_{DISCONNECTED,CONNECTING,DISCONNECTING}_CONTENT_EXPANSION=
