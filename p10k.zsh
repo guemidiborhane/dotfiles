@@ -44,7 +44,6 @@
       nordvpn                   # NordVPN status
       command_execution_time    # previous command duration
       newline                   # \n
-      virtualenv                # python virtual environment
       prompt_char               # prompt symbol
   )
 
@@ -56,7 +55,7 @@
   typeset -g POWERLEVEL9K_RVM_SHOW_GEMSET=false
   # Don't show ruby- at the front.
   typeset -g POWERLEVEL9K_RVM_SHOW_PREFIX=false
-  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=""
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_from_right
 
