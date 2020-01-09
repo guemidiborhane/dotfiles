@@ -58,6 +58,9 @@ alias lc="colorls"
 alias license="/home/borhane/Code/IntelliJIDEALicenseServer_linux_amd64 -p 2131"
 
 alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
-alias go="git push -fv; bundle exec cap deploy"
+# alias go="git push -fv; bundle exec cap deploy"
 
 alias tunnel="sshuttle --dns -r midas 0/0 -vv"
+alias dc=docker-compose
+alias dcr="docker-compose run --rm"
+alias dcrr="docker-compose run --rm runner"
