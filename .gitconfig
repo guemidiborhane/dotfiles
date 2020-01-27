@@ -4,7 +4,7 @@
 [user]
   email = guemidiborhane@gmail.com
   name  = Borhaneddine Guemidi
-	signingkey = 6C10F2454FD97736
+	signingkey = CE386C330F3C11E5
 [push]
   default = simple
 [color]
