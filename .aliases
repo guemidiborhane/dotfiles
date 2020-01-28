@@ -61,6 +61,9 @@ alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
 # alias go="git push -fv; bundle exec cap deploy"
 
 alias tunnel="sshuttle --dns -r midas 0/0 -vv"
+
 alias dc=docker-compose
 alias dcr="docker-compose run --rm"
 alias dcrr="docker-compose run --rm runner"
+alias dcu="docker-compose up -d"
+alias dcd="docker-compose down"
