@@ -22,6 +22,12 @@ alias aliases="vim ~/.aliases"
 alias uu="sudo apt update && sudo apt upgrade -y"
 alias cpwd="pwd | xclip -sel clip"
 
+# lsd
+alias ls="lsd"
+alias la="ls -a"
+alias lla="ls -la"
+alias lt="ls --tree"
+
 # Laravel
 alias artisan="php artisan"
 # alias gmig="php artisan make:migration:schema"
