@@ -17,7 +17,7 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(sudo git docker docker-compose)
+plugins=(sudo zsh-autosuggestions git docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
