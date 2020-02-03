@@ -37,34 +37,26 @@ alias migrate="php artisan migrate"
 # Others
 alias reset_wifi="nmcli nm sleep false"
 
-# Rails
-alias rdoc_to_md="ruby -r rdoc -e 'puts RDoc::Markup::ToMarkdown.new.convert File.read(ARGV[0] || \"README.rdoc\")' >README.md && rm README.rdoc"
-alias start_unicorn="unicorn_rails -c config/unicorn.rb -D"
-alias stop_unicorn="kill \`cat ./tmp/pids/unicorn.pid\`"
-alias restart_unicorn="stop_unicorn && start_unicorn"
-alias rspec="_rspec_command"
-
 # Git aliases
 alias nah="git reset --hard;git clean -df"
 alias oops="git commit --amend --no-edit"
+alias gac="git add . && git commit -m"
 alias gc="git commit -m"
 alias gs="git status"
 alias s="git st"
 alias push="git push"
-
 alias be="bundle exec"
-
-alias lc="colorls"
-alias license="/home/borhane/Code/IntelliJIDEALicenseServer_linux_amd64 -p 2131"
 
 alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
 # alias go="git push -fv; bundle exec cap deploy"
 
 alias tunnel="sshuttle --dns -r midas 0/0 -vv"
 alias portainer="docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
+
+# docker-compose
 alias dc=docker-compose
-alias dcr="docker-compose run --rm"
-alias dce="docker-compose exec"
-alias run="docker-compose run --rm runner"
-alias dcu="docker-compose up -d"
-alias dcd="docker-compose down"
+alias dcu="dc up -d"
+alias dcr="dc run --rm"
+alias run="dc run --rm runner"
+alias dce="dc exec"
+alias dcd="dc down"
