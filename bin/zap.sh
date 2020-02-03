@@ -34,7 +34,7 @@ function zap() {
             fi
             ;;
         # list bookmarks
-        list) shift
+        ls) shift
             ls -l ~/.bookmarks/ ;
             ;;
          *) zap to $1 ;
