@@ -17,10 +17,3 @@ function t() {
   TMUX= tmux new-session -d -s $SESSION_NAME
   tmux switch-client -t $SESSION_NAME
 }
-
-function rails-starter() {
-  git clone --branch=master ~/Code/github/rails-starter "$1"
-  rm -rf $1/.git
-  cd $1
-  cp -v .env.example .env
-}
