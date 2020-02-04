@@ -17,7 +17,9 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(sudo zsh-autosuggestions git docker docker-compose)
+plugins=(sudo zsh-autosuggestions zsh-syntax-highlighting git docker docker-compose)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+
 
 source $ZSH/oh-my-zsh.sh
 
