@@ -51,6 +51,7 @@ alias gc="git commit -m"
 alias gs="git status"
 alias s="git st"
 alias push="git push"
+alias glog="git glog"
 
 alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
 # alias go="git push -fv; bundle exec cap deploy"
