@@ -64,6 +64,6 @@ alias dc=docker-compose
 alias dcu="dc up -d"
 alias run="dc run --rm"
 alias runn="dc run --rm runner"
-alias be="run bundle exec"
+alias be="runn bundle exec"
 alias dce="dc exec"
 alias dcd="dc down"
