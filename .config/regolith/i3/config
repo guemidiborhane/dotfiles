@@ -210,6 +210,8 @@ bindsym $mod+i bar mode toggle
 floating_maximum_size -1 x -1
 for_window [class="Gnome-control-center"] floating enable
 
+assign [class="Thunderbird"] $ws2
+
 # resize window (you can also use the mouse for that)
 mode "Resize Mode" {
         # These bindings trigger as soon as you enter the resize mode
