@@ -1,0 +1,17 @@
+! -- Styles - Colors
+#include "/etc/regolith/styles/nord/color"
+
+! -- Styles - Fonts
+#include "/etc/regolith/styles/cahuella/typeface"
+
+
+! -- Styles - Theme
+#include "/home/borhane/.Xresources-theme"
+
+! -- Applications
+! These files map values defined above into specific app settings.
+#include "/etc/regolith/styles/st-term"
+#include "/etc/regolith/styles/i3-wm"
+#include "/home/borhane/.Xresources-i3xrocks"
+#include "/etc/regolith/styles/rofi"
+#include "/etc/regolith/styles/gnome"
