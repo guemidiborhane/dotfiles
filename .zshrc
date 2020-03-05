@@ -36,6 +36,7 @@ export EDITOR='vim'
 
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
 [[ -f "$HOME/.bin/zap.sh" ]] && source "$HOME/.bin/zap.sh"
+[[ -f "$HOME/.bin/php.sh" ]] && source "$HOME/.bin/php.sh"
 
 # PATHS
 export PATH="$PATH:$HOME/.bin"

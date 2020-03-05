@@ -30,15 +30,8 @@ alias lt="ls --tree"
 
 # Laravel
 alias artisan="php artisan"
-# alias gmig="php artisan make:migration:schema"
 alias migrate="php artisan migrate"
 # alias ql="php artisan queue:listen --timeout=360"
-
-# Testing
-# alias phpunit="vendor/bin/phpunit"
-# alias phpspec="vendor/bin/phpspec"
-# alias codecept="vendor/bin/codecept"
-# alias crf="vendor/bin/codecept run functional"
 
 # Others
 alias reset_wifi="nmcli nm sleep false"
@@ -53,10 +46,10 @@ alias s="git st"
 alias push="git push"
 alias glog="git glog"
 
-alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
+# alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
 # alias go="git push -fv; bundle exec cap deploy"
 
-alias tunnel="sshuttle --dns -r midas 0/0 -vv"
+# alias tunnel="sshuttle --dns -r midas 0/0 -vv"
 alias portainer="docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
 
 # docker-compose
