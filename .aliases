@@ -54,9 +54,12 @@ alias portainer="docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock
 
 # docker-compose
 alias dc=docker-compose
-alias dcu="dc up -d"
+alias dcup="dc up"
+alias dcupd="dc up -d"
+alias dcdn="dc down"
 alias run="dc run --rm"
 alias runn="dc run --rm runner"
 alias be="runn bundle exec"
 alias dce="dc exec"
-alias dcd="dc down"
+alias dclf="dc logs -f"
+alias dcps="dc ps"
