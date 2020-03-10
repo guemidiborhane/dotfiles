@@ -44,7 +44,9 @@ hide_edge_borders smart
 bindsym $mod+Return exec $terminal_path
 
 # start a web browser
-bindsym $mod+Shift+Return exec /usr/bin/google-chrome --enable-features=webuidarkmode --force-dark-mode
+# bindsym $mod+Shift+Return exec /usr/bin/google-chrome --enable-features=webuidarkmode --force-dark-mode
+bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser)
+
 
 # kill focused window
 bindsym $mod+Shift+q kill
