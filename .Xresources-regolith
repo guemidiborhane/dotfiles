@@ -13,5 +13,5 @@
 #include "/etc/regolith/styles/st-term"
 #include "/etc/regolith/styles/i3-wm"
 #include "/home/borhane/.Xresources-i3xrocks"
-#include "/etc/regolith/styles/rofi"
+#include "/home/borhane/.config/rofi/confi.rasi"
 #include "/etc/regolith/styles/gnome"
