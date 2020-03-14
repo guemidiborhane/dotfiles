@@ -1,7 +1,0 @@
-{
-  "ruby": {
-    "filters": "haml",
-    "extends": "html",
-    "profile": "xml"
-  }
-}
