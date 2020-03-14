@@ -1,6 +1,9 @@
 #!/bin/bash
 dir=$(pwd)
 
+ln -fsv $dir/i3 $HOME/.i3
+ln -fsv $dir/config/rofi $HOME/.config/
+
 ln -fsv $dir/zshrc $HOME/.zshrc
 ln -fsv $dir/vimrc $HOME/.vimrc
 ln -fsv $dir/zsh_auto_complete $HOME/.zsh_auto_complete
