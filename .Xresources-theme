@@ -1,4 +1,0 @@
-#define gtk_theme           Qogir-win-dark
-#define icon_theme          Papirus-Dark
-#define desktop_wallpaper   /home/borhane/Pictures/Wallpapers/Wolf/wallhaven-697846.jpg
-#define rofi_theme          /home/borhane/.config/rofi/nord.rasi
