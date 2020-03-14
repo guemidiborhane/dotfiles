@@ -1,0 +1,28 @@
+//----------------------
+// Configuration
+//----------------------
+
+configuration {
+    modi:               "drun,run,ssh";
+    cycle:              true;
+    show-match:         true;
+    show-icons:         true;
+    drun-icon-theme:    "Papirus";
+
+    matching:           "fuzzy";
+    
+    lines:              12;
+    columns:            1;
+    width:              650;
+    location:           0;
+    padding:            32;
+
+    terminal:           "gnome-terminal";
+    ssh-command:        "{terminal} -e '{ssh-client} {host}'";
+
+    font:               "Fira Code Light 13";
+    separator-style:    "solid";
+    hide-scrollbar:     true;
+
+    theme:              "nord";
+}
