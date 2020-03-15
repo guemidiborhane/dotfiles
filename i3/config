@@ -58,6 +58,10 @@ exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id pa-applet
 bindsym $mod+Ctrl+m exec pavucontrol
 
+bindsym F12 exec --no-startup-id pactl set-sink-volume 1 +5%
+bindsym F11 exec --no-startup-id pactl set-sink-volume 1 -5%
+bindsym F10 exec --no-startup-id pactl set-sink-mute 1 toggle
+
 ################################################################################################
 
 # Screen brightness controls
