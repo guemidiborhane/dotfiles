@@ -14,6 +14,10 @@ default_floating_border normal
 # Hide borders
 hide_edge_borders none
 
+
+# shortcuts for common system configuration tasks
+bindsym $mod+Shift+n exec pcmanfm
+
 # change borders
 bindsym $mod+u border none
 bindsym $mod+y border pixel 1
