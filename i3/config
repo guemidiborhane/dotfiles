@@ -25,7 +25,7 @@ bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font "pango:Source Code Pro Medium 12, FontAwesome 12"
+font pango:Source Code Pro 11, Font Awesome 5 Free
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -303,7 +303,7 @@ exec_always --no-startup-id fix_xcursor
 # Change the variable name at the place you want to match the color
 # of your terminal like this:
 # [example]
-# If you want your bar to have the same background color as your 
+# If you want your bar to have the same background color as your
 # terminal background change the line 362 from:
 # background #14191D
 # to:
@@ -347,25 +347,22 @@ set $nord15  #B48EAD
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	i3bar_command i3bar
-	status_command i3blocks
-	position top
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
+  i3bar_command i3bar
+  status_command i3blocks
+  position top
 
-	bindsym button4 nop
-	bindsym button5 nop
-#   font xft:URWGothic-Book 11
-	strip_workspace_numbers yes
+  bindsym button4 nop
+  bindsym button5 nop
+  strip_workspace_numbers yes
+
   colors {
     background $nord0
-	  statusline $nord8
+    statusline $nord8
 
     focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3  $nord15
+    active_workspace   $nord3  $nord8
+    inactive_workspace $nord8  $nord3
+    urgent_workspace   $nord3  $nord15
   }
 }
 
@@ -378,7 +375,7 @@ bindsym $mod+m bar mode toggle
   client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
   client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
   client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+  client.placeholder      #000000 #0c0c0c #ffffff #000000
 
   client.background       #2B2C2B
 
@@ -398,7 +395,7 @@ gaps outer 0
 # Smart gaps (gaps used if only more than one container on the workspace)
 smart_gaps on
 
-# Smart borders (draw borders around container only if it is not the only container on this workspace) 
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
 
@@ -438,3 +435,4 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
