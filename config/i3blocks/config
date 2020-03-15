@@ -5,6 +5,10 @@ markup=pango
 command=$HOME/.config/i3blocks/bandwidth2
 interval=persist
 
+[cpu_usage2]
+command=$HOME/.config/i3blocks/cpu_usage2
+interval=persist
+
 # [docker]
 # command=$HOME/.config/i3blocks/docker
 # color=#0db7ed
