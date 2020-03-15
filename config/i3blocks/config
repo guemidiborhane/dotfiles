@@ -1,11 +1,6 @@
 separator_block_width=35
 markup=pango
 
-[battery2]
-command=$HOME/.config/i3blocks/battery2
-markup=pango
-interval=30
-
 [bandwidth]
 command=$HOME/.config/i3blocks/bandwidth2
 interval=persist
@@ -23,3 +18,7 @@ TZONES=$DEFAULT_TZ,France/Paris
 TZ_LABELS=,Paris
 interval=1
 
+[battery2]
+command=$HOME/.config/i3blocks/battery2
+markup=pango
+interval=30
