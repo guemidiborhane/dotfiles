@@ -44,7 +44,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+z exec --no-startup-id morc_menu
 
 # dofi
-bindsym $mod+space exec rofi -show drun
+bindsym $mod+space exec "rofi -combi-modi window,drun -show combi -modi combi"
 bindsym $mod+Ctrl+space exec rofi -show window
 
 
