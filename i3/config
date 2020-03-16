@@ -62,6 +62,10 @@ bindsym F12 exec --no-startup-id pactl set-sink-volume 1 +5%
 bindsym F11 exec --no-startup-id pactl set-sink-volume 1 -5%
 bindsym F10 exec --no-startup-id pactl set-sink-mute 1 toggle
 
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 ################################################################################################
 
 # Screen brightness controls
