@@ -14,3 +14,13 @@
   git clone --recursive git@github.com:guemidiborhane/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
   ./install.sh
 ```
+
+# Useful commands
+
+```bash
+# Sign previous commits.
+git filter-branch --commit-filter 'git commit-tree -S "$@";' <COMMIT_HASH>..HEAD
+
+# Which process is listening on specific port.
+sudo netstat -nlp | grep :80
+```
