@@ -23,4 +23,7 @@ git filter-branch --commit-filter 'git commit-tree -S "$@";' <COMMIT_HASH>..HEAD
 
 # Which process is listening on specific port.
 sudo netstat -nlp | grep :80
+
+# Unlock luks.
+echo -ne "SuperSecretPassphrase" > /lib/cryptsetup/passfifo
 ```
