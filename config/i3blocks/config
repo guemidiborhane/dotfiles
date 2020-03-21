@@ -26,3 +26,6 @@ interval=1
 command=$HOME/.config/i3blocks/battery2
 markup=pango
 interval=30
+
+[separator]
+full_text= 
