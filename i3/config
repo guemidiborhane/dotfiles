@@ -434,5 +434,5 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
-bindsym Ctrl+Shift+space exec --no-startup-id /usr/bin/emoji-picker -m
+bindsym Ctrl+Shift+space exec --no-startup-id rofimoji -c
 
