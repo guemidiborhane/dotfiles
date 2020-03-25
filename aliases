@@ -11,7 +11,7 @@ alias n.="xdg-open ."
 # alias code="cd ~/Code"
 alias get=wget
 
-alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 200 -i ~/Code/key_ok.png 'Public Key copied to clipboard'"
+alias sshkey="xclip -sel clip < ~/.ssh/id_rsa.pub && notify-send -t 1000 -i ~/Code/key_ok.png 'Public Key copied to clipboard'"
 alias sshconfig="vim ~/.ssh/config"
 
 alias tn="TERM=screen-256color tmux new-session -As $USERNAME"
