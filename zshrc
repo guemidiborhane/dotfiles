@@ -1,6 +1,9 @@
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-precmd() { eval "pwd > /tmp/whereami" }
+precmd() { 
+  [[ -f $(pwd)/.project-aliases ]] && eval "source $(pwd)/.project-aliases"
+  eval "pwd > /tmp/whereami" 
+}
 
 # Change to saved working dir
 [[ -f "/tmp/whereami" ]] && cd "$(< /tmp/whereami)"
