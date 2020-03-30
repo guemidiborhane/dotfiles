@@ -16,7 +16,7 @@ hide_edge_borders none
 
 
 # shortcuts for common system configuration tasks
-bindsym $mod+Shift+n exec thunar
+bindsym $mod+Shift+n exec nemo
 
 # change borders
 bindsym $mod+u border none
