@@ -3,14 +3,12 @@
 //----------------------
 
 configuration {
-    modi:               "drun,run,ssh";
+    modi:               "window,drun";
     cycle:              true;
     show-match:         true;
     show-icons:         true;
     drun-icon-theme:    "Papirus";
 
-    matching:           "fuzzy";
-    
     lines:              12;
     columns:            1;
     width:              650;
