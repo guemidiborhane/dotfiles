@@ -27,6 +27,7 @@ plugins=(
   sudo git
   zsh-autosuggestions zsh-syntax-highlighting 
   docker docker-compose
+  hacker-quotes
 )
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
