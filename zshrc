@@ -20,7 +20,7 @@ export ZSH=/home/$USER/.oh-my-zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 DISABLE_AUTO_UPDATE="true"
-DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
