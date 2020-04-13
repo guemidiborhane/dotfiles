@@ -134,7 +134,7 @@ AX=$(echo "scale = 0; $RX+$TX" | bc -l)
 
 # set net unit automatically
 if [ "$UNIT" = "" ]; then
-    if [ "$RX" -ge 102400 ] || [ "$TX" -ge 102400 ]; then
+    if [ "$RX" -ge 716800 ] || [ "$TX" -ge 716800 ]; then
         FAC=1048576
         case "$ULEV"
             in
