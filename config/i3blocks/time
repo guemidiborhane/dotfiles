@@ -1,101 +1,44 @@
-#!/usr/bin/env perl
+#!/bin/bash
+# This time blocklet will use Xresources date format if defined
+# or try to determine most appropriate format based on locale and GNOME settings.
 
-use strict;
-use warnings;
-use POSIX qw/strftime/;
+DATE_FORMAT=`xrescat i3xrocks.date.format2`
 
-my $click   = $ENV{BLOCK_BUTTON} || 0;
-my $format  = $ENV{BLOCK_INSTANCE} || $ENV{STRFTIME_FORMAT} || "%H:%M";
-my $tz_file = shift || $ENV{TZ_FILE} || "$ENV{HOME}/.tz";
-$tz_file = glob($tz_file);
-my $default_tz = get_default_tz();
+if [ -z "$DATE_FORMAT" ]; then # No custom format defined, use system defaults
+    COUNTRY=$(locale | grep LC_TIME | head -n1 | cut -d "=" -f 2 | cut -d "_" -f 2 | cut -d "." -f 1)
+    if [ -z "$COUNTRY" ]; then
+        DATE_SPEC="%m/%d"
+    else
+        case $COUNTRY in
+            "US" | "CN" | "JP" | "KP" | "KR" | "CA" | "TW" | "HU" | "MN" | "LT" | "BT" )
+                DATE_SPEC="%m/%d"
+            ;;
+            *)
+                DATE_SPEC="%d/%m"
+            ;;
+        esac
+    fi
+    
+    TIME_FORMAT=$(gsettings get org.gnome.desktop.interface clock-format)
+    
+    if [ "$TIME_FORMAT" == "'12h'" ]; then
+        TIME_SPEC="%I:%M"
+    else
+        TIME_SPEC="%H:%M"
+    fi
+    
+    DATE_VALUE=$(date "+ $DATE_SPEC $TIME_SPEC")
+else
+    DATE_VALUE=$(date "$DATE_FORMAT")
+fi
 
-my $tzones = $ENV{TZONES} || '$DEFAULT_TZ';
-$tzones =~ s/\$DEFAULT_TZ/$default_tz/g;
-my @tz_list = split(/,/, $tzones);
-my @tz_labels = split(/,/, $ENV{TZ_LABELS} || "");
-if (scalar(@tz_list) != scalar(@tz_labels)) {
-    @tz_labels = @tz_list;
-}
 
-my $current_tz;
-if ($click == 1) {
-    $current_tz = get_tz();
+LABEL_ICON=${icon:-$(xrescat i3xrocks.label.time )}
+LABEL_COLOR=${label_color:-$(xrescat i3xrocks.label.color "#7B8394")}
+VALUE_COLOR=${color:-$(xrescat i3xrocks.value.color "#D8DEE9")}
+VALUE_FONT=${font:-$(xrescat i3xrocks.value.font "Source Code Pro Medium 11")}
+echo "<span color=\"${LABEL_COLOR}\">$LABEL_ICON</span><span font_desc=\"${VALUE_FONT}\" color=\"${VALUE_COLOR}\">$DATE_VALUE </span>"
 
-    my %tzmap;
-    $tzmap{""} = $tz_list[0];
-    my $prev = $tz_list[0];
-    foreach my $tz (@tz_list) {
-        $tzmap{$prev} = $tz;
-        $prev = $tz;
-    }
-    $tzmap{$prev} = $tz_list[0];
-
-    if (exists $tzmap{$current_tz}) {
-        set_tz($tzmap{$current_tz});
-        $current_tz = $tzmap{$current_tz};
-    }
-}
-
-# How each timezone will be displayed in the bar.
-my %display_map;
-for (my $i=0; $i < scalar(@tz_list); $i++) {
-    $display_map{$tz_list[$i]} = $tz_labels[$i];
-}
-
-if (!defined $current_tz) {
-    $current_tz = get_tz();
-    set_tz($current_tz);
-}
-$ENV{TZ} = $current_tz;
-my $tz_display = "";
-if (!exists $display_map{$ENV{TZ}}) {
-    $ENV{TZ} = $tz_list[0];
-    set_tz($tz_list[0]);
-}
-$tz_display = $display_map{$ENV{TZ}};
-
-binmode(STDOUT, ":utf8");
-my $time = strftime($format, localtime());
-if ($tz_display eq "") {
-    print "$time\n";
-} else {
-    print "$time ($tz_display)\n";
-}
-
-sub get_tz {
-    my $current_tz;
-
-    if (-f $tz_file) {
-        open my $fh, '<', $tz_file || die "Couldn't open file: $tz_file";
-        $current_tz = <$fh>;
-        chomp $current_tz;
-        close $fh;
-    }
-
-    return $current_tz || get_default_tz();
-}
-
-sub set_tz {
-    my $tz = shift;
-
-    open my $fh, '>', $tz_file || die "Couldn't open file: $tz_file";
-    print $fh $tz;
-    close $fh;
-}
-
-sub get_default_tz {
-    my $tz = "Europe/London";
-
-    if (-f "/etc/timezone") {
-        open my $fh, '<', "/etc/timezone" || die "Couldn't open file: /etc/timezone";
-        $tz = <$fh>;
-        chomp $tz;
-        close $fh;
-    } elsif (-l "/etc/localtime") {
-        $tz = readlink "/etc/localtime";
-        $tz = (split /zoneinfo\//, $tz)[-1];
-    }
-
-    return $tz;
-}
+if [ ! -z "$button" ]; then
+    /usr/bin/i3-msg -q exec /usr/bin/gnome-control-center datetime
+fi
