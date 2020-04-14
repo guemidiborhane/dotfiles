@@ -223,6 +223,7 @@ for_window [class="Pamac-manager"] floating enable
 for_window [instance="4kvideodownloader-bin"] floating enable border normal
 for_window [instance="GitAhead"] floating enable border normal
 for_window [instance="spotify"] floating enable border none
+for_window [instance="clockify"] floating enable border none
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
