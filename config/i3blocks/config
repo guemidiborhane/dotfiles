@@ -4,22 +4,18 @@ font=Source Code Pro 12
 
 [bandwidth]
 command=$HOME/.config/i3blocks/net-traffic
-LABEL=
-interval=10
+interval=2
 
 [cpu-usage]
 command=$HOME/.config/i3blocks/cpu-usage
 interval=5
 min_width=100%
 
-[time]
-command=$HOME/.config/i3blocks/time
-interval=10
-
 [battery2]
 command=$HOME/.config/i3blocks/battery2
 markup=pango
 interval=30
 
-[separator]
-full_text= 
+[time]
+command=$HOME/.config/i3blocks/time
+interval=10
