@@ -233,13 +233,20 @@ for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 # for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
 
 # MS Teams notifications
 for_window [title="Microsoft Teams Notification" class="microsoft teams - preview"] floating enable
 for_window [title="Microsoft Teams Notification" class="Microsoft Teams - Preview"] floating enable
 
+# Packet Tracer
+for_window [class="^PacketTracer7$"] floating enable border normal
+for_window [class="^PacketTracer7$" title="PT Activity"] floating disable
+for_window [class="^PacketTracer7$" title="Cisco Packet Tracer"] floating disable
+
 # switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
+# for_window [urgent=latest] focus
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
