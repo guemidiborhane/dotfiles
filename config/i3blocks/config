@@ -16,10 +16,10 @@ command=$HOME/.config/i3blocks/battery2
 markup=pango
 interval=30
 
-# [weather]
-# command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-# interval=3600
-# color=#A4C2F4
+[weather]
+command=$HOME/.config/i3blocks/openweather.sh
+interval=1800
+color=#7275b3
 
 [time]
 command=$HOME/.config/i3blocks/time
