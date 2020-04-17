@@ -24,3 +24,8 @@ color=#7275b3
 [time]
 command=$HOME/.config/i3blocks/time
 interval=10
+
+[config]
+full_text=☄
+color=#318be6
+command=emacs ~/.i3/config
