@@ -2,7 +2,7 @@
 
 precmd() { 
   [[ -f $(pwd)/.project-aliases ]] && eval "source $(pwd)/.project-aliases"
-  eval "pwd > /tmp/whereami" 
+  # eval "pwd > /tmp/whereami" 
 }
 
 # Change to saved working dir
