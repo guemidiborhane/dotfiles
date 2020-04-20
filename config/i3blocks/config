@@ -1,31 +1,23 @@
-separator_block_width=35
+separator_block_width=20
 markup=pango
 font=Source Code Pro 12
+command=$HOME/.config/i3blocks/$BLOCK_NAME
 
-[bandwidth]
-command=$HOME/.config/i3blocks/net-traffic
+[net-traffic]
 interval=2
 
 [cpu-usage]
-command=$HOME/.config/i3blocks/cpu-usage
 interval=5
 min_width=100%
 
-[battery2]
-command=$HOME/.config/i3blocks/battery2
-markup=pango
-interval=30
-
-[weather]
-command=$HOME/.config/i3blocks/openweather.sh
+[openweather]
 interval=1800
 color=#7275b3
 
 [time]
-command=$HOME/.config/i3blocks/time
 interval=10
 
-[config]
-full_text=☄
-color=#318be6
-command=emacs ~/.i3/config
+[battery2]
+markup=pango
+interval=30
+
