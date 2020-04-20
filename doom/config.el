@@ -51,3 +51,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Switch to the new window after splitting
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
