@@ -62,3 +62,7 @@ alias runn="dc run --rm runner"
 alias dce="dc exec"
 alias dclf="dc logs -f"
 alias dcps="dc ps"
+
+# NordVPN
+alias nc="nordvpn c"
+alias nd="nordvpn d"
