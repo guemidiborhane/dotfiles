@@ -225,6 +225,7 @@ for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [instance="4kvideodownloader-bin"] floating enable border normal
 for_window [instance="GitAhead"] floating enable border normal
+for_window [instance="gitkraken"] floating enable border pixel 1
 for_window [instance="spotify"] floating enable border none
 for_window [instance="clockify"] floating enable border none
 for_window [class="Pavucontrol"] floating enable
