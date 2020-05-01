@@ -2,7 +2,7 @@
 # This time blocklet will use Xresources date format if defined
 # or try to determine most appropriate format based on locale and GNOME settings.
 
-DATE_FORMAT=`xrescat i3xrocks.date.format2`
+DATE_FORMAT=''
 
 if [ -z "$DATE_FORMAT" ]; then # No custom format defined, use system defaults
     DATE_SPEC="%a %b %d"
@@ -21,10 +21,10 @@ else
 fi
 
 
-LABEL_ICON=${icon:-$(xrescat i3xrocks.label.time )}
-LABEL_COLOR=${label_color:-$(xrescat i3xrocks.label.color "#7B8394")}
-VALUE_COLOR=${color:-$(xrescat i3xrocks.value.color "#D8DEE9")}
-VALUE_FONT=${font:-$(xrescat i3xrocks.value.font "Source Code Pro Medium 11")}
+LABEL_ICON=${icon:-}
+LABEL_COLOR=${label_color:-"#7B8394"}
+VALUE_COLOR=${color:-"#D8DEE9"}
+VALUE_FONT=${font:-"Source Code Pro Medium 11"}
 echo "<span color=\"${LABEL_COLOR}\">$LABEL_ICON</span><span font_desc=\"${VALUE_FONT}\" color=\"${VALUE_COLOR}\">$DATE_VALUE </span>"
 
 if [ ! -z "$button" ]; then
