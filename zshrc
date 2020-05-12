@@ -53,3 +53,4 @@ export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 eval $(keychain -q --eval --agents ssh id_rsa private_network-ecdsa)
+export PATH=$PATH:~/.emacs.d/bin
