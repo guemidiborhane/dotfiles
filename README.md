@@ -26,4 +26,7 @@ sudo netstat -nlp | grep :80
 
 # Unlock luks.
 echo -ne "SuperSecretPassphrase" > /lib/cryptsetup/passfifo
+
+# Kill all zombie processes
+ps -xaw -o state,ppid | grep Z | grep -v PID | awk '{ print $2 }' | xargs kill -9
 ```
