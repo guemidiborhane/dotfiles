@@ -61,3 +61,4 @@
 
 ;; Whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq treemacs-position 'right)
