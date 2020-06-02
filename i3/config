@@ -16,7 +16,7 @@ hide_edge_borders none
 
 
 # shortcuts for common system configuration tasks
-bindsym $mod+Shift+n exec nemo
+bindsym $mod+Shift+n exec thunar
 
 # change borders
 bindsym $mod+u border none
@@ -452,4 +452,3 @@ mode "$mode_gaps_outer" {
 }
 
 bindsym Ctrl+Shift+space exec --no-startup-id rofimoji -c
-
