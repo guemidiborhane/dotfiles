@@ -325,41 +325,14 @@ exec_always --no-startup-id fix_xcursor
 # to:
 # background $term_background
 # Same logic applied to everything else.
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color6     color6
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
-set $nord0   #2E3440
-set $nord1   #3B4252
-set $nord2   #434C5E
-set $nord3   #4C566A
-set $nord4   #D8DEE9
-set $nord5   #E5E9F0
-set $nord6   #ECEFF4
-set $nord7   #8FBCBB
-set $nord8   #88C0D0
-set $nord9   #81A1C1
-set $nord10  #5E81AC
-set $nord11  #BF616A
-set $nord12  #D08770
-set $nord13  #EBCB8B
-set $nord14  #A3BE8C
-set $nord15  #B48EAD
+client.background       #F8F8F2
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
@@ -372,13 +345,15 @@ bar {
   strip_workspace_numbers yes
 
   colors {
-    background $nord0
-    statusline $nord8
+    background #282A36
+    statusline #F8F8F2
+    separator  #44475A
 
-    focused_workspace  $nord3  $nord8
-    active_workspace   $nord3  $nord8
-    inactive_workspace $nord8  $nord3
-    urgent_workspace   $nord3  $nord15
+    focused_workspace  #44475A #44475A #F8F8F2
+    active_workspace   #282A36 #44475A #F8F8F2
+    inactive_workspace #282A36 #282A36 #BFBFBF
+    urgent_workspace   #FF5555 #FF5555 #F8F8F2
+    binding_mode       #FF5555 #FF5555 #F8F8F2
   }
 }
 
@@ -387,13 +362,13 @@ bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000
+#   client.focused          #556064 #556064 #80FFF9 #FDF6E3
+#   client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
+#   client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
+#   client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+#   client.placeholder      #000000 #0c0c0c #ffffff #000000
 
-  client.background       #2B2C2B
+#   client.background       #2B2C2B
 
 #############################
 ### settings for i3-gaps: ###
