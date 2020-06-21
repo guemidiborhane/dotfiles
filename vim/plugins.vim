@@ -32,7 +32,7 @@ Plugin 'slim-template/vim-slim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'arcticicestudio/nord-vim'
 Plugin 'morhetz/gruvbox'
-
+Plugin 'dracula/vim', { 'name': 'dracula' }
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
