@@ -18,7 +18,7 @@ function _run_in_php_container() {
         fi
         docker exec -it -w $(pwd) $container_name $1 "${@:2}"
     else
-        service_name="app"
+        service_name="php"
 
         if [ -z "$(docker-compose ps -q $service_name)" ]
         then
