@@ -126,7 +126,7 @@ bindsym $mod+q split toggle
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -200,12 +200,16 @@ bindsym $mod+Shift+x [urgent=latest] focus
 
 # Open applications on specific workspaces
 assign [class="Thunderbird"] $ws2
+
 for_window [class="discord"] move to scratchpad
 bindsym $mod+d [class="discord"] scratchpad show
 
 for_window [instance="gitkraken"] move to scratchpad
 for_window [instance="gitkraken"] floating enable border normal
 bindsym $mod+g [instance="gitkraken"] scratchpad show
+
+for_window [instance="spotify"] move to scratchpad
+bindsym $mod+s [instance="spotify"] scratchpad show
 # assign [class="Pale moon"] $ws2
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
@@ -232,7 +236,6 @@ for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [instance="4kvideodownloader-bin"] floating enable border normal
 for_window [instance="GitAhead"] floating enable border normal
-for_window [instance="spotify"] floating enable
 for_window [instance="clockify"] floating enable border none
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
