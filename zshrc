@@ -1,7 +1,7 @@
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 precmd() { 
-  [[ -f $(pwd)/.project-aliases ]] && eval "source $(pwd)/.project-aliases"
+  # [[ -f $(pwd)/.project-aliases ]] && eval "source $(pwd)/.project-aliases"
   # eval "pwd > /tmp/whereami" 
 }
 
