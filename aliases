@@ -45,6 +45,7 @@ alias gc="git commit -m"
 alias gs="git status"
 alias s="git st"
 alias push="git push"
+alias p="push"
 alias glog="git lg"
 
 # alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
