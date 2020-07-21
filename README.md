@@ -31,5 +31,5 @@ echo -ne "SuperSecretPassphrase" > /lib/cryptsetup/passfifo
 ps -xaw -o state,ppid | grep Z | grep -v PID | awk '{ print $2 }' | xargs kill -9
 
 # find vicious PHP files
-cat files-list.txt | grep -P '/(?!autoload|settings|personal)([a-z0-9]{8}).php$'
+find / -type f -regex '.*/*.php' | grep -P '/(?!autoload|settings|personal|mbstring|defaults|translit)([a-z0-9]{8}).php$' > suspicions.txt
 ```
