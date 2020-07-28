@@ -315,6 +315,7 @@ exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
 exec --no-startup-id autorandr -c
+exec --no-startup-id enpass -minimize
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
 exec --no-startup-id start_conky_green
