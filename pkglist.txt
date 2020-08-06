@@ -8,7 +8,7 @@ clipit
 clockify-desktop
 ctop
 deluge-gtk
-discord
+discord_arch_electron
 docker-compose
 docker-credential-secretservice
 enpass-bin
