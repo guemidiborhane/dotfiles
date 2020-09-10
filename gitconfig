@@ -3,7 +3,7 @@
   editor   = vim
 [user]
   email = guemidiborhane@gmail.com
-  name  = Borhaneddine Guemidi
+	name = Borhaneddine GUEMIDI
 	signingkey = 830A07465E592A8A
 [push]
   default = simple
