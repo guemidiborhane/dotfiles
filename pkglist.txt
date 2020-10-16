@@ -39,7 +39,7 @@ open-fuse-iso
 otf-font-awesome
 pantheon-calculator
 pinta
-qgis
+qgis-ltr
 qogir-gtk-theme-git
 qogir-icon-theme-git
 rhythmbox-plugin-alternative-toolbar-git
