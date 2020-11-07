@@ -55,3 +55,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 eval $(keychain -q --eval --agents ssh id_rsa private_network-ecdsa)
 export PATH=$PATH:~/.emacs.d/bin
 export JAVA_HOME="/usr/lib/jvm/default-runtime"
+source /usr/share/nvm/init-nvm.sh
