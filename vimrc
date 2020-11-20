@@ -128,6 +128,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 "------------------ Color/Fonts ------------------"
 syntax enable                                                     " Enable syntax highlighting.
+let g:dracula_colorterm = 0
 colorscheme dracula
 " colorscheme hybrid
 " colorscheme Tomorrow-Night
