@@ -1,8 +1,9 @@
 #!/bin/bash
 dir=$(pwd)
 
-ln -fsv $dir/i3 $HOME/.i3
-ln -fsv $dir/config/rofi $HOME/.config/
+rm -r $HOME/.i3/
+ln -fsv $dir/i3/ $HOME/.i3
+ln -fsv $dir/config/* $HOME/.config/
 
 ln -fsv $dir/zshrc $HOME/.zshrc
 ln -fsv $dir/vimrc $HOME/.vimrc
@@ -16,7 +17,7 @@ ln -fsv $dir/gitconfig $HOME/.gitconfig
 ln -fsv $dir/bin $HOME/.bin
 ln -fsv $dir/vim $HOME/.vim
 ln -fsv $dir/p10k.zsh $HOME/.p10k.zsh
-ln -fsv $dir/.Xresources $HOME
+ln -fsv $dir/Xresources $HOME/.Xresources
 
 mkdir $HOME/Code
 ln -fsv $dir/Code/key_ok.png $HOME/Code
