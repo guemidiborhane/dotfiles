@@ -24,7 +24,7 @@ DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-  sudo git
+  sudo git wd
   zsh-autosuggestions zsh-syntax-highlighting 
   docker docker-compose
   hacker-quotes
