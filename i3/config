@@ -240,6 +240,7 @@ for_window [instance="4kvideodownloader-bin"] floating enable border normal
 for_window [instance="GitAhead"] floating enable border normal
 for_window [instance="clockify"] floating enable border none
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Enpass"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
