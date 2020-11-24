@@ -6,6 +6,9 @@ command=$HOME/.config/i3blocks/$BLOCK_NAME
 [net-traffic]
 interval=2
 
+[cputemp]
+interval=5
+
 [cpu-usage]
 interval=5
 min_width=100%
