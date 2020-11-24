@@ -51,6 +51,7 @@ export PATH="$PATH:$HOME/.bin"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+export OPENCV_LOG_LEVEL=ERROR
 
 eval $(keychain -q --eval --agents ssh id_rsa private_network-ecdsa)
 export PATH=$PATH:~/.emacs.d/bin
