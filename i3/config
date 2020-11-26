@@ -59,9 +59,6 @@ exec --no-startup-id pa-applet
 bindsym $mod+Ctrl+m exec pavucontrol
 
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym F12 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym F11 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym F10 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
