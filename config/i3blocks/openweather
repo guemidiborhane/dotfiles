@@ -33,4 +33,4 @@ case $WEATHER_CONDITION in
     ;;
 esac
 
-echo "${WEATHER_ICON}  ${WEATHER_TEMP}°C"
+echo "${WEATHER_ICON}  ${WEATHER_TEMP}°C (${CITY_NAME})"
