@@ -9,7 +9,7 @@ interval=2
 [cputemp]
 interval=5
 
-[cpu-usage]
+[cpu]
 interval=5
 min_width=100%
 
