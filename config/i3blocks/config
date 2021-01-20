@@ -3,6 +3,10 @@ markup=pango
 font=Source Code Pro 12
 command=$HOME/.config/i3blocks/$BLOCK_NAME
 
+[openweather]
+interval=1800
+color=#7275b3
+
 [net-traffic]
 interval=2
 
@@ -13,14 +17,10 @@ interval=5
 interval=5
 min_width=100%
 
-[openweather]
-interval=1800
-color=#7275b3
-
 [time]
 interval=10
 
 [battery2]
 markup=pango
-interval=30
+interval=10
 
