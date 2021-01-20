@@ -53,7 +53,7 @@ export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export OPENCV_LOG_LEVEL=ERROR
 
-eval $(keychain -q --eval --agents ssh id_rsa private_network-ecdsa)
 export PATH=$PATH:~/.emacs.d/bin
 export JAVA_HOME="/usr/lib/jvm/default-runtime"
 # source /usr/share/nvm/init-nvm.sh
+source ~/.i3/gnome-keyring.sh
