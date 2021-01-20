@@ -1,8 +1,8 @@
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+source ~/.k8s-config
 precmd() { 
-  # [[ -f $(pwd)/.project-aliases ]] && eval "source $(pwd)/.project-aliases"
-  # eval "pwd > /tmp/whereami" 
+  [[ -f $(pwd)/.kube-namespace && -t $(ping -c 1 -W 1 $K8S_SERVER &> /dev/null) ]] && eval "kubens $(cat .kube-namespace) &> /dev/null"
 }
 
 # Change to saved working dir

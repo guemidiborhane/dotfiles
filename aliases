@@ -68,3 +68,6 @@ alias dcps="dc ps"
 # NordVPN
 alias nc="nordvpn c"
 alias nd="nordvpn d"
+
+#Kubectl
+alias kc=kubectl
