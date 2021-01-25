@@ -69,5 +69,3 @@ alias dcps="dc ps"
 alias nc="nordvpn c"
 alias nd="nordvpn d"
 
-#Kubectl
-alias kc=kubectl
