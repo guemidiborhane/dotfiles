@@ -26,7 +26,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   sudo git wd
   zsh-autosuggestions zsh-syntax-highlighting 
-  docker docker-compose
+  docker docker-compose kubectl
   hacker-quotes
 )
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
