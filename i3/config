@@ -213,6 +213,7 @@ for_window [instance="spotify"] move to scratchpad
 bindsym $mod+s [instance="spotify"] scratchpad show
 
 for_window [instance="scrcpy"] floating enable border normal
+for_window [instance="heroic"] floating enable border normal
 # assign [class="Pale moon"] $ws2
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
