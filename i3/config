@@ -260,6 +260,10 @@ for_window [window_role="task_dialog"] floating enable
 for_window [title="Microsoft Teams Notification" class="microsoft teams - preview"] floating enable
 for_window [title="Microsoft Teams Notification" class="Microsoft Teams - Preview"] floating enable
 
+# Jitsi Meet
+for_window [title="AlwaysOnTop" class="jitsi meet"] floating enable
+for_window [title="AlwaysOnTop" class="Jitsi Meet"] floating enable
+
 # Packet Tracer
 for_window [class="^PacketTracer7$"] floating enable border normal
 for_window [class="^PacketTracer7$" title="PT Activity"] floating disable
