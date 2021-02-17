@@ -2,7 +2,7 @@
 
 source ~/.k8s-config
 precmd() { 
-  [[ -f $(pwd)/.kube-namespace && -t $(ping -c 1 -W 1 $K8S_SERVER &> /dev/null) ]] && eval "kubens $(cat .kube-namespace) &> /dev/null"
+  # [[ -f $(pwd)/.kube-namespace && -t $(ping -c 1 -W 1 $K8S_SERVER &> /dev/null) ]] && eval "kubens $(cat .kube-namespace) &> /dev/null"
 }
 
 # Change to saved working dir
@@ -57,3 +57,9 @@ export PATH=$PATH:~/.emacs.d/bin
 export JAVA_HOME="/usr/lib/jvm/default-runtime"
 # source /usr/share/nvm/init-nvm.sh
 source ~/.i3/gnome-keyring.sh
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
