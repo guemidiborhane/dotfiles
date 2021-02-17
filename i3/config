@@ -63,6 +63,7 @@ set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
 
 ################################################################################################
 
