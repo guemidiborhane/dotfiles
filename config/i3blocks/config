@@ -17,6 +17,11 @@ interval=5
 interval=5
 min_width=100%
 
+[uptime]
+interval=60
+command=uptime -p
+color=#7275b3
+
 [time]
 interval=10
 
