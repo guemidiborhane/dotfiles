@@ -22,5 +22,5 @@ configuration {
     separator-style:    "solid";
     hide-scrollbar:     true;
 
-    theme:              "nord";
+    theme:              "rofi";
 }
