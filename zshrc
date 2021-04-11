@@ -24,7 +24,7 @@ DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-  sudo git wd
+  sudo git wd nvm
   zsh-autosuggestions zsh-syntax-highlighting 
   docker docker-compose kubectl
   hacker-quotes
