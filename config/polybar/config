@@ -46,7 +46,20 @@ tray-position = right
 tray-detached = false
 tray-padding = 0
 
+monitor = eDP-1
+
 modules-right = wireless wired cputemp cpu date battery
+modules-center = music
+modules-left = i3
+
+padding-left = 0
+
+[bar/external]
+inherit = bar/default
+monitor = DP-1-1
+tray-position = right
+
+modules-right = date battery
 modules-center = music
 modules-left = i3
 
@@ -97,10 +110,10 @@ label-urgent-foreground = ${colors.urgent}
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
-ws-icon-3 = 4;
+ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-5 = 6;
-ws-icon-6 = 7;
+ws-icon-6 = 7;
 ws-icon-7 = 8;
 ws-icon-8 = 9;
 
