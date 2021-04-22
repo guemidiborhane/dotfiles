@@ -1,0 +1,197 @@
+; Doc: https://github.com/jaagr/polybar
+; Wiki: https://github.com/jaagr/polybar/wiki
+
+[colors]
+foreground = #f8f8f2
+text-fg = ${self.fg}
+background = #282a36
+base-bg    = ${self.bg:#dd282a36}
+text-bg = ${self.bg}
+selection = #44475a
+comment = #6272a4
+glyph-bg   = ${self.comment}
+module-bg  = ${self.comment}
+cyan  = #8be9fd
+spotify = #1db954
+ram = #ffb86c
+pink  = #ff79c6
+cpu  = #0f7dc2
+urgent  = #ff5555
+white  = #f8f8f2
+yellow  = #f1fa8c
+power= ${self.urgent}
+
+[bar/default]
+height = 32
+offset-y = 0
+top = true
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+padding-left = 0
+padding-right = 3
+module-margin = 2
+
+font-0 = Operator SSm Book:size=10;2
+font-1 = FontAwesome:size=11;3
+font-2 = MaterialIcons:size=11;4
+
+modules-left = i3
+modules-center =
+modules-right = wired wireless cpu memory date
+
+[bar/center]
+inherit = bar/default
+tray-position = right
+tray-detached = false
+tray-padding = 0
+
+modules-right = wireless wired cputemp cpu date battery
+modules-center = music
+modules-left = i3
+
+padding-left = 0
+
+[module/cputemp]
+type = internal/temperature
+warn-temperature = 60
+label-warn-foreground = ${colors.yellow}
+format =  <label>
+
+[module/wired]
+type = internal/network
+interface = enp58s0u1u4
+
+[module/wireless]
+type = internal/network
+interface = wlp0s20f3
+interval=3
+label-connected = %{F#6272a4} %downspeed:9%  %upspeed:9% 
+
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+index-sort = true
+enable-click = true
+enable-scroll = false
+wrapping-scroll = false
+reverse-scroll = false
+fuzzy-match = true
+format = <label-mode><label-state>
+label-mode-padding = 2
+label-focused = %index%  %icon%
+label-focused-padding = 2
+label-unfocused = %index%  %icon%
+label-unfocused-padding = 2
+label-visible = %index%  %icon%
+label-visible-padding = 2
+label-urgent = %index%  %icon%
+label-urgent-padding = 2
+label-focused-foreground = ${colors.active}
+label-focused-background = #2F3344
+label-focused-underline = ${colors.underline}
+label-visible-foreground = ${colors.active}
+label-unfocused-foreground = ${colors.secondary}
+label-urgent-foreground = ${colors.urgent}
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format = <label>
+format-prefix = "  "
+label = %percentage%%
+format-foreground = ${colors.cpu}
+label-foreground = ${colors.cpu}
+
+[module/date]
+type = internal/date
+interval = 5
+date = "%a %d %b"
+time = "%H:%M"
+format-prefix = " "
+label = %date%, %time%
+
+[module/music]
+type = custom/script
+exec-if = ~/.config/polybar/music.sh --isPlaying
+exec = ~/.config/polybar/music.sh --title
+click-left = i3-msg workspace 8
+interval = 5
+format= <label>
+format-foreground= ${colors.spotify}
+label = %output%
+
+
+[module/battery]
+type = internal/battery
+interval = 5
+time-format = %H:%M
+battery = BAT0
+adapter = AC
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+label-full = Fully charged
+
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%% (%time%)
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
