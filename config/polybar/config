@@ -74,12 +74,12 @@ format =  <label>
 [module/wired]
 type = internal/network
 interface = enp58s0u1u4
+interval=3
+label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
 
 [module/wireless]
-type = internal/network
+inherit = module/wired
 interface = wlp0s20f3
-interval=3
-label-connected = %{F#6272a4} %downspeed:9%  %upspeed:9% 
 
 [module/i3]
 type = internal/i3
