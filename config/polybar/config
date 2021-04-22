@@ -69,7 +69,15 @@ padding-left = 0
 type = internal/temperature
 warn-temperature = 60
 label-warn-foreground = ${colors.yellow}
-format =  <label>
+; Available tags:
+;   <label> (default)
+;   <ramp>
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = #55
 
 [module/wired]
 type = internal/network
@@ -135,7 +143,7 @@ type = internal/date
 interval = 5
 date = "%a %d %b"
 time = "%H:%M"
-format-prefix = " "
+format-prefix = " "
 label = %date%, %time%
 
 [module/music]
