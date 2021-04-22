@@ -205,7 +205,7 @@ assign [class="Thunderbird"] $ws3
 for_window [class="Thunderbird"] floating enable border normal
 
 assign [class="Code|Subl|jetbrains-rubymine"] $ws2
-assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws5
+assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
 assign [class="GitKraken"] $ws6
 assign [class="Spotify"] $ws8
 for_window [class="Spotify"] move to workspace $ws8
