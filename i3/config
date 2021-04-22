@@ -205,16 +205,16 @@ assign [class="Thunderbird"] $ws3
 for_window [class="Thunderbird"] floating enable border normal
 
 assign [class="Code|Subl|jetbrains-rubymine"] $ws2
+assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws5
+assign [class="GitKraken"] $ws6
+assign [class="Spotify"] $ws8
+for_window [class="Spotify"] move to workspace $ws8
 
-for_window [class="discord"] move to scratchpad
-bindsym $mod+d [class="discord"] scratchpad show
+bindsym $mod+x [instance="brave|chrome|firefox"] focus
+bindsym $mod+s [instance="spotify"] focus
+bindsym $mod+d [class="discord"] focus
+bindsym $mod+g [instance="gitkraken"] focus
 
-for_window [instance="gitkraken"] move to scratchpad
-for_window [instance="gitkraken"] floating enable border normal
-bindsym $mod+g [instance="gitkraken"] scratchpad show
-
-for_window [instance="spotify"] move to scratchpad
-bindsym $mod+s [instance="spotify"] scratchpad show
 
 for_window [instance="scrcpy"] floating enable border normal
 for_window [instance="heroic"] floating enable border normal
