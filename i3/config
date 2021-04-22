@@ -335,6 +335,7 @@ exec --no-startup-id start_conky_green
 # exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+exec_always --no-startup-id "killall polybar;polybar -r center & polybar -r left & polybar -r right"
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -358,27 +359,27 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-  i3bar_command i3bar
-  status_command i3blocks
-  position top
-  font pango:Source Code Pro 11, FontAwesome
-  bindsym button4 nop
-  bindsym button5 nop
-  strip_workspace_numbers no
+# bar {
+#   i3bar_command i3bar
+#   status_command i3blocks
+#   position top
+#   font pango:Source Code Pro 11, FontAwesome
+#   bindsym button4 nop
+#   bindsym button5 nop
+#   strip_workspace_numbers no
 
-  colors {
-    background #282A36
-    statusline #F8F8F2
-    separator  #44475A
+#   colors {
+#     background #282A36
+#     statusline #F8F8F2
+#     separator  #44475A
 
-    focused_workspace  #44475A #44475A #F8F8F2
-    active_workspace   #282A36 #44475A #F8F8F2
-    inactive_workspace #282A36 #282A36 #BFBFBF
-    urgent_workspace   #FF5555 #FF5555 #F8F8F2
-    binding_mode       #FF5555 #FF5555 #F8F8F2
-  }
-}
+#     focused_workspace  #44475A #44475A #F8F8F2
+#     active_workspace   #282A36 #44475A #F8F8F2
+#     inactive_workspace #282A36 #282A36 #BFBFBF
+#     urgent_workspace   #FF5555 #FF5555 #F8F8F2
+#     binding_mode       #FF5555 #FF5555 #F8F8F2
+#   }
+# }
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
