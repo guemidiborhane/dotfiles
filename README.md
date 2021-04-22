@@ -5,8 +5,6 @@
 * [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
- 
-
 
 # Installation
 
@@ -33,3 +31,7 @@ ps -xaw -o state,ppid | grep Z | grep -v PID | awk '{ print $2 }' | xargs kill -
 # find vicious PHP files
 find / -type f -regex '.*/*.php' | grep -P '/(?!autoload|settings|personal|mbstring|defaults|translit)([a-z0-9]{8}).php$' > suspicions.txt
 ```
+
+# Useful Links
+* [FontAwesome Cheatsheet](https://fontawesome.bootstrapcheatsheets.com/)
+ 
