@@ -7,9 +7,9 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar
-polybar center &
+polybar -r center &
 
 external_monitor=$(xrandr --query | grep 'DP-1-1')
 if [[ $external_monitor = *connected* ]]; then
-      polybar external &
+      polybar -r external &
 fi
