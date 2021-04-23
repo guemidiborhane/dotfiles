@@ -217,6 +217,7 @@ bindsym $mod+g [instance="gitkraken"] focus
 
 
 for_window [instance="scrcpy"] floating enable border normal
+for_window [class="jetbrains-rubymine" title="win0"] floating enable border none
 for_window [instance="heroic"] floating enable border normal
 # assign [class="Pale moon"] $ws2
 # assign [class="Pcmanfm"] $ws3
