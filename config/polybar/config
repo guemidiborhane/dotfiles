@@ -20,6 +20,9 @@ urgent  = #ff5555
 white  = #f8f8f2
 yellow  = #f1fa8c
 power= ${self.urgent}
+underline=${self.yellow}
+active=${self.white}
+secondary=#4F5476
 
 [bar/default]
 height = 32
