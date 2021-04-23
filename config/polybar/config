@@ -149,7 +149,7 @@ type = internal/date
 interval = 5
 date = "%a %d %b"
 time = "%H:%M"
-format-prefix = " "
+format = %{A1:gnome-calendar:}     <label>%{A}
 label = %date%, %time%
 
 [module/music]
