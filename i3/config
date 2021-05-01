@@ -184,7 +184,7 @@ workspace $ws2 output $DP1Screen $builtInScreen
 workspace $ws3 output $builtInScreen
 workspace $ws4 output $DP1Screen
 workspace $ws5 output $DP1Screen
-workspace $ws6 output $builtInScreen
+workspace $ws6 output $DP1Screen $builtInScreen
 workspace $ws7 output $hdmiScreen $DP1Screen
 workspace $ws8 output $hdmiScreen $builtInScreen
 workspace $ws9 output $DP1Screen
