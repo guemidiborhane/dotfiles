@@ -155,15 +155,39 @@ bindsym $mod+Ctrl+Left workspace prev
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
+# Terminal
 set $ws1 1
+# Code
 set $ws2 2
+# Browser
 set $ws3 3
+# Browser
 set $ws4 4
+# Browser
 set $ws5 5
+# git
 set $ws6 6
+# Discord, ...
 set $ws7 7
+# Spotify
 set $ws8 8
+# Misc
 set $ws9 9
+
+set $builtInScreen eDP-1
+set $DP1Screen  DP-1-1
+set $DP2Screen  DP-1-0
+set $hdmiScreen  HDMI-1-0
+
+workspace $ws1 output $builtInScreen
+workspace $ws2 output $DP1Screen $builtInScreen
+workspace $ws3 output $builtInScreen
+workspace $ws4 output $DP1Screen
+workspace $ws5 output $DP1Screen
+workspace $ws6 output $builtInScreen
+workspace $ws7 output $hdmiScreen $DP1Screen
+workspace $ws8 output $hdmiScreen $builtInScreen
+workspace $ws9 output $DP1Screen
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -204,20 +228,20 @@ bindsym $mod+Shift+x [urgent=latest] focus
 assign [class="Thunderbird"] $ws3
 for_window [class="Thunderbird"] floating enable border normal
 
-assign [class="Code|Subl|jetbrains-rubymine"] $ws2
+assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
-assign [class="GitKraken"] $ws6
+assign [class="GitKraken|GitFiend|GitAhead"] $ws6
 assign [class="Spotify"] $ws8
 for_window [class="Spotify"] move to workspace $ws8
 
 bindsym $mod+x [instance="brave|chrome|firefox"] focus
 bindsym $mod+s [instance="spotify"] focus
 bindsym $mod+d [class="discord"] focus
-bindsym $mod+g [instance="gitkraken"] focus
+bindsym $mod+g [instance="gitkraken|gitfiend|GitAhead"] focus
 
 
 for_window [instance="scrcpy"] floating enable border normal
-for_window [class="jetbrains-rubymine" title="win0"] floating enable border none
+for_window [class="jetbrains-rubymine|jetbrains-idea" title="win0"] floating enable border none
 for_window [class="Gnome-calendar"] floating enable border pixel 1
 for_window [instance="heroic"] floating enable border normal
 # assign [class="Pale moon"] $ws2
@@ -245,7 +269,6 @@ for_window [class="TelegramDesktop"] floating enable border normal
 for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [instance="4kvideodownloader-bin"] floating enable border normal
-for_window [instance="GitAhead"] floating enable border normal
 for_window [instance="clockify"] floating enable border none
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Enpass"] floating enable
