@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+notify-send -u low "autorandr: restarting polybar"
+
 # Terminate already running bar instances
 killall -q polybar
 
@@ -12,4 +14,8 @@ polybar -r center &
 external_monitor=$(xrandr --query | grep 'DP-1-1')
 if [[ $external_monitor = *connected* ]]; then
       polybar -r external &
+fi
+hdmi_monitor=$(xrandr --query | grep 'HDMI-1-0')
+if [[ $external_monitor = *connected* ]]; then
+      polybar -r hdmi &
 fi
