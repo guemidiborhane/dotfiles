@@ -69,3 +69,5 @@ alias dcps="dc ps"
 alias nc="nordvpn c"
 alias nd="nordvpn d"
 
+
+alias mc="mcli"
