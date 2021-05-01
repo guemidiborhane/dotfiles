@@ -39,7 +39,7 @@ padding-left = 0
 padding-right = 3
 module-margin = 2
 
-font-0 = SFNS Display:size=12;2
+font-0 = Noto Sans:size=11;2
 font-1 = FontAwesome:size=11;3
 font-2 = Material Icons:size=11;4
 
@@ -52,26 +52,37 @@ tray-padding = 0
 
 monitor = eDP-1
 
-modules-right = wireless wired cputemp cpu date battery
+modules-right = wireless cputemp cpu date battery
 modules-center = music
 modules-left = i3
 
 padding-left = 0
+
 
 [bar/external]
 inherit = bar/default
 monitor = DP-1-1
 tray-position = right
 
-modules-right = date battery
+modules-right = wired date battery
 modules-center = music
 modules-left = i3
 
 padding-left = 0
 
-[module/kdeconnect]  
-type = custom/script  
-exec = "~/.config/polybar/kdeconnect.sh -d"  
+[bar/hdmi]
+inherit = bar/default
+monitor = HDMI-1-0
+tray-position = right
+
+modules-right = date
+modules-left = i3
+
+padding-left = 0
+
+[module/kdeconnect]
+type = custom/script
+exec = "~/.config/polybar/kdeconnect.sh -d"
 tail = true
 
 [module/cputemp]
