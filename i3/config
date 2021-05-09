@@ -181,7 +181,7 @@ set $hdmiScreen  HDMI-1-0
 
 workspace $ws1 output $builtInScreen
 workspace $ws2 output $DP1Screen $builtInScreen
-workspace $ws3 output $builtInScreen
+workspace $ws3 output $DP1Screen $builtInScreen
 workspace $ws4 output $DP1Screen
 workspace $ws5 output $DP1Screen
 workspace $ws6 output $DP1Screen $builtInScreen
