@@ -362,6 +362,7 @@ exec --no-startup-id start_conky_green
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id "killall polybar;~/.config/polybar/launch.sh"
+exec_always --no-startup-id autotiling
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
