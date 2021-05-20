@@ -233,8 +233,7 @@ for_window [class="Thunderbird"] floating enable border normal
 assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
 assign [class="GitKraken|GitFiend|GitAhead"] $ws6
-assign [class="Spotify"] $ws8
-for_window [class="Spotify"] move to workspace $ws8
+for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws8
 
 bindsym $mod+x [instance="brave|chrome|firefox"] focus
 bindsym $mod+s [instance="spotify"] focus
