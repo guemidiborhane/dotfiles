@@ -52,7 +52,7 @@ tray-padding = 0
 
 monitor = eDP-1
 
-modules-right = wireless cputemp cpu date battery
+modules-right = wireless cputemp cpu cpu-frequency date battery
 modules-center = music
 modules-left = i3
 
@@ -157,6 +157,11 @@ format-prefix = "  "
 label = %percentage%%
 format-foreground = ${colors.cpu}
 label-foreground = ${colors.cpu}
+
+[module/cpu-frequency]
+type = custom/script
+exec = ~/.config/polybar/cpu-frequency.sh
+interval = 10
 
 [module/date]
 type = internal/date
