@@ -232,13 +232,13 @@ for_window [class="Thunderbird"] floating enable border normal
 
 assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
-assign [class="GitKraken|GitFiend|GitAhead"] $ws6
+assign [class="GitKraken|GitFiend|GitAhead|Github Desktop"] $ws6
 for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws8
 
 bindsym $mod+x [instance="brave|chrome|firefox"] focus
 bindsym $mod+s [instance="spotify"] focus
 bindsym $mod+d [class="discord"] focus
-bindsym $mod+g [instance="gitkraken|gitfiend|GitAhead"] focus
+bindsym $mod+g [instance="gitkraken|gitfiend|GitAhead|github desktop"] focus
 
 
 for_window [instance="scrcpy"] floating enable border normal
