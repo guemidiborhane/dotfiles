@@ -44,7 +44,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+z exec --no-startup-id morc_menu
 
 # dofi
-bindsym $mod+space exec "rofi -combi-modi window,drun,ssh -show combi -modi combi -config ~/.config/rofi/rofi.rasi"
+bindsym $mod+space exec "rofi -combi-modi window,drun -show combi -modi combi -config ~/.config/rofi/rofi.rasi"
 bindsym $mod+Ctrl+space exec rofi -show window -config ~/.config/rofi/rofi.rasi
 bindsym Ctrl+Shift+space exec --no-startup-id rofimoji --action copy
 
