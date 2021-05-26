@@ -1,6 +1,7 @@
 [core]
   fileMode = false
   editor   = vim
+  abbrev   = 8
 [user]
   email = guemidiborhane@gmail.com
 	name = Borhaneddine GUEMIDI
