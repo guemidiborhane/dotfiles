@@ -8,14 +8,36 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
-# Launch bar
-polybar -r center &
+# Launch bars
 
-external_monitor=$(xrandr --query | grep 'DP-1-1')
+BAR_NAME=main
+BAR_CONFIG=/home/$USER/.config/polybar/config
+
+BUILT_IN="eDP-1"
+MAIN_EXTER="DP-1-1"
+SECONDARY_EXTER="HDMI-1-0"
+
+external_monitor=$(xrandr --query | grep $MAIN_EXTER)
 if [[ $external_monitor = *connected* ]]; then
-      polybar -r external &
+    MONITOR=$MAIN_EXTER TRAY_POS="right" polybar --reload -c $BAR_CONFIG $BAR_NAME &
+    sleep 1
+    MONITOR=$BUILT_IN TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
+    sleep 1
+else
+    MONITOR=$BUILT_IN TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
+    sleep 1
 fi
-hdmi_monitor=$(xrandr --query | grep 'HDMI-1-0')
+
+hdmi_monitor=$(xrandr --query | grep $SECONDARY_EXTER)
 if [[ $external_monitor = *connected* ]]; then
-      polybar -r hdmi &
+    MONITOR=$SECONDARY_EXTER TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
 fi
+
+# Launch on primary monitor
+
+sleep 1
+
+# Launch on all other monitors
+for m in $OTHERS; do
+ MONITOR=$m TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
+done

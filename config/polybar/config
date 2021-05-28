@@ -1,5 +1,6 @@
 ; Doc: https://github.com/jaagr/polybar
 ; Wiki: https://github.com/jaagr/polybar/wiki
+# vim: ft=dosini
 
 [colors]
 foreground = #f8f8f2
@@ -24,11 +25,14 @@ underline=${self.yellow}
 active=${self.white}
 secondary=#4F5476
 
-[bar/default]
+[bar/main]
 height = 32
 offset-y = 0
 top = true
 fixed-center = true
+
+tray-position = ${env:TRAY_POS}
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
@@ -43,42 +47,11 @@ font-0 = Noto Sans:size=11;2
 font-1 = FontAwesome:size=11;3
 font-2 = Material Icons:size=11;4
 
-[bar/center]
-inherit = bar/default
-tray-position = right
-tray-detached = false
-tray-padding = 0
-; separator = |
+monitor = ${env:MONITOR:eDP-1}
 
-monitor = eDP-1
-
-modules-right = wireless cputemp cpu cpu-frequency date battery
+modules-right = wired wireless cputemp cpu cpu-frequency date battery
 modules-center = music
 modules-left = i3
-
-padding-left = 0
-
-
-[bar/external]
-inherit = bar/default
-monitor = DP-1-1
-tray-position = right
-
-modules-right = wired cputemp cpu cpu-frequency date battery
-modules-center = music
-modules-left = i3
-
-padding-left = 0
-
-[bar/hdmi]
-inherit = bar/default
-monitor = HDMI-1-0
-tray-position = right
-
-modules-right = date
-modules-left = i3
-
-padding-left = 0
 
 [module/kdeconnect]
 type = custom/script
