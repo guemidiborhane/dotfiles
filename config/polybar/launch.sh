@@ -9,7 +9,6 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch bars
-
 BAR_NAME=main
 BAR_CONFIG=/home/$USER/.config/polybar/config
 
@@ -32,12 +31,3 @@ hdmi_monitor=$(xrandr --query | grep $SECONDARY_EXTER)
 if [[ $external_monitor = *connected* ]]; then
     MONITOR=$SECONDARY_EXTER TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
 fi
-
-# Launch on primary monitor
-
-sleep 1
-
-# Launch on all other monitors
-for m in $OTHERS; do
- MONITOR=$m TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
-done
