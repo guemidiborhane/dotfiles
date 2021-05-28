@@ -31,7 +31,7 @@ offset-y = 0
 top = true
 fixed-center = true
 
-tray-position = ${env:TRAY_POS}
+tray-position = ${env:TRAY_POS:right}
 
 background = ${colors.background}
 foreground = ${colors.foreground}
