@@ -64,7 +64,7 @@ inherit = bar/default
 monitor = DP-1-1
 tray-position = right
 
-modules-right = wired date battery
+modules-right = wired cputemp cpu cpu-frequency date battery
 modules-center = music
 modules-left = i3
 
