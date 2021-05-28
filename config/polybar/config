@@ -29,6 +29,8 @@ height = 32
 offset-y = 0
 top = true
 fixed-center = true
+tray-position = right
+
 background = ${colors.background}
 foreground = ${colors.foreground}
 
@@ -45,9 +47,6 @@ font-2 = Material Icons:size=11;4
 
 [bar/center]
 inherit = bar/default
-tray-position = right
-tray-detached = false
-tray-padding = 0
 ; separator = |
 
 monitor = eDP-1
