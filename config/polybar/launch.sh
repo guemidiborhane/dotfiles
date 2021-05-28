@@ -23,7 +23,7 @@ if [[ $external_monitor = *connected* ]]; then
     MONITOR=$BUILT_IN TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
     sleep 1
 else
-    MONITOR=$BUILT_IN TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
+    MONITOR=$BUILT_IN TRAY_POS="right" polybar --reload -c $BAR_CONFIG $BAR_NAME &
     sleep 1
 fi
 
