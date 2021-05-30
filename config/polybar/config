@@ -49,7 +49,7 @@ font-2 = Material Icons:size=11;4
 
 monitor = ${env:MONITOR:eDP-1}
 
-modules-right = wired wireless cputemp cpu cpu-frequency date battery
+modules-right = wired wireless cputemp cpu cpu-frequency memory date battery
 modules-center = music
 modules-left = i3
 
@@ -57,20 +57,6 @@ modules-left = i3
 type = custom/script
 exec = "~/.config/polybar/kdeconnect.sh -d"
 tail = true
-
-[module/cputemp]
-type = internal/temperature
-base-temperature = 40
-warn-temperature = 60
-label-warn-foreground = ${colors.yellow}
-; Available tags:
-;   <label> (default)
-;   <ramp>
-format = <ramp> <label>
-format-warn = <ramp> <label-warn>
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
 
 [module/wired]
 type = internal/network
@@ -122,6 +108,18 @@ ws-icon-8 = 9;
 type = internal/xwindow
 label = %title:0:30:...%
 
+[module/cputemp]
+type = internal/temperature
+base-temperature = 50
+warn-temperature = 70
+label-warn-foreground = ${colors.yellow}
+format-foreground = ${colors.cpu}
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
 [module/cpu]
 type = internal/cpu
 interval = 2
@@ -135,6 +133,13 @@ label-foreground = ${colors.cpu}
 type = custom/script
 exec = ~/.config/polybar/cpu-frequency.sh
 interval = 10
+label-foreground = ${colors.cpu}
+
+[module/memory]
+type = internal/memory
+interval = 2
+label = %gb_used% / %gb_total%
+label-foreground = ${colors.ram}
 
 [module/date]
 type = internal/date
@@ -161,6 +166,7 @@ interval = 5
 time-format = %H:%M
 battery = BAT0
 adapter = AC
+full-at=95
 
 ; Available tags:
 ;   <label-charging> (default)
