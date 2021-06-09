@@ -158,7 +158,7 @@ click-left = i3-msg workspace 8
 interval = 5
 format= <label>
 format-foreground= ${colors.spotify}
-label = %output%
+label = %output:0:30:...%
 
 
 [module/battery]
