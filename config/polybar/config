@@ -60,7 +60,7 @@ tail = true
 
 [module/wired]
 type = internal/network
-interface = enp58s0u1u4
+interface = enp0s20f0u4u4
 interval=3
 label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
 
@@ -73,7 +73,7 @@ type = internal/i3
 pin-workspaces = true
 index-sort = true
 enable-click = true
-enable-scroll = false
+enable-scroll = true
 wrapping-scroll = false
 reverse-scroll = false
 fuzzy-match = true
@@ -103,6 +103,16 @@ ws-icon-5 = 6;
 ws-icon-6 = 7;
 ws-icon-7 = 8;
 ws-icon-8 = 9;
+ws-icon-9 = 9;
+ws-icon-10 = 11;
+ws-icon-11 = 12;
+ws-icon-12 = 13;
+ws-icon-13 = 14;
+ws-icon-14 = 15;
+ws-icon-15 = 16;
+ws-icon-16 = 17;
+ws-icon-17 = 18;
+ws-icon-18 = 19;
 
 [module/xwindow]
 type = internal/xwindow
