@@ -198,6 +198,7 @@ workspace $ws3 output $DP1Screen $builtInScreen
 workspace $ws6 output $DP1Screen $builtInScreen
 workspace $ws7 output $builtInScreen $DP1Screen
 workspace $ws8 output $builtInScreen $DP1Screen
+workspace $ws19 output $DP1Screen $builtInScreen
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -269,6 +270,7 @@ for_window [class="Thunderbird"] floating enable border normal
 
 assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
+assign [class="ru-turikhay-tlauncher-bootstrap-Bootstrap"] $ws19
 assign [class="GitKraken|GitFiend|GitAhead"] $ws6
 for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws8
 for_window [instance="github desktop"] move --no-auto-back-and-forth to workspace $ws6
