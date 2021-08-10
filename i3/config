@@ -111,6 +111,14 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# move focused window
+bindsym $mod+Ctrl+Shift+j move workspace to output left
+bindsym $mod+Ctrl+Shift+semicolon move workspace to output right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
