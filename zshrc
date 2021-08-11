@@ -1,7 +1,7 @@
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 source ~/.k8s-config
-precmd() { 
+precmd() {
   # [[ -f $(pwd)/.kube-namespace && -t $(ping -c 1 -W 1 $K8S_SERVER &> /dev/null) ]] && eval "kubens $(cat .kube-namespace) &> /dev/null"
 }
 
@@ -25,7 +25,7 @@ COMPLETION_WAITING_DOTS="true"
 
 plugins=(
   sudo git wd nvm
-  zsh-autosuggestions zsh-syntax-highlighting 
+  zsh-autosuggestions zsh-syntax-highlighting
   docker docker-compose kubectl
   hacker-quotes
 )
@@ -41,6 +41,7 @@ export EDITOR='vim'
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
 [[ -f "$HOME/.bin/zap.sh" ]] && source "$HOME/.bin/zap.sh"
 [[ -f "$HOME/.bin/php.sh" ]] && source "$HOME/.bin/php.sh"
+[[ -f "$HOME/.bin/pagespeed.sh" ]] && source "$HOME/.bin/pagespeed.sh"
 [[ -f "$HOME/.bin/kickoff.sh" ]] && source "$HOME/.bin/kickoff.sh"
 
 # PATHS
