@@ -13,6 +13,12 @@
   ./install.sh
 ```
 
+# Background crontab
+
+```
+*/5 * * * * ~/.i3/bg.sh
+```
+
 # Useful commands
 
 ```bash
