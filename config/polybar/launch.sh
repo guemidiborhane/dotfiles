@@ -13,8 +13,8 @@ BAR_NAME=main
 BAR_CONFIG=/home/$USER/.config/polybar/config
 
 BUILT_IN="eDP-1"
-MAIN_EXTER="DP-1-1"
-SECONDARY_EXTER="HDMI-1-0"
+MAIN_EXTER="HDMI-1-0"
+SECONDARY_EXTER="DP-1-1"
 
 external_monitor=$(xrandr --query | grep $MAIN_EXTER)
 if [[ $external_monitor = *connected* ]]; then
