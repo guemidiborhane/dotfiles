@@ -201,9 +201,9 @@ set $DP2Screen  DP-1-0
 set $hdmiScreen  HDMI-1-0
 
 workspace $ws1 output $hdmiScreen $builtInScreen
-workspace $ws2 output $DP1Screen $builtInScreen
-workspace $ws3 output $DP1Screen $builtInScreen
-workspace $ws6 output $DP1Screen $builtInScreen
+workspace $ws2 output $hdmiScreen $builtInScreen
+workspace $ws3 output $hdmiScreen $builtInScreen
+workspace $ws6 output $hdmiScreen $builtInScreen
 workspace $ws7 output $builtInScreen $DP1Screen
 workspace $ws8 output $builtInScreen $DP1Screen
 workspace $ws19 output $DP1Screen $builtInScreen
@@ -273,8 +273,8 @@ bindsym $mod2+Shift+9 move container to workspace $ws19; workspace $ws19
 bindsym $mod+Shift+x [urgent=latest] focus
 
 # Open applications on specific workspaces
-assign [class="Thunderbird"] $ws3
-for_window [class="Thunderbird"] floating enable border normal
+# assign [class="Thunderbird"] $ws3
+for_window [class="Thunderbird"] floating enable border pixel 2
 
 assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
