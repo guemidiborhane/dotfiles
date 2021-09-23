@@ -49,7 +49,7 @@ font-2 = Material Icons:size=11;4
 
 monitor = ${env:MONITOR:eDP-1}
 
-modules-right = wired wireless cputemp cpu cpu-frequency memory date battery
+modules-right = wired wireless cputemp system-fan-speed cpu cpu-frequency memory date battery
 modules-center = music
 modules-left = i3
 
@@ -60,7 +60,7 @@ tail = true
 
 [module/wired]
 type = internal/network
-interface = enp0s20f0u4u4
+interface = enp58s0u1u4
 interval=3
 label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
 
@@ -129,6 +129,15 @@ format-warn = <ramp> <label-warn>
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
+
+[module/system-fan-speed]
+type = custom/script
+exec = ~/.config/polybar/system-fan-speed.sh
+interval = 5
+format-foreground = ${colors.cpu}
+label-foreground = ${colors.cpu}
+format-prefix = " "
+format = <label>
 
 [module/cpu]
 type = internal/cpu
