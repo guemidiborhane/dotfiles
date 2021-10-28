@@ -346,6 +346,10 @@ for_window [class="^PacketTracer7$"] floating enable border normal
 for_window [class="^PacketTracer7$" title="PT Activity"] floating disable
 for_window [class="^PacketTracer7$" title="Cisco Packet Tracer"] floating disable
 
+# Android emulator
+for_window [title=".*Emulator.*"] floating enable
+assign [title=".*Emulator.*"] $ws2
+
 # switch to workspace with urgent window automatically
 # for_window [urgent=latest] focus
 
