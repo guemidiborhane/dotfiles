@@ -30,6 +30,7 @@ height = 32
 offset-y = 0
 top = true
 fixed-center = true
+enable-ipc = true
 
 tray-position = ${env:TRAY_POS:right}
 
@@ -133,7 +134,7 @@ ramp-2 = 
 [module/system-fan-speed]
 type = custom/script
 exec = ~/.config/polybar/system-fan-speed.sh
-interval = 5
+interval = 2
 format-foreground = ${colors.cpu}
 label-foreground = ${colors.cpu}
 format-prefix = " "
