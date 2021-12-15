@@ -57,7 +57,6 @@ export OPENCV_LOG_LEVEL=ERROR
 
 export PATH=$PATH:~/.emacs.d/bin
 export JAVA_HOME="/usr/lib/jvm/default-runtime"
-# source /usr/share/nvm/init-nvm.sh
 source ~/.i3/gnome-keyring.sh
 
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -70,3 +69,5 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/mcli mcli
+
+eval "$(mcfly init zsh)"
