@@ -1,4 +1,3 @@
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 source ~/.k8s-config
 precmd() {
@@ -24,7 +23,7 @@ DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-  sudo git wd nvm
+  sudo git wd fnm
   zsh-autosuggestions zsh-syntax-highlighting
   docker docker-compose kubectl
   hacker-quotes
@@ -49,6 +48,8 @@ export PATH="$PATH:$HOME/.bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval `fnm env`
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
