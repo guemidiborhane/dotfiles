@@ -279,6 +279,8 @@ bindsym $mod+Shift+x [urgent=latest] focus
 # Open applications on specific workspaces
 # assign [class="Thunderbird"] $ws3
 for_window [class="Thunderbird"] floating enable border pixel 2
+for_window [class="Thunderbird"] move to scratchpad
+bindsym $mod2+g [class="Thunderbird"] scratchpad show
 
 assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
