@@ -36,8 +36,11 @@ ps -xaw -o state,ppid | grep Z | grep -v PID | awk '{ print $2 }' | xargs kill -
 
 # find vicious PHP files
 find / -type f -regex '.*/*.php' | grep -P '/(?!autoload|settings|personal|mbstring|defaults|translit)([a-z0-9]{8}).php$' > suspicions.txt
+
+# Rerun `bundle install` until it succeeds (useful in case of network issues)
+sh -c 'while ! $(bundle check &> /dev/null); do bundle install --retry 10; sleep 1; done'
 ```
 
 # Useful Links
 * [FontAwesome Cheatsheet](https://fontawesome.bootstrapcheatsheets.com/)
- 
+
