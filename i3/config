@@ -276,6 +276,12 @@ bindsym $mod2+Shift+9 move container to workspace $ws19; workspace $ws19
 
 bindsym $mod+Shift+x [urgent=latest] focus
 
+
+# enable window icons for all windows
+for_window [all] title_window_icon on
+
+for_window [class="Arandr"] floating enable
+
 # Open applications on specific workspaces
 # assign [class="Thunderbird"] $ws3
 for_window [class="Thunderbird"] floating enable border pixel 2
@@ -411,7 +417,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id nitrogen --restore
 exec --no-startup-id ~/.i3/bg.sh; sleep 1; picom -b
 #exec --no-startup-id manjaro-hello
-# exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
