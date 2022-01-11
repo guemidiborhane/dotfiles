@@ -61,7 +61,7 @@ tail = true
 
 [module/wired]
 type = internal/network
-interface = enp58s0u1u4
+interface = enp0s20f0u4u4
 interval=3
 label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
 
