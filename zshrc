@@ -1,5 +1,4 @@
 
-source ~/.k8s-config
 precmd() {
   # [[ -f $(pwd)/.kube-namespace && -t $(ping -c 1 -W 1 $K8S_SERVER &> /dev/null) ]] && eval "kubens $(cat .kube-namespace) &> /dev/null"
 }
@@ -25,7 +24,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   sudo git wd fnm
   zsh-autosuggestions zsh-syntax-highlighting
-  docker docker-compose kubectl
+  docker docker-compose
   hacker-quotes
 )
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
