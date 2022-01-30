@@ -127,6 +127,7 @@ label-warn-foreground = ${colors.yellow}
 format-foreground = ${colors.cpu}
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>
+hwmon-path=/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
