@@ -199,18 +199,17 @@ set $ws17 17
 set $ws18 18
 set $ws19 19
 
-set $builtInScreen eDP-1
-set $DP1Screen  DP-1-1
-set $DP2Screen  DP-1-0
-set $hdmiScreen  HDMI-1-0
+set $mainScreen DP-4
+set $secondaryScreen DP-0
+set $portraitScreen DP-2
 
-workspace $ws1 output $hdmiScreen $builtInScreen
-workspace $ws2 output $hdmiScreen $builtInScreen
-workspace $ws3 output $hdmiScreen $builtInScreen
-workspace $ws6 output $hdmiScreen $builtInScreen
-workspace $ws7 output $builtInScreen $DP1Screen
-workspace $ws8 output $builtInScreen $DP1Screen
-workspace $ws19 output $DP1Screen $builtInScreen
+workspace $ws1 output $mainScreen
+workspace $ws2 output $mainScreen
+workspace $ws3 output $mainScreen
+workspace $ws6 output $secondaryScreen
+workspace $ws7 output $portraitScreen
+workspace $ws8 output $portraitScreen
+workspace $ws19 output $mainScreen
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
