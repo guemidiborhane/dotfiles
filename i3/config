@@ -283,9 +283,8 @@ for_window [class="Arandr"] floating enable
 
 # Open applications on specific workspaces
 # assign [class="Thunderbird"] $ws3
-for_window [class="Thunderbird"] floating enable border pixel 2
-for_window [class="Thunderbird"] move to scratchpad
-bindsym $mod2+g [class="Thunderbird"] scratchpad show
+assign [class="Thunderbird"] $ws12
+bindsym $mod2+g [class="Thunderbird"] focus
 
 for_window [class="TelegramDesktop"] floating enable border normal
 for_window [class="TelegramDesktop"] move to scratchpad
