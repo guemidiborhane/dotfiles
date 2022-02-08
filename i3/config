@@ -294,14 +294,13 @@ bindsym $mod2+t [class="TelegramDesktop"] scratchpad show
 assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
 assign [class="ru-turikhay-tlauncher-bootstrap-Bootstrap"] $ws19
-assign [class="GitKraken|GitFiend|GitAhead"] $ws6
+assign [class="GitKraken|GitFiend|GitAhead|Github Desktop"] $ws6
 for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws8
-for_window [instance="github desktop"] move to scratchpad
 
 bindsym $mod+x [instance="brave|chrome|firefox"] focus
 bindsym $mod+s [instance="spotify"] focus
 bindsym $mod+d [class="discord"] focus
-bindsym $mod+g [instance="gitkraken|gitfiend|GitAhead|github desktop"] scratchpad show
+bindsym $mod+g [instance="gitkraken|gitfiend|GitAhead|github desktop"] focus
 
 
 for_window [instance="scrcpy"] floating enable border normal
