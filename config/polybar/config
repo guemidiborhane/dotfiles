@@ -126,7 +126,7 @@ ramp-2 = 
 [module/system-fan-speed]
 type = custom/script
 exec = ~/.config/polybar/system-fan-speed.sh
-interval = 2
+interval = 5
 format-foreground = ${colors.cpu}
 label-foreground = ${colors.cpu}
 format-prefix = " "

@@ -290,7 +290,7 @@ for_window [class="TelegramDesktop"] floating enable border normal
 for_window [class="TelegramDesktop"] move to scratchpad
 bindsym $mod2+t [class="TelegramDesktop"] scratchpad show
 
-assign [class="Code|Subl|jetbrains-rubymine|jetbrains-idea"] $ws2
+assign [class="Code|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
 assign [class="ru-turikhay-tlauncher-bootstrap-Bootstrap"] $ws19
 assign [instance="gitkraken|gitfiend|GitAhead|github desktop"] $ws6
@@ -409,7 +409,7 @@ mode "resize" {
 bindsym $mod+l exec --no-startup-id blurlock
 bindsym $mod+Shift+Ctrl+r exec --no-startup-id ~/.i3/scripts/restore-workspace.sh
 # exec --no-startup-id nitrogen --restore
-exec --no-startup-id ~/.i3/bg.sh; sleep 1; picom -b
+exec --no-startup-id sleep 1; picom -b
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
