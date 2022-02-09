@@ -1,9 +1,8 @@
 #!/bin/sh
 
-speed=$(sensors | grep fan1 | awk '{print $2; exit}')
+speed=$(liquidctl --match h115i status --json | jq '[.[0].status[1,3].value] | max')
 
 if [ "$speed" != "" ]; then
-    speed_round=$(echo "$speed/1000" | bc -l | LANG=C xargs printf "%.1f\n")
     echo "$speed RPM"
 else
    echo ""
