@@ -5,8 +5,8 @@
 [colors]
 foreground = #f8f8f2
 text-fg = ${self.fg}
-background = #f5282a36
-base-bg    = ${self.bg:#dd282a36}
+background = #282a36
+base-bg    = ${self.bg}
 text-bg = ${self.bg}
 selection = #44475a
 comment = #6272a4
