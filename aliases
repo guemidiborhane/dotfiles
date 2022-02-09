@@ -77,3 +77,4 @@ alias nd="nordvpn d"
 alias mc="mcli"
 
 alias sudo=doas
+alias sudoedit="sudo vim"
