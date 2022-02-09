@@ -32,14 +32,6 @@ alias la="ls -a"
 alias lla="ls -la"
 alias lt="ls --tree"
 
-# Laravel
-alias artisan="php artisan"
-alias migrate="php artisan migrate"
-# alias ql="php artisan queue:listen --timeout=360"
-
-# Others
-alias reset_wifi="nmcli nm sleep false"
-
 # Git aliases
 alias nah="git reset --hard;git clean -df"
 alias oops="git commit --amend --no-edit"
@@ -52,29 +44,16 @@ alias p="push"
 alias glog="git lg"
 alias amend="env HUSKY=0 git commit --amend"
 
-# alias geoserver="cd ~/Code/geoserver && ./bin/startup.sh"
-# alias go="git push -fv; bundle exec cap deploy"
-
-# alias tunnel="sshuttle --dns -r midas 0/0 -vv"
-alias portainer="docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data --name portainer portainer/portainer"
+alias portainer="docker run -d -P -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data --name portainer portainer/portainer"
 
 # docker-compose
 alias dc=docker-compose
 alias dcup="dc up"
 alias dcupd="dc up -d"
 alias dcdn="dc down"
-alias run="dc run --rm"
-alias runn="dc run --rm runner"
 alias dce="dc exec"
 alias dclf="dc logs -f"
 alias dcps="dc ps"
-
-# NordVPN
-alias nc="nordvpn c"
-alias nd="nordvpn d"
-
-
-alias mc="mcli"
 
 alias sudo=doas
 alias sudoedit="sudo vim"
