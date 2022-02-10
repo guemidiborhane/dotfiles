@@ -1,10 +1,3 @@
 #!/bin/sh
-
-c=0;t=0
-
-awk '/MHz/ {print $4}' < /proc/cpuinfo | (while read -r i
-do
-    t=$( echo "$t + $i" | bc )
-    c=$((c+1))
-done
-echo "scale=2; $t / $c / 1000" | bc | awk '{print $1" GHz"}')
+max_frequency=$(awk '/MHz/ {print $4}' < /proc/cpuinfo | awk '{if($1>a)a=$1;}END{print a}')
+echo "scale=2; $max_frequency / 1000" | bc | awk '{print $1" GHz"}'
