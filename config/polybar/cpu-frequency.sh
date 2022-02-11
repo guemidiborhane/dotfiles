@@ -13,4 +13,4 @@ avg_frequency=$(echo "scale=2; $t / $c / 1000" | bc)
 max_frequency=$(echo "scale=2; $(cat /proc/cpuinfo | grep MHz | sort -n | tail -1 | awk '/MHz/ {print $4}') / 1000" | bc)
 
 
-echo "$min_frequency $avg_frequency $max_frequency" | awk '{print " ~" $2"GHz |  "$1" GHz  " $3 " GHz"}')
+echo "$min_frequency $avg_frequency $max_frequency" | awk '{print " ~" $2"GHz | "$1" GHz   " $3 " GHz"}')

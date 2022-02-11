@@ -160,7 +160,7 @@ label-foreground = ${colors.cpu}
 [module/cpu-frequency]
 type = custom/script
 exec = ~/.config/polybar/cpu-frequency.sh
-interval = 2
+interval = 1
 label-foreground = ${colors.cpu}
 
 [module/memory]
