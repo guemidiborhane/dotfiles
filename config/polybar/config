@@ -25,14 +25,14 @@ underline=${self.yellow}
 active=${self.white}
 secondary=#4F5476
 
-[bar/main]
+[bar/default]
 height = 32
 offset-y = 0
 top = true
 fixed-center = true
 enable-ipc = true
 
-tray-position = ${env:TRAY_POS:right}
+tray-position = 
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -53,6 +53,22 @@ monitor = ${env:MONITOR:eDP-1}
 modules-right = wired cputemp system-fan-speed cpu cpu-frequency memory date
 modules-center = music
 modules-left = i3
+
+[bar/DP-0]
+inherit = bar/default
+modules-right = cpu cpu-frequency cputemp system-fan-speed date
+
+# Portrait
+[bar/DP-2]
+inherit = bar/default
+modules-right = wired cpu-frequency memory date
+modules-center = 
+
+# Primary
+[bar/DP-4]
+inherit = bar/default
+tray-position = right
+modules-center = 
 
 [module/wired]
 type = internal/network
