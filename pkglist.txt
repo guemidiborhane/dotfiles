@@ -1,6 +1,6 @@
 autotiling
-beekeeper-studio
-boostnote-bin
+beekeeper-studio-appimage
+boost-note-local-bin
 brave-bin
 btop
 clipit
@@ -9,7 +9,7 @@ dbeaver
 discord_arch_electron
 docker
 docker-compose
-enpass-bin
+enpass
 etcher
 filezilla
 firefox-developer-edition
@@ -24,7 +24,7 @@ glances
 chromium
 gparted
 inkscape
-insomnia
+insomnia-bin
 kitty
 kompose
 krew-bin
