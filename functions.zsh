@@ -27,8 +27,9 @@ function _run_in_php_container() {
             fi
             # run your container
             code_directory="$HOME/Code"
+            image_name="guemidiborhane/php-cli:latest"
             echo "Global PHP container not found. Creating ..."
-            docker run -dit -v $code_directory:$code_directory -v $HOME/.composer/cache:/home/app/.composer/cache --net host -w $code_directory --name $container_name pph:7.4 /bin/sh>/dev/null
+            docker run -dit -v $code_directory:$code_directory -v $HOME/.composer/cache:/home/app/.composer/cache --net host -w $code_directory --name $container_name $image_name /bin/sh>/dev/null
         fi
         docker exec -it -w $(pwd) $container_name $1 "${@:2}"
     else
