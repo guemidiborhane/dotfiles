@@ -1,0 +1,11 @@
+[Unit]
+Description=dynamically adjust liquidctl device pump and fan speeds.
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStartPre=liquidctl --match H115i initialize --pump-mode quiet
+ExecStart=/home/borhane/.bin/yoda -v --match H115i control fan with '(40,0),(50,20),(60,50),(70,80),(80,100)' on zenpower.tdie
+
+[Install]
+WantedBy=default.target
