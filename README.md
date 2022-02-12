@@ -16,7 +16,7 @@
 # Background crontab
 
 ```
-*/5 * * * * ~/.i3/bg.sh
+*/5 * * * * ~/.i3/scripts/bg.sh
 ```
 
 # Useful commands

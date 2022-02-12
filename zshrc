@@ -55,7 +55,7 @@ export OPENCV_LOG_LEVEL=ERROR
 
 export PATH=$PATH:~/.emacs.d/bin
 export JAVA_HOME="/usr/lib/jvm/default-runtime"
-source ~/.i3/gnome-keyring.sh
+source ~/.i3/scripts/gnome-keyring.sh
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator

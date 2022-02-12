@@ -5,7 +5,7 @@ Description=Configure displays
 ExecStartPre=/bin/sleep 2
 Type=oneshot
 ExecStart=/home/borhane/.screenlayout/main-setup.sh
-ExecStartPost=/usr/bin/bash /home/borhane/.dotfiles/i3/bg.sh
+ExecStartPost=/usr/bin/bash /home/borhane/.dotfiles/i3/scripts/bg.sh
 
 [Install]
 WantedBy=default.target
