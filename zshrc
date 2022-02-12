@@ -1,11 +1,3 @@
-
-precmd() {
-  # [[ -f $(pwd)/.kube-namespace && -t $(ping -c 1 -W 1 $K8S_SERVER &> /dev/null) ]] && eval "kubens $(cat .kube-namespace) &> /dev/null"
-}
-
-# Change to saved working dir
-[[ -f "/tmp/whereami" ]] && cd "$(< /tmp/whereami)"
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
@@ -34,14 +26,8 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
 export SUDO_EDITOR='sudoedit'
 
-# source /etc/zsh_command_not_found
-# [[ -e $HOME/Sources/undistract-me/notifyosd.zsh ]] && . $HOME/Sources/undistract-me/notifyosd.zsh
-
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
-[[ -f "$HOME/.bin/zap.sh" ]] && source "$HOME/.bin/zap.sh"
-[[ -f "$HOME/.bin/php.sh" ]] && source "$HOME/.bin/php.sh"
-[[ -f "$HOME/.bin/pagespeed.sh" ]] && source "$HOME/.bin/pagespeed.sh"
-[[ -f "$HOME/.bin/kickoff.sh" ]] && source "$HOME/.bin/kickoff.sh"
+[[ -f "$HOME/.functions.zsh" ]] && source "$HOME/.functions.zsh"
 
 # PATHS
 export PATH="$PATH:$HOME/.bin"
