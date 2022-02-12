@@ -2,6 +2,7 @@ autotiling
 beekeeper-studio
 boostnote-bin
 brave-bin
+btop
 clipit
 ctop
 dbeaver
@@ -17,12 +18,11 @@ gimp
 git
 git-lfs
 gitflow-avh
+gitfiend
 github-desktop
 glances
 chromium
 gparted
-hadolint-bin
-htop
 inkscape
 insomnia
 kitty
@@ -32,12 +32,13 @@ kubectl-bin
 kubectx
 lens-bin
 lsd
-lutris
 net-tools
 nfs-utils
 ngrok
 nmap
 obs-studio
+opendoas
+opendoas-sudo
 pinta
 polybar
 qgis-ltr
