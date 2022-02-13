@@ -1,0 +1,7 @@
+{
+    "terminals": [
+        "Gnome-terminal",
+        "Alacritty",
+        "kitty"
+    ]
+}

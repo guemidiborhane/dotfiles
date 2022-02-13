@@ -6,7 +6,11 @@ killall -q autotiling
 # Wait until the processes have been shut down
 while pgrep -u $UID -x autotiling >/dev/null; do sleep 1; done
 
+resurrect_dir=$HOME/.i3/i3-resurrect
+files=$(for n in $resurrect_dir/workspace_*_layout.json; do printf '%s\n' "$n"; done)
 
-i3-resurrect restore -w $(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2)
+for file in $files; do
+    i3-resurrect restore -w $(basename $file | cut -d'_' -f2)
+done
 
-autotiling&
+autotiling 2>&1 & disown
