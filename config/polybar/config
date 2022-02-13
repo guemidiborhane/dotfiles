@@ -130,7 +130,7 @@ ws-icon-18 = 19;
 
 [module/xwindow]
 type = internal/xwindow
-label = %title%
+label = %title:0:50:...%
 format-background = ${colors.background}
 format-foreground = ${colors.yellow}
 
