@@ -26,3 +26,4 @@ ln -fsv $dir/Xresources $HOME/.Xresources
 mkdir $HOME/Code
 
 ln -fsv $dir/Code/key_ok.png $HOME/Code
+chmod +x $dir/.i3/scripts/*.sh

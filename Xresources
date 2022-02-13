@@ -6,7 +6,7 @@ Xft.autohint:  false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
-Xcursor.theme: Qogir-manjaro
+Xcursor.theme: Phinger Cursors
 Xcursor.size:                     0
 
 #define nord0 #2E3440
