@@ -407,7 +407,7 @@ mode "resize" {
 
 # Lock screen
 bindsym $mod+l exec --no-startup-id blurlock
-bindsym $mod+Shift+Ctrl+r exec --no-startup-id ~/.i3/scripts/restore-workspace.sh
+
 # exec --no-startup-id nitrogen --restore
 exec --no-startup-id sleep 1; picom -b
 #exec --no-startup-id manjaro-hello
