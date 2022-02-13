@@ -1,0 +1,9 @@
+[Unit]
+Description=Restore saved workspaces
+After=xrandr.service
+
+[Service]
+ExecStart=/home/borhane/.i3/scripts/restore-workspaces.sh
+
+[Install]
+WantedBy=default.target

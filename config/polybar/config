@@ -32,7 +32,7 @@ top = true
 fixed-center = true
 enable-ipc = true
 
-tray-position = 
+tray-position =
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -50,8 +50,8 @@ font-2 = Material Icons:size=11;4
 
 monitor = ${env:MONITOR:eDP-1}
 
-modules-right = wired cputemp system-fan-speed cpu cpu-frequency memory date
-modules-center = music
+modules-right =
+modules-center = xwindow
 modules-left = i3
 
 [bar/DP-0]
@@ -61,14 +61,20 @@ modules-right = cpu cpu-frequency cputemp system-fan-speed date
 # Portrait
 [bar/DP-2]
 inherit = bar/default
-modules-right = wired cpu-frequency memory date
-modules-center = 
+modules-right = wired fs-root date
 
 # Primary
 [bar/DP-4]
 inherit = bar/default
 tray-position = right
-modules-center = 
+modules-right = memory date
+modules-left = i3
+
+[module/fs-root]
+type = internal/fs
+mount-0 = /
+spacing = 0
+label-mounted = %{F#ddcc00}    %used% / %total%
 
 [module/wired]
 type = internal/network
@@ -124,7 +130,9 @@ ws-icon-18 = 19;
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title%
+format-background = ${colors.background}
+format-foreground = ${colors.yellow}
 
 [module/cputemp]
 type = internal/temperature
