@@ -74,7 +74,7 @@ modules-left = i3
 type = internal/fs
 mount-0 = /
 spacing = 0
-label-mounted = %{F#ddcc00}    %used% / %total%
+label-mounted = %{F#ddcc00}    %used% / %free%
 
 [module/wired]
 type = internal/network
