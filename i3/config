@@ -209,6 +209,10 @@ workspace $ws3 output $mainScreen
 workspace $ws6 output $secondaryScreen
 workspace $ws7 output $portraitScreen
 workspace $ws8 output $portraitScreen
+workspace $ws11 output $portraitScreen
+workspace $ws12 output $secondaryScreen
+workspace $ws13 output $secondaryScreen
+workspace $ws14 output $portraitScreen
 workspace $ws19 output $mainScreen
 
 # switch to workspace
