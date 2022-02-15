@@ -7,7 +7,7 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
 Xcursor.theme: Phinger Cursors
-Xcursor.size:                     0
+Xcursor.size:  32
 
 #define nord0 #2E3440
 #define nord1 #3B4252
