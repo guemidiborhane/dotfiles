@@ -56,11 +56,13 @@ modules-left = i3
 
 [bar/DP-0]
 inherit = bar/default
+modules-center =
 modules-right = cpu cpu-frequency cputemp system-fan-speed date
 
 # Portrait
 [bar/DP-2]
 inherit = bar/default
+modules-center =
 modules-right = wired fs-root date
 
 # Primary
