@@ -4,7 +4,7 @@ Description=Configure displays
 [Service]
 ExecStartPre=/bin/sleep 2
 Type=oneshot
-ExecStart=/home/borhane/.screenlayout/main-setup.sh
+ExecStart=/home/borhane/.dotfiles/layouts/main-setup.sh
 ExecStartPost=/usr/bin/bash /home/borhane/.dotfiles/i3/scripts/bg.sh
 
 [Install]
