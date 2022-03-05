@@ -48,6 +48,7 @@ signal-desktop
 spotify-adblock
 sublime-text-4
 telegram-desktop
+tidy-viewer
 tlauncher
 tmux
 tmux-plugin-manager
