@@ -291,8 +291,6 @@ assign [class="Thunderbird"] $ws12
 bindsym $mod2+g [class="Thunderbird"] focus
 
 for_window [class="TelegramDesktop"] floating enable border normal
-for_window [class="TelegramDesktop"] move to scratchpad
-bindsym $mod2+t [class="TelegramDesktop"] scratchpad show
 
 assign [class="Code|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
@@ -348,6 +346,7 @@ for_window [class="Nemo"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
+for_window [class="TeamViewer" instance="TeamViewer"] floating enable
 
 # MS Teams notifications
 for_window [title="Microsoft Teams Notification" class="microsoft teams - preview"] floating enable

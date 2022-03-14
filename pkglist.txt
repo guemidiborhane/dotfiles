@@ -1,6 +1,5 @@
 autotiling
-beekeeper-studio-appimage
-boost-note-local-bin
+beekeeper-studio-bin
 brave-bin
 btop
 clipit

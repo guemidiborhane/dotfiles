@@ -62,8 +62,8 @@ modules-right = cpu cpu-frequency cputemp system-fan-speed date
 # Portrait
 [bar/DP-2]
 inherit = bar/default
-modules-center =
-modules-right = wired fs-root date
+modules-center = wired
+modules-right = fs-root date
 
 # Primary
 [bar/DP-4]
