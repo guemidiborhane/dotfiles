@@ -5,6 +5,8 @@ rm -r $HOME/.i3/
 ln -fsv $dir/i3/ $HOME/.i3
 ln -fsv $dir/config/* $HOME/.config/
 
+ln -fsv $dir/easystroke $HOME/.easystroke
+
 ln -fsv $dir/zshrc $HOME/.zshrc
 ln -fsv $dir/p10k.zsh $HOME/.p10k.zsh
 ln -fsv $dir/aliases $HOME/.aliases
