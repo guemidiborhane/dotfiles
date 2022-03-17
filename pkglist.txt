@@ -9,6 +9,7 @@ discord_arch_electron
 dive
 docker
 docker-compose
+easystroke-git
 enpass
 etcher
 filezilla
