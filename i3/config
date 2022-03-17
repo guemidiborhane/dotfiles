@@ -291,6 +291,7 @@ assign [class="Thunderbird"] $ws12
 bindsym $mod2+g [class="Thunderbird"] focus
 
 for_window [class="TelegramDesktop"] floating enable border normal
+for_window [class="Easystroke"] floating enable border normal
 
 assign [class="Code|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
