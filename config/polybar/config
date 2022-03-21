@@ -62,7 +62,7 @@ modules-right = cpu cpu-frequency cputemp system-fan-speed date
 # Portrait
 [bar/DP-2]
 inherit = bar/default
-modules-center = wired
+modules-center = network
 modules-right = fs-root date
 
 # Primary
@@ -78,9 +78,9 @@ mount-0 = /
 spacing = 0
 label-mounted = %{F#ddcc00}    %used% / %free%
 
-[module/wired]
+[module/network]
 type = internal/network
-interface = enp5s0
+interface = wlp5s0
 interval=3
 label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
 
