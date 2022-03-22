@@ -55,7 +55,6 @@ bindsym Ctrl+Shift+space exec --no-startup-id rofimoji --action copy
 
 ##exec --no-startup-id volumeicon
 ##bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
-exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id pa-applet
 bindsym $mod+Ctrl+m exec pavucontrol
 
@@ -72,42 +71,20 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute "@DEFAULT_SO
 
 ################################################################################################
 
-# Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
-
 # Start Applications
-bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-# bindsym $mod+F3 exec ranger
-bindsym $mod+Shift+F3 exec pcmanfm_pkexec
-bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym Print --release exec --no-startup-id "flameshot gui"
-bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
-bindsym $mod+Shift+Ctrl+c --release exec autorandr -c
 
 focus_follows_mouse yes
 
 # change focus
-# bindsym $mod+j focus left
-# bindsym $mod+k focus down
-# bindsym $mod+l focus up
-# bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -116,10 +93,6 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # move focused window
-bindsym $mod+Ctrl+Shift+j move workspace to output left
-bindsym $mod+Ctrl+Shift+semicolon move workspace to output right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Ctrl+Shift+Left move workspace to output left
 bindsym $mod+Ctrl+Shift+Right move workspace to output right
 
@@ -143,9 +116,6 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-# bindsym $mod+space focus mode_toggle
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -286,7 +256,6 @@ for_window [all] title_window_icon on
 for_window [class="Arandr"] floating enable
 
 # Open applications on specific workspaces
-# assign [class="Thunderbird"] $ws3
 assign [class="Thunderbird"] $ws12
 bindsym $mod2+g [class="Thunderbird"] focus
 
@@ -309,9 +278,6 @@ for_window [instance="scrcpy"] floating enable border normal
 for_window [class="jetbrains-rubymine|jetbrains-idea" title="win0"] floating enable border none
 for_window [class="Gnome-calendar"] floating enable border pixel 1
 for_window [instance="heroic"] floating enable border normal
-# assign [class="Pale moon"] $ws2
-# assign [class="Pcmanfm"] $ws3
-# assign [class="Skype"] $ws5
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 2
@@ -412,24 +378,14 @@ mode "resize" {
 # Lock screen
 bindsym $mod+l exec --no-startup-id blurlock
 
-# exec --no-startup-id nitrogen --restore
 exec --no-startup-id sleep 1; picom -b
-#exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
-exec --no-startup-id autorandr -c
 exec --no-startup-id enpass -minimize
-# exec_always --no-startup-id sbxkb
-# exec --no-startup-id start_conky_maia
-# exec --no-startup-id start_conky_green
-# exec --no-startup-id xautolock -time 10 -locker blurlock
-exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id "killall polybar;~/.config/polybar/launch.sh"
-exec_always --no-startup-id autotiling
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -452,41 +408,8 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-# bar {
-#   i3bar_command i3bar
-#   status_command i3blocks
-#   position top
-#   font pango:Source Code Pro 11, FontAwesome
-#   bindsym button4 nop
-#   bindsym button5 nop
-#   strip_workspace_numbers no
-
-#   colors {
-#     background #282A36
-#     statusline #F8F8F2
-#     separator  #44475A
-
-#     focused_workspace  #44475A #44475A #F8F8F2
-#     active_workspace   #282A36 #44475A #F8F8F2
-#     inactive_workspace #282A36 #282A36 #BFBFBF
-#     urgent_workspace   #FF5555 #FF5555 #F8F8F2
-#     binding_mode       #FF5555 #FF5555 #F8F8F2
-#   }
-# }
-
 # hide/unhide i3status bar
 bindsym $mod+m exec polybar-msg cmd toggle
-
-# Theme colors
-# class                   border  backgr. text    indic.   child_border
-#   client.focused          #556064 #556064 #80FFF9 #FDF6E3
-#   client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-#   client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
-#   client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-#   client.placeholder      #000000 #0c0c0c #ffffff #000000
-
-#   client.background       #2B2C2B
 
 #############################
 ### settings for i3-gaps: ###
