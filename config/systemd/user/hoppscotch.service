@@ -1,0 +1,10 @@
+[Unit]
+Description=Hoppscotch.io
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart=docker run --name hoppscotch -p 9999:3000 --restart always hoppscotch/hoppscotch:latest
+
+[Install]
+WantedBy=default.target
