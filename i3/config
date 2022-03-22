@@ -53,8 +53,6 @@ bindsym Ctrl+Shift+space exec --no-startup-id rofimoji --action copy
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-##exec --no-startup-id volumeicon
-##bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 exec --no-startup-id pa-applet
 bindsym $mod+Ctrl+m exec pavucontrol
 
@@ -63,11 +61,6 @@ set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume "@DEFAULT_SINK@" +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume "@DEFAULT_SINK@" -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute "@DEFAULT_SINK@" toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute "@DEFAULT_SOURCE@" toggle
 
 ################################################################################################
 
@@ -380,6 +373,7 @@ bindsym $mod+l exec --no-startup-id blurlock
 
 exec --no-startup-id sleep 1; picom -b
 exec --no-startup-id nm-applet
+exec --no-startup-id pa-applet
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id blueman-applet

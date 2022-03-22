@@ -40,6 +40,7 @@ nmap
 obs-studio
 opendoas
 opendoas-sudo
+pa-applet
 pinta
 polybar
 qgis-ltr
