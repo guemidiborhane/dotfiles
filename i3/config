@@ -254,6 +254,7 @@ bindsym $mod2+g [class="Thunderbird"] focus
 
 for_window [class="TelegramDesktop"] floating enable border normal
 for_window [class="Easystroke"] floating enable border normal
+for_window [class="copyq"] floating enable border none
 
 assign [class="Code|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
@@ -375,7 +376,7 @@ exec --no-startup-id sleep 1; picom -b
 exec --no-startup-id nm-applet
 exec --no-startup-id pa-applet
 exec --no-startup-id pamac-tray
-exec --no-startup-id clipit
+exec --no-startup-id copyq
 exec --no-startup-id blueman-applet
 exec --no-startup-id enpass -minimize
 exec_always --no-startup-id fix_xcursor

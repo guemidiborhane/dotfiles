@@ -2,7 +2,7 @@ autotiling
 beekeeper-studio-bin
 brave-bin
 btop
-clipit
+copyq
 ctop
 dbeaver
 discord_arch_electron
