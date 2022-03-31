@@ -69,7 +69,7 @@ modules-right = fs-root date
 [bar/DP-4]
 inherit = bar/default
 tray-position = right
-modules-right = memory date
+modules-right = memory date vpn-openvpn
 modules-left = i3
 
 [module/fs-root]
@@ -81,8 +81,13 @@ label-mounted = %{F#ddcc00}    %used% / %free%
 [module/network]
 type = internal/network
 interface = wlp5s0
-interval=3
+interval=1
 label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
+
+[module/vpn-openvpn]
+type = custom/script
+exec = ~/.config/polybar/openvpn-status.sh
+interval = 5
 
 [module/i3]
 type = internal/i3
