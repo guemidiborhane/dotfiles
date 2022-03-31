@@ -374,7 +374,6 @@ bindsym $mod+l exec --no-startup-id blurlock
 
 exec --no-startup-id sleep 1; picom -b
 exec --no-startup-id nm-applet
-exec --no-startup-id pa-applet
 exec --no-startup-id pamac-tray
 exec --no-startup-id copyq
 exec --no-startup-id blueman-applet
