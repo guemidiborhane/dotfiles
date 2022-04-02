@@ -11,9 +11,21 @@ function dmenu() {
 RED='%{F#ff5555}'
 CYAN='%{F#8be9fd}'
 
+function iface_with_ip() {
+    iface=$1
+    ip=$(nmcli -g ip4.address con show $iface)
+    echo "$ip ($iface)"
+}
+
 if [ $# -eq 0 ]; then
     icon="$CYAN " # lock
-    status=$(nc show --active | grep -i vpn | awk '{print $1}' | tr '\n' ', ' | sed 's/,$//')
+    connected=$(nc show --active | grep -i vpn | awk '{print $1}')
+    # | xargs -I {} bash -c '
+    if [ -n "$connected" ]; then
+        status=$(echo -e "$connected" | xargs -I % bash -c "$(declare -f iface_with_ip); iface_with_ip %" | tr '\n' ', ' | sed 's/,$//')
+    else
+        status=$(echo -e "$connected" | tr '\n' ', ' | sed 's/,$//')
+    fi
     if [ -z "$status" ]; then
         icon="$RED"
         status=""
