@@ -62,7 +62,7 @@ modules-right = cpu cpu-frequency cputemp system-fan-speed date
 # Portrait
 [bar/DP-2]
 inherit = bar/default
-modules-center = network
+modules-center = network-bit-rate network
 modules-right = fs-root date
 
 # Primary
@@ -83,6 +83,12 @@ interface = wlp5s0
 interval=1
 label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
 
+[module/network-bit-rate]
+type = custom/script
+exec = iwconfig wlp5s0 | awk '/Bit Rate=/ {print $2,$3}' | sed 's/Rate=//'
+interval = 5
+label = %{F#ff79c6}  %output%
+
 [module/vpn]
 type = custom/script
 exec = vpn
@@ -92,7 +98,6 @@ enable-click = true
 click-left = vpn connect
 click-right = vpn disconnect
 click-middle = vpn reconnect
-
 
 [module/i3]
 type = internal/i3
