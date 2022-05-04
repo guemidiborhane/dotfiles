@@ -259,7 +259,8 @@ for_window [class="youtube-dl-gui"] floating enable border none
 
 assign [class="Code|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
-assign [class="ru-turikhay-tlauncher-bootstrap-Bootstrap"] $ws19
+assign [class="org-tlauncher-tlauncher-rmo-TLauncher"] $ws19
+assign [class="Minecraft*"] $ws19
 assign [instance="gitkraken|gitfiend|GitAhead|github desktop"] $ws6
 for_window [class="Spotify"] move --no-auto-back-and-forth to workspace $ws8
 
