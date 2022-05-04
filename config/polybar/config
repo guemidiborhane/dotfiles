@@ -62,14 +62,14 @@ modules-right = cpu cpu-frequency cputemp system-fan-speed date
 # Portrait
 [bar/DP-2]
 inherit = bar/default
-modules-center = network-bit-rate network
+modules-center = network
 modules-right = fs-root date
 
 # Primary
 [bar/DP-4]
 inherit = bar/default
 tray-position = right
-modules-right = vpn memory date
+modules-right = network-bit-rate ping vpn memory date
 
 [module/fs-root]
 type = internal/fs
@@ -80,24 +80,30 @@ label-mounted = %{F#ddcc00}    %used% / %free%
 [module/network]
 type = internal/network
 interface = wlp5s0
-interval=1
-label-connected = %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
+interval = 3
+ping-interval = 1
+label-connected = %essid% using %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9%  %upspeed:9% 
+
+[module/ping]
+type = custom/script
+exec = ~/.config/polybar/ping.sh
+interval = 3
 
 [module/network-bit-rate]
 type = custom/script
 exec = iwconfig wlp5s0 | awk '/Bit Rate=/ {print $2,$3}' | sed 's/Rate=//'
-interval = 5
+interval = 3
 label = %{F#ff79c6}  %output%
 
 [module/vpn]
 type = custom/script
-exec = vpn
+exec = ~/.bin/vpn
 interval = 3
 tail = true
 enable-click = true
-click-left = vpn connect
-click-right = vpn disconnect
-click-middle = vpn reconnect
+click-left = ~/.bin/vpn connect
+click-right = ~/.bin/vpn disconnect
+click-middle = ~/.bin/vpn reconnect
 
 [module/i3]
 type = internal/i3
