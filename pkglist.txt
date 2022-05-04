@@ -54,6 +54,7 @@ tlauncher
 tmux
 tmux-plugin-manager
 tor-browser
+udiskie
 ventoy-bin
 vim
 vinagre
