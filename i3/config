@@ -381,6 +381,7 @@ exec --no-startup-id copyq
 exec --no-startup-id easystroke enable
 exec --no-startup-id blueman-applet
 exec --no-startup-id enpass -minimize
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nextcloud --background
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id "killall polybar;~/.config/polybar/launch.sh"
