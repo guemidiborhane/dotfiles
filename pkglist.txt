@@ -1,4 +1,5 @@
 autotiling
+bat
 beekeeper-studio-bin
 brave-bin
 btop
