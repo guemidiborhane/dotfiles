@@ -59,3 +59,4 @@ alias sudo=doas
 alias sudoedit="sudo vim"
 
 alias tv=tidy-viewer
+alias cat=bat
