@@ -1,0 +1,5 @@
+#!/bin/sh
+
+output=$(liquidctl --match H115i status --json | jq -r '.[] | .status | .[] | .key + " \t" + ( .value*10.0|round/10.0|tostring ) + "\t" + .unit')
+
+echo "$output" | column -t -s $'\t'
