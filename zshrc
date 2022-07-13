@@ -15,7 +15,7 @@ COMPLETION_WAITING_DOTS="true"
 
 plugins=(
   sudo git wd fnm kubectl
-  zsh-autosuggestions zsh-syntax-highlighting
+  zsh-autosuggestions zsh-syntax-highlighting command-not-found
   docker docker-compose
   hacker-quotes
 )
@@ -56,3 +56,4 @@ complete -o nospace -C /usr/bin/mcli mcli
 
 eval "$(mcfly init zsh)"
 eval "$(rbenv init - zsh)"
+
