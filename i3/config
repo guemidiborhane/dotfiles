@@ -252,7 +252,7 @@ for_window [class="Arandr"] floating enable
 assign [class="Thunderbird"] $ws12
 bindsym $mod2+g [class="Thunderbird"] focus
 
-for_window [class="TelegramDesktop"] floating enable border normal
+# for_window [class="TelegramDesktop"] floating enable border normal
 for_window [class="Easystroke"] floating enable border normal
 for_window [class="copyq"] floating enable border pixel 1
 for_window [class="youtube-dl-gui"] floating enable border none
