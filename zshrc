@@ -54,4 +54,3 @@ complete -o nospace -C /usr/bin/mcli mcli
 
 eval "$(mcfly init zsh)"
 . /opt/asdf-vm/asdf.sh
-
