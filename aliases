@@ -60,3 +60,4 @@ alias sudoedit="sudo vim"
 
 alias tv=tidy-viewer
 alias cat=bat
+alias mc=mcli
