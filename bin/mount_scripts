@@ -1,0 +1,61 @@
+#!/bin/sh
+
+files=$(find /run/media -maxdepth 4 -iname 'mount.sh')
+
+function dmenu() {
+    command dmenu -h 32 -i -nb "#282a36" -nf "#f8f8f2" -sb "#44475a" -sf "#f8f8f2" -p "$1"
+}
+
+if [ -z "$files" ]; then
+    echo "No mount.sh files found"
+else
+    for file in $files; do
+        dir=$(dirname $file)
+        random=$(echo $RANDOM | tr '[0-9]' '[a-z]')
+        hostname=$(hostname)
+        keys_present=$(find $dir -maxdepth 4 -iname ".$hostname.*")
+
+        if [ -z "$keys_present" ]; then
+            echo "No key found in $dir, creating ..."
+            touch $dir/.$hostname.$random
+        else
+            echo "Key found in $dir"
+            for key in $keys_present; do
+                random=$(basename $key | cut -d '.' -f 3)
+                if [ -f $HOME/.umount_scripts/.$hostname.$random ]; then
+                    exit 1
+                fi
+            done
+        fi
+
+        if [ -f "$dir/.$hostname.$random" ] && [ ! -f "$HOME/.umount_scripts/$random" ]; then
+            check=$(echo -e "yes\nno" | dmenu "Mount $dir?")
+
+            if [ "$check" = "yes" ]; then
+                echo "Executing $file"
+                $file
+
+                # check if unmount.sh exists at the same level
+                if [ -f "$dir/umount.sh" ]; then
+                    echo "Found umount.sh at $dir"
+                    # create ~/.umount_scripts if doesn't exist
+                    if [ ! -d "$HOME/.umount_scripts" ]; then
+                        mkdir $HOME/.umount_scripts
+                    fi
+                    # copy umount.sh to ~/.umount_scripts
+                    if [ -f "~/.umount_scripts/$random" ]; then
+                        echo "~/.umount_scripts/$random already exists"
+                    else
+                        cp $dir/umount.sh $HOME/.umount_scripts/$random
+                    fi
+                fi
+            else
+                touch $HOME/.umount_scripts/$random
+            fi
+
+        else
+            exit 1
+        fi
+    done
+fi
+
