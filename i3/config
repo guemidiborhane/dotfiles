@@ -111,7 +111,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+bindsym $mod+Shift+s sticky toggle;exec notify-send 'Sticky mode'
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -298,6 +298,7 @@ for_window [instance="4kvideodownloader-bin"] floating enable border normal
 for_window [instance="clockify"] floating enable border none
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Enpass"] floating enable
+for_window [class="Solaar"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
@@ -381,6 +382,7 @@ exec --no-startup-id copyq
 exec --no-startup-id easystroke enable
 exec --no-startup-id blueman-applet
 exec --no-startup-id enpass -minimize
+exec --no-startup-id solaar --window=hide
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id udiskie -s
 exec --no-startup-id nextcloud --background

@@ -87,12 +87,12 @@ label-connected = %essid% using %{F#ff79c6} %ifname% %{F#6272a4} %downspeed:9% ï
 [module/ping]
 type = custom/script
 exec = ~/.config/polybar/ping.sh
-interval = 3
+interval = 5
 
 [module/network-bit-rate]
 type = custom/script
 exec = iwconfig wlp5s0 | awk '/Bit Rate=/ {print $2,$3}' | sed 's/Rate=//'
-interval = 3
+interval = 30
 label = %{F#ff79c6} ï‡« %output%
 
 [module/vpn]
@@ -161,6 +161,7 @@ format-foreground = ${colors.yellow}
 type = internal/temperature
 base-temperature = 50
 warn-temperature = 70
+interval = 1
 label-warn-foreground = ${colors.yellow}
 format-foreground = ${colors.cpu}
 format = <ramp> <label>
@@ -191,7 +192,7 @@ label-foreground = ${colors.cpu}
 [module/cpu-frequency]
 type = custom/script
 exec = ~/.config/polybar/cpu-frequency.sh
-interval = 1
+interval = .5
 label-foreground = ${colors.cpu}
 
 [module/memory]
