@@ -4,7 +4,7 @@ Description=Jellyfin Server
 [Service]
 Type=simple
 StandardOutput=journal
-ExecStart=docker run -v /home/borhane/.srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v /run/media/borhane/DATA/Videos/:/media/videos -v /run/media/borhane/DATA/Music/:/media/Music --net=host jellyfin/jellyfin:latest
+ExecStart=docker run -v /home/borhane/.srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v /run/media/borhane/DATA/Videos/:/media/videos -v "/run/media/borhane/BC3A74323A73E832/Two And a Half Men":"/media/videos/Series/Two And a Half Men" -v /run/media/borhane/DATA/Music/:/media/Music --net=host jellyfin/jellyfin:latest
 
 [Install]
 WantedBy=default.target

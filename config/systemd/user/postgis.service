@@ -1,0 +1,11 @@
+[Unit]
+Description=Postgis (Postgres) Server
+
+[Service]
+Type=simple
+StandardOutput=journal
+Environment=HOME=/home/borhane
+ExecStart=docker run -e PGDATA=/var/lib/postgresql/data -v grespost:/var/lib/postgresql/data -e POSTGRES_USER='borhane' -e POSTGRES_PASSWORD='secret' --name grespost postgis/postgis:13-3.0-alpine
+
+[Install]
+WantedBy=default.target
