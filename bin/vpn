@@ -39,8 +39,8 @@ ACTIVE_CONNECTIONS=$(nc show --active | grep -i vpn | awk '{print $1}')
 INACTIVE_CONNECTIONS=$CONNECTIONS
 
 if [ ! -z "$ACTIVE_CONNECTIONS" ]; then
-    REGEX=$(echo $ACTIVE_CONNECTIONS | tr '\n' '|' | sed 's/|$/\n/')
-    INACTIVE_CONNECTIONS=$(echo $CONNECTIONS | grep -v -E "($REGEX)$")
+    REGEX=$(echo "$ACTIVE_CONNECTIONS" | tr '\n' '|' | sed 's/|$/\n/')
+    INACTIVE_CONNECTIONS=$(echo "$CONNECTIONS" | grep -v -E "($REGEX)$")
 fi
 
 function _connection() {
@@ -49,7 +49,7 @@ function _connection() {
 
     case $command in
     connect)
-        connections=$INACTIVE_CONNECTIONS
+        connections="$INACTIVE_CONNECTIONS"
         ;;
     disconnect | reconnect)
         connections="$optional_connections$ACTIVE_CONNECTIONS"
@@ -61,11 +61,11 @@ function _connection() {
 
     if [[ -z "$connections" || "$connections" == "$optional_connections" ]]; then exit 1; fi
 
-    connection=$(echo -e $connections | dmenu $command)
+    connection=$(echo -e "$connections" | dmenu $command)
     targets=$connection
     case $connection in
         all)
-            targets=$(echo -e $connections | grep -v -E '(cancel|all)')
+            targets=$(echo -e "$connections" | grep -v -E '(cancel|all)')
             ;;
         cancel)
             exit 1
