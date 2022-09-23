@@ -52,5 +52,6 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/mcli mcli
 
+export MCFLY_RESULTS=100
 eval "$(mcfly init zsh)"
 . /opt/asdf-vm/asdf.sh
