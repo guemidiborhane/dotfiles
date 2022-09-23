@@ -14,3 +14,6 @@ function kickoff() {
     git commit -m "Kickoff 👍🏼"
 }
 
+function dokku() {
+    ssh paas.netsys.arpa -t -- "${@:1}"
+}
