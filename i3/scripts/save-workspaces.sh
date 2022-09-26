@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 workspaces=$(i3-msg -t get_workspaces | jq '.[].name' | cut -d"\"" -f2)
 
