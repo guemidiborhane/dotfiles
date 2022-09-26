@@ -18,13 +18,5 @@ for monitor in ${DISPLAYS[@]}; do
   if [[ $external_monitor = *connected* ]]; then
     MONITOR=$monitor polybar -c $BAR_CONFIG $monitor 2>&1 | tee -a /tmp/polybar-$monitor.log & disown
     sleep 1
-fi
-
-# Launch on primary monitor
-
-sleep 1
-
-# Launch on all other monitors
-for m in $OTHERS; do
- MONITOR=$m TRAY_POS="" polybar --reload -c $BAR_CONFIG $BAR_NAME &
+  fi
 done
