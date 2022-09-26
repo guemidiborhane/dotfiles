@@ -20,4 +20,3 @@ for monitor in ${DISPLAYS[@]}; do
     sleep 1
   fi
 done
-
