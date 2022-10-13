@@ -11,6 +11,7 @@ set $mod2 Mod1
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
 default_floating_border normal
+for_window [all] border pixel 2
 
 # Hide borders
 hide_edge_borders none
@@ -471,4 +472,3 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
