@@ -6,4 +6,4 @@ OnUnitActiveSec=3s
 AccuracySec=1us
 
 [Install]
-WantedBy=default.target
+WantedBy=timers.target
