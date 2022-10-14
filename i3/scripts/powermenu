@@ -114,12 +114,12 @@ typeset -A menu
 # Menu with keys/commands
 
 menu=(
-  [ Shutdown]="~/.config/i3/scripts/save-workspaces.sh;systemctl poweroff"
-  [ Reboot]="~/.config/i3/scripts/save-workspaces.sh;systemctl reboot"
+  [ Shutdown]="~/.config/i3/scripts/save-workspaces.sh && systemctl poweroff"
+  [ Reboot]="~/.config/i3/scripts/save-workspaces.sh && systemctl reboot"
   [ Suspend]="systemctl suspend"
-  [ Hibernate]="~/.config/i3/scripts/save-workspaces.sh;systemctl hibernate"
+  [ Hibernate]="~/.config/i3/scripts/save-workspaces.sh && systemctl hibernate"
   [ Lock]="~/.config/i3/scripts/blur-lock"
-  [ Logout]="~/.config/i3/scripts/save-workspaces.sh;i3-msg exit"
+  [ Logout]="~/.config/i3/scripts/save-workspaces.sh && i3-msg exit"
   [ Cancel]=""
 )
 
