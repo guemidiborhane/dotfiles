@@ -16,7 +16,7 @@
 # Background crontab
 
 ```
-*/5 * * * * ~/.i3/scripts/bg.sh
+*/5 * * * * ~/.config/i3/scripts/bg.sh
 ```
 
 # Useful commands
@@ -43,4 +43,3 @@ sh -c 'while ! $(bundle check &> /dev/null); do bundle install --retry 10; sleep
 
 # Useful Links
 * [FontAwesome Cheatsheet](https://fontawesome.bootstrapcheatsheets.com/)
-

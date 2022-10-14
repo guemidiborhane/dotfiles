@@ -5,7 +5,7 @@
 [user]
 	email = guemidiborhane@aina.dz
 	name = Borhaneddine Guemidi
-	signingkey = FA510EBCBEEC21D7
+	signingkey = 92A59CFCBE69D758
 [push]
   default = simple
 [color]

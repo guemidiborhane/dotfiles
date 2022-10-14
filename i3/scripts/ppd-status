@@ -1,0 +1,16 @@
+#!/bin/sh
+
+current_profile=$(/usr/bin/powerprofilesctl get)
+
+#  Performance  Balanced  Power Saver
+case $current_profile in
+    performance)
+        echo "%{F#FF0000}%{F-}"
+        ;;
+    balanced)
+        echo "%{F#FFA500}%{F-}"
+        ;;
+    power-saver)
+        echo "%{F#00FF00}%{F-}"
+        ;;
+esac
