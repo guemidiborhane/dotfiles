@@ -41,7 +41,7 @@ export OPENCV_LOG_LEVEL=ERROR
 
 export PATH=$PATH:~/.emacs.d/bin
 export JAVA_HOME="/usr/lib/jvm/default-runtime"
-source ~/.i3/scripts/gnome-keyring.sh
+source ~/.config/i3/scripts/gnome-keyring.sh
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -54,6 +54,7 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/mcli mcli
 
+export MCFLY_RESULTS_SORT=LAST_RUN
 export MCFLY_RESULTS=100
 eval "$(mcfly init zsh)"
 . /opt/asdf-vm/asdf.sh
