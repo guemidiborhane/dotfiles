@@ -42,7 +42,7 @@ configuration {
 	hide-scrollbar:              "true";
 	margin:                      0px;
 	padding:                     0px;
-	font:            "Fira Code Light 13";
+	font:            "Fira Code Light,FontAwesome 13";
 }
 
 window {

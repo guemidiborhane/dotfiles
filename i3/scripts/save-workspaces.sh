@@ -1,10 +1,10 @@
 #!/bin/sh
 
 workspaces=$(i3-msg -t get_workspaces | jq '.[].name' | cut -d"\"" -f2)
-
-rm -f $HOME/.i3/i3-resurrect/workspace_*.json
+dir="$HOME/.config/i3/i3-resurrect"
+rm -f $dir/workspace_*.json
 
 for workspace in $workspaces; do
-    i3-resurrect save -w $workspace
+    i3-resurrect save -w $workspace -d $dir
     echo "Saved workspace $workspace"
 done

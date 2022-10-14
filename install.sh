@@ -2,7 +2,7 @@
 dir=$(pwd)
 
 rm -r $HOME/.i3/
-ln -fsv $dir/i3/ $HOME/.i3
+ln -fsv $dir/i3/ $HOME/.config/i3
 ln -fsv $dir/config/* $HOME/.config/
 
 ln -fsv $dir/easystroke $HOME/.easystroke

@@ -6,7 +6,7 @@ set $mod Mod4
 set $mod2 Mod1
 
 # set default desktop layout (default is tiling)
-# workspace_layout tabbed <stacking|tabbed>
+workspace_layout default
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
@@ -18,7 +18,7 @@ hide_edge_borders none
 
 
 # shortcuts for common system configuration tasks
-bindsym $mod+Shift+n exec nemo
+bindsym $mod+Shift+n exec thunar
 
 # change borders
 bindsym $mod+u border none
@@ -55,6 +55,7 @@ bindsym Ctrl+Shift+space exec --no-startup-id rofimoji --action copy
 ################################################################################################
 
 exec --no-startup-id pa-applet
+exec --no-startup-id setxkbmap -layout fr -variant us-azerty
 bindsym $mod+Ctrl+m exec pavucontrol
 
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -271,6 +272,12 @@ bindsym $mod+d [class="discord"] focus
 bindsym $mod+g [instance="gitkraken|gitfiend|GitAhead|github desktop"] focus
 
 
+for_window [class=kitty] focus
+for_window [class=(?i)brave] focus
+for_window [class=Thunar] focus
+for_window [class=Thunderbird] focus
+for_window [class=TelegramDesktop] focus
+
 for_window [instance="scrcpy"] floating enable border normal
 for_window [class="jetbrains-rubymine|jetbrains-idea" title="win0"] floating enable border none
 for_window [class="Gnome-calendar"] floating enable border pixel 1
@@ -306,7 +313,7 @@ for_window [class="Simple-scan"] floating enable border normal
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="Nemo"] floating enable border normal
+for_window [class="Thunar"] floating enable border normal
 # for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [window_role="pop-up"] floating enable
@@ -339,27 +346,29 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 bindsym $mod+Ctrl+r exec "polybar-msg cmd restart; notify-send 'Polybar restarted'"
-bindsym Ctrl+Shift+$mod+r exec ~/.i3/scripts/restore-workspaces.sh
+bindsym Ctrl+Shift+$mod+r exec ~/.config/i3/scripts/restore-workspaces.sh
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+0 exec ~/.config/i3/scripts/powermenu
+# Power Profiles menu switcher (rofi)
+bindsym $mod+Shift+p exec ~/.config/i3/scripts/power-profiles
 
 # Set shut down, restart and locking features
-bindsym $mod+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-mode "$mode_system" {
-    bindsym l exec --no-startup-id ~/.i3/scripts/i3exit.sh lock, mode "default"
-    bindsym s exec --no-startup-id ~/.i3/scripts/i3exit.sh suspend, mode "default"
-    bindsym u exec --no-startup-id ~/.i3/scripts/i3exit.sh switch_user, mode "default"
-    bindsym e exec --no-startup-id ~/.i3/scripts/i3exit.sh logout, mode "default"
-    bindsym h exec --no-startup-id ~/.i3/scripts/i3exit.sh hibernate, mode "default"
-    bindsym r exec --no-startup-id ~/.i3/scripts/i3exit.sh reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id ~/.i3/scripts/i3exit.sh shutdown, mode "default"
+# bindsym $mod+0 mode "$mode_system"
+# set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+# mode "$mode_system" {
+#     bindsym l exec --no-startup-id ~/.i3/scripts/i3exit.sh lock, mode "default"
+#     bindsym s exec --no-startup-id ~/.i3/scripts/i3exit.sh suspend, mode "default"
+#     bindsym u exec --no-startup-id ~/.i3/scripts/i3exit.sh switch_user, mode "default"
+#     bindsym e exec --no-startup-id ~/.i3/scripts/i3exit.sh logout, mode "default"
+#     bindsym h exec --no-startup-id ~/.i3/scripts/i3exit.sh hibernate, mode "default"
+#     bindsym r exec --no-startup-id ~/.i3/scripts/i3exit.sh reboot, mode "default"
+#     bindsym Shift+s exec --no-startup-id ~/.i3/scripts/i3exit.sh shutdown, mode "default"
 
-    # exit system mode: "Enter" or "Escape"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+#     # exit system mode: "Enter" or "Escape"
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
@@ -391,6 +400,7 @@ exec --no-startup-id udiskie -s
 exec --no-startup-id nextcloud --background
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id "killall polybar;~/.config/polybar/launch.sh"
+exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
