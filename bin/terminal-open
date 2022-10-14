@@ -1,0 +1,9 @@
+#!/bin/sh
+FALLBACK_TERMINAL="xfce4-terminal"
+
+# Launch $TERMINAL and fallback to $FALLBACK_TERMINAL if $TERMINAL throws error
+if [ -n "$TERMINAL" ]; then
+    $TERMINAL || $FALLBACK_TERMINAL
+else
+    $FALLBACK_TERMINAL
+fi
