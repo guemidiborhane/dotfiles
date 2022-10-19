@@ -55,7 +55,8 @@ bindsym Ctrl+Shift+space exec --no-startup-id rofimoji --action copy
 ################################################################################################
 
 exec --no-startup-id pa-applet
-exec --no-startup-id setxkbmap -layout fr -variant us-azerty
+exec --no-startup-id ~/.config/i3/scripts/keyboard-layout.sh
+bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/scripts/keyboard-layout.sh
 bindsym $mod+Ctrl+m exec pavucontrol
 
 set $refresh_i3status killall -SIGUSR1 i3status
