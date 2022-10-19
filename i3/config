@@ -386,7 +386,7 @@ mode "resize" {
 }
 
 # Lock screen
-bindsym $mod+l exec --no-startup-id blurlock
+bindsym $mod+l exec --no-startup-id ~/.bin/blurlock
 
 exec --no-startup-id sleep 1; picom -b
 exec --no-startup-id nm-applet
