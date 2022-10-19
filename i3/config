@@ -398,7 +398,8 @@ exec --no-startup-id enpass -minimize
 exec --no-startup-id solaar --window=hide
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id udiskie -s
-exec --no-startup-id nextcloud --background
+# exec --no-startup-id nextcloud --background
+exec --no-startup-id xrdb -merge ~/.Xresources
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id "killall polybar;~/.config/polybar/launch.sh"
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
