@@ -1,0 +1,23 @@
+[Unit]
+Description=Pi-hole DNS server
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart=docker run \
+    -v /home/borhane/.srv/pi-hole/app:/etc/pihole \
+    -v /home/borhane/.srv/pi-hole/dnsmasq.d:/etc/dnsmasq.d \
+    -p 53:53/tcp  \
+    -p 53:53/udp  \
+    -p 127.0.0.1:8888:80 \
+    -e TZ="Africa/Algiers" \
+    -e WEBPASSWORD="secret" \
+    --dns=1.1.1.1 \
+    --dns=127.0.0.1 \
+    --restart=unless-stopped \
+    --hostname pi.hole \
+    --name pihole \
+    pihole/pihole:latest
+
+[Install]
+WantedBy=default.target
