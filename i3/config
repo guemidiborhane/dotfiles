@@ -155,6 +155,7 @@ set $ws8 8
 # Misc
 set $ws9 9
 
+set $ws10 10
 set $ws11 11
 set $ws12 12
 set $ws13 13
@@ -191,6 +192,7 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
+bindsym $mod2+0 workspace $ws10
 bindsym $mod2+1 workspace $ws11
 bindsym $mod2+2 workspace $ws12
 bindsym $mod2+3 workspace $ws13
@@ -212,6 +214,7 @@ bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
 bindsym $mod+Ctrl+9 move container to workspace $ws9
 
+bindsym $mod2+Ctrl+0 move container to workspace $ws10
 bindsym $mod2+Ctrl+1 move container to workspace $ws11
 bindsym $mod2+Ctrl+2 move container to workspace $ws12
 bindsym $mod2+Ctrl+3 move container to workspace $ws13
@@ -233,6 +236,7 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
+bindsym $mod2+Shift+0 move container to workspace $ws10; workspace $ws10
 bindsym $mod2+Shift+1 move container to workspace $ws11; workspace $ws11
 bindsym $mod2+Shift+2 move container to workspace $ws12; workspace $ws12
 bindsym $mod2+Shift+3 move container to workspace $ws13; workspace $ws13
