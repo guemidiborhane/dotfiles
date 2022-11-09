@@ -5,7 +5,17 @@ Description=Postgis (Postgres) Server
 Type=simple
 StandardOutput=journal
 Environment=HOME=/home/borhane
-ExecStart=docker run -e PGDATA=/var/lib/postgresql/data -v grespost:/var/lib/postgresql/data -e POSTGRES_USER='borhane' -e POSTGRES_PASSWORD='secret' --name grespost postgis/postgis:13-3.0-alpine
+ExecStartPre=docker stop grespost
+ExecStartPre=docker rm grespost
+ExecStart=docker run \
+    --rm \
+    -e PGDATA=/var/lib/postgresql/data \
+    -v grespost:/var/lib/postgresql/data \
+    -e POSTGRES_USER='borhane' \
+    -e POSTGRES_PASSWORD='secret' \
+    -p 5432:5432 \
+    --name grespost \
+    postgis/postgis:13-3.0-alpine
 
 [Install]
 WantedBy=default.target
