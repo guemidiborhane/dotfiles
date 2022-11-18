@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
+# source: https://gitlab.manjaro.org/packages/community/i3/i3exit/-/blob/master/blurlock
+set -eu
 
-PICTURE=/tmp/i3lock.png
-SCREENSHOT="scrot -z $PICTURE"
+RESOLUTION=$(xrandr -q|sed -n 's/.*current[ ]\([0-9]*\) x \([0-9]*\),.*/\1x\2/p')
 
-BLUR="5x4"
+# lock the screen
+import -silent -window root jpeg:- | convert - -scale 20% -blur 0x2.5 -resize 500% RGB:- | \
+    i3lock --raw $RESOLUTION:rgb -i /dev/stdin -e $@
 
-$SCREENSHOT
-convert $PICTURE -blur $BLUR $PICTURE
-i3lock -i $PICTURE
-rm $PICTURE
+# sleep 1 adds a small delay to prevent possible race conditions with suspend
+#sleep 1
+
+exit 0
