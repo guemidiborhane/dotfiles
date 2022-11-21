@@ -1,0 +1,10 @@
+[Unit]
+Description=Sets random wallpaper from picsum.photos on each screen
+
+[Timer]
+# Run every hour
+OnCalendar=*:0
+
+
+[Install]
+WantedBy=timers.target

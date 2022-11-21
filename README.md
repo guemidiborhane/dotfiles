@@ -13,10 +13,10 @@
   ./install.sh
 ```
 
-# Background crontab
+# Background update
 
 ```
-*/5 * * * * ~/.config/i3/scripts/bg.sh
+systemctl enable wallpaper.timer
 ```
 
 # Useful commands
