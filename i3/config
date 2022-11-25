@@ -356,26 +356,26 @@ bindsym $mod+Ctrl+r exec "polybar-msg cmd restart; notify-send 'Polybar restarte
 bindsym Ctrl+Shift+$mod+r exec ~/.config/i3/scripts/restore-workspaces.sh
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+0 exec ~/.config/i3/scripts/powermenu
+# bindsym $mod+0 exec ~/.config/i3/scripts/powermenu
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec ~/.config/i3/scripts/power-profiles
 
 # Set shut down, restart and locking features
-# bindsym $mod+0 mode "$mode_system"
-# set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-# mode "$mode_system" {
-#     bindsym l exec --no-startup-id ~/.i3/scripts/i3exit.sh lock, mode "default"
-#     bindsym s exec --no-startup-id ~/.i3/scripts/i3exit.sh suspend, mode "default"
-#     bindsym u exec --no-startup-id ~/.i3/scripts/i3exit.sh switch_user, mode "default"
-#     bindsym e exec --no-startup-id ~/.i3/scripts/i3exit.sh logout, mode "default"
-#     bindsym h exec --no-startup-id ~/.i3/scripts/i3exit.sh hibernate, mode "default"
-#     bindsym r exec --no-startup-id ~/.i3/scripts/i3exit.sh reboot, mode "default"
-#     bindsym Shift+s exec --no-startup-id ~/.i3/scripts/i3exit.sh shutdown, mode "default"
+bindsym $mod+0 mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh switch_user, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
 
-#     # exit system mode: "Enter" or "Escape"
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-# }
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
