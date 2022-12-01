@@ -55,7 +55,7 @@ bindsym Ctrl+Shift+space exec --no-startup-id rofimoji --action copy
 ################################################################################################
 
 exec --no-startup-id pa-applet
-exec --no-startup-id xset s 480 dpms 600 600 600 m 1 1
+exec --no-startup-id xset s 1200 dpms 600 600 600 m 1 1
 exec --no-startup-id ~/.config/i3/scripts/keyboard-layout.sh
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/scripts/keyboard-layout.sh
 bindsym $mod+Ctrl+m exec pavucontrol
