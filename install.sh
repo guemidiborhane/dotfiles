@@ -24,8 +24,8 @@ ln -fsv $dir/gitconfig $HOME/.gitconfig
 
 ln -fsv $dir/bin $HOME/.bin
 ln -fsv $dir/Xresources $HOME/.Xresources
+ln -fsv $dir/icons $HOME/.script-icons
 
 mkdir $HOME/Code
 
-ln -fsv $dir/Code/key_ok.png $HOME/Code
 chmod +x $dir/.i3/scripts/*.sh
