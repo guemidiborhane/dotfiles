@@ -35,6 +35,7 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec ~/.bin/terminal-open
 bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser)
+bindsym $mod+Control+Return exec firefox-developer-edition
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -142,11 +143,11 @@ bindsym $mod+Shift+Tab workspace prev_on_output
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-# Terminal
+# Browser
 set $ws1 1
 # Code
 set $ws2 2
-# Browser
+# Terminal
 set $ws3 3
 # Browser
 set $ws4 4
