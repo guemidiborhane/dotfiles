@@ -5,13 +5,13 @@ function pagespeed() {
 }
 
 function kickoff() {
+    [[ -d $1 ]] && echo "Directory $1 already exists" && return 1
+
     git_repo="git@git.netsys.dz:guemidiborhane/kickoff.git"
     git clone $git_repo $1
     cd $1
     bash install.sh
-    git init
-    git add .
-    git commit -m "Kickoff 👍🏼"
+    code .
 }
 
 function dokku() {
