@@ -1,6 +1,8 @@
 #!/bin/bash
 # PATH: ~/.bin/change_volume
 
+# ICONS: https://www.flaticon.com/packs/multimedia-356 (volume-up, volume-down, volume-mute), credit: Freepik, SeyfDesigner
+
 # This script is used to change the volume of the default sink
 # It takes one argument, which is the percentage to change the volume by
 # If the argument is negative, the volume will be decreased
