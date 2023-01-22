@@ -36,6 +36,7 @@ else
     icon="down"
 fi
 
+current_volume=$(pactl list sinks | grep -A15 "$default_sink" | grep 'Volume:' | grep -Eo '[0-9]+%' | head -n 1 | sed 's/%//g')
 # Show the notification
 notify-send \
     -i "~/.script-icons/volume-$icon.png" \
