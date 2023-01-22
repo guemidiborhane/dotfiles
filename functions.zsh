@@ -13,7 +13,3 @@ function kickoff() {
     bash install.sh
     code .
 }
-
-function dokku() {
-    ssh paas.netsys.arpa -t -- "${@:1}"
-}
