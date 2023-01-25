@@ -47,8 +47,8 @@ bindsym $mod+Shift+q kill
 bindsym $mod+z exec --no-startup-id morc_menu
 
 # dofi
-bindsym $mod+space exec "rofi -combi-modi window,drun -show combi -modi combi -config ~/.config/rofi/config.rasi"
-bindsym $mod2+Tab exec rofi -show window -config ~/.config/rofi/config.rasi
+bindsym $mod+space exec "rofi -combi-modi window,drun -show combi -modi combi
+bindsym $mod2+Tab exec rofi -show window
 bindsym Ctrl+Shift+space exec --no-startup-id rofimoji --action copy
 
 # Volume controls
@@ -60,7 +60,7 @@ bindsym XF86AudioMute exec --no-startup-id ~/.bin/change_volume toggle-mute
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-exec --no-startup-id xset s 1200 dpms 600 600 600 m 0 1
+exec --no-startup-id xset s 1800 dpms 600 600 600 m 0 1
 exec --no-startup-id ~/.config/i3/scripts/keyboard-layout.sh
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/scripts/keyboard-layout.sh
 bindsym $mod+Ctrl+m exec pavucontrol
