@@ -8,6 +8,7 @@
 	signingkey = 92A59CFCBE69D758
 [push]
   default = simple
+	autoSetupRemote = true
 [color]
   ui = true
 [alias]
