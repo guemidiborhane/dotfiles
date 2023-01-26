@@ -5,8 +5,7 @@ Description=Postgis (Postgres) Server
 Type=simple
 StandardOutput=journal
 Environment=HOME=/home/borhane
-ExecStartPre=docker stop grespost
-ExecStartPre=docker rm grespost
+ExecStop=docker stop %n
 ExecStart=docker run \
     --rm \
     -e PGDATA=/var/lib/postgresql/data \
@@ -14,7 +13,7 @@ ExecStart=docker run \
     -e POSTGRES_USER='borhane' \
     -e POSTGRES_PASSWORD='secret' \
     -p 5432:5432 \
-    --name grespost \
+    --name %n \
     postgis/postgis:13-3.0-alpine
 
 [Install]
