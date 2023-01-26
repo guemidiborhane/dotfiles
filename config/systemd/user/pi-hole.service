@@ -4,8 +4,7 @@ Description=Pi-hole DNS server
 [Service]
 Type=simple
 StandardOutput=journal
-ExecStartPre=docker stop pihole
-ExecStartPre=docker rm pihole
+ExecStop=docker stop %n
 ExecStart=docker run \
     --rm \
     -v /home/borhane/.srv/pi-hole/app:/etc/pihole \
@@ -15,11 +14,11 @@ ExecStart=docker run \
     -p 127.0.0.1:8888:80 \
     -e TZ="Africa/Algiers" \
     -e WEBPASSWORD="secret" \
-    -e PIHOLE_DNS_=10.20.30.5;1.1.1.1;1.0.0.1;208.67.222.222;208.67.220.220 \
+    -e PIHOLE_DNS_=1.1.1.1;1.0.0.1;208.67.222.222;208.67.220.220 \
     --dns=1.1.1.1 \
     --dns=127.0.0.1 \
     --hostname pi.hole \
-    --name pihole \
+    --name %n \
     pihole/pihole:latest
 
 [Install]

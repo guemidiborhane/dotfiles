@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync enpass vault from KEYS usb drive to hdd-drive
+
+[Service]
+Type=exec
+ExecStart=rsync -auhp --info=progress2 /run/media/borhane/KEYS/enpass/Enpass $HOME/hdd-drive
+Environment=HOME=/home/borhane
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+StandardOutput=journal
+
+[Install]
+WantedBy=default.target
