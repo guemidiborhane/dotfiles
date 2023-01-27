@@ -2,17 +2,18 @@ window {
     font-family: monospace;
     font-size: 14pt;
     color: #cdd6f4; /* text */
-    background-color: rgba(30, 30, 46, 0.7);
+    background-color: rgba(30, 30, 46, 0.9);
 }
 
 button {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
-    border: none;
+    /* border: none; */
     background-color: rgba(30, 30, 46, 0);
     margin: 25px;
-    transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: background-color 0.1s ease-in-out;
+    box-shadow: none;
 }
 
 button:hover {
@@ -25,36 +26,43 @@ button:focus {
 }
 
 #lock {
-    background-image: image(url("./lock.png"));
+    background-image: image(url("./default/lock.png"));
 }
 #lock:focus {
-    background-image: image(url("./lock-hover.png"));
+    background-image: image(url("./focus/lock.png"));
 }
 
 #logout {
-    background-image: image(url("./logout.png"));
+    background-image: image(url("./default/logout.png"));
 }
 #logout:focus {
-    background-image: image(url("./logout-hover.png"));
+    background-image: image(url("./focus/logout.png"));
 }
 
 #suspend {
-    background-image: image(url("./sleep.png"));
+    background-image: image(url("./default/suspend.png"));
 }
 #suspend:focus {
-    background-image: image(url("./sleep-hover.png"));
-}
-
-#shutdown {
-    background-image: image(url("./power.png"));
-}
-#shutdown:focus {
-    background-image: image(url("./power-hover.png"));
+    background-image: image(url("./focus/suspend.png"));
 }
 
 #reboot {
-    background-image: image(url("./restart.png"));
+    background-image: image(url("./default/reboot.png"));
 }
 #reboot:focus {
-    background-image: image(url("./restart-hover.png"));
+    background-image: image(url("./focus/reboot.png"));
+}
+
+#shutdown {
+    background-image: image(url("./default/shutdown.png"));
+}
+#shutdown:focus {
+    background-image: image(url("./focus/shutdown.png"));
+}
+
+#hibernate {
+    background-image: image(url("./default/hibernate.png"));
+}
+#hibernate:focus {
+    background-image: image(url("./focus/hibernate.png"));
 }
