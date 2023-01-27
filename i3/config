@@ -271,6 +271,10 @@ for_window [class="Easystroke"] floating enable border normal
 for_window [class="copyq"] floating enable border pixel 1
 for_window [class="youtube-dl-gui"] floating enable border none
 
+# wlogout
+for_window [class="Wlogout"] floating enable border none fullscreen enable
+
+
 assign [class="Code|jetbrains-rubymine|jetbrains-idea"] $ws2
 assign [class="discord|skypeforlinux|Skype Preview|Signal"] $ws7
 assign [class="org-tlauncher-tlauncher-rmo-TLauncher"] $ws19
@@ -366,7 +370,7 @@ bindsym Ctrl+Shift+$mod+r exec ~/.config/i3/scripts/restore-workspaces.sh
 bindsym $mod+Shift+p exec ~/.config/i3/scripts/power-profiles
 
 # Set shut down, restart and locking features
-bindsym $mod+0 exec --no-startup-id wlogout -b 5 -T 500 -B 500
+bindsym $mod+0 exec --no-startup-id wlogout --protocol layer-shell -b 6 -T 500 -B 500
 
 # bindsym $mod+0 mode "$mode_system"
 # set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
