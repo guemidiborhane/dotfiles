@@ -28,3 +28,9 @@
     "text" : "Suspend",
     "keybind" : "s"
 }
+{
+    "label" : "hibernate",
+    "action" : "~/.config/i3/scripts/i3exit.sh hibernate",
+    "text" : "Hibernate",
+    "keybind" : "h"
+}
