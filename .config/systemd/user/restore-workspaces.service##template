@@ -1,0 +1,11 @@
+[Unit]
+Description=Restore saved workspaces
+After=xrandr.service
+
+[Service]
+Environment=HOME=/home/{{ yadm.user }}
+ExecStart=$HOME/.i3/scripts/restore-workspaces.sh
+ExecStartPost=autotiling & diswon
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,23 @@
+[Unit]
+Description=Jellyfin Server
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStop=docker stop %n
+ExecStart=docker run \
+    --rm \
+    --gpus all \
+    -v /home/{{ yadm.user }}/.srv/jellyfin/web:/jellyfin/jellyfin-web \
+    -v /home/{{ yadm.user }}/.srv/jellyfin/config:/config \
+    -v /srv/jellyfin/cache:/cache \
+    -v /run/media/{{ yadm.user }}/DATA/:/media/videos \
+    -v /mnt/chungus/Videos/Movies/:/media/videos/Movies-chungus \
+    -v /mnt/chungus/Videos/Series/:/media/videos/Shows-chungus \
+    -v /run/media/{{ yadm.user }}/DATA/Music/:/media/Music \
+    -p 8096:8096 \
+    --name %n \
+    jellyfin/jellyfin:latest
+
+[Install]
+WantedBy=default.target

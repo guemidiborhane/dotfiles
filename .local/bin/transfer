@@ -1,0 +1,96 @@
+#!/bin/sh
+# PATH: ~/.local/bin/transfer
+# ICON: https://www.flaticon.com/free-icon/upload_4265012, credit: Freepik
+
+number_of_downloads=1
+number_of_days=1
+
+random=$(echo $RANDOM | tr '[0-9]' '[a-z]')
+
+base_url="https://transfer.netsys.dz"
+
+function notify() {
+    notify-send -t 5000 -i ~/.icons/upload.png "Transfer Completed" "$@"
+}
+
+function p() {
+    count="$1"
+    word="$2"
+
+    if [[ $count -gt 1 ]]; then
+        word="${word}s"
+    fi
+
+    echo "$count $word"
+}
+
+while [[ $# -gt 1 ]]; do
+    case $1 in
+        -h | --help)
+            echo "Usage: $0 [args] [file]"
+            echo "  --help, -h                  show this help text"
+            echo "  --file <path>, -f <path>    file to upload"
+            echo "  --downloads <num>, -d <num> number of downloads (default: $number_of_downloads)"
+            echo "  --days <num>, -t <num>      delete after <num> days (default: $number_of_days)"
+            echo "  --base-url <url>, -b <url>  url to the server (default: $base_url)"
+            exit 0
+            ;;
+        -d|--downloads)
+            number_of_downloads="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -t|--days)
+            number_of_days="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -b|--base-url)
+            base_url=$(echo "$2" | sed -e 's/\/$//g')
+            shift # past argument
+            shift # past value
+            ;;
+        -*|--*)
+            echo "Unknown option $1"
+            exit 1
+            ;;
+    esac
+done
+
+file="$1"
+
+
+if [ ! -f "$file" ]; then
+    echo "File not found!"
+    exit 1
+fi
+
+file_name=$(basename "$file")
+
+echo "File name: $file_name"
+echo "Server: $base_url"
+echo "$(p $number_of_downloads "download") within the next $(p $number_of_days "day") allowed"
+
+output_file="/tmp/$random-transfer-sh"
+
+curl \
+    -u netsys \
+    -H "Max-Days: $number_of_days" \
+    -H "Max-Downloads: $number_of_downloads" \
+    --upload-file "$file" \
+    --progress-bar \
+    "$base_url/$filename" | tee /dev/null | cat > "$output_file"
+
+echo "output: $(cat "$output_file")"
+
+action=$(notify -A CLIPBOARD "$file_name uploaded")
+
+if [[ -z "$action" ]]; then
+    xdg-open $(cat "$output_file")
+    notify "Link opened in Browser"
+else
+    cat "$output_file" | xclip -sel clip
+    notify "Link copied to clipboard"
+fi
+
+rm "$output_file"
