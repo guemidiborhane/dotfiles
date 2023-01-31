@@ -1,0 +1,98 @@
+#!/bin/sh
+# vim: set ft=sh sw=4 et :
+
+package_files_dir="$HOME/.config/yadm/packages/*"
+
+install_packages () {
+    for package_file in $package_files_dir; do
+        if [ -f "$package_file" ]; then
+            echo "Installing packages from $package_file"
+            yay -S --needed --noconfirm -- < "$package_file"
+        fi
+    done
+}
+
+install_omz () {
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+        echo "Installing Oh My Zsh"
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
+}
+
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
+install_p10k () {
+    if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+        echo "Installing Powerlevel10k in $ZSH_CUSTOM/themes/powerlevel10k"
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+    fi
+}
+
+plugins=(
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
+install_zsh_plugins () {
+    for plugin in "${plugins[@]}"; do
+        if [ ! -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
+            echo "Installing $plugin in $ZSH_CUSTOM/plugins/$plugin"
+            git clone git clone https://github.com/zsh-users/$plugin.git "$ZSH_CUSTOM/plugins/$plugin"
+        fi
+    done
+}
+
+install_zsh () {
+    install_omz
+    install_p10k
+    install_zsh_plugins
+}
+
+enable_services () {
+    sudo systemctl enable --now bluetooth
+    sudo systemctl enable --now fstrim.timer
+    sudo systemctl enable --now ntpd.service
+    systemctl --user enable --now pi-hole
+    systemctl --user enable --now wallpaper.timer
+    systemctl --user enable --now run-mount-scripts.timer
+}
+
+install_vundle () {
+    if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+        echo "Installing Vundle"
+        git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+    fi
+}
+
+install_vim_plugins () {
+    vim +PluginInstall +qall
+}
+
+configure_vim () {
+    install_vundle
+    install_vim_plugins
+}
+
+configure_resolvconf () {
+    echo <<EOF
+    [main]
+    dns=none
+EOF | sudo tee /etc/NetworkManager/conf.d/10-dns-none.conf
+    sudo systemctl restart NetworkManager
+    echo <<EOF
+nameserver 127.0.0.1
+nameserver 1.1.1.1
+nameserver 1.0.0.1
+# NOTE: the libc resolver may not support more than 3 nameservers.
+# The nameservers listed below may not be recognized.
+nameserver 2111:3c:123:0:c:135:9a:a15
+nameserver 2111:3c:123:0:3bc6:a:9cc:518
+EOF | sudo tee /etc/resolvconf.conf
+    sudo resolvconf -u
+}
+
+install_packages
+install_zsh
+enable_services
+configure_vim
+configure_resolvconf

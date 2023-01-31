@@ -1,0 +1,12 @@
+[Unit]
+Description=dynamically adjust liquidctl device pump and fan speeds.
+
+[Service]
+Type=simple
+StandardOutput=journal
+Environment=HOME=/home/{{ yadm.user }}
+ExecStartPre=liquidctl --match H115i initialize --pump-mode balanced
+ExecStart=$HOME/.local/bin/yoda -v --match H115i control fan with '(40,0),(50,40),(60,50),(70,60),(85,100)' on k10temp.tctl
+
+[Install]
+WantedBy=default.target
