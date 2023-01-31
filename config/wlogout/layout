@@ -14,7 +14,7 @@
     "label" : "shutdown",
     "action" : "~/.config/i3/scripts/i3exit.sh shutdown",
     "text" : "Shutdown",
-    "keybind" : "shift+s"
+    "keybind" : "S"
 }
 {
     "label" : "logout",
