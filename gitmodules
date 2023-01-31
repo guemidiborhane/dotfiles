@@ -1,3 +1,0 @@
-[submodule ".oh-my-zsh/themes"]
-	path = .oh-my-zsh/themes
-	url = git@github.com:guemidiborhane/shell.git
