@@ -1,0 +1,19 @@
+[Unit]
+Description=Postgis (Postgres) Server
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStop=docker stop %n
+ExecStart=docker run \
+    --rm \
+    -e PGDATA=/var/lib/postgresql/data \
+    -v grespost:/var/lib/postgresql/data \
+    -e POSTGRES_USER='{{ yadm.user }}' \
+    -e POSTGRES_PASSWORD='secret' \
+    -p 5432:5432 \
+    --name %n \
+    postgis/postgis:13-3.0-alpine
+
+[Install]
+WantedBy=default.target

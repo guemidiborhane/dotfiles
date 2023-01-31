@@ -1,25 +1,14 @@
 # Requirements
 
-* [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
-* [powerlevel10k](https://github.com/romkatv/powerlevel10k)
-* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-* [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-
+* [yadm](https://yadm.io/)
 
 # Installation
 
 ```bash
-  git clone --recursive git@github.com:guemidiborhane/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
-  ./install.sh
+  yadm clone git@github.com/guemidiborhane/dotfiles.git --bootstrap -w ~/.files
 ```
 
-# Background update
-
-```
-systemctl enable wallpaper.timer
-```
-
-# Useful commands
+# Commands cheatsheet
 
 ```bash
 # Sign previous commits.
