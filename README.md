@@ -5,7 +5,7 @@
 # Installation
 
 ```bash
-  yadm clone git@github.com/guemidiborhane/dotfiles.git --bootstrap -w ~/.files
+  sh -c "$(curl -fsSL https://guemidiborhane.github.io/build_home -O -)"
 ```
 
 # Commands cheatsheet
