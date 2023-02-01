@@ -91,6 +91,15 @@ EOF
     sudo systemctl restart NetworkManager
 }
 
+configure_docker () {
+tee $HOME/.docker/config.json &>/dev/null <<EOF
+    {
+        "credsStore": "secretservice"
+    }
+EOF
+sudo usermod -aG docker $USER
+}
+
 yadm alt
 
 install_packages
@@ -98,3 +107,4 @@ configure_vim
 install_zsh
 enable_services
 configure_resolvconf
+configure_docker
