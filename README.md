@@ -1,11 +1,9 @@
-# Requirements
-
-* [yadm](https://yadm.io/)
-
 # Installation
 
 ```bash
-  sh -c "$(curl -fsSL https://guemidiborhane.github.io/build_home -O -)"
+  sh -c "$(wget -O- https://guemidiborhane.github.io/build_home )"
+  # or
+  sh -c "$(curl -fsSL https://guemidiborhane.github.io/build_home)"
 ```
 
 # Commands cheatsheet
