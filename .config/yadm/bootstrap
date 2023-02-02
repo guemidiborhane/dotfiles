@@ -35,28 +35,59 @@ EOF
 sudo usermod -aG docker $USER
 }
 
-yadm alt
+clean_slate() {
+    echo "Cleaning up"
+    yay -Scc --noconfirm
 
-echo "Updating repositories"
-yay -Syy
+    echo "Updating repositories"
+    yay -Syy
+}
+
+ask () {
+    if [ "$INSTALL_ALL" = "yes" ]; then
+        return 0
+    fi
+
+    read -p "$1? [y/N] " -n 1 -r
+    echo   # (optional) move to a new line
+}
+
+yadm alt
+clean_slate
+
+INSTALL_ALL=no
+
+# Parse arguments
+while [ $# -gt 0 ]; do
+    case $1 in
+        --all) INSTALL_ALL=yes;
+    esac
+    shift
+done
+
+if [[ $INSTALL_ALL = "no" ]]; then
+    read -p "Run all scripts? [y/N] " -n 1 -r
+    echo   # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        INSTALL_ALL=yes
+    fi
+fi
 
 # Ask if user wants to install packages
-read -p "Install packages? [y/N] " -n 1 -r
-echo   # (optional) move to a new line
+ask "Install packages"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     install_packages
 fi
 
 # Ask if user wants to configure vim
-read -p "Configure vim? [y/N] " -n 1 -r
-echo   # (optional) move to a new line
+ask "Configure vim"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     configure_vim
 else
-    read -p "Update vim plugins? [y/N] " -n 1 -r
-    echo   # (optional) move to a new line
+    ask "Update vim plugins"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         update_vim_plugins
@@ -64,14 +95,12 @@ else
 fi
 
 # Ask if user wants to install zsh
-read -p "Install zsh? [y/N] " -n 1 -r
-echo   # (optional) move to a new line
+ask "Install zsh"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     install_zsh
 else
-    read -p "Update zsh? [y/N] " -n 1 -r
-    echo   # (optional) move to a new line
+    ask "Update zsh"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         update_zsh
@@ -79,32 +108,28 @@ else
 fi
 
 # Ask if user wants to enable system services
-read -p "Enable system services? [y/N] " -n 1 -r
-echo   # (optional) move to a new line
+ask "Enable system services"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     enable_system_services
 fi
 
 # Ask if user wants to enable services
-read -p "Enable user services? [y/N] " -n 1 -r
-echo   # (optional) move to a new line
+ask "Enable user services"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     enable_services
 fi
 
 # Ask if user wants to configure resolvconf
-read -p "Configure resolvconf? [y/N] " -n 1 -r
-echo   # (optional) move to a new line
+ask "Configure resolvconf"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     configure_resolvconf
 fi
 
 # Ask if user wants to configure docker
-read -p "Configure docker? [y/N] " -n 1 -r
-echo   # (optional) move to a new line
+ask "Configure docker"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     configure_docker
