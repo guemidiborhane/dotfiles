@@ -25,9 +25,27 @@ for script in $HOME/.config/yadm/scripts/*.sh; do
     fi
 done
 
+# check if RUN_ALL environment variable is set
+# and if it's set to "yes" run all scripts
+if [[ $RUN_ALL = "yes" ]]; then
+    INSTALL_ALL=yes
+fi
+
+if [[ $INSTALL_ALL = "no" ]]; then
+    read -p "Run all scripts? [y/N] " -n 1 -r
+    echo   # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        INSTALL_ALL=yes
+    fi
+fi
+
 main () {
     echo "Bootstrapping"
     yadm alt
+
+    # scripts/opendoas.sh
+    opendoas_main
 
     # scripts/misc.sh
     clean_slate
@@ -52,19 +70,4 @@ main () {
     configure_docker
 }
 
-# check if RUN_ALL environment variable is set
-# and if it's set to "yes" run all scripts
-if [[ $RUN_ALL = "yes" ]]; then
-    INSTALL_ALL=yes
-fi
-
-if [[ $INSTALL_ALL = "no" ]]; then
-    read -p "Run all scripts? [y/N] " -n 1 -r
-    echo   # (optional) move to a new line
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        INSTALL_ALL=yes
-    fi
-fi
-
-main()
+main
