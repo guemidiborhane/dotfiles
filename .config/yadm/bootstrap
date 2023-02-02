@@ -27,35 +27,19 @@ done
 
 main () {
     echo "Bootstrapping"
-    yadm alt
-
-    # scripts/misc.sh
-    ask_run_all_scripts
-
-    # scripts/opendoas.sh
-    opendoas_main
-
-    # scripts/misc.sh
-    clean_slate
-    install_packages "$package_files_dir"
-
-    # scripts/vim.sh
-    vim_main
-
-    # scripts/zsh.sh
-    zsh_main
-
-    # scripts/system.sh
-    enable_system_services "${enabled_system_services[@]}"
-
-    # scripts/misc.sh
-    enable_user_services "${enabled_user_services[@]}"
-
-    # scripts/system.sh
-    configure_resolvconf
-
-    # scripts/misc.sh
-    configure_docker
+    ask_run_all_scripts # scripts/misc.sh
+    # We start with opendoas because it doesn't timeout
+    opendoas_main # scripts/opendoas.sh
+    install_packages "$package_files_dir" # scripts/misc.sh
+    vim_main # scripts/vim.sh
+    zsh_main # scripts/zsh.sh
+    section "Miscellaneous" # scripts/misc.sh
+    enable_system_services "${enabled_system_services[@]}" # scripts/system.sh
+    enable_user_services "${enabled_user_services[@]}" # scripts/misc.sh
+    configure_resolvconf # scripts/system.sh
+    configure_docker # scripts/misc.sh
+    readme # scripts/misc.sh
 }
 
 main
+yadm alt

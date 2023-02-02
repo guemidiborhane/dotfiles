@@ -73,6 +73,8 @@ update_zsh () {
 }
 
 zsh_main () {
+    section "ZSH"
+
     ask "Install zsh"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then

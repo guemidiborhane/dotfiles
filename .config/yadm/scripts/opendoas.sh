@@ -25,6 +25,7 @@ opendoas_sudo_link () {
 }
 
 opendoas_main () {
+    section "opendoas"
     ask "Configure opendoas"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then

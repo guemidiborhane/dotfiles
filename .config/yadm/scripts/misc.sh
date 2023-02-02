@@ -12,12 +12,16 @@ clean_slate() {
 }
 
 install_packages () {
+    section "Packages"
+    clean_slate
+
     ask "Install packages"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         for package_file in $1; do
             if [ -f "$package_file" ]; then
-                echo "Installing packages from $package_file"
+                category=$(basename $package_file | cut -d'.' -f1)
+                section "Installing $category packages"
                 yay -S --needed --noconfirm - < $package_file
             fi
         done
@@ -58,4 +62,21 @@ ask_run_all_scripts () {
     then
         INSTALL_ALL=yes
     fi
+}
+
+
+section () {
+    echo
+    echo "===================="
+    echo " $1"
+    echo "===================="
+    echo
+}
+
+readme () {
+echo <<EOF
+    REMINDER:
+    - Don't forget to run `chsh -s $(which zsh)` to set zsh as your default shell
+    - You should probably reboot now ! just to be sure
+EOF
 }
