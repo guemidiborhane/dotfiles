@@ -3,7 +3,9 @@ Description=Run mount.sh scripts found in /run/media/
 
 [Service]
 Type=exec
-Environment=HOME=/home/{{ yadm.user }},DISPLAY=:0,PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=HOME=/home/{{ yadm.user }}
+Environment=DISPLAY=:0
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStartPost=$HOME/.local/bin/umount_scripts
 ExecStart=$HOME/.local/bin/mount_scripts
 StandardOutput=journal
