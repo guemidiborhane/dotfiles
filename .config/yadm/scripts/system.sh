@@ -19,7 +19,7 @@ EOF
     sudo systemctl restart NetworkManager
 }
 
-enable_systemd_services () {
+enable_system_services () {
 sudo sh -c <<EOF
     systemctl enable --now bluetooth
     systemctl enable --now fstrim.timer
