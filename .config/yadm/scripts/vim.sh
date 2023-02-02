@@ -32,6 +32,7 @@ configure_vim () {
 }
 
 vim_main () {
+    section "VIM"
     ask "Configure vim"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
