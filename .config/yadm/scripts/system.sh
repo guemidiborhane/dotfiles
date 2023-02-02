@@ -1,7 +1,7 @@
 #!/bin/sh
 # vim: set ft=sh sw=4 et :
 
-configure_resolvconf () {
+_configure_resolvconf () {
 sudo tee /etc/NetworkManager/conf.d/10-dns-none.conf &>/dev/null <<EOF
 [main]
 dns=none
@@ -24,10 +24,21 @@ nameserver 2111:3c:123:0:3bc6:a:9cc:518
 EOF
 }
 
+configure_resolvconf () {
+    ask "Configure resolvconf"
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        _configure_resolvconf
+    fi
+}
+
 enable_system_services () {
-sudo -s <<EOF
-    systemctl enable --now bluetooth
-    systemctl enable --now fstrim.timer
-    systemctl enable --now ntpd.service
-EOF
+    ask "Enable system services"
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        for service in $1; do
+            echo "Enabling $service"
+            sudo systemctl enable --now $service
+        done
+    fi
 }
