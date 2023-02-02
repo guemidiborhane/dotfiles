@@ -7,7 +7,7 @@ THIRD_PARTY_PLUGINS=(
     zsh-syntax-highlighting
 )
 
-install_zsh () {
+install_zsh_pkg () {
     yay -S --needed --noconfirm zsh
 }
 
@@ -58,7 +58,7 @@ update_zsh_plugins () {
 }
 
 install_zsh () {
-    install_zsh
+    install_zsh_pkg
     install_omz
     install_p10k
     install_zsh_plugins
