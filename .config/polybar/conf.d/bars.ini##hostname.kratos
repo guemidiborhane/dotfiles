@@ -1,3 +1,5 @@
+# vim: ft=dosini sw=4 et :
+
 # Primary
 [bar/DP-4]
 inherit = bar/default
@@ -15,5 +17,3 @@ modules-right = cputemp cpu cpu-frequency system-fan-speed time
 inherit = bar/default
 modules-center = network
 modules-right =  power-profile fs-root time
-
-# vim: ft=dosini
