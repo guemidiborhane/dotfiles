@@ -16,13 +16,13 @@ install_opendoas () {
 configure_opendoas () {
     if [[ ! -f $doas_conf_path ]]; then
         sudo touch "$doas_conf_path"
-        sudo echo "$doas_conf" > "$doas_conf_path"
+        echo "$doas_conf" | sudo tee "$doas_conf_path"
         sudo chown -c root:root "$doas_conf_path"
         sudo chmod -c 0400 "$doas_conf_path"
     else
         echo "doas.conf already exists"
         echo "if you want to change it, do it manually"
-        sudo echo "$doas_conf" > "$doas_conf_path.yadm"
+        echo "$doas_conf" | sudo tee "$doas_conf_path.yadm"
         echo "you can find my config in $doas_conf_path.yadm"
     fi
 }
