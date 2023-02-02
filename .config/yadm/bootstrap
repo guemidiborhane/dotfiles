@@ -37,6 +37,9 @@ sudo usermod -aG docker $USER
 
 yadm alt
 
+echo "Updating repositories"
+yay -Syy
+
 # Ask if user wants to install packages
 read -p "Install packages? [y/N] " -n 1 -r
 echo   # (optional) move to a new line
