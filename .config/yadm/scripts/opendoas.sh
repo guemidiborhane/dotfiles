@@ -22,7 +22,10 @@ configure_opendoas () {
     else
         echo "doas.conf already exists"
         echo "if you want to change it, do it manually"
-        echo "$doas_conf" | sudo tee "$doas_conf_path.yadm"
+        if [[ ! -f $doas_conf_path.yadm ]]; then
+            sudo touch "$doas_conf_path.yadm"
+            echo "$doas_conf" | sudo tee "$doas_conf_path.yadm"
+        fi
         echo "you can find my config in $doas_conf_path.yadm"
     fi
 }
