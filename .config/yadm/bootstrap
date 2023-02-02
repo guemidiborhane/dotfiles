@@ -1,7 +1,23 @@
 #!/bin/sh
 # vim: set ft=sh sw=4 et :
 
-# Source scripts/*.sh
+INSTALL_ALL=no
+
+package_files_dir="$HOME/.config/yadm/packages/*.list"
+
+enabled_user_services=(
+    pi-hole
+    wallpaper.timer
+    run-mount-scripts.timer
+)
+
+enabled_system_services=(
+    fstrim.timer
+    ntpd.service
+    bluetooth.service
+)
+
+# Source all scripts in .config/yadm/scripts
 for script in $HOME/.config/yadm/scripts/*.sh; do
     if [ -f "$script" ]; then
         echo "Sourcing $script"
@@ -9,61 +25,38 @@ for script in $HOME/.config/yadm/scripts/*.sh; do
     fi
 done
 
-package_files_dir="$HOME/.config/yadm/packages/*.list"
+main () {
+    echo "Bootstrapping"
+    yadm alt
 
-install_packages () {
-    for package_file in $package_files_dir; do
-        if [ -f "$package_file" ]; then
-            echo "Installing packages from $package_file"
-            yay -S --needed --noconfirm - < $package_file
-        fi
-    done
+    # scripts/misc.sh
+    clean_slate
+    install_packages "$package_files_dir"
+
+    # scripts/vim.sh
+    vim_main
+
+    # scripts/zsh.sh
+    zsh_main
+
+    # scripts/system.sh
+    enable_system_services "${enabled_system_services[@]}"
+
+    # scripts/misc.sh
+    enable_user_services "${enabled_user_services[@]}"
+
+    # scripts/system.sh
+    configure_resolvconf
+
+    # scripts/misc.sh
+    configure_docker
 }
 
-enable_services () {
-    systemctl --user enable --now pi-hole
-    systemctl --user enable --now wallpaper.timer
-    systemctl --user enable --now run-mount-scripts.timer
-}
-
-configure_docker () {
-tee $HOME/.docker/config.json &>/dev/null <<EOF
-    {
-        "credsStore": "secretservice"
-    }
-EOF
-sudo usermod -aG docker $USER
-}
-
-clean_slate() {
-    echo "Cleaning up"
-    yay -Scc --noconfirm
-
-    echo "Updating repositories"
-    yay -Syy
-}
-
-ask () {
-    if [ "$INSTALL_ALL" = "yes" ]; then
-        return 0
-    fi
-
-    read -p "$1? [y/N] " -n 1 -r
-    echo   # (optional) move to a new line
-}
-
-yadm alt
-clean_slate
-
-INSTALL_ALL=no
-
-# Parse arguments
-while [ $# -gt 0 ]; do
-    case $1 in
-        --all) INSTALL_ALL=yes;
-    esac
-    shift
-done
+# check if RUN_ALL environment variable is set
+# and if it's set to "yes" run all scripts
+if [[ $RUN_ALL = "yes" ]]; then
+    INSTALL_ALL=yes
+fi
 
 if [[ $INSTALL_ALL = "no" ]]; then
     read -p "Run all scripts? [y/N] " -n 1 -r
@@ -74,63 +67,4 @@ if [[ $INSTALL_ALL = "no" ]]; then
     fi
 fi
 
-# Ask if user wants to install packages
-ask "Install packages"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    install_packages
-fi
-
-# Ask if user wants to configure vim
-ask "Configure vim"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    configure_vim
-else
-    ask "Update vim plugins"
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        update_vim_plugins
-    fi
-fi
-
-# Ask if user wants to install zsh
-ask "Install zsh"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    install_zsh
-else
-    ask "Update zsh"
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        update_zsh
-    fi
-fi
-
-# Ask if user wants to enable system services
-ask "Enable system services"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    enable_system_services
-fi
-
-# Ask if user wants to enable services
-ask "Enable user services"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    enable_services
-fi
-
-# Ask if user wants to configure resolvconf
-ask "Configure resolvconf"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    configure_resolvconf
-fi
-
-# Ask if user wants to configure docker
-ask "Configure docker"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    configure_docker
-fi
+main()

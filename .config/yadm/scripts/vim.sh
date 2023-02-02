@@ -1,6 +1,8 @@
 #!/bin/sh
 # vim: set ft=sh sw=4 et :
 
+. "$HOME/.config/yadm/scripts/utils.sh"
+
 install_vim () {
     if [ ! -x "$(command -v vim)" ]; then
         echo "Installing vim"
@@ -27,4 +29,18 @@ configure_vim () {
     install_vim
     install_vundle
     install_vim_plugins
+}
+
+vim_main () {
+    ask "Configure vim"
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        configure_vim
+    else
+        ask "Update vim plugins"
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            update_vim_plugins
+        fi
+    fi
 }
