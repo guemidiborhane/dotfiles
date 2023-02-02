@@ -51,3 +51,11 @@ configure_docker () {
         _configure_docker
     fi
 }
+
+ask_run_all_scripts () {
+    ask "Run all scripts"
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        INSTALL_ALL=yes
+    fi
+}
