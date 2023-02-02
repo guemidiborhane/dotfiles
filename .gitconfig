@@ -19,8 +19,6 @@
 	required = true
 [credential]
 	helper = store
-[commit]
-	gpgsign = true
 [pull]
 	rebase = false
 [gpg]
