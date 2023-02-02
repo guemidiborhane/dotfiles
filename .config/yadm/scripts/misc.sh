@@ -80,3 +80,8 @@ echo <<EOF
     - You should probably reboot now ! just to be sure
 EOF
 }
+
+local_bin_permissions () {
+    echo "Setting permissions for $HOME/.local/bin"
+    chmod -R 755 $HOME/.local/bin
+}
