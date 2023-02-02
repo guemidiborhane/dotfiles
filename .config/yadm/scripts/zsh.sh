@@ -3,8 +3,9 @@
 
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 THIRD_PARTY_PLUGINS=(
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+    https://github.com/zsh-users/zsh-autosuggestions.git
+    https://github.com/zsh-users/zsh-syntax-highlighting.git
+    https://github.com/oldratlee/hacker-quotes.git
 )
 
 . "$HOME/.config/yadm/scripts/utils.sh"
@@ -41,20 +42,26 @@ update_p10k () {
     fi
 }
 
+_plugin_name () {
+    basename $1 | cut -d'.' -f1
+}
+
 install_zsh_plugins () {
     for plugin in "${THIRD_PARTY_PLUGINS[@]}"; do
         if [ ! -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
             echo "Installing $plugin in $ZSH_CUSTOM/plugins/$plugin"
-            git clone https://github.com/zsh-users/$plugin.git "$ZSH_CUSTOM/plugins/$plugin"
+            plugin_name=$(_plugin_name $plugin)
+            git clone $plugin "$ZSH_CUSTOM/plugins/$plugin_name"
         fi
     done
 }
 
 update_zsh_plugins () {
     for plugin in "${THIRD_PARTY_PLUGINS[@]}"; do
-        if [ -d "$ZSH_CUSTOM/plugins/$plugin" ]; then
+        plugin_name=$(_plugin_name $plugin)
+        if [ -d "$ZSH_CUSTOM/plugins/$plugin_name" ]; then
             echo "Updating $plugin in $ZSH_CUSTOM/plugins/$plugin"
-            git -C "$ZSH_CUSTOM/plugins/$plugin" pull
+            git -C "$ZSH_CUSTOM/plugins/$plugin_name" pull
         fi
     done
 }
