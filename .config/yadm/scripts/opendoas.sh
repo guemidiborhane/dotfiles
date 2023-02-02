@@ -3,6 +3,9 @@
 
 . "$HOME/.config/yadm/scripts/utils.sh"
 
+doas_conf='permit persist setenv { XAUTHORITY LANG LC_ALL } :wheel'
+doas_conf_path='/etc/doas.conf'
+
 install_opendoas () {
     if [ ! -x "$(command -v doas)" ]; then
         echo "Installing doas"
@@ -11,9 +14,17 @@ install_opendoas () {
 }
 
 configure_opendoas () {
-    echo 'permit persist setenv { XAUTHORITY LANG LC_ALL } :wheel' | sudo tee /etc/doas.conf &>/dev/null
-    sudo chown -c root:root /etc/doas.conf
-    sudo chmod -c 0400 /etc/doas.conf
+    if [[ ! -f $doas_conf_path ]]; then
+        sudo touch "$doas_conf_path"
+        sudo echo "$doas_conf" > "$doas_conf_path"
+        sudo chown -c root:root "$doas_conf_path"
+        sudo chmod -c 0400 "$doas_conf_path"
+    else
+        echo "doas.conf already exists"
+        echo "if you want to change it, do it manually"
+        sudo echo "$doas_conf" > "$doas_conf_path.yadm"
+        echo "you can find my config in $doas_conf_path.yadm"
+    fi
 }
 
 uninstall_sudo () {
