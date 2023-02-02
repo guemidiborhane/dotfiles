@@ -32,10 +32,7 @@ enable_user_services () {
     ask "Enable user services"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        for service in $1; do
-            echo "Enabling $service"
-            systemctl --user enable --now $service
-        done
+        systemctl --user enable --now $@
     fi
 }
 

@@ -36,9 +36,6 @@ enable_system_services () {
     ask "Enable system services"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        for service in $1; do
-            echo "Enabling $service"
-            sudo systemctl enable --now $service
-        done
+        sudo systemctl enable --now $@
     fi
 }
