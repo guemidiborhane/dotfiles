@@ -1,9 +1,15 @@
 # Installation
 
+Using `wget`:
+
 ```bash
-  sh -c "$(wget -O- https://guemidiborhane.github.io/build_home )"
-  # or
-  sh -c "$(curl -fsSL https://guemidiborhane.github.io/build_home)"
+sh -c "$(wget -qO- https://guemidiborhane.github.io/build_home)"
+```
+
+or using `curl`:
+
+```bash
+sh -c "$(curl -fsSL https://guemidiborhane.github.io/build_home)"
 ```
 
 # Commands cheatsheet
