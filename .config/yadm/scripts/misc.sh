@@ -13,11 +13,11 @@ clean_slate() {
 
 install_packages () {
     section "Packages"
-    clean_slate
 
     ask "Install packages"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
+        clean_slate
         for package_file in $1; do
             if [ -f "$package_file" ]; then
                 category=$(basename $package_file | cut -d'.' -f1)
