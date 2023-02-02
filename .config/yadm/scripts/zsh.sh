@@ -7,6 +7,8 @@ THIRD_PARTY_PLUGINS=(
     zsh-syntax-highlighting
 )
 
+. "$HOME/.config/yadm/scripts/utils.sh"
+
 install_zsh_pkg () {
     yay -S --needed --noconfirm zsh
 }
@@ -68,4 +70,18 @@ update_zsh () {
     update_omz
     update_p10k
     update_zsh_plugins
+}
+
+zsh_main () {
+    ask "Install zsh"
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        install_zsh
+    else
+        ask "Update zsh"
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            update_zsh
+        fi
+    fi
 }
