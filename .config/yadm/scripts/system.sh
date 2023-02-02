@@ -11,7 +11,6 @@ systemctl disable systemd-resolved.service
 systemctl stop systemd-resolved.service
 systemctl restart NetworkManager
 EOF
-cat /etc/resolv.conf
 sudo tee /etc/resolv.conf &>/dev/null <<EOF
 # bootstraped by yadm
 options rotate timeout:1 retries:1
@@ -23,9 +22,6 @@ nameserver 1.0.0.1
 nameserver 2111:3c:123:0:c:135:9a:a15
 nameserver 2111:3c:123:0:3bc6:a:9cc:518
 EOF
-cat /etc/resolv.conf
-# sudo resolvconf -u
-# cat /etc/resolv.conf
 }
 
 enable_system_services () {
