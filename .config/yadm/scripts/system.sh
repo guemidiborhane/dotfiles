@@ -20,7 +20,7 @@ EOF
 }
 
 enable_system_services () {
-sudo sh -c <<EOF
+sudo -s <<EOF
     systemctl enable --now bluetooth
     systemctl enable --now fstrim.timer
     systemctl enable --now ntpd.service
