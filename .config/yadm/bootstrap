@@ -3,19 +3,9 @@
 
 INSTALL_ALL=no
 
+enabled_user_services="pi-hole wallpaper.timer run-mount-scripts.timer"
+enabled_system_services="fstrim.timer ntpd.service bluetooth.service"
 package_files_dir="$HOME/.config/yadm/packages/*.list"
-
-enabled_user_services=(
-    pi-hole
-    wallpaper.timer
-    run-mount-scripts.timer
-)
-
-enabled_system_services=(
-    fstrim.timer
-    ntpd.service
-    bluetooth.service
-)
 
 # Source all scripts in .config/yadm/scripts
 for script in $HOME/.config/yadm/scripts/*.sh; do
@@ -34,8 +24,8 @@ main () {
     vim_main # scripts/vim.sh
     zsh_main # scripts/zsh.sh
     section "Miscellaneous" # scripts/misc.sh
-    enable_system_services "${enabled_system_services[@]}" # scripts/system.sh
-    enable_user_services "${enabled_user_services[@]}" # scripts/misc.sh
+    enable_system_services "${enabled_system_services}" # scripts/system.sh
+    enable_user_services "${enabled_user_services}" # scripts/misc.sh
     configure_resolvconf # scripts/system.sh
     configure_docker # scripts/misc.sh
     local_bin_permissions # scripts/misc.sh
