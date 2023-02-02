@@ -61,23 +61,6 @@ ask_run_all_scripts () {
     fi
 }
 
-
-section () {
-    echo
-    echo "===================="
-    echo " $1"
-    echo "===================="
-    echo
-}
-
-readme () {
-echo <<EOF
-    REMINDER:
-    - Don't forget to run `chsh -s $(which zsh)` to set zsh as your default shell
-    - You should probably reboot now ! just to be sure
-EOF
-}
-
 local_bin_permissions () {
     echo "Setting permissions for $HOME/.local/bin"
     chmod -R 755 $HOME/.local/bin
