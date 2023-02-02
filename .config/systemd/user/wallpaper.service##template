@@ -3,7 +3,9 @@ Description=Sets random wallpaper from picsum.photos on each screen
 
 [Service]
 Type=exec
-Environment=HOME=/home/{{ yadm.user }},DISPLAY=:0,PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=HOME=/home/{{ yadm.user }}
+Environment=DISPLAY=:0
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=$HOME/.config/i3/scripts/bg.sh
 StandardOutput=journal
 
