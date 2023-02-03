@@ -3,7 +3,7 @@
 
 INSTALL_ALL=no
 
-enabled_user_services="pi-hole wallpaper.timer run-mount-scripts.timer"
+enabled_user_services="pi-hole wallpaper.timer wallpaper.service run-mount-scripts.timer"
 enabled_system_services="fstrim.timer ntpd.service bluetooth.service"
 package_files_dir="$HOME/.config/yadm/packages/*.list"
 
