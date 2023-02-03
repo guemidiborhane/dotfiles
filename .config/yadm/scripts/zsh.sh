@@ -23,7 +23,7 @@ install_omz () {
 }
 
 update_omz () {
-    if [ "$SHELL" != "/bin/zsh" ]; then
+    if [ "$SHELL" != "$(which zsh)" ]; then
         echo "Not using zsh, skipping Oh My Zsh update"
         return
     fi
