@@ -50,7 +50,11 @@ if [ "$UPDATE" = "yes" ]; then
     fi
     vim_main # scripts/vim.sh
     zsh_main # scripts/zsh.sh
-    yay -Syyu --noconfirm
+    ask "Update packages"
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        yay -Syyu --noconfirm
+    fi
 else
     main
 fi
