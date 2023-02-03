@@ -25,9 +25,7 @@ section () {
 }
 
 readme () {
-echo <<EOF
-    REMINDER:
-    - Don't forget to run `chsh -s $(which zsh)` to set zsh as your default shell
-    - You should probably reboot now ! just to be sure
-EOF
+    echo "REMINDER:
+- Don't forget to run \`chsh -s \$\(which zsh\)\` to set zsh as your default shell
+- You should probably reboot now ! just to be sure"
 }
