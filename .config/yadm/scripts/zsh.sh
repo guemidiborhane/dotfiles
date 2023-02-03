@@ -82,15 +82,13 @@ update_zsh () {
 zsh_main () {
     section "ZSH"
 
-    ask "Install zsh"
+    ask "Install/Update zsh"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        install_zsh
-    else
-        ask "Update zsh"
-        if [[ $REPLY =~ ^[Yy]$ ]]
-        then
+        if [ -d "$HOME/.oh-my-zsh" ]; then
             update_zsh
+        else
+            install_zsh
         fi
     fi
 }

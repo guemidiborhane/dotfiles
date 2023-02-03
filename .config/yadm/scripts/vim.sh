@@ -33,15 +33,13 @@ configure_vim () {
 
 vim_main () {
     section "VIM"
-    ask "Configure vim"
+    ask "Install/Update vim"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        configure_vim
-    else
-        ask "Update vim plugins"
-        if [[ $REPLY =~ ^[Yy]$ ]]
-        then
+        if [ -d "$HOME/.vim/bundle/Vundle.vim" ]; then
             update_vim_plugins
+        else
+            configure_vim
         fi
     fi
 }
