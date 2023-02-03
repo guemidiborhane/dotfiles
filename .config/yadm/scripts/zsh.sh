@@ -22,6 +22,11 @@ install_omz () {
 }
 
 update_omz () {
+    if [ "$SHELL" != "/bin/zsh" ]; then
+        echo "Not using zsh, skipping Oh My Zsh update"
+        return
+    fi
+
     if [ -d "$HOME/.oh-my-zsh" ]; then
         echo "Updating Oh My Zsh"
         omz update
