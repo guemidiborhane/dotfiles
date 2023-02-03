@@ -13,6 +13,7 @@ clean_slate() {
 
 install_packages () {
     section "Packages"
+    ALL_PACKAGES="no"
 
     ask "Install packages"
     if [[ $REPLY =~ ^[Yy]$ ]]
@@ -22,7 +23,20 @@ install_packages () {
             if [ -f "$package_file" ]; then
                 category=$(basename $package_file | cut -d'.' -f1)
                 section "Installing $category packages"
-                yay -S --needed --noconfirm - < $package_file
+
+                if [[ $ALL_PACKAGES == "no" ]]; then
+                    ask "Install $category packages", "y/N/a"
+                fi
+
+                if [[ $REPLY =~ ^[Aa]$ ]]
+                then
+                    ALL_PACKAGES="yes"
+                fi
+
+                if [[ $REPLY =~ ^[Yy]$ ]] || [[ $ALL_PACKAGES == "yes" ]]
+                then
+                    yay -S --needed --noconfirm - < $package_file
+                fi
             fi
         done
     fi

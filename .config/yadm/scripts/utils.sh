@@ -6,7 +6,13 @@ ask () {
         return 0
     fi
 
-    read -p "$1? [y/N] " -n 1 -r
+    valid_answers="y/N"
+
+    if [ ! -z "$2" ]; then
+        valid_answers="$2"
+    fi
+
+    read -p "$1? [$valid_answers] " -n 1 -r
     echo   # (optional) move to a new line
 }
 
