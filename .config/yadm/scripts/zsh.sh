@@ -12,6 +12,7 @@ THIRD_PARTY_PLUGINS=(
 
 install_zsh_pkg () {
     yay -S --needed --noconfirm zsh
+    touch "$HOME/.zsh_history" # Fix for mcfly
 }
 
 install_omz () {
