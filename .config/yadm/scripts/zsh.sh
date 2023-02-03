@@ -30,7 +30,7 @@ update_omz () {
 
     if [ -d "$HOME/.oh-my-zsh" ]; then
         echo "Updating Oh My Zsh"
-        omz update
+        zsh -c "source $HOME/.zshrc; omz update"
     fi
 }
 
