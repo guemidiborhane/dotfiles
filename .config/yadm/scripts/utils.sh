@@ -26,6 +26,6 @@ section () {
 
 readme () {
     echo "REMINDER:
-- Don't forget to run \`chsh -s \$\(which zsh\)\` to set zsh as your default shell
+- Don't forget to run \`chsh -s \$(which zsh)\` to set zsh as your default shell
 - You should probably reboot now ! just to be sure"
 }
