@@ -3,8 +3,6 @@
 HOST=1.1.1.1
 log=/tmp/ping.log
 
-killall -9 $(basename $0) &>/dev/null
-
 ping=""
 
 while [ -z "$ping" ]; do
@@ -40,3 +38,5 @@ if [ ! -z "$rtt" ]; then
     color="%{F#01977a}"
     echo "$color%{F-}$color $(avg 10)$color avg: $(avg 100)$color"
 fi
+
+killall -9 $(basename $0) &>/dev/null
