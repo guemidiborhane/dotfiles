@@ -5,19 +5,16 @@
 bars_ini_path="$HOME/.config/polybar/conf.d/bars.ini"
 
 _default_content () {
-echo <<EOF
-# vim: ft=dosini sw=4 et :
-
-EOF
+    echo "# vim: ft=dosini sw=4 et :"
 }
 
 _bar_content () {
-echo <<EOF
+echo "
 [bar/$1]
 inherit = bar/default
 # tray-position = right
 modules-right = cputemp cpu memory time
-EOF
+"
 }
 
 touch_polybar_bars_ini () {
