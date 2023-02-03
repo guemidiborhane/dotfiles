@@ -34,12 +34,12 @@ main () {
     readme # scripts/misc.sh
 }
 
-# if --update flag is set
-if [ "$1" = "--update" ]; then
+if [ "$UPDATE" = "yes" ]; then
     section "dotfiles"
     echo "WARNING: This will reset any uncommited changes"
     echo "check for any changes with 'yadm status'"
     echo
+    ask_run_all_scripts # scripts/misc.sh
     ask "Reset dotfiles to remote"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
@@ -48,9 +48,9 @@ if [ "$1" = "--update" ]; then
         yadm reset --hard "origin/$branch"
         yadm alt
     fi
-    yay -Syyu --noconfirm
     vim_main # scripts/vim.sh
     zsh_main # scripts/zsh.sh
+    yay -Syyu --noconfirm
 else
     main
 fi
