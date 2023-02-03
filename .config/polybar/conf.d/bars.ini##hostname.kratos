@@ -4,12 +4,12 @@
 [bar/DP-4]
 inherit = bar/default
 tray-position = right
+modules-center = xwindow
 modules-right = network-bit-rate ping vpn memory date
 
 # Secondary
 [bar/DP-0]
 inherit = bar/default
-modules-center =
 modules-right = cputemp cpu cpu-frequency system-fan-speed time
 
 # Portrait
