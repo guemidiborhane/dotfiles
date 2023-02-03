@@ -9,12 +9,21 @@ _default_content () {
 }
 
 _bar_content () {
-echo "
-[bar/$1]
+    primary_monitor=$(xrandr --query | grep ' connected primary' | awk '{print $1}')
+    if [[ $1 == $primary_monitor ]]; then
+        echo "# Primary monitor"
+    fi
+
+    echo "[bar/$1]
 inherit = bar/default
-# tray-position = right
-modules-right = cputemp cpu memory time
-"
+monitor = $1"
+
+    if [[ $1 == $primary_monitor ]]; then
+        echo "tray-position = right"
+        echo "modules-center = xwindow"
+    fi
+
+    echo "modules-right = cputemp cpu memory time"
 }
 
 touch_polybar_bars_ini () {
