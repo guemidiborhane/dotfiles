@@ -7,10 +7,9 @@ enabled_user_services="pi-hole wallpaper.timer wallpaper.service run-mount-scrip
 enabled_system_services="fstrim.timer ntpd.service bluetooth.service"
 package_files_dir="$HOME/.config/yadm/packages/*.list"
 
-# Source all scripts in .config/yadm/scripts
-for script in $HOME/.config/yadm/scripts/*.sh; do
+# Source all scripts in .config/yadm/bootstrap.d
+for script in $HOME/.config/yadm/bootstrap.d/*.sh; do
     if [ -f "$script" ]; then
-        echo "Sourcing $script"
         . $script
     fi
 done
