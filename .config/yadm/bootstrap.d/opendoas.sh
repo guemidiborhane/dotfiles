@@ -1,7 +1,7 @@
 #!/bin/sh
 # vim: set ft=sh sw=4 et :
 
-. "$HOME/.config/yadm/scripts/utils.sh"
+. "$HOME/.config/yadm/bootstrap.d/utils.sh"
 
 doas_conf='permit persist setenv { XAUTHORITY LANG LC_ALL } :wheel'
 doas_conf_path='/etc/doas.conf'
