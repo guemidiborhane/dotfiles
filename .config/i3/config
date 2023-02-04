@@ -67,6 +67,7 @@ set $ws19 19
 ### include config files: ###
 #############################
 
+include conf.d/monitors.conf
 include conf.d/assignments.conf
 include conf.d/keybindings.conf
 include conf.d/windows.conf
