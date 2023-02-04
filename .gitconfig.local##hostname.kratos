@@ -1,0 +1,6 @@
+[user]
+	email = guemidiborhane@aina.dz
+	name = Borhaneddine GUEMIDI
+	signingkey = 92A59CFCBE69D758
+[commit]
+	gpgsign = true
