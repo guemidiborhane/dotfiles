@@ -2,6 +2,7 @@
 # vim: set ft=sh sw=4 et :
 
 . "$HOME/.config/yadm/scripts/utils.sh"
+. "$HOME/.config/yadm/scripts/mega.sh"
 
 clean_slate() {
     echo "Cleaning up"
@@ -39,6 +40,7 @@ install_packages () {
                 fi
             fi
         done
+        install_megatools
     fi
 }
 

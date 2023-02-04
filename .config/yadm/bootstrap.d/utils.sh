@@ -25,7 +25,8 @@ section () {
 }
 
 readme () {
-    echo "REMINDER:
-- Don't forget to run \`chsh -s \$(which zsh)\` to set zsh as your default shell
-- You should probably reboot now ! just to be sure"
+    echo "REMINDER:"
+    echo "- Don't forget to run \`chsh -s \$(which zsh)\` to set zsh as your default shell"
+    echo "- be sure to login to your Mega account using \`mega-login <email> <password>\`"
+    echo "- You should probably reboot now ! just to be sure"
 }
