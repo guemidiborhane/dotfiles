@@ -1,0 +1,12 @@
+#!/bin/sh
+
+cpu_frequencies=$($HOME/.local/bin/core_frequencies)
+base_clock_frequency=$(echo "$cpu_frequencies" | sort -k3 -s | head -n1 | awk '{print $3}')
+clocks=$(echo "$cpu_frequencies" | sort -k3 -rs | grep -v "$base_clock_frequency")
+cores_count=$(echo "$clocks" | wc -l | awk '{printf("%.2d",$1)}')
+
+if [ -z "$clocks" ]; then
+    echo "CPU is idle"
+else
+    echo -e "$cores_count cores used\n\n$clocks"
+fi

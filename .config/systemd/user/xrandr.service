@@ -1,0 +1,12 @@
+[Unit]
+Description=Configure displays
+
+[Service]
+ExecStartPre=/bin/sleep 2
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=%h/.layouts/main-setup.sh
+ExecStartPost=/usr/bin/bash %h/.files/i3/scripts/bg.sh
+
+[Install]
+WantedBy=default.target
