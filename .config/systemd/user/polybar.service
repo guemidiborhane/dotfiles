@@ -1,7 +1,5 @@
 [Unit]
 Description=Polybar
-After=xorg.target
-Requires=xorg.target
 
 [Service]
 Type=oneshot
@@ -10,4 +8,4 @@ ExecStop=killall -q polybar
 RemainAfterExit=yes
 
 [Install]
-WantedBy=xorg.target
+WantedBy=default.target
