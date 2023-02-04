@@ -1,9 +1,0 @@
-.atom/packages
-.atom/.apm
-.atom/compile-cache
-.atom/.node-gyp
-.atom/blob-store
-.atom/storage
-.atom/nohup*
-
-albert.conf.*

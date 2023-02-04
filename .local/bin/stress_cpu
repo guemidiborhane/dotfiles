@@ -1,0 +1,41 @@
+#!/bin/sh
+
+timeout=60
+cpus=1
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -h | --help)
+      echo "Usage: $0 [-h]"
+      echo "  --help, -h                 show this help text"
+      echo "  --cpu <num>, -c <num>      how many cpus to stress (default: $cpus)"
+      echo "  --timeout <num>, -t <num>  timeout after <num> seconds (default: $timeout)"
+      exit 0
+      ;;
+    -c|--cpus)
+      cpus="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -t|--timeout)
+      timeout="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+  esac
+done
+
+echo "Stressing $cpus cpus, timeout $timeout seconds"
+stress -c $cpus -t $timeout&
+pid=$!
+
+timeout --foreground --kill-after=$timeout $timeout \
+watch --no-title --differences --interval .5 \
+  "~/.local/bin/core_frequencies | sort -k3 -s | tail -$cpus | sort"
+kill $pid
+echo "Stress finished"
+exit 0
