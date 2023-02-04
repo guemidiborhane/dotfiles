@@ -53,7 +53,7 @@ if [ "$UPDATE" = "yes" ]; then
     ask "Update packages"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        yay -Syyu --noconfirm
+        install_packages "$package_files_dir" # scripts/misc.sh
     fi
 else
     main
