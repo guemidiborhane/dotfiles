@@ -1,0 +1,12 @@
+[Unit]
+Description=Automatically switch the horizontal / vertical window split orientation
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart=/usr/bin/autotiling -d
+ExecStop=/usr/bin/killall autotiling
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -4,7 +4,6 @@ After=xrandr.service
 
 [Service]
 ExecStart=%h/.i3/scripts/restore-workspaces.sh
-ExecStartPost=autotiling & diswon
 
 [Install]
 WantedBy=default.target
