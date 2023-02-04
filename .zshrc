@@ -14,7 +14,7 @@ DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-  sudo git wd fnm kubectl
+  sudo git wd kubectl
   zsh-autosuggestions zsh-syntax-highlighting command-not-found
   docker docker-compose
   hacker-quotes
