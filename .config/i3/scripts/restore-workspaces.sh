@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# Terminate already running bar instances
-killall -q autotiling
+systemctl --user stop autotiling.service
 
 # Wait until the processes have been shut down
 while pgrep -u $UID -x autotiling >/dev/null; do sleep 1; done
@@ -13,4 +12,4 @@ for file in $files; do
     i3-resurrect restore -w $(basename $file | cut -d'_' -f2) -d $resurrect_dir
 done
 
-autotiling 2>&1 & disown
+systemctl --user start autotiling.service
