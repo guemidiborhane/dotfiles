@@ -1,7 +1,7 @@
 #!/bin/sh
 # vim: set ft=sh sw=4 et :
 
-. "$HOME/.config/yadm/scripts/utils.sh"
+. "$HOME/.config/yadm/bootstrap.d/utils.sh"
 
 install_vim () {
     if [ ! -x "$(command -v vim)" ]; then

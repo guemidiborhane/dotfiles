@@ -8,7 +8,7 @@ THIRD_PARTY_PLUGINS=(
     https://github.com/oldratlee/hacker-quotes.git
 )
 
-. "$HOME/.config/yadm/scripts/utils.sh"
+. "$HOME/.config/yadm/bootstrap.d/utils.sh"
 
 install_zsh_pkg () {
     yay -S --needed --noconfirm zsh
