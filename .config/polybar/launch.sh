@@ -1,8 +1,6 @@
 #!/usr/bin/env sh
 # vim: set ft=sh sw=4 et :
 
-notify-send -u low "autorandr: restarting polybar"
-
 # Terminate already running bar instances
 killall -q polybar
 
