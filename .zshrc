@@ -14,7 +14,7 @@ DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-  sudo git wd kubectl
+  sudo git wd asdf
   zsh-autosuggestions zsh-syntax-highlighting command-not-found
   docker docker-compose
   hacker-quotes
@@ -57,4 +57,3 @@ complete -o nospace -C /usr/bin/mcli mcli
 export MCFLY_RESULTS_SORT=LAST_RUN
 export MCFLY_RESULTS=100
 eval "$(mcfly init zsh)"
-. /opt/asdf-vm/asdf.sh
