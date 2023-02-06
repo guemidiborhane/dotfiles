@@ -1,0 +1,7 @@
+ruby 3.1.2
+nodejs 18.12.1
+php 8.1.12
+yarn 1.22.19
+python 2.7.18
+kubectl 1.24.6
+kubectx 0.9.4
