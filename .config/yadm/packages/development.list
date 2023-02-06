@@ -19,8 +19,6 @@ helm
 insomnia-bin
 kompose
 krew-bin
-kubectl
-kubectx
 kustomize
 ngrok
 openlens-bin
