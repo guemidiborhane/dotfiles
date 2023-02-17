@@ -9,7 +9,7 @@ ExecStart=docker run \
     --rm \
     -e PGDATA=/var/lib/postgresql/data \
     -v grespost:/var/lib/postgresql/data \
-    -e POSTGRES_USER='{{ yadm.user }}' \
+    -e POSTGRES_USER='%u' \
     -e POSTGRES_PASSWORD='secret' \
     -p 5432:5432 \
     --name %n \
