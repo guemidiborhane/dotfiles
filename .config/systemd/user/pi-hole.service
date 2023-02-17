@@ -7,8 +7,8 @@ StandardOutput=journal
 ExecStop=docker stop %n
 ExecStart=docker run \
     --rm \
-    -v /home/{{ yadm.user }}/.srv/pi-hole/app:/etc/pihole \
-    -v /home/{{ yadm.user }}/.srv/pi-hole/dnsmasq.d:/etc/dnsmasq.d \
+    -v %h/.srv/pi-hole/app:/etc/pihole \
+    -v %h/.srv/pi-hole/dnsmasq.d:/etc/dnsmasq.d \
     -p 53:53/tcp  \
     -p 53:53/udp  \
     -p 127.0.0.1:8888:80 \

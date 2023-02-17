@@ -8,13 +8,13 @@ ExecStop=docker stop %n
 ExecStart=docker run \
     --rm \
     --gpus all \
-    -v /home/{{ yadm.user }}/.srv/jellyfin/web:/jellyfin/jellyfin-web \
-    -v /home/{{ yadm.user }}/.srv/jellyfin/config:/config \
-    -v /srv/jellyfin/cache:/cache \
-    -v /run/media/{{ yadm.user }}/DATA/:/media/videos \
+    -v %h/.srv/jellyfin/web:/jellyfin/jellyfin-web \
+    -v %h/.srv/jellyfin/config:/config \
+    -v %h/.srv/jellyfin/cache:/cache \
+    -v /run/media/%u/DATA/:/media/videos \
     -v /mnt/chungus/Videos/Movies/:/media/videos/Movies-chungus \
     -v /mnt/chungus/Videos/Series/:/media/videos/Shows-chungus \
-    -v /run/media/{{ yadm.user }}/DATA/Music/:/media/Music \
+    -v /run/media/%u/DATA/Music/:/media/Music \
     -p 8096:8096 \
     --name %n \
     jellyfin/jellyfin:latest
