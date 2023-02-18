@@ -7,6 +7,7 @@ StandardOutput=journal
 ExecStop=docker stop %N
 ExecStart=docker run \
     --rm \
+    -m 128M \
     -v %h/.srv/pi-hole/app:/etc/pihole \
     -v %h/.srv/pi-hole/dnsmasq.d:/etc/dnsmasq.d \
     -p 53:53/tcp  \

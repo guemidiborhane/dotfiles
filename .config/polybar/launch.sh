@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 # vim: set ft=sh sw=4 et :
 
-# Terminate already running bar instances
 killall -q polybar
 
 # Wait until the processes have been shut down
@@ -16,6 +15,5 @@ for monitor in ${DISPLAYS[@]}; do
     external_monitor=$(xrandr --query | grep $monitor)
     if [[ $external_monitor = *connected* ]]; then
         MONITOR=$monitor polybar -c $BAR_CONFIG $monitor&
-        sleep 1
     fi
 done
