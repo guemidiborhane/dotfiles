@@ -4,7 +4,7 @@ Description=Pi-hole DNS server
 [Service]
 Type=simple
 StandardOutput=journal
-ExecStop=docker stop %n
+ExecStop=docker stop %N
 ExecStart=docker run \
     --rm \
     -v %h/.srv/pi-hole/app:/etc/pihole \
@@ -18,7 +18,7 @@ ExecStart=docker run \
     --dns=1.1.1.1 \
     --dns=127.0.0.1 \
     --hostname pi.hole \
-    --name %n \
+    --name %N \
     pihole/pihole:latest
 
 [Install]
