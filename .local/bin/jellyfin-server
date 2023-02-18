@@ -1,0 +1,67 @@
+#!python3
+# USAGE: python3 jellyfin-server [base_config_dir] [container_name]
+
+import os
+import subprocess
+import sys
+import signal
+
+container_name = "jellyfin"
+base_config_dir = os.path.join(os.environ["HOME"], ".srv", "jellyfin")
+
+# if 1 argument is passed, use it as the base config dir
+# if 2 arguments are passed, use the first as the base config dir and the second as the container name
+if len(sys.argv) == 2:
+    base_config_dir = sys.argv[1]
+elif len(sys.argv) == 3:
+    base_config_dir = sys.argv[1]
+    container_name = sys.argv[2]
+
+
+volumes = {
+    "web": {
+        "host": os.path.join(base_config_dir, "web"),
+        "container": "/jellyfin/jellyfin-web",
+    },
+    "config": {
+        "host": os.path.join(base_config_dir, "config"),
+        "container": "/config",
+    },
+    "cache": {
+        "host": os.path.join(base_config_dir, "cache"),
+        "container": "/cache",
+    },
+}
+
+# parse base_config_dir/volumes.list
+# host_path:container_path (one per line)
+# lines starting with # are ignored
+volumes_list_path = os.path.join(base_config_dir, "volumes.list")
+if os.path.exists(volumes_list_path):
+    with open(volumes_list_path, "r") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            host_path, container_path = line.split(":")
+            volumes[host_path] = {
+                "host": host_path,
+                "container": container_path,
+            }
+
+command="docker run --rm --gpus all --name {} -m 8G ".format(container_name)
+for volume in volumes.values():
+    command += "-v \"{}:{}\" ".format(volume["host"], volume["container"])
+command += "-p 8096:8096 jellyfin/jellyfin:latest"
+
+# run command
+subprocess.run(command, shell=True)
+
+# # catch SIGINT
+def signal_handler(sig, frame):
+    print("Stopping container...")
+    subprocess.run("docker stop {}".format(container_name), shell=True)
+    sys.exit(0)
+
+# catch keyboard interrupt
+signal.signal(signal.SIGINT, signal_handler)
