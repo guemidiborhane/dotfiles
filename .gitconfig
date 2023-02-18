@@ -27,3 +27,11 @@
 	defaultBranch = master
 [include]
 	path = .gitconfig.local
+[gui]
+	historybrowser = gitk
+[diff]
+	tool = xxdiff
+[cola]
+	theme = flat-dark-blue
+	icontheme = dark
+	fontdiff = Monospace,12,-1,5,50,0,0,0,0,0
