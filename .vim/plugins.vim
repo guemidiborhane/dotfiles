@@ -1,30 +1,29 @@
-filetype off                  " required
+" Install vim-plug if we don't already have it
+if empty(glob('~/.vim/autoload/plug.vim'))
+silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+autocmd VimEnter * Plugstall --sync | source $MYVIMRC
+endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-dotenv'
+Plug 'scrooloose/nerdtree'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'posva/vim-vue'
+Plug 'mattn/emmet-vim'
+Plug 'wavded/vim-stylus'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'airblade/vim-gitgutter'
+Plug 'kchmck/vim-coffee-script'
+Plug 'matze/vim-move'
+Plug 'jwalton512/vim-blade'
+Plug 'dracula/vim', { 'name': 'dracula' }
+call plug#end()
 
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-vinegar'
-Plugin 'tpope/vim-dotenv'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'posva/vim-vue'
-Plugin 'mattn/emmet-vim'
-Plugin 'wavded/vim-stylus'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'matze/vim-move'
-Plugin 'jwalton512/vim-blade'
-Plugin 'dracula/vim', { 'name': 'dracula' }
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" vim: set ft=vimrc sw=4 et :
