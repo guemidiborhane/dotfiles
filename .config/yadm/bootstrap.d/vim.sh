@@ -9,25 +9,16 @@ install_vim () {
         yay -S --noconfirm vim
     fi
 }
-
-install_vundle () {
-    if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
-        echo "Installing Vundle"
-        git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
-    fi
-}
-
 install_vim_plugins () {
-    vim +PluginInstall +qall
+    vim +PlugInstall +qall
 }
 
 update_vim_plugins () {
-    vim +PluginUpdate +PluginClean +qall
+    vim +PlugUpdate +PlugClean +qall
 }
 
 configure_vim () {
     install_vim
-    install_vundle
     install_vim_plugins
 }
 
