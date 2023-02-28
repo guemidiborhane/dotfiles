@@ -1,0 +1,8 @@
+# vim: ft=dosini sw=4 et :
+# Primary monitor
+[bar/eDP1]
+inherit = bar/default
+monitor = eDP1
+tray-position = right
+modules-center = xwindow
+modules-right = network cputemp cpu time vpn
