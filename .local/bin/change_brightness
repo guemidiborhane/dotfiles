@@ -1,0 +1,43 @@
+#!/bin/bash
+# PATH: ~/.local/bin/change_brightness
+
+# ICONS: https://www.flaticon.com/free-icons/brightness credit: Freepik
+
+# This script is used to change the brightness of the screen
+# It uses the xbacklight command to change the brightness
+# It also uses the dunstify command to display a notification
+# The notification is displayed using the dunstify command
+
+function get_brightness() {
+    xbacklight -get | awk -F. '{print $1}'
+}
+
+# if get_brightness is empty, it means that current screen doesn't support brightness
+if [[ -z $(get_brightness) ]]; then
+    exit 1
+fi
+
+current_brightness=$(get_brightness)
+steps=5
+change="$1"
+icon="brightness"
+
+if [[ "$change" -gt 0 ]]; then
+    if [[ "$current_brightness" -lt 100 ]]; then
+        xbacklight -inc "$change" -steps "$steps"
+    fi
+else
+    if [[ "$current_brightness" -gt 0 ]]; then
+        xbacklight -dec "$((change*-1))" -steps "$steps"
+    fi
+fi
+
+current_brightness=$(get_brightness)
+
+# Show the notification
+dunstify \
+    -i "~/.icons/$icon.png" \
+    -h int:value:"$current_brightness" \
+    -h string:synchronous:"brightness" \
+    "Brightness" \
+    "$current_brightness%"
