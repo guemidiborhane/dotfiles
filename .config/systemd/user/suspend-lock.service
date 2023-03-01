@@ -1,0 +1,10 @@
+[Unit]
+Description=User suspend actions
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/xss-lock %h/.local/bin/blurlock
+
+[Install]
+WantedBy=default.target
