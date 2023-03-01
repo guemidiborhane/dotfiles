@@ -16,10 +16,10 @@ case "$1" in
         dm-tool switch-to-greeter
         ;;
     suspend)
-        ~/.local/bin/blurlock && $logind suspend
+        $logind suspend
         ;;
     hibernate)
-        ~/.local/bin/blurlock && $logind hibernate
+        $logind hibernate
         ;;
     reboot)
         ~/.config/i3/scripts/save-workspaces.sh
