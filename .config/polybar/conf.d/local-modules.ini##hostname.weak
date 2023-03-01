@@ -1,3 +1,55 @@
 [module/cputemp]
 inherit=module/base-cputemp
-hwmon-path=/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon8/temp1_input
+hwmon-path=/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon7/temp1_input
+
+[module/battery]
+type = internal/battery
+interval = 5
+time-format = %H:%M
+battery = BAT0
+adapter = AC
+full-at=95
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+label-full = Fully charged
+
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%% (%time%)
+label-charging = %percentage%% (%time%)
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+
+; Framerate in milliseconds
+animation-charging-framerate = 750
