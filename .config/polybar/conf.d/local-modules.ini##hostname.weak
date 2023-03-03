@@ -2,6 +2,10 @@
 inherit=module/base-cputemp
 hwmon-path=/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon7/temp1_input
 
+[module/cpu-frequency]
+inherit=module/base-cpu-frequency
+exec = ~/.config/polybar/scripts/cpu-frequency.sh | awk '{print $1}'
+
 [module/battery]
 type = internal/battery
 interval = 5
