@@ -1,7 +1,7 @@
 {
     "label": "logout",
     "action": "~/.config/i3/scripts/i3exit.sh logout",
-    "text": "Logout",
+    "text": "L[e]gout",
     "keybind": "e"
 }
 {
