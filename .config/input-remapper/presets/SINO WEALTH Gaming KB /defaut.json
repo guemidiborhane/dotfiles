@@ -1,0 +1,32 @@
+{
+    "mapping": {
+        "1,119,1": [
+            "Super_R + L",
+            "keyboard"
+        ],
+        "1,60,1": [
+            "XF86AudioLowerVolume",
+            "keyboard"
+        ],
+        "1,61,1": [
+            "XF86AudioRaiseVolume",
+            "keyboard"
+        ],
+        "1,62,1": [
+            "XF86AudioMute",
+            "keyboard"
+        ],
+        "1,114,1": [
+            "KEY_F2",
+            "keyboard"
+        ],
+        "1,115,1": [
+            "KEY_F3",
+            "keyboard"
+        ],
+        "1,113,1": [
+            "KEY_F4",
+            "keyboard"
+        ]
+    }
+}
