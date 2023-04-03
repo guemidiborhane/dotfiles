@@ -9,7 +9,7 @@
 # The notification is displayed using the dunstify command
 
 function get_brightness() {
-    xbacklight -get | awk -F. '{print $1}'
+    light -G | cut -d '.' -f 1
 }
 
 # if get_brightness is empty, it means that current screen doesn't support brightness
@@ -18,17 +18,18 @@ if [[ -z $(get_brightness) ]]; then
 fi
 
 current_brightness=$(get_brightness)
-steps=5
 change="$1"
 icon="brightness"
 
+value_of_change=$(echo "$change" | cut -d '-' -f 2)
+
 if [[ "$change" -gt 0 ]]; then
     if [[ "$current_brightness" -lt 100 ]]; then
-        xbacklight -inc "$change" -steps "$steps"
+        light -A $value_of_change
     fi
 else
     if [[ "$current_brightness" -gt 0 ]]; then
-        xbacklight -dec "$((change*-1))" -steps "$steps"
+        light -U $value_of_change
     fi
 fi
 
