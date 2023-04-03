@@ -1,8 +1,8 @@
 # vim: ft=dosini sw=4 et :
 # Primary monitor
-[bar/eDP1]
+[bar/eDP-1]
 inherit = bar/default
-monitor = eDP1
+monitor = eDP-1
 tray-position = right
 modules-center = xwindow
 modules-right = network power-profile cputemp cpu-frequency vpn battery time
