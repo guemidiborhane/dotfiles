@@ -1,15 +1,14 @@
 configuration {
     font: "FuraCode Nerd Font Light 14";
-    drun-display-format: "{icon} {name}";
 
     eh: 1;
     hide-scrollbar: true;
-    display-drun: "   Apps ";
-    display-run: "   Run ";
-    display-window: " 﩯  Window";
-    display-Network: " 󰤨  Network";
-    display-emoji: "  Emoji  ";
-    display-calc: "  Calc";
+    display-drun: "";
+    display-run: "";
+    display-window: "﩯";
+    display-emoji: "";
+    display-calc: "";
+    display-filebrowser: "";
     sidebar-mode: true;
     hover-select: true;
     show-icons: true;
@@ -27,12 +26,12 @@ configuration {
 
 window {
     transparency: "real";
-    background-color: #191724A6;
+    background-color: #191724;
     location: center;
     anchor: center;
     width: 100%;
     height: 100%;
-    padding: 25%;
+    padding: 20%;
     orientation: vertical;
     children:	  [mainbox];
 }
@@ -44,14 +43,14 @@ mainbox {
     spacing: 0px;
     padding: 5px;
     background-color: #191724;
-    children: [ inputbar, listview, mode-switcher ];
+    children: [ inputbar, listview];
 }
 
 mode-switcher {
     background-color: @transparent;
     text-color: @foreground;
-    padding: 0 12px 0 12px;
-    vertical-align: 0;
+    padding: 12px;
+    vertical-align: 1;
     horizontal-align: 0;
 }
 
@@ -68,7 +67,8 @@ prompt {
 #button {
     background-color: @transparent;
     text-color: @foreground;
-    padding: 10px 0px;
+    padding: 5px;
+    width: 40px;
 }
 
 entry {
@@ -82,13 +82,23 @@ entry {
     blink: true;
 }
 
+textbox-prompt-colon {
+    enabled: true;
+    expand: false;
+    str: "";
+    background-color: @transparent;
+    text-color: @foreground;
+    vertical-align: 0.5;
+    horizontal-align: 0;
+}
+
 entry-wrapper {
     orientation: horizontal;
     margin: 0 12px 0 12px;
     spacing: 24px;
     vertical-align: 0.5;
     background-color: @transparent;
-    children: [ entry ];
+    children: [ textbox-prompt-colon, entry ];
 }
 
 inputbar {
@@ -98,13 +108,13 @@ inputbar {
     expand: false;
     border-radius: 9px;
     position: north;
-    children: [ entry-wrapper ];
+    children: [ entry-wrapper, mode-switcher ];
 }
 
 listview {
     background-color: @transparent;
     spacing: 0;
-    cycle: true;
+    cycle: false;
     dynamic: true;
     scrollbar: true;
 }
