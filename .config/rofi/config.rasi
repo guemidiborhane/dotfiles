@@ -1,9 +1,9 @@
 configuration {
-	show-icons:      true;
-	sidebar-mode:    false;
-
-	terminal:           "kitty";
-    ssh-command:        "{terminal} -e '{ssh-client} {host}'";
+    monitor: "primary";
+    sort: true;
+    case-sensitivity: false;
+    sorting-method: "fzf";
+    terminal: "kitty";
+    modi: "drun,window,emoji,calc";
 }
-
-@theme "linuxmobile"
+@theme "theme"
