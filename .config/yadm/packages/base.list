@@ -16,6 +16,8 @@ opendoas
 polkit-gnome
 polybar
 rofi
+rofi-calc
+rofi-emoji
 rsync
 thunar
 thunar-archive-plugin
