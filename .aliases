@@ -23,7 +23,8 @@ alias zshrc="vim ~/.zshrc"
 alias aliases="vim ~/.aliases"
 
 alias uu="yay -Syyu --noconfirm"
-alias cpwd="pwd | xclip -sel clip"
+alias clip="xclip -sel clip"
+alias cpwd="pwd | clip"
 alias wtr="curl -s wttr.in | head -7"
 
 # lsd
