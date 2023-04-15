@@ -25,6 +25,9 @@ kustomize
 ngrok
 openlens-bin
 qgis
+python-owslib
+python-psycopg2
+python-gdal
 sublime-text-4
 sublime-url-handler
 terraform
