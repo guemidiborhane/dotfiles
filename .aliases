@@ -67,3 +67,5 @@ alias p1="ping 1.1.1.1"
 
 # kubectl
 alias k=kubectl
+
+alias vim=nvim
