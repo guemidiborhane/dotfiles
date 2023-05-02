@@ -4,17 +4,23 @@
 . "$HOME/.config/yadm/bootstrap.d/utils.sh"
 
 install_vim () {
-    if [ ! -x "$(command -v vim)" ]; then
-        echo "Installing vim"
-        yay -S --noconfirm vim
+    if [ ! -x "$(command -v neovim)" ]; then
+        echo "Installing neovim"
+        yay -S --noconfirm neovim ripgrep
     fi
 }
-install_vim_plugins () {
-    vim +PlugInstall +qall
+
+install_nvchad () {
+    if [ ! -d "$HOME/.config/nvim" ]; then
+        echo "Installing NvChad"
+        git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+        ln -s ~/.config/custom-nvim ~/.config/nvim/lua/custom
+        nvim
+    done
 }
 
 update_vim_plugins () {
-    vim +PlugUpdate +PlugClean +qall
+    nvim +NvChadUpdate +MasonInstallAll
 }
 
 configure_vim () {
@@ -23,11 +29,11 @@ configure_vim () {
 }
 
 vim_main () {
-    section "VIM"
-    ask "Install/Update vim"
+    section "NeoVIM"
+    ask "Install/Update neovim"
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        if [ -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+        if [ -d "$HOME/.config/nvim" ]; then
             update_vim_plugins
         else
             configure_vim
