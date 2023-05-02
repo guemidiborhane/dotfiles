@@ -13,8 +13,10 @@ i3-wm
 kitty
 light
 opendoas
+neovim
 polkit-gnome
 polybar
+ripgrep
 rofi
 rofi-calc
 rofi-emoji
@@ -23,7 +25,6 @@ thunar
 thunar-archive-plugin
 thunar-volman
 tmux
-vim
 wlogout
 xclip
 xfce4-terminal
