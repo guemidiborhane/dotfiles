@@ -6,7 +6,7 @@
 install_vim () {
     if [ ! -x "$(command -v neovim)" ]; then
         echo "Installing neovim"
-        yay -S --noconfirm neovim ripgrep
+        yay -S --noconfirm --needed neovim ripgrep
     fi
 }
 
@@ -16,7 +16,7 @@ install_nvchad () {
         git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
         ln -s ~/.config/custom-nvim ~/.config/nvim/lua/custom
         nvim
-    done
+    fi
 }
 
 update_vim_plugins () {
@@ -25,7 +25,7 @@ update_vim_plugins () {
 
 configure_vim () {
     install_vim
-    install_vim_plugins
+    install_nvchad
 }
 
 vim_main () {
