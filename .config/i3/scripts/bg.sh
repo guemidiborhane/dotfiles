@@ -1,7 +1,10 @@
 #!/usr/bin/bash
 
 DISPLAYS="$(xrandr --listactivemonitors | awk '{ print $4 ";" $1 ";" $3 }' | tail -n+2)"
-BASE_URL="https://picsum.photos"
+BASE_URL="unsplash.com"
+
+# exit if no internet connection
+ping -q -w1 -c1 $BASE_URL &>/dev/null || exit
 
 paths=""
 
@@ -13,7 +16,7 @@ for screen in ${DISPLAYS[@]}; do
     height=$(echo $resolution | cut -d 'x' -f 2)
     width=$(echo $resolution | cut -d 'x' -f 1)
 
-    uri=$(curl -X GET --silent -I "$BASE_URL/$width/$height.jpg?random"  | grep -ie "^Location: " | sed 's/^Location: //gi' | tr -d '\r')
+    uri=$(curl -X GET --silent -I "https://source.$BASE_URL/${width}x${height}/?stars,nature,weather"  | grep -ie "^Location: " | sed 's/^Location: //gi' | tr -d '\r')
     output="/tmp/$id-$screen_name-${width}x${height}.jpg"
     curl -s "$uri" --output "$output"
     paths="$paths $output"
