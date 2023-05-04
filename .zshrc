@@ -25,7 +25,7 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR='vim'
 export SUDO_EDITOR='sudoedit'
-export KUBE_EDITOR='vim'
+export KUBE_EDITOR='code --wait'
 export ANSIBLE_NOCOWS=1
 
 [[ -e $HOME/.aliases ]] && source $HOME/.aliases
