@@ -3,6 +3,9 @@
 HOST=1.1.1.1
 log=/tmp/ping.log
 
+
+ping -q -w1 -c1 $HOST &>/dev/null || exit
+
 ping=""
 
 while [ -z "$ping" ]; do
