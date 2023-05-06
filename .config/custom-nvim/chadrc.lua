@@ -41,6 +41,22 @@ M.ui = {
   },
   nvdash = {
     load_on_startup = true
+  },
+
+  statusline = {
+    overriden_modules = function()
+        local codeium = function()
+            return vim.fn["codeium#GetStatusString"]()
+        end
+        local st_modules = require "nvchad_ui.statusline.default"
+
+        return {
+            cwd = function()
+                return " " .. codeium() .. " " .. st_modules.cwd()
+            end,
+        }
+
+    end
   }
 }
 
