@@ -1,7 +1,7 @@
 local plugins = {
     {
-        'github/copilot.vim',
-        lazy = false
+        'Exafunction/codeium.vim',
+        lazy = false,
     },
 
     {
