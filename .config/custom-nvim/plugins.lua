@@ -16,7 +16,7 @@ local plugins = {
         "williamboman/mason.nvim",
         opts = {
             ensure_installed = {
-                "solargraph",
+                "ruby-lsp",
                 "emmet-ls",
             },
         },
