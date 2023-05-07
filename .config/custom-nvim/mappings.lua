@@ -1,14 +1,14 @@
-local M =  {}
+local M = {}
 
 M.disabled = {
-  n = {
-    ["C-p"] = ""
-  }
+    n = {
+        ["C-p"] = "",
+    },
 }
 
 local toggle_nvterm = {
     function()
-        require("nvterm.terminal").toggle "float"
+        require("nvterm.terminal").toggle("float")
     end,
     "toggle floating term",
 }
@@ -22,9 +22,8 @@ M.personal = {
         ["<S-A-p>"] = { "<cmd> Telescope projects <CR>" },
     },
     t = {
-        ["<C-`>"] = toggle_nvterm
-    }
+        ["<C-`>"] = toggle_nvterm,
+    },
 }
-
 
 return M
