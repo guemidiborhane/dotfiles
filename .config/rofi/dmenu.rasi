@@ -1,0 +1,25 @@
+@import "theme"
+
+prompt {
+    enabled: true;
+}
+
+window {
+    fullscreen: false;
+    background-color: @transparent;
+    padding: 12px 0px;
+}
+
+prompt {
+    background-color: @background;
+}
+
+inputbar {
+    background-color: @background;
+}
+
+listview {
+    background-color: @background;
+    padding: 12px 0px;
+    border-radius: 9px;
+}
