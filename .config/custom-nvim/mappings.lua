@@ -20,6 +20,10 @@ M.personal = {
         ["<C-k>w"] = { "<cmd> :bufdo bd<CR> :Nvdash<CR>", "close all buffers" },
         ["<C-`>"] = toggle_nvterm,
         ["<S-A-p>"] = { "<cmd> Telescope projects <CR>" },
+        ["<C-w>"] = { "<cmd> bufdo bd<CR>", "close current buffer" },
+    },
+    i = {
+        ["<C-s>"] = { "<cmd> write <CR>", "save" },
     },
     t = {
         ["<C-`>"] = toggle_nvterm,
