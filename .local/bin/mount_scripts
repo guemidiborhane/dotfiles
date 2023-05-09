@@ -3,7 +3,9 @@
 files=$(find /run/media -maxdepth 4 -iname 'mount.sh')
 
 function dmenu() {
-    command dmenu -h 32 -i -nb "#282a36" -nf "#f8f8f2" -sb "#44475a" -sf "#f8f8f2" -p "$1"
+    command rofi -dmenu \
+            -theme "$HOME/.config/rofi/dmenu.rasi" \
+            -i -p "$1"
 }
 
 if [ -z "$files" ]; then
@@ -49,7 +51,8 @@ else
                         cp $dir/umount.sh $HOME/.umount_scripts/$random
                     fi
                 fi
-            else
+            elif [[ "$check" = "no" ]]; then
+
                 touch $HOME/.umount_scripts/$random
             fi
 
@@ -58,4 +61,3 @@ else
         fi
     done
 fi
-

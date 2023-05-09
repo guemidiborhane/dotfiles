@@ -5,7 +5,9 @@ function nc() {
 }
 
 function dmenu() {
-    command dmenu -h 32 -i -nb "#282a36" -nf "#f8f8f2" -sb "#44475a" -sf "#f8f8f2" -p "$1"
+    command rofi -dmenu \
+            -theme "$HOME/.config/rofi/dmenu.rasi" \
+            -i -p "$1"
 }
 
 RED='%{F#ff5555}'
