@@ -6,6 +6,5 @@ configuration {
     terminal: "kitty";
     modi: "drun,window,emoji,calc,filebrowser";
     drun-display-format: "{icon} {name}";
-
 }
 @theme "theme"
