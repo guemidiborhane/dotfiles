@@ -22,7 +22,9 @@ local find_files = {
 
 -- close splits and last window if no splits
 local close_tab = {
-    "<cmd> close <CR>",
+    function()
+        require("nvchad_ui.tabufline").close_buffer()
+    end,
     "close current tab",
 }
 
