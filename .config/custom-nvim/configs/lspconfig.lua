@@ -1,5 +1,3 @@
-require("custom.configs.lsp.emmet")
-
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
@@ -12,3 +10,5 @@ for _, lsp in ipairs(servers) do
         capabilities = capabilities,
     })
 end
+
+require("custom.configs.lsp.emmet")
