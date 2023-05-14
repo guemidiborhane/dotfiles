@@ -6,26 +6,26 @@
 install_vim () {
     if [ ! -x "$(command -v neovim)" ]; then
         echo "Installing neovim"
-        yay -S --noconfirm --needed neovim ripgrep
+        yay -S --noconfirm --needed neovim ripgrep bottom lazygit 
     fi
 }
 
-install_nvchad () {
+install_astronvim () {
     if [ ! -d "$HOME/.config/nvim" ]; then
-        echo "Installing NvChad"
-        git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-        ln -s ~/.config/custom-nvim ~/.config/nvim/lua/custom
-        nvim
+        echo "Installing AstroNvim"
+        git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+        ln -s ~/.config/astronvim ~/.config/nvim/lua/user
+        nvim --headless -c 'quitall'
     fi
 }
 
 update_vim_plugins () {
-    nvim +NvChadUpdate +MasonInstallAll
+    nvim +AstroUpdatePackages
 }
 
 configure_vim () {
     install_vim
-    install_nvchad
+    install_astronvim
 }
 
 vim_main () {
