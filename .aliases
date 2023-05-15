@@ -19,6 +19,8 @@ function tn() {
     tmux new-session -As "$session_name"
 }
 
+bindkey -s ^T "tn\n"
+
 alias zshrc="vim ~/.zshrc"
 alias aliases="vim ~/.aliases"
 
