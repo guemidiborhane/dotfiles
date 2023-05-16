@@ -18,7 +18,8 @@ alias nvim-chad="NVIM_APPNAME=nvchad nvim"
 alias nvim-astro="NVIM_APPNAME=astronvim nvim"
 
 function nvims() {
-  items=("default" "nvchad" "astronvim")
+  items=("default")
+  items+=$(ls ~/.config/user-nvim | sort)
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
     echo "Nothing selected"
