@@ -17,7 +17,7 @@ install_vim () {
 install_astronvim () {
     if [ ! -d "$HOME/.config/astronvim" ]; then
         echo "Installing AstroNvim"
-        git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+        git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/astronvim
         ln -s ~/.config/user-nvim/astronvim ~/.config/astronvim/lua/user
         install_deps bottom lazygit
         nvim --headless -c 'quitall'
@@ -39,11 +39,11 @@ update_vim_plugins () {
 }
 
 set_default_neovim_config () {
-    ask "Set default NeoVim config to (astronvim/nvchad)"
+    ask "Set default NeoVim config to (astronvim/nvchad)" "a/n"
 
-    if [[ $REPLY = "astronvim" ]]; then
+    if [[ $REPLY = "a" ]]; then
         ln -s ~/.config/astronvim ~/.config/nvim
-    elif [[ $REPLY = "nvchad" ]]; then
+    elif [[ $REPLY = "n" ]]; then
         ln -s ~/.config/nvchad ~/.config/nvim
     fi
 }
