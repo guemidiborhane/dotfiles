@@ -30,6 +30,17 @@ local close_buffer = {
   desc = "Close buffer",
 }
 
+local close_all_buffers = {
+  function()
+    local bufs = vim.fn.getbufinfo { buflisted = true }
+    for _, buf in ipairs(bufs) do
+      require("astronvim.utils.buffer").close(buf.bufnr)
+    end
+    if require("astronvim.utils").is_available "alpha-nvim" and not bufs[2] then require("alpha").start(true) end
+  end,
+  desc = "Close all buffers",
+}
+
 local toggle_neotree = {
   "<cmd> Neotree toggle <CR>",
   desc = "toggle neotree",
@@ -40,7 +51,7 @@ local toggle_term = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
 return {
   n = {
     ["<C-p>"] = find_files,
-    ["<C-k>w"] = { "<cmd> bufdo bd<CR> <cmd> Nvdash<CR>", desc = "close all buffers" },
+    ["<C-k>w"] = close_all_buffers,
     ["<S-A-p>"] = { "<cmd> Telescope projects <CR>", desc = "List projects" },
     ["<C-l>"] = vertical_split,
     ["<C-j>"] = horizontal_split,
