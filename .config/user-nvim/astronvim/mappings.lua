@@ -48,22 +48,33 @@ local toggle_neotree = {
 
 local toggle_term = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
 
+local next_buffer = {
+  function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+  desc = "Next buffer",
+}
+local previous_buffer = {
+  function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+  desc = "Previous buffer",
+}
+
 return {
   n = {
     ["<C-p>"] = find_files,
     ["<C-k>w"] = close_all_buffers,
     ["<S-A-p>"] = { "<cmd> Telescope projects <CR>", desc = "List projects" },
-    ["<C-l>"] = vertical_split,
-    ["<C-j>"] = horizontal_split,
+    ["|"] = vertical_split,
+    ["\\"] = horizontal_split,
     ["<C-n>"] = toggle_neotree,
     ["<C-w>"] = close_buffer,
     ["<C-`>"] = toggle_term,
+    ["<C-Tab>"] = next_buffer,
+    ["<C-S-Tab>"] = previous_buffer,
   },
   i = {
     ["<C-p>"] = find_files,
     ["<C-s>"] = { "<cmd> write <CR>", desc = "save" },
-    ["<C-l>"] = vertical_split,
-    ["<C-j>"] = horizontal_split,
+    ["|"] = vertical_split,
+    ["\\"] = horizontal_split,
     ["<C-n>"] = toggle_neotree,
     ["<C-w>"] = close_buffer,
     ["<C-`>"] = toggle_term,
