@@ -39,7 +39,7 @@ if [ ! -z "$rtt" ]; then
     echo "$(tail -n 100 $log)" > $log
 
     color="%{F#01977a}"
-    echo "$color%{F-}$color $(avg 10)$color avg: $(avg 100)$color"
+    echo "$color󰓅%{F-}$color $(avg 10)$color avg: $(avg 100)$color"
 fi
 
 killall -9 $(basename $0) &>/dev/null
