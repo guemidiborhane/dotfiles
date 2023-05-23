@@ -12,6 +12,18 @@ while [ -z "$ping" ]; do
   ping=$(ping -n -c 1 -W 1 $HOST)
 done
 
+function icon() {
+    if [ "$1" -lt 50 ]; then
+        icon="󰓅"
+    elif [ "$1" -lt 150 ]; then
+        icon="󰾅"
+    else
+        icon="󰾆"
+    fi
+
+    echo "$icon"
+
+}
 
 function text_color() {
     if [ "$1" -lt 50 ]; then
@@ -39,7 +51,8 @@ if [ ! -z "$rtt" ]; then
     echo "$(tail -n 100 $log)" > $log
 
     color="%{F#01977a}"
-    echo "$color󰓅%{F-}$color $(avg 10)$color avg: $(avg 100)$color"
+    avg=$(avg 100 | awk -F '}' '{print $2}' | awk '{print $1}')
+    echo "$color $(icon $avg) %{F-}$color $(avg 10)$color avg: $(avg 100) $color"
 fi
 
 killall -9 $(basename $0) &>/dev/null
