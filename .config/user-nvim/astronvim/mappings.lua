@@ -57,6 +57,13 @@ local previous_buffer = {
   desc = "Previous buffer",
 }
 
+-- nnoremap <A-j> :m .+1<CR>==
+-- nnoremap <A-k> :m .-2<CR>==
+-- inoremap <A-j> <Esc>:m .+1<CR>==gi
+-- inoremap <A-k> <Esc>:m .-2<CR>==gi
+-- vnoremap <A-j> :m '>+1<CR>gv=gv
+-- vnoremap <A-k> :m '<-2<CR>gv=gv
+
 return {
   n = {
     ["<C-p>"] = find_files,
@@ -69,15 +76,41 @@ return {
     ["<C-`>"] = toggle_term,
     ["<C-Tab>"] = next_buffer,
     ["<C-S-Tab>"] = previous_buffer,
+    ["<A-k>"] = {
+      ":m .-2<CR>==",
+      desc = "Move current line up",
+    },
+    ["<A-j>"] = {
+      ":m .+1<CR>==",
+      desc = "Move current line down",
+    },
   },
   i = {
     ["<C-p>"] = find_files,
     ["<C-s>"] = { "<cmd> write <CR>", desc = "save" },
-    ["|"] = vertical_split,
-    ["\\"] = horizontal_split,
     ["<C-n>"] = toggle_neotree,
     ["<C-w>"] = close_buffer,
     ["<C-`>"] = toggle_term,
+    ["<C-Tab>"] = next_buffer,
+    ["<C-S-Tab>"] = previous_buffer,
+    ["<A-k>"] = {
+      "<Esc>:m .-2<CR>==gi",
+      desc = "Move current line up",
+    },
+    ["<A-j>"] = {
+      "<Esc>:m .+1<CR>==gi",
+      desc = "Move current line down",
+    },
+  },
+  v = {
+    ["<A-k>"] = {
+      ":m '<-2<CR>gv=gv",
+      desc = "Move selected lines down",
+    },
+    ["<A-j>"] = {
+      ":m '>+1<CR>gv=gv",
+      desc = "Move selected lines up",
+    },
   },
   t = {
     ["<C-`>"] = toggle_term,
