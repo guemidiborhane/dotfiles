@@ -26,7 +26,6 @@ return {
         "jq",
         "prettierd",
         "htmlbeautifier",
-        "rustywind",
         "yamllint",
       })
     end,
