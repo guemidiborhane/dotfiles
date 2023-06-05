@@ -87,7 +87,8 @@ return {
   },
   i = {
     ["<C-p>"] = find_files,
-    ["<C-s>"] = { "<cmd> write <CR>", desc = "save" },
+    -- write file and escape to normal model
+    ["<C-s>"] = { "<Esc> <cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
     ["<C-n>"] = toggle_neotree,
     ["<C-w>"] = close_buffer,
     ["<C-`>"] = toggle_term,
