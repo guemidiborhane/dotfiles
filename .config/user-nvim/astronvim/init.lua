@@ -77,13 +77,9 @@ return {
   heirline = {
     -- define the separators between each section
     separators = {
-      left = { "", " " }, -- separator for the left side of the statusline
-      right = { " ", "" }, -- separator for the right side of the statusline
-      top_left = { "", "" },
-      top_right = { "", "" },
-      bottom_left = { "", "" },
-      bottom_right = { "", "" },
-      tab = { "", "" },
+      tab = { "", "" },
+      left = { "", "" },
+      right = { "", "" },
       breadcrumbs = "  ",
       path = "  ",
     },
