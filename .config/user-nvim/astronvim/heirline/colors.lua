@@ -7,5 +7,6 @@ return function(hl)
   hl.nav_icon_bg = get_hlgroup("String").fg
   hl.nav_fg = hl.nav_icon_bg
   hl.folder_icon_bg = get_hlgroup("Error").fg
+  hl.muted_fg = get_hlgroup("Comment").fg
   return hl
 end
