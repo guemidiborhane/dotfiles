@@ -1,10 +1,9 @@
 return {
   "hrsh7th/nvim-cmp",
+  version = false, -- last release is way too old
   opts = {
     window = {
       completion = {
-        -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:none",
         border = "none",
         col_offset = -3,
         side_padding = 0,
