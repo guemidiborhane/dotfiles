@@ -51,6 +51,12 @@ return {
       status.component.fill(),
       status.component.lsp { lsp_client_names = false, surround = { separator = "none" } },
       status.component.diagnostics(),
+      status.component.nav {
+        ruler = { padding = { left = 1, right = 1 } },
+        percentage = false,
+        scrollbar = false,
+        surround = { separator = "none" },
+      },
       status.component.treesitter { padding = { right = 1, left = 1 } },
       status.component.file_info {
         filetype = {},
@@ -73,12 +79,6 @@ return {
           separator = "top_left",
           color = "git_branch_fg",
         },
-      },
-      status.component.nav {
-        ruler = { padding = { left = 1, right = 1 } },
-        percentage = false,
-        scrollbar = false,
-        surround = { separator = "none" },
       },
     }
 
