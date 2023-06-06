@@ -50,7 +50,7 @@ return {
       },
       status.component.fill(),
       status.component.lsp { lsp_client_names = false, surround = { separator = "none" } },
-      status.component.diagnostics(),
+      status.component.diagnostics { surround = { separator = "none" } },
       status.component.nav {
         ruler = { padding = { left = 1, right = 1 } },
         percentage = false,
