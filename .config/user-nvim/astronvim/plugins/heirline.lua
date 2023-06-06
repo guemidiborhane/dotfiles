@@ -65,13 +65,13 @@ return {
       },
       status.component.treesitter { padding = { right = 1, left = 1 } },
       status.component.file_info {
-        filetype = { padding = { left = 1 } },
+        filetype = {},
         filename = false,
-        file_icon = false,
+        file_icon = { padding = { left = 1 } },
         file_modified = false,
         padding = { right = 1 },
         surround = { separator = "tab", color = { main = "command", left = "bg" } },
-        hl = { bg = "command", fg = "bg" },
+        hl = { bg = "command", fg = "bg", bold = true },
       },
       status.component.git_diff {
         surround = { separator = "none" },
