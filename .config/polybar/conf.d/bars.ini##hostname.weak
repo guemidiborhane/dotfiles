@@ -6,3 +6,7 @@ monitor = eDP-1
 tray-position = right
 modules-center = xwindow
 modules-right = network power-profile cputemp cpu-frequency vpn battery time
+
+[bar/HDMI-1-0]
+inherit = bar/default
+monitor = HDMI-1-0
