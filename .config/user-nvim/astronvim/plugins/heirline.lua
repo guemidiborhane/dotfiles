@@ -1,18 +1,13 @@
 local get_icon = require("astronvim.utils").get_icon
+local status = require "astronvim.utils.status"
+
 return {
   "rebelot/heirline.nvim",
+  dependencies = { "Mofiqul/dracula.nvim" },
   opts = function(_, opts)
-    local status = require "astronvim.utils.status"
     opts.statusline = {
-      hl = { fg = "fg", bg = "bg" },
       {
         hl = { bg = "folder_icon_bg", fg = "file_info_bg" },
-
-        -- status.component.builder {
-        --   { provider = "" },
-        --   padding = { left = 1 },
-        --   hl = { bg = "fg" },
-        -- },
         status.component.builder {
           { provider = get_icon "FolderClosed" },
           hl = { bg = "folder_icon_bg", fg = "bg" },
@@ -54,15 +49,8 @@ return {
         },
       },
       status.component.fill(),
-      status.component.lsp { lsp_client_names = false, surround = { separator = "none", color = "bg" } },
+      status.component.lsp { lsp_client_names = false, surround = { separator = "none" } },
       status.component.diagnostics(),
-      status.component.nav {
-        ruler = { padding = { left = 1, right = 1 } },
-        percentage = false,
-        scrollbar = false,
-        surround = { separator = "none" },
-        hl = { bg = "bg", fg = "fg" },
-      },
       status.component.treesitter { padding = { right = 1, left = 1 } },
       status.component.file_info {
         filetype = {},
@@ -85,6 +73,12 @@ return {
           separator = "top_left",
           color = "git_branch_fg",
         },
+      },
+      status.component.nav {
+        ruler = { padding = { left = 1, right = 1 } },
+        percentage = false,
+        scrollbar = false,
+        surround = { separator = "none" },
       },
     }
 

@@ -9,5 +9,8 @@ return {
   --     require("lsp_signature").setup()
   --   end,
   -- },
-  "Mofiqul/dracula.nvim",
+  {
+    "Mofiqul/dracula.nvim",
+    config = function() require("dracula").setup {} end,
+  },
 }
