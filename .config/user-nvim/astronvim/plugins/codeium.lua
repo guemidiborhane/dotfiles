@@ -1,7 +1,7 @@
 return {
   {
     "jcdickinson/codeium.nvim",
-    event = "BufEnter",
+    event = "User AstroFile",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "hrsh7th/nvim-cmp",
