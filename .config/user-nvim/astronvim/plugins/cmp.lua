@@ -1,50 +1,31 @@
 return {
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "jcdickinson/codeium.nvim",
-    },
-    opts = function(_, opts)
-      local cmp = require "cmp"
-      opts.sources = cmp.config.sources {
-        { name = "codeium",  priority = 1250 },
-        { name = "emmet",    priority = 1000 },
-        { name = "nvim_lsp", priority = 1000 },
-        { name = "luasnip",  priority = 750 },
-        { name = "buffer",   priority = 500 },
-        { name = "path",     priority = 250 },
-      }
-
-      return opts
-    end,
-  },
-
-  {
-    "onsails/lspkind.nvim",
-    opts = {
-      mode = "symbol",
-      symbol_map = {
-        Array = "󰅪",
-        Boolean = "⊨",
-        Class = "󰌗",
-        Constructor = "",
-        Key = "󰌆",
-        Namespace = "󰅪",
-        Null = "NULL",
-        Number = "#",
-        Object = "󰀚",
-        Package = "󰏗",
-        Property = "",
-        Reference = "",
-        Snippet = "",
-        String = "󰀬",
-        TypeParameter = "󰊄",
-        Unit = "",
-        Codeium = "",
-        Emmet = "",
+  "hrsh7th/nvim-cmp",
+  opts = {
+    window = {
+      completion = {
+        -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:none",
+        border = "none",
+        col_offset = -3,
+        side_padding = 0,
       },
     },
-    enabled = vim.g.icons_enabled,
-    config = require "plugins.configs.lspkind",
+    formatting = {
+      fields = { "kind", "abbr", "menu" },
+      -- format = lspkind_status_ok and lspkind.cmp_format(utils.plugin_opts "lspkind.nvim") or nil,
+      format = function(entry, vim_item)
+        local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+        local utils = require "astronvim.utils"
+        local lspkind_opts = utils.plugin_opts "lspkind.nvim"
+
+        local kind = lspkind_status_ok and lspkind.cmp_format(lspkind_opts)(entry, vim_item)
+
+        local strings = vim.split(kind.kind, "%s", { trimempty = true })
+        kind.kind = " " .. (strings[1] or "") .. " "
+        kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+        return kind
+      end,
+    },
   },
 }
