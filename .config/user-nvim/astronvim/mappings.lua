@@ -74,8 +74,8 @@ return {
     ["<C-n>"] = toggle_neotree,
     ["<C-w>"] = close_buffer,
     ["<C-`>"] = toggle_term,
-    ["<C-Tab>"] = next_buffer,
-    ["<C-S-Tab>"] = previous_buffer,
+    ["<C-PageDown>"] = next_buffer,
+    ["<C-PageUp>"] = previous_buffer,
     ["<A-k>"] = {
       ":m .-2<CR>==",
       desc = "Move current line up",
@@ -84,16 +84,26 @@ return {
       ":m .+1<CR>==",
       desc = "Move current line down",
     },
+    ["<Tab>"] = {
+      function()
+        if #vim.t.bufs > 1 then
+          require("telescope.builtin").buffers { sort_mru = true, ignore_current_buffer = true }
+        else
+          require("astronvim.utils").notify "No other buffers open"
+        end
+      end,
+      desc = "Switch Buffers",
+    },
   },
   i = {
     ["<C-p>"] = find_files,
     -- write file and escape to normal model
-    ["<C-s>"] = { "<Esc> <cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
+    ["<C-s>"] = { "jj<cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
     ["<C-n>"] = toggle_neotree,
     ["<C-w>"] = close_buffer,
     ["<C-`>"] = toggle_term,
-    ["<C-Tab>"] = next_buffer,
-    ["<C-S-Tab>"] = previous_buffer,
+    ["<C-PageDown>"] = next_buffer,
+    ["<C-PageUp>"] = previous_buffer,
     ["<A-k>"] = {
       "<Esc>:m .-2<CR>==gi",
       desc = "Move current line up",
