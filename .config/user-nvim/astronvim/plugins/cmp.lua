@@ -9,6 +9,14 @@ return {
         side_padding = 0,
       },
     },
+    performance = {
+      debounce = 300,
+      throttle = 120,
+      fetching_timeout = 100,
+    },
+    experimental = {
+      ghost_text = true,
+    },
     formatting = {
       fields = { "kind", "abbr", "menu" },
       -- format = lspkind_status_ok and lspkind.cmp_format(utils.plugin_opts "lspkind.nvim") or nil,
