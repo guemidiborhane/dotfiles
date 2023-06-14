@@ -94,11 +94,12 @@ return {
       end,
       desc = "Switch Buffers",
     },
+    ["<leader>m"] = { "<cmd>Mason<CR>", desc = "Mason" },
   },
   i = {
     ["<C-p>"] = find_files,
     -- write file and escape to normal model
-    ["<C-s>"] = { "jj<cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
+    ["<C-s>"] = { "<Esc><cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
     ["<C-n>"] = toggle_neotree,
     ["<C-w>"] = close_buffer,
     ["<C-`>"] = toggle_term,

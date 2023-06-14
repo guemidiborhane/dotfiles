@@ -51,6 +51,10 @@ if os.path.exists(volumes_list_path):
 
 command="docker run --rm --gpus all --name {} -m 8G ".format(container_name)
 for volume in volumes.values():
+    # check if volume exist on host, else exit 0
+    if not os.path.exists(volume["host"]):
+        print("Error: volume {} does not exist".format(volume["host"]))
+        sys.exit(1)
     command += "-v \"{}:{}\" ".format(volume["host"], volume["container"])
 command += "-p 8096:8096 jellyfin/jellyfin:latest"
 
