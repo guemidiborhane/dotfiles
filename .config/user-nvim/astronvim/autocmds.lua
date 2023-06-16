@@ -1,3 +1,4 @@
+-- Remove trailing whitespace
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = { "*" },
   callback = function(_)
