@@ -43,8 +43,6 @@ return {
         },
       },
       status.component.fill(),
-      status.component.lsp { lsp_client_names = false, surround = { separator = "none" } },
-      status.component.fill(),
       {
         status.component.builder {
           {
