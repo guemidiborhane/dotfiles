@@ -56,3 +56,8 @@ complete -o nospace -C /usr/bin/mcli mcli
 export MCFLY_RESULTS_SORT=LAST_RUN
 export MCFLY_RESULTS=100
 eval "$(mcfly init zsh)"
+
+# Tmuxifier
+export PATH="${PATH}:${HOME}/.tmux/plugins/tmuxifier/bin"
+export TMUXIFIER_LAYOUT_PATH="${HOME}/.config/tmux/layouts"
+eval "$(tmuxifier init -)"
