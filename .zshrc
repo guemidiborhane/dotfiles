@@ -58,6 +58,6 @@ export MCFLY_RESULTS=100
 eval "$(mcfly init zsh)"
 
 # Tmuxifier
-export PATH="${PATH}:${HOME}/.tmux/plugins/tmuxifier/bin"
+export PATH="${PATH}:${HOME}/.config/tmux/plugins/tmuxifier/bin"
 export TMUXIFIER_LAYOUT_PATH="${HOME}/.config/tmux/layouts"
 eval "$(tmuxifier init -)"
