@@ -14,13 +14,6 @@ alias get=wget
 alias sshkey="xclip -sel clip < ~/.ssh/id_ed25519.pub && notify-send -t 1000 -i ~/.icons/key_ok.png 'Public Key copied to clipboard'"
 alias sshconfig="vim ~/.ssh/config"
 
-function tn() {
-    local session_name=${1:-$(basename $PWD)}
-    tmux new-session -As "$session_name"
-}
-
-bindkey -s ^T "tn\n"
-
 alias zshrc="vim ~/.zshrc"
 alias aliases="vim ~/.aliases"
 
@@ -66,6 +59,7 @@ alias cat=bat
 alias mc=mcli
 
 alias p1="ping 1.1.1.1"
+alias p8="ping 8.8.8.8"
 
 # kubectl
 alias k=kubectl

@@ -31,3 +31,11 @@ function nvims() {
 }
 
 bindkey -s ^n "nvims\n"
+
+function tn() {
+    local session_name=${1:-$(basename $PWD)}
+    tmux new-session -As "$session_name"
+}
+
+bindkey -s ^T "tn\n"
+
