@@ -1,89 +1,91 @@
-#!/bin/sh
+#!/bin/bash
 
 function nc() {
-    nmcli connection $@
+	nmcli connection "$@"
 }
 
 function dmenu() {
-    command rofi -dmenu \
-            -theme "$HOME/.config/rofi/dmenu.rasi" \
-            -i -p "$1"
+	command rofi -dmenu \
+		-theme "$HOME/.config/rofi/dmenu.rasi" \
+		-i -p "$1"
 }
 
 RED='%{F#ff5555}'
 CYAN='%{F#8be9fd}'
 
 function iface_with_ip() {
-    iface=$1
-    ip=$(nmcli -g ip4.address con show $iface)
-    echo "$ip ($iface)"
+	iface=$1
+	ip=$(nmcli -g ip4.address con show "$iface")
+	echo "$ip ($iface)"
 }
 
 if [ $# -eq 0 ]; then
-    icon="$CYAN " # lock
-    connected=$(nc show --active | grep -i vpn | awk '{print $1}')
-    # | xargs -I {} bash -c '
-    if [ -n "$connected" ]; then
-        status=$(echo -e "$connected" | xargs -I % bash -c "$(declare -f iface_with_ip); iface_with_ip %" | tr '\n' ', ' | sed 's/,$//')
-    else
-        status=$(echo -e "$connected" | tr '\n' ', ' | sed 's/,$//')
-    fi
-    if [ -z "$status" ]; then
-        icon="$RED"
-        status=""
-    fi
-    echo "$icon $status"
-    exit 1
+	icon="$CYAN " # lock
+	connected=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $1}')
+	# | xargs -I {} bash -c '
+	if [ -n "$connected" ]; then
+		status=$(echo -e "$connected" | xargs -I % bash -c "$(declare -f iface_with_ip); iface_with_ip %" | tr '\n' ', ' | sed 's/,$//')
+	else
+		status=$(echo -e "$connected" | tr '\n' ', ' | sed 's/,$//')
+	fi
+	if [ -z "$status" ]; then
+		icon="$RED"
+		status=""
+	fi
+	echo "$icon $status"
+	exit 1
 fi
 
-CONNECTIONS=$(nc show | grep vpn | awk '{print $1}')
-ACTIVE_CONNECTIONS=$(nc show --active | grep -i vpn | awk '{print $1}')
+CONNECTIONS=$(nc show | grep -iE 'vpn|wireguard' | awk '{print $1}')
+ACTIVE_CONNECTIONS=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $1}')
 INACTIVE_CONNECTIONS=$CONNECTIONS
 
-if [ ! -z "$ACTIVE_CONNECTIONS" ]; then
-    REGEX=$(echo "$ACTIVE_CONNECTIONS" | tr '\n' '|' | sed 's/|$/\n/')
-    INACTIVE_CONNECTIONS=$(echo "$CONNECTIONS" | grep -v -E "($REGEX)$")
+if [ -n "$ACTIVE_CONNECTIONS" ]; then
+	REGEX=$(echo "$ACTIVE_CONNECTIONS" | tr '\n' '|' | sed 's/|$/\n/')
+	INACTIVE_CONNECTIONS=$(echo "$CONNECTIONS" | grep -v -E "($REGEX)$")
 fi
 
 function _connection() {
-    command=$1 # connect || disconnect || reconnect
-    optional_connections="all\ncancel\n"
+	command=$1 # connect || disconnect || reconnect
+	optional_connections="all\ncancel\n"
 
-    case $command in
-    connect)
-        connections="$INACTIVE_CONNECTIONS"
-        ;;
-    disconnect | reconnect)
-        connections="$optional_connections$ACTIVE_CONNECTIONS"
-        ;;
-    *)
-        echo $"Usage: $0 {connect|disconnect|reconnect}"
-        exit 1
-    esac
+	case $command in
+	connect)
+		connections="$INACTIVE_CONNECTIONS"
+		;;
+	disconnect | reconnect)
+		connections="$optional_connections$ACTIVE_CONNECTIONS"
+		;;
+	*)
+		echo $"Usage: $0 {connect|disconnect|reconnect}"
+		exit 1
+		;;
+	esac
 
-    if [[ -z "$connections" || "$connections" == "$optional_connections" ]]; then exit 1; fi
+	if [[ -z "$connections" || "$connections" == "$optional_connections" ]]; then exit 1; fi
 
-    connection=$(echo -e "$connections" | dmenu $command)
-    targets=$connection
-    case $connection in
-        all)
-            targets=$(echo -e "$connections" | grep -v -E '(cancel|all)')
-            ;;
-        cancel)
-            exit 1
-    esac
+	connection=$(echo -e "$connections" | dmenu $command)
+	targets=$connection
+	case $connection in
+	all)
+		targets=$(echo -e "$connections" | grep -v -E '(cancel|all)')
+		;;
+	cancel)
+		exit 1
+		;;
+	esac
 
-    case $command in
-    connect)
-        echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc up %"
-        ;;
-    disconnect)
-        echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %"
-        ;;
-    reconnect)
-        echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %; nc up %"
-        ;;
-    esac
+	case $command in
+	connect)
+		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc up %"
+		;;
+	disconnect)
+		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %"
+		;;
+	reconnect)
+		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %; nc up %"
+		;;
+	esac
 }
 
 _connection $@
