@@ -10,6 +10,11 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 BAR_CONFIG=/home/$USER/.config/polybar/config.ini
 
 DISPLAYS=$(xrandr --query | grep ' connected' | awk '{print $1}')
+for i in /sys/class/hwmon/hwmon*/temp*_input; do
+    if [ "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*}))" = "k10temp: Tctl" ]; then
+        export HWMON_PATH="$i"
+    fi
+done
 
 for monitor in ${DISPLAYS[@]}; do
     external_monitor=$(xrandr --query | grep $monitor)
