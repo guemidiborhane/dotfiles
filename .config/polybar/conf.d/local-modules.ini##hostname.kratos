@@ -1,6 +1,6 @@
 [module/cputemp]
 inherit=module/base-cputemp
-hwmon-path=/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input
+hwmon-path=${env:HWMON_PATH}
 
 [module/cpu-frequency]
 inherit=module/base-cpu-frequency
