@@ -14,7 +14,7 @@ DISABLE_AUTO_TITLE="false"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-  sudo git wd asdf
+  sudo git asdf zoxide
   zsh-autosuggestions zsh-syntax-highlighting command-not-found
   docker docker-compose
   hacker-quotes
@@ -61,3 +61,4 @@ eval "$(mcfly init zsh)"
 export PATH="${PATH}:${HOME}/.config/tmux/plugins/tmuxifier/bin"
 export TMUXIFIER_LAYOUT_PATH="${HOME}/.config/tmux/layouts"
 eval "$(tmuxifier init -)"
+export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
