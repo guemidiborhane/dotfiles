@@ -50,3 +50,4 @@ virtualbox-host-dkms
 wget
 wps-office
 wps-office-mime
+zoxide
