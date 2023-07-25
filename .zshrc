@@ -57,7 +57,7 @@ export MCFLY_RESULTS_SORT=LAST_RUN
 export MCFLY_RESULTS=100
 eval "$(mcfly init zsh)"
 
-# Tmuxifier
+# Tmux
 export PATH="${PATH}:${HOME}/.config/tmux/plugins/tmuxifier/bin"
 export TMUXIFIER_LAYOUT_PATH="${HOME}/.config/tmux/layouts"
 eval "$(tmuxifier init -)"
