@@ -21,26 +21,6 @@ local horizontal_split = {
   desc = "horizontal split",
 }
 
-local close_buffer = {
-  function()
-    local bufs = vim.fn.getbufinfo { buflisted = true }
-    require("astronvim.utils.buffer").close(0)
-    if require("astronvim.utils").is_available "alpha-nvim" and not bufs[2] then require("alpha").start(true) end
-  end,
-  desc = "Close buffer",
-}
-
-local close_all_buffers = {
-  function()
-    local bufs = vim.fn.getbufinfo { buflisted = true }
-    for _, buf in ipairs(bufs) do
-      require("astronvim.utils.buffer").close(buf.bufnr)
-    end
-    if require("astronvim.utils").is_available "alpha-nvim" and not bufs[2] then require("alpha").start(true) end
-  end,
-  desc = "Close all buffers",
-}
-
 local toggle_neotree = {
   "<cmd> Neotree toggle <CR>",
   desc = "toggle neotree",
@@ -57,23 +37,14 @@ local previous_buffer = {
   desc = "Previous buffer",
 }
 
--- nnoremap <A-j> :m .+1<CR>==
--- nnoremap <A-k> :m .-2<CR>==
--- inoremap <A-j> <Esc>:m .+1<CR>==gi
--- inoremap <A-k> <Esc>:m .-2<CR>==gi
--- vnoremap <A-j> :m '>+1<CR>gv=gv
--- vnoremap <A-k> :m '<-2<CR>gv=gv
-
 return {
   n = {
     ["<C-p>"] = find_files,
-    ["<C-k>w"] = close_all_buffers,
     ["<S-A-p>"] = { "<cmd> Telescope projects <CR>", desc = "List projects" },
     ["|"] = vertical_split,
     ["\\"] = horizontal_split,
     ["<C-n>"] = toggle_neotree,
-    ["<C-w>"] = close_buffer,
-    ["<C-`>"] = toggle_term,
+    ["`"] = toggle_term,
     ["<C-PageDown>"] = next_buffer,
     ["<C-PageUp>"] = previous_buffer,
     ["<A-k>"] = {
@@ -101,8 +72,6 @@ return {
     -- write file and escape to normal model
     ["<C-s>"] = { "<Esc><cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
     ["<C-n>"] = toggle_neotree,
-    ["<C-w>"] = close_buffer,
-    ["<C-`>"] = toggle_term,
     ["<C-PageDown>"] = next_buffer,
     ["<C-PageUp>"] = previous_buffer,
     ["<A-k>"] = {
@@ -125,6 +94,6 @@ return {
     },
   },
   t = {
-    ["<C-`>"] = toggle_term,
+    ["`"] = toggle_term,
   },
 }
