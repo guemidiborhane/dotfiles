@@ -7,6 +7,7 @@ BASE_URL="unsplash.com"
 ping -q -w1 -c1 $BASE_URL &>/dev/null || exit
 
 paths=""
+tags="purple,nature,landscape"
 
 for screen in ${DISPLAYS[@]}; do
     screen_name=$(echo $screen | cut -d ';' -f 1)
@@ -20,6 +21,7 @@ for screen in ${DISPLAYS[@]}; do
     output="/tmp/$id-$screen_name-${width}x${height}.jpg"
     curl -s "$uri" --output "$output"
     paths="$paths $output"
+	uri=$(curl -X GET --silent -I "https://source.$BASE_URL/${width}x${height}/?${tags}" | grep -ie "^Location: " | sed 's/^Location: //gi' | tr -d '\r')
 done
 
 DISPLAY=:0 feh --bg-center $paths

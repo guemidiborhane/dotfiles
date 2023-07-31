@@ -16,4 +16,4 @@ modules-right = uptime cputemp cpu cpu-frequency system-fan-speed time
 [bar/DP-2]
 inherit = bar/default
 modules-center = network
-modules-right =  power-profile fs-root time
+modules-right = power-profile fs-root time date
