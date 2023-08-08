@@ -66,6 +66,7 @@ return {
       desc = "Switch Buffers",
     },
     ["<leader>m"] = { "<cmd>Mason<CR>", desc = "Mason" },
+    ["<C-Tab>"] = { "<C-^>" },
   },
   i = {
     ["<C-p>"] = find_files,
