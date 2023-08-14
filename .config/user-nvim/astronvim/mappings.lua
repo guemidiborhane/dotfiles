@@ -5,6 +5,7 @@
 -- automatically pick-up stored data by this setting.)
 
 local find_files_command = "<cmd> Telescope find_files <CR>"
+local utils = require "astronvim.utils"
 
 local find_files = {
   find_files_command,
@@ -67,6 +68,7 @@ return {
     },
     ["<leader>m"] = { "<cmd>Mason<CR>", desc = "Mason" },
     ["<C-Tab>"] = { "<C-^>" },
+    ["<leader>tc"] = { function() utils.toggle_term_cmd "make console" end, desc = "ToggleTerm make console" },
   },
   i = {
     ["<C-p>"] = find_files,
