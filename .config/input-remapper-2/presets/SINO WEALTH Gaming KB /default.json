@@ -1,0 +1,50 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 60,
+                "origin_hash": "affff947cafe9c1d8e10ebb94dc1dbdc"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86AudioLowerVolume",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 61,
+                "origin_hash": "affff947cafe9c1d8e10ebb94dc1dbdc"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86AudioRaiseVolume",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 62,
+                "origin_hash": "affff947cafe9c1d8e10ebb94dc1dbdc"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86AudioMute",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 119,
+                "origin_hash": "affff947cafe9c1d8e10ebb94dc1dbdc"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_SCREENLOCK",
+        "mapping_type": "key_macro"
+    }
+]
