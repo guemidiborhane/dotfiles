@@ -11,7 +11,6 @@ return {
         "ruby_ls",
         "emmet_ls",
         "yamlls",
-        "crystalline",
       })
 
       return opts
@@ -31,7 +30,6 @@ return {
         "prettierd",
         "htmlbeautifier",
         "yamllint",
-        "crystal_format",
       })
       opts.automatic_installation = true
 
