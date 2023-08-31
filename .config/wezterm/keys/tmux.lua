@@ -30,6 +30,18 @@ local mappings = {
 		mods = "ALT",
 		action = tmuxMapping({ key = '"' }),
 	},
+
+	{
+		key = "t",
+		mods = "ALT",
+		action = tmuxMapping({ key = "c" }),
+	},
+
+	{
+		key = "w",
+		mods = "ALT",
+		action = tmuxMapping({ key = "x" }),
+	},
 }
 
 mergeTables(tmuxWindowMappings(), mappings)
