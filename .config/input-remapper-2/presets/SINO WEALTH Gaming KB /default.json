@@ -46,5 +46,41 @@
         "target_uinput": "keyboard",
         "output_symbol": "Super_R + L",
         "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 114,
+                "origin_hash": "c5acde5183d098ced38caa95b798c379"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F2",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 115,
+                "origin_hash": "c5acde5183d098ced38caa95b798c379"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F3",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 113,
+                "origin_hash": "c5acde5183d098ced38caa95b798c379"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F4",
+        "mapping_type": "key_macro"
     }
 ]
