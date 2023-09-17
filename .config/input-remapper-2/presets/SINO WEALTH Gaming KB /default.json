@@ -82,5 +82,22 @@
         "target_uinput": "keyboard",
         "output_symbol": "KEY_F4",
         "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 29,
+                "origin_hash": "affff947cafe9c1d8e10ebb94dc1dbdc"
+            },
+            {
+                "type": 1,
+                "code": 41,
+                "origin_hash": "affff947cafe9c1d8e10ebb94dc1dbdc"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_COMMA",
+        "mapping_type": "key_macro"
     }
 ]

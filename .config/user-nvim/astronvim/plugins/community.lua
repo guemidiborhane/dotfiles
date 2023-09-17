@@ -10,5 +10,6 @@ return {
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.tailwindcss" },
+  { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.editing-support.refactoring-nvim" },
 }
