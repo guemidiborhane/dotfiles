@@ -16,7 +16,7 @@ local mappings = {
 	{
 		key = "Tab",
 		mods = "SHIFT",
-		action = tmuxMapping({ key = "n" }),
+		action = tmuxMapping({ key = "l" }),
 	},
 
 	{
