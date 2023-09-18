@@ -62,3 +62,7 @@ export PATH="${PATH}:${HOME}/.config/tmux/plugins/tmuxifier/bin"
 export TMUXIFIER_LAYOUT_PATH="${HOME}/.config/tmux/layouts"
 eval "$(tmuxifier init -)"
 export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
+
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+. ~/.asdf/plugins/golang/set-env.zsh
+export PATH=$PATH:$HOME/go/bin
