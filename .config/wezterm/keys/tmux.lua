@@ -14,6 +14,12 @@ local mappings = {
 	},
 
 	{
+		key = "g",
+		mods = "CTRL",
+		action = tmuxMapping({ key = "g" }),
+	},
+
+	{
 		key = "Tab",
 		mods = "SHIFT",
 		action = tmuxMapping({ key = "l" }),
