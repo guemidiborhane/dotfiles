@@ -1,17 +1,23 @@
 #!/bin/sh
 
-c=0;t=0
+c=0
+t=0
 
-awk '/MHz/ {print $4}' < /proc/cpuinfo | (while read -r i
-do
-    t=$( echo "$t + $i" | bc )
-    c=$((c+1))
-done
+awk '/MHz/ {print $4}' </proc/cpuinfo | (
+	while read -r i; do
+		t=$(echo "$t + $i" | bc)
+		c=$((c + 1))
+	done
 
-# min_frequency=$(echo "scale=2; $(cat /proc/cpuinfo | grep MHz | sort -n | head -1 | awk '/MHz/ {print $4}') / 1000" | bc)
-avg_frequency=$(echo "scale=2; $t / $c / 1000" | bc)
-# max_frequency=$(echo "scale=2; $(cat /proc/cpuinfo | grep MHz | sort -n | tail -1 | awk '/MHz/ {print $4}') / 1000" | bc)
+	avg_frequency=$(echo "scale=2; $t / $c / 1000" | bc)
+	icon=""
+	if [ $(echo "$avg_frequency < 3.4" | bc) -eq 1 ]; then
+		icon="󰾆"
+	elif [ $(echo "$avg_frequency < 4" | bc) -eq 1 ]; then
+		icon="󰾅"
+	else
+		icon="󰓅"
+	fi
 
-
-# echo "$min_frequency $avg_frequency $max_frequency" | awk '{print  $2"GHz   | "$1"GHz   " $3 "GHz"}')
-echo $avg_frequency"GHz")
+	echo "$icon $avg_frequency GHz"
+)

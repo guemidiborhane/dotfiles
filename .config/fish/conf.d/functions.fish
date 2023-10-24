@@ -26,3 +26,8 @@ end
 
 bind \ct 'tn \n'
 
+
+function mkcd
+    mkdir $argv[1]
+    cd $argv[1]
+end
