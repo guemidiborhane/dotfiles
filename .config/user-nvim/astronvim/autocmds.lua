@@ -7,3 +7,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.fn.setpos(".", save_cursor)
   end,
 })
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
+  command = "TypescriptRemoveUnused",
+})
