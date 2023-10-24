@@ -39,7 +39,7 @@ local mappings = {
 
 	{
 		key = "t",
-		mods = "ALT",
+		mods = "CTRL",
 		action = tmuxMapping({ key = "c" }),
 	},
 

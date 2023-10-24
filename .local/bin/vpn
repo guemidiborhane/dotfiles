@@ -50,10 +50,10 @@ function _connection() {
 	optional_connections="all\ncancel\n"
 
 	case $command in
-	connect)
+	connect | c)
 		connections="$INACTIVE_CONNECTIONS"
 		;;
-	disconnect | reconnect)
+	disconnect | reconnect | d | r)
 		connections="$optional_connections$ACTIVE_CONNECTIONS"
 		;;
 	*)
@@ -76,13 +76,13 @@ function _connection() {
 	esac
 
 	case $command in
-	connect)
+	connect | c)
 		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc up %"
 		;;
-	disconnect)
+	disconnect | d)
 		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %"
 		;;
-	reconnect)
+	reconnect | r)
 		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %; nc up %"
 		;;
 	esac
