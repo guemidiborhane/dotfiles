@@ -19,10 +19,6 @@ elif len(sys.argv) == 3:
 
 
 volumes = {
-    "web": {
-        "host": os.path.join(base_config_dir, "web"),
-        "container": "/jellyfin/jellyfin-web",
-    },
     "config": {
         "host": os.path.join(base_config_dir, "config"),
         "container": "/config",
@@ -49,7 +45,7 @@ if os.path.exists(volumes_list_path):
                 "container": container_path,
             }
 
-command="docker run --rm --gpus all --name {} -m 8G ".format(container_name)
+command = "docker run --rm --gpus all --name {} -m 8G ".format(container_name)
 for volume in volumes.values():
     # check if volume exist on host, else exit 0
     if not os.path.exists(volume["host"]):
@@ -61,7 +57,7 @@ command += "-p 8096:8096 jellyfin/jellyfin:latest"
 # run command
 subprocess.run(command, shell=True)
 
-# # catch SIGINT
+# catch SIGINT
 def signal_handler(sig, frame):
     print("Stopping container...")
     subprocess.run("docker stop {}".format(container_name), shell=True)
