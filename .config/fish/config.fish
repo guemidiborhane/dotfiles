@@ -20,6 +20,5 @@ set -gx ASDF_GOLANG_MOD_VERSION_ENABLED true
 starship init fish | source
 
 if status --is-login
-  set -x (gnome-keyring-daemon --start | string split "=")
   figlet -w $(tput cols) -f "ANSI Shadow.flf" 'I Rock, you suck. Stinson out!' | lolcat
 end
