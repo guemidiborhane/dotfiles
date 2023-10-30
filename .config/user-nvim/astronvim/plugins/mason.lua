@@ -1,3 +1,4 @@
+local utils = require "astronvim.utils"
 -- customize mason plugins
 return {
   -- use mason-lspconfig to configure LSP installations
@@ -6,7 +7,7 @@ return {
     -- overrides `require("mason-lspconfig").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, {
         "lua_ls",
         "ruby_ls",
         "emmet_ls",
@@ -23,13 +24,14 @@ return {
     -- overrides `require("mason-null-ls").setup(...)`
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, {
         "rubocop",
         "stylua",
         "jq",
         "prettierd",
         "htmlbeautifier",
         "yamllint",
+        "stylelint",
       })
       opts.automatic_installation = true
 
