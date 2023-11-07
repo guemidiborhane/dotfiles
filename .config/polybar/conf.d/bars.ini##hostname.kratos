@@ -7,13 +7,13 @@ tray-position = right
 modules-center = xwindow
 modules-right = network-bit-rate ping vpn memory date
 
-# Secondary
+# Left
 [bar/DP-0]
 inherit = bar/default
 modules-right = uptime cputemp cpu cpu-frequency system-fan-speed time
 
-# Portrait
+# Right
 [bar/DP-2]
 inherit = bar/default
 modules-center = network
-modules-right = power-profile fs-root time date
+modules-right = power-profile fs-root date time

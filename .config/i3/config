@@ -1,3 +1,4 @@
+# vim: set ft=i3config
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 set $mod2 Mod1
