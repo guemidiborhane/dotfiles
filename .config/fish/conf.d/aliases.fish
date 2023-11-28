@@ -41,13 +41,14 @@ alias glog "git lg"
 alias amend "env HUSKY=0 git commit --amend"
 
 # docker-compose
-abbr dc docker-compose
-abbr dcup "dc up"
-abbr dcupd "dc up -d"
-abbr dcdn "dc down"
-abbr dce "dc exec"
-abbr dclf "dc logs -f"
-abbr dcps "dc ps"
+alias dc docker-compose
+alias dcb "dc build"
+alias dcup "dc up"
+alias dcupd "dc up -d"
+alias dcdn "dc down"
+alias dce "dc exec"
+alias dclf "dc logs -f"
+alias dcps "dc ps"
 
 alias sudo doas
 abbr sudoedit "sudo vim"
