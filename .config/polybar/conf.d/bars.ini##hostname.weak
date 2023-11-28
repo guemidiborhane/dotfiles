@@ -3,9 +3,8 @@
 [bar/eDP-1]
 inherit = bar/default
 monitor = eDP-1
-tray-position = right
 modules-center = xwindow
-modules-right = network cputemp cpu-frequency vpn battery time
+modules-right = network cputemp cpu-frequency vpn battery time tray
 
 [bar/HDMI-1-0]
 inherit = bar/default
