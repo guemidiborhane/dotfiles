@@ -3,9 +3,8 @@
 # Primary
 [bar/DP-4]
 inherit = bar/default
-tray-position = right
 modules-center = xwindow
-modules-right = network-bit-rate ping vpn memory date
+modules-right = network-bit-rate ping vpn memory date tray
 
 # Left
 [bar/DP-0]
