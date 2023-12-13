@@ -24,4 +24,16 @@ return {
     },
     config = function() require("codeium").setup {} end,
   },
+
+  {
+    "dustinblackman/oatmeal.nvim",
+    cmd = { "Oatmeal" },
+    keys = {
+      { "<leader>om", mode = "n", desc = "Start Oatmeal session" },
+    },
+    opts = {
+      backend = "ollama",
+      model = "codellama:13b",
+    },
+  },
 }

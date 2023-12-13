@@ -4,7 +4,7 @@
 [bar/DP-4]
 inherit = bar/default
 modules-center = xwindow
-modules-right = network-bit-rate ping vpn memory date tray
+modules-right = network-bit-rate ping memory tray date vpn
 
 # Left
 [bar/DP-0]
