@@ -50,25 +50,9 @@ local mappings = {
 	},
 
 	{
-		key = "RightArrow",
+		key = "f",
 		mods = "ALT",
-		action = tmuxMapping({ key = "RightArrow", mods = "CTRL" }),
-	},
-
-	{
-		key = "LeftArrow",
-		mods = "ALT",
-		action = tmuxMapping({ key = "LeftArrow", mods = "CTRL" }),
-	},
-	{
-		key = "UpArrow",
-		mods = "ALT",
-		action = tmuxMapping({ key = "UpArrow", mods = "CTRL" }),
-	},
-	{
-		key = "DownArrow",
-		mods = "ALT",
-		action = tmuxMapping({ key = "DownArrow", mods = "CTRL" }),
+		action = tmuxMapping({ key = "z" }),
 	},
 }
 
