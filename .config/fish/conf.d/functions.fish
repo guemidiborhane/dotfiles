@@ -3,16 +3,15 @@ function pagespeed
 end
 
 function kickoff
-    if test -d $1
-        echo "Directory $1 already exists"
+    if test -d $argv[1]
+        echo "Directory $argv[1] already exists"
         return 1
     end
 
     set git_repo "git@git.netsys.dz:guemidiborhane/kickoff.git"
-    git clone $git_repo $1
-    cd $1
+    git clone $git_repo $argv[1]
+    cd $argv[1]
     bash install.sh
-    code .
 end
 
 function tn
