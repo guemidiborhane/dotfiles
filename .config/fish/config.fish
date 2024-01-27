@@ -1,5 +1,9 @@
 set -g fish_greeting
-set -gx EDITOR "nvim"
+
+set -Ux PAGER less
+set -Ux EDITOR nvim
+set -Ux VISUAL nvim
+
 set -gx ANSIBLE_NOCOWS true
 
 set -gx PATH "$PATH:$HOME/.local/bin"
