@@ -9,7 +9,7 @@
   "completionrefreshtime": 7,
   "maxconcurrentdownloads": 0,
   "bottomup": true,
-  "sudoloop": true,
+  "sudoloop": false,
   "timeupdate": false,
   "devel": false,
   "cleanAfter": false,
