@@ -30,3 +30,9 @@ function mkcd
     mkdir $argv[1]
     cd $argv[1]
 end
+
+function clone
+    set repo_name (basename $argv[1] | sed -E 's/.git//')
+    git clone $argv[1] $repo_name
+    cd $repo_name
+end
