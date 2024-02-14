@@ -14,7 +14,6 @@ abbr aliases "$EDITOR ~/.config/fish/conf.d/aliases.fish"
 
 abbr uu "yay -Syyu --noconfirm"
 abbr clip "xclip -sel clip"
-alias cpwd "pwd | clip"
 abbr wtr "curl -s wttr.in | head -7"
 
 # lsd
