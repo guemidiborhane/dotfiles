@@ -15,16 +15,13 @@ function kickoff
 end
 
 function tn
-    if count $argv > 0
+    if test (count $argv) -gt 0
         set session_name $argv[1]
     else
         set session_name (basename $PWD)
     end
     tmux new-session -As "$session_name"
 end
-
-bind \ct 'tn \n'
-
 
 function mkcd
     mkdir $argv[1]
