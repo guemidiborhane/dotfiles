@@ -33,3 +33,9 @@ function clone
     git clone $argv[1] $repo_name
     cd $repo_name
 end
+
+function pwd
+    set dir (/usr/bin/pwd)
+    echo $dir
+    echo -n $dir | xclip -sel clipboard
+end
