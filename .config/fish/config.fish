@@ -9,7 +9,7 @@ set -gx ANSIBLE_NOCOWS true
 set -gx PATH "$PATH:$HOME/.local/bin"
 set -gx PATH "$PATH:$HOME/.krew/bin"
 
-zoxide init fish | source
+zoxide init --cmd cd fish | source
 
 set -gx MCFLY_RESULTS_SORT "LAST_RUN"
 set -gx MCFLY_RESULTS 100
