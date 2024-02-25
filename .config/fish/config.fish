@@ -26,3 +26,5 @@ starship init fish | source
 if status --is-login
   figlet -w $(tput cols) -f "ANSI Shadow.flf" 'I Rock, you suck. Stinson out!' | lolcat
 end
+
+fish_ssh_agent
