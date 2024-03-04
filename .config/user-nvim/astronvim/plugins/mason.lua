@@ -1,30 +1,25 @@
-local utils = require "astronvim.utils"
--- customize mason plugins
 return {
   -- use mason-lspconfig to configure LSP installations
   {
     "williamboman/mason-lspconfig.nvim",
     -- overrides `require("mason-lspconfig").setup(...)`
-    opts = function(_, opts)
+    opts = {
       -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, {
+      ensure_installed = {
         "lua_ls",
         "ruby_ls",
         "emmet_ls",
         "yamlls",
-      })
-
-      return opts
-    end,
+      },
+    },
   },
 
   -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
   {
     "jay-babu/mason-null-ls.nvim",
     -- overrides `require("mason-null-ls").setup(...)`
-    opts = function(_, opts)
-      -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, {
+    opts = {
+      ensure_installed = {
         "rubocop",
         "stylua",
         "jq",
@@ -32,10 +27,8 @@ return {
         "htmlbeautifier",
         "yamllint",
         "stylelint",
-      })
-      opts.automatic_installation = true
-
-      return opts
-    end,
+      },
+      automatic_installation = true,
+    },
   },
 }
