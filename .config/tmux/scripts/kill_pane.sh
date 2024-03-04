@@ -5,10 +5,12 @@ main() {
 	default_shell=$(basename "$SHELL")
 	current_shell=$(tmux display-message -p '#{pane_current_command}')
 
+	pane_pid="$(tmux display -p "#{pane_pid}")"
+
 	if [ "$panes_count" -gt 1 ] && [ "$current_shell" = "$default_shell" ]; then
-		tmux kill-pane
+		kill "$pane_pid"
 	else
-		tmux confirm-before -p "kill-pane #W? (y/n)" kill-pane
+		tmux confirm-before -p "kill-pane #W:#P? (y/n)" "send-keys exit Enter"
 	fi
 
 	return 0
