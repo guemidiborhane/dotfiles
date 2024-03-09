@@ -45,7 +45,8 @@
         ],
         "target_uinput": "keyboard",
         "output_symbol": "Super_R + L",
-        "mapping_type": "key_macro"
+        "mapping_type": "key_macro",
+        "release_combination_keys": false
     },
     {
         "input_combination": [
