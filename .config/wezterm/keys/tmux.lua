@@ -8,18 +8,6 @@ local mappings = {
 	},
 
 	{
-		key = "e",
-		mods = "CTRL",
-		action = tmuxMapping({ key = "e" }),
-	},
-
-	{
-		key = "g",
-		mods = "CTRL",
-		action = tmuxMapping({ key = "g" }),
-	},
-
-	{
 		key = "Tab",
 		mods = "SHIFT",
 		action = tmuxMapping({ key = "l" }),
