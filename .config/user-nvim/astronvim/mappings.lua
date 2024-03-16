@@ -5,7 +5,6 @@
 -- automatically pick-up stored data by this setting.)
 
 local find_files_command = "<cmd> Telescope find_files <CR>"
-local utils = require "astronvim.utils"
 
 local find_files = {
   find_files_command,
@@ -68,7 +67,22 @@ return {
     },
     ["<leader>m"] = { "<cmd>Mason<CR>", desc = "Mason" },
     ["<C-Tab>"] = { "<C-^>" },
-    ["<leader>tc"] = { function() utils.toggle_term_cmd "make console" end, desc = "ToggleTerm make console" },
+    ["<leader>tc"] = {
+      "<cmd>!tmux split-window -h make console<CR>",
+      desc = "open console in spit",
+    },
+    ["<leader>tf"] = {
+      "<cmd>!tmux split-window -h make fish<CR>",
+      desc = "open console in spit",
+    },
+    ["<leader>tC"] = {
+      "<cmd>!tmux split-window make console<CR>",
+      desc = "open console in spit",
+    },
+    ["<leader>tF"] = {
+      "<cmd>!tmux split-window make fish<CR>",
+      desc = "open console in spit",
+    },
     ["<leader>c"] = {
       function()
         local bufs = vim.fn.getbufinfo { buflisted = true }
