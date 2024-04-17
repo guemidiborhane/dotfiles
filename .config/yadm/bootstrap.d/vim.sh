@@ -7,45 +7,16 @@ install_deps () {
     yay -Syy --noconfirm --needed $@
 }
 
-install_vim () {
+install_nvim () {
     if [ ! -x "$(command -v neovim)" ]; then
         echo "Installing neovim"
-        install_deps neovim ripgrep
-    fi
-}
-
-install_astronvim () {
-    if [ ! -d "$HOME/.config/astronvim" ]; then
-        echo "Installing AstroNvim"
-        git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/astronvim
-        ln -s ~/.config/user-nvim/astronvim ~/.config/astronvim/lua/user
-        install_deps bottom lazygit
-        nvim --headless -c 'quitall'
-    fi
-}
-
-install_nvchad () {
-    if [ ! -d "$HOME/.config/nvchad" ]; then
-        echo "Installing NvChad"
-        git clone --depth 1 https://github.com/NvChad/NvChad ~/.config/nvchad
-        ln -s ~/.config/user-nvim/nvchad ~/.config/nvchad/lua/custom
-        nvim-chad +NvChadUpdate +MasonInstallAll
+        install_deps neovim ripgrep bottom lazygit
+        nvim --headless +q
     fi
 }
 
 update_vim_plugins () {
-    nvim-astro +AstroUpdatePackages +qa
-    nvim-chad +NvChadUpdate +MasonInstallAll
-}
-
-set_default_neovim_config () {
-    ask "Set default NeoVim config to (astronvim/nvchad)" "a/n"
-
-    if [[ $REPLY = "a" ]]; then
-        ln -s ~/.config/astronvim ~/.config/nvim
-    elif [[ $REPLY = "n" ]]; then
-        ln -s ~/.config/nvchad ~/.config/nvim
-    fi
+    nvim +AstroUpdate +q
 }
 
 clear_neovim_cache () {
@@ -55,11 +26,8 @@ clear_neovim_cache () {
 }
 
 configure_vim () {
-    install_vim
     clear_neovim_cache
-    install_astronvim
-    install_nvchad
-    set_default_neovim_config
+    install_nvim
 }
 
 vim_main () {
