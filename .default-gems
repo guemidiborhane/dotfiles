@@ -1,2 +1,6 @@
 bundler
 rails
+rubocop
+rubocop-rails
+rubocop-performance
+rubocop-rspec
