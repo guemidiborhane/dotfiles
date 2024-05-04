@@ -1,12 +1,15 @@
 -- define the separators between each section
 return {
-  tab = { "", "" },
-  inner = { "", "" },
-  left_inner = { "", "" },
-  right_inner = { "", "" },
-  outer = { "", "" },
-  left = { "", "" },
-  right = { "", "" },
+  -- statusline
+  tab = { "", "" },
+  inner = { "", "" },
+  left_inner = { "", "" },
+  right_inner = { "", "" },
+  outer = { "", "" },
+  left = { "", "" },
+  right = { "", "" },
+
+  -- wibar
   breadcrumbs = "  ",
   path = "  ",
 }
