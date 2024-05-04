@@ -7,8 +7,8 @@ main() {
 
 	pane_pid="$(tmux display -p "#{pane_pid}")"
 
-	if [ "$panes_count" -gt 1 ] && [ "$current_shell" = "$default_shell" ]; then
-		kill "$pane_pid"
+	if [ "$panes_count" -gt 1 ]; then
+		tmux send-keys C-d
 	else
 		tmux confirm-before -p "kill-pane #W:#P? (y/n)" "send-keys exit Enter"
 	fi
