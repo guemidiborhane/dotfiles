@@ -4,7 +4,7 @@ return {
     opts = {
       ensure_installed = {
         "lua_ls",
-        "ruby_ls",
+        "ruby_lsp",
         "emmet_ls",
         "yamlls",
       },
