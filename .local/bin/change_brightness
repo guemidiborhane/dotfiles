@@ -37,7 +37,7 @@ current_brightness=$(get_brightness)
 
 # Show the notification
 dunstify \
-    -i "~/.icons/$icon.png" \
+    -i "$HOME/.icons/$icon.png" \
     -h int:value:"$current_brightness" \
     -h string:synchronous:"brightness" \
     "Brightness" \
