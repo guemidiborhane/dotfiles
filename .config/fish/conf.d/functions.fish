@@ -39,3 +39,8 @@ function pwd
     echo $dir
     echo -n $dir | xclip -sel clipboard
 end
+
+# credit : https://stackoverflow.com/a/73108928
+function dockersize
+    docker manifest inspect -v $argv[1] | jq -c 'if type == "array" then .[] else . end' | jq -r '[ ( .Descriptor.platform | [ .os, .architecture, .variant, ."os.version" ] | del(..|nulls) | join("/") ), ( [ .SchemaV2Manifest.layers[].size ] | add ) ] | join(" ")' | numfmt --to iec --format '%.2f' --field 2 | sort | column -t
+end

@@ -6,4 +6,4 @@ default_screen_height=$(xrandr --query | grep ' primary ' | cut -d ' ' -f 4 | cu
 padding=$(expr ${default_screen_height} \* 500 / 1440)
 
 labels_count=$(grep label ~/.config/wlogout/layout | wc -l)
-wlogout -b ${labels_count} -T ${padding} -B ${padding}
+wlogout --buttons-per-row ${labels_count} --margin-top ${padding} --margin-bottom ${padding} --no-span

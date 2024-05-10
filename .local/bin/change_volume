@@ -29,6 +29,10 @@ mute_status=$(get_info | grep 'Mute:' | awk '{print $2}')
 # Get the argument
 change="$1"
 
+new_volume="$((current_volume+change))"
+if [[ "$new_volume" -gt 100 ]]; then
+    new_volume=100
+fi
 # Change the volume
 if [[ "$change" -eq "toggle-mute" ]]; then
     pactl set-sink-mute "$default_sink" toggle
@@ -41,11 +45,11 @@ if [[ "$change" -eq "toggle-mute" ]]; then
 elif [[ "$change" -gt 0 ]]; then
     # If the volume is already at 100, don't do anything
     if [[ "$current_volume" -lt 100 ]]; then
-        pactl set-sink-volume "$default_sink" "$((current_volume+change))%"
+        pactl set-sink-volume "$default_sink" "$new_volume%"
     fi
     icon="up"
 else
-    pactl set-sink-volume "$default_sink" "$((current_volume+change))%"
+    pactl set-sink-volume "$default_sink" "$new_volume%"
     icon="down"
 fi
 
@@ -53,7 +57,7 @@ current_volume=$(get_volume)
 
 # Show the notification
 notify-send \
-    -i "~/.icons/volume-$icon.png" \
+    -i "$HOME/.icons/volume-$icon.png" \
     -h int:value:"$current_volume" \
     -h string:synchronous:"volume" \
     "Volume" \
