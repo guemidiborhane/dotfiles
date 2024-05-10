@@ -62,3 +62,6 @@ abbr p8 "ping 8.8.8.8"
 
 # kubectl
 abbr k kubectl
+alias k kubectl
+
+alias ollama "docker exec -it ollama ollama"
