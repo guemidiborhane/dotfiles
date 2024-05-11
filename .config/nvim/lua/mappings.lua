@@ -26,8 +26,6 @@ local toggle_neotree = {
   desc = "toggle neotree",
 }
 
-local toggle_term = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
-
 local next_buffer = {
   function() require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
   desc = "Next buffer",
@@ -44,7 +42,6 @@ return {
     ["|"] = vertical_split,
     ["\\"] = horizontal_split,
     ["<C-n>"] = toggle_neotree,
-    ["`"] = toggle_term,
     ["<C-PageDown>"] = next_buffer,
     ["<C-PageUp>"] = previous_buffer,
     ["<A-k>"] = {
@@ -118,7 +115,5 @@ return {
       desc = "Move selected lines up",
     },
   },
-  t = {
-    ["`"] = toggle_term,
-  },
+  t = {},
 }

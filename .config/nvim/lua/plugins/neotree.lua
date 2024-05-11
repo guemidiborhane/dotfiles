@@ -8,9 +8,6 @@ return {
       filesystem = {
         filtered_items = {
           hide_dotfiles = false,
-          always_show = {
-            "user",
-          },
         },
       },
     },
