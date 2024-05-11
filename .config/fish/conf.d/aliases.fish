@@ -65,3 +65,5 @@ abbr k kubectl
 alias k kubectl
 
 alias ollama "docker exec -it ollama ollama"
+alias t "sesh connect (sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --prompt=' ')"
+alias zid "/bin/ls */ | xargs -I {} zoxide add {}"

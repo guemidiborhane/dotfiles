@@ -1,0 +1,30 @@
+[default_session]
+startup_command = "ls"
+
+[[session]]
+name = "tmux config"
+path = "~/.config/tmux"
+
+[[session]]
+name = "nvim config"
+path = "~/.config/nvim"
+
+[[session]]
+name = "i3 config"
+path = "~/.config/i3"
+
+[[session]]
+name = "polybar config"
+path = "~/.config/polybar"
+
+[[session]]
+name = "yadm config"
+path = "~/.config/yadm"
+
+[[session]]
+name = "fish config"
+path = "~/.config/fish"
+
+[[session]]
+name = "systemd config"
+path = "~/.config/systemd/user"
