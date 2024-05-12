@@ -10,7 +10,11 @@ main() {
 	if [ "$panes_count" -gt 1 ]; then
 		tmux send-keys C-d
 	else
-		tmux confirm-before -p "kill-pane #W:#P? (y/n)" "send-keys exit Enter"
+		tmux display-popup -w 25 -h 7 -E gum confirm "kill-pane ?" --default=0 --timeout=3s
+
+		if [ $? -eq 0 ]; then
+			 tmux send-keys C-d
+		fi
 	fi
 
 	return 0
