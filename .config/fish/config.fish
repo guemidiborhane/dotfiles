@@ -1,3 +1,5 @@
+# vi: set ft=fish :
+
 set -g fish_greeting
 
 set -Ux PAGER less
@@ -26,3 +28,4 @@ if status --is-login
 end
 
 fish_ssh_agent
+
