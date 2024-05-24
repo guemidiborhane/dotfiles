@@ -24,7 +24,11 @@ set -gx ASDF_GOLANG_MOD_VERSION_ENABLED true
 starship init fish | source
 
 if status --is-login
-  figlet -w $(tput cols) -f "ANSI Shadow.flf" 'I Rock, you suck. Stinson out!' | lolcat
+    if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+        exec startx i3 -- -keeptty
+    end
+
+    figlet -w $(tput cols) -f "ANSI Shadow.flf" 'I Rock, you suck. Stinson out!' | lolcat
 end
 
 fish_ssh_agent

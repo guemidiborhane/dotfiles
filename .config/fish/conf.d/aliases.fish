@@ -50,7 +50,6 @@ alias dce "dc exec"
 alias dclf "dc logs -f"
 alias dcps "dc ps"
 
-alias sudo doas
 abbr sudoedit "sudo vim"
 
 alias tv tidy-viewer
