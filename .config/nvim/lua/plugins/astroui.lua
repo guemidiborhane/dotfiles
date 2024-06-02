@@ -23,6 +23,7 @@ return {
 
           return {
             StatusLine = { fg = colors.fg, bg = colors.bg },
+            WinBar = { fg = colors.fg, bg = colors.bg },
             NoiceLspProgressSpinner = { fg = colors.yellow, bg = colors.bg },
             NoiceLspProgressTitle = { fg = colors.purple, bg = colors.bg },
             NoiceLspProgressClient = { fg = colors.green, bg = colors.bg },
