@@ -96,5 +96,5 @@ echo "X session wrapper complete, running session $@"
 eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
 export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
 
-exec dbus-launch --exit-with-session i3
-# exec i3
+# exec dbus-launch --exit-with-session i3
+exec i3

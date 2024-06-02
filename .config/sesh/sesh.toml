@@ -4,27 +4,34 @@ startup_command = "ls"
 [[session]]
 name = "tmux config"
 path = "~/.config/tmux"
+startup_command = "nvim"
 
 [[session]]
 name = "nvim config"
 path = "~/.config/nvim"
+startup_command = "nvim"
 
 [[session]]
 name = "i3 config"
 path = "~/.config/i3"
+startup_command = "nvim"
 
 [[session]]
 name = "polybar config"
 path = "~/.config/polybar"
+startup_command = "nvim"
 
 [[session]]
 name = "yadm config"
 path = "~/.config/yadm"
+startup_command = "nvim"
 
 [[session]]
 name = "fish config"
 path = "~/.config/fish"
+startup_command = "nvim"
 
 [[session]]
 name = "systemd config"
 path = "~/.config/systemd/user"
+startup_command = "nvim"
