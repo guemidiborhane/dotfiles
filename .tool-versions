@@ -1,6 +1,6 @@
 ruby 3.2.2
 nodejs 18.12.1
-php 8.3.3
+php 8.3.7
 yarn 1.22.19
 python system
 kubectl 1.24.6
