@@ -4,22 +4,20 @@
 # Displays
 ###############################################################################
 
-set $mainScreen DP-4
-set $secondaryScreen DP-0
-set $portraitScreen DP-2
+set $mainScreen DP-2
+set $secondaryScreen DP-4
+set $portraitScreen DP-0
 
 ###############################################################################
 # Workspace Outputs
 ###############################################################################
 
 workspace $ws1 output $mainScreen
-workspace $ws2 output $mainScreen
-workspace $ws3 output $mainScreen
+workspace $ws2 output $secondaryScreen
+workspace $ws3 output $secondaryScreen
+workspace $ws4 output $secondaryScreen
 workspace $ws6 output $portraitScreen
 workspace $ws7 output $portraitScreen
 workspace $ws8 output $portraitScreen
-workspace $ws11 output $portraitScreen
-workspace $ws12 output $secondaryScreen
-workspace $ws13 output $secondaryScreen
-workspace $ws14 output $secondaryScreen
+workspace $ws11 output $mainScreen
 workspace $ws19 output $mainScreen

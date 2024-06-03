@@ -1,18 +1,18 @@
 # vim: ft=dosini sw=4 et :
 
 # Primary
-[bar/DP-4]
-inherit = bar/default
-modules-center = xwindow
-modules-right = network-bit-rate ping memory tray date vpn
-
-# Left
-[bar/DP-0]
-inherit = bar/default
-modules-right = uptime cputemp cpu cpu-frequency system-fan-speed time
-
-# Right
 [bar/DP-2]
 inherit = bar/default
+modules-center = xwindow
+modules-right = system-fan-speed cputemp date tray time vpn
+
+# Left
+[bar/DP-4]
+inherit = bar/default
 modules-center = network
-modules-right = power-profile fs-root date time
+modules-right = uptime cpu cpu-frequency memory ping time
+
+# Right
+[bar/DP-0]
+inherit = bar/default
+modules-right = fs-root time
