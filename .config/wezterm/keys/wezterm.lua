@@ -24,4 +24,10 @@ return {
 		mods = "ALT|SHIFT",
 		action = action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
+
+	{
+		key = "e",
+		mods = "ALT",
+		action = action.SendKey({ key = "t", mods = "CTRL" }),
+	},
 }
