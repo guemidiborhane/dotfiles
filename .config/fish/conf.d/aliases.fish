@@ -16,8 +16,8 @@ abbr uu "yay -Syyu --noconfirm"
 abbr clip "xclip -sel clip"
 abbr wtr "curl -s wttr.in | head -7"
 
-# lsd
-alias ls "lsd"
+# eza (better ls)
+alias ls "eza --color --icons"
 alias la "ls -a"
 alias lla "ls -la"
 

@@ -43,10 +43,11 @@ local mappings = {
 		action = tmuxMapping({ key = "z" }),
 	},
 
-	-- {
-	-- 	key = "`",
-	-- 	action = tmuxMapping({ key = "f" }),
-	-- },
+	{
+		key = "`",
+		mods = "ALT",
+		action = tmuxMapping({ key = "f" }),
+	},
 }
 
 mergeTables(tmuxWindowMappings(), mappings)
