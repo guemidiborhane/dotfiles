@@ -7,12 +7,12 @@
 - Rule:
   - Active: 87044B39
   - Key: [Forward Button, pressed]
-  - Execute: [playerctl, '--player=%any,firefox,chromium', next]
+  - Modifiers: Shift
+  - Execute: [playerctl, '--player=%any,firefox,chromium', previous]
 - Rule:
   - Active: 87044B39
   - Key: [Forward Button, pressed]
-  - Modifiers: Shift
-  - Execute: [playerctl, '--player=%any,firefox,chromium', previous]
+  - Execute: [playerctl, '--player=%any,firefox,chromium', next]
 - Rule:
   - Active: 87044B39
   - Test: [thumb_wheel_up, 15]
