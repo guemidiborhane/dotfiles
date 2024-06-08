@@ -1,3 +1,5 @@
+# vim: ft=dosini sw=4 et :
+
 [module/cputemp]
 inherit=module/base-cputemp
 hwmon-path=/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon7/temp1_input

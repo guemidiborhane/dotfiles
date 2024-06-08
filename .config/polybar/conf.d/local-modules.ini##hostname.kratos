@@ -1,3 +1,5 @@
+# vim: ft=dosini sw=4 et :
+
 [module/cputemp]
 inherit=module/base-cputemp
 hwmon-path=${env:HWMON_PATH}
