@@ -19,7 +19,7 @@ set -gx ASDF_GOLANG_MOD_VERSION_ENABLED true
 
 zoxide init --cmd cd fish | source
 fzf --fish | source
-
+source /usr/share/doc/find-the-command/ftc.fish quiet
 fish_ssh_agent
 
 if status --is-login
@@ -40,4 +40,5 @@ end
 
 starship init fish | source
 enable_transience
+fish_vi_key_bindings
 
