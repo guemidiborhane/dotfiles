@@ -15,7 +15,7 @@ return {
       fetching_timeout = 100,
     },
     experimental = {
-      ghost_text = true,
+      ghost_text = false,
     },
     formatting = {
       fields = { "kind", "abbr", "menu" },
