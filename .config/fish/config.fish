@@ -1,6 +1,17 @@
 # vi: set ft=fish :
 
-set -g fish_greeting
+fish_vi_key_bindings
+function fish_greeting
+    figlet -w $(tput cols) -f "ANSI Shadow.flf" 'I Rock, you suck. Stinson out!' | lolcat
+end
+
+function starship_transient_prompt_func
+  starship module character
+end
+
+function starship_transient_rprompt_func
+  starship module time
+end
 
 set -Ux PAGER less
 set -Ux EDITOR nvim
@@ -22,23 +33,12 @@ fzf --fish | source
 source /usr/share/doc/find-the-command/ftc.fish quiet
 fish_ssh_agent
 
-if status --is-login
+if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
         exec startx i3 -- -keeptty
     end
-
-    figlet -w $(tput cols) -f "ANSI Shadow.flf" 'I Rock, you suck. Stinson out!' | lolcat
-end
-
-function starship_transient_prompt_func
-  starship module character
-end
-
-function starship_transient_rprompt_func
-  starship module time
 end
 
 starship init fish | source
 enable_transience
-fish_vi_key_bindings
 

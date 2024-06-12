@@ -19,6 +19,6 @@ done
 for monitor in ${DISPLAYS[@]}; do
     external_monitor=$(xrandr --query | grep $monitor)
     if [[ $external_monitor = *connected* ]]; then
-        MONITOR=$monitor polybar -c $BAR_CONFIG $monitor&
+        MONITOR=$monitor polybar -c $BAR_CONFIG $monitor --log=warning&
     fi
 done
