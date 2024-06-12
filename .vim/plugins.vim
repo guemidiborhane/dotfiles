@@ -26,4 +26,4 @@ Plug 'jwalton512/vim-blade'
 Plug 'dracula/vim', { 'name': 'dracula' }
 call plug#end()
 
-" vim: set ft=vimrc sw=4 et :
+" vim: set ft=vim sw=4 et :

@@ -39,8 +39,8 @@ set textwidth=0 wrapmargin=0                                      " Turn off phy
 set nobackup
 set noswapfile                                                    " Don't make *.swp files. Just use GIT.
 
-let mapleader = ","                                               " Set leader to comma, which is more convenient.
-let g:mapleader = ","
+let mapleader = " "                                               " Set leader to comma, which is more convenient.
+let g:mapleader = " "
 
 
 "------------------ Mappings ------------------"
