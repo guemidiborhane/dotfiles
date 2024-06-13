@@ -1,7 +1,8 @@
 {
-    "terminals": [
-        "Gnome-terminal",
-        "Alacritty",
-        "kitty"
-    ]
+  "terminals": [
+    "Gnome-terminal",
+    "Alacritty",
+    "kitty",
+    "org.wezfurlong.wezterm"
+  ]
 }

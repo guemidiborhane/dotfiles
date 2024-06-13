@@ -1,6 +1,3 @@
-[default_session]
-startup_command = "ls"
-
 [[session]]
 name = "tmux config"
 path = "~/.config/tmux"
@@ -29,9 +26,14 @@ startup_command = "nvim"
 [[session]]
 name = "fish config"
 path = "~/.config/fish"
-startup_command = "nvim"
+startup_command = "nvim config.fish"
 
 [[session]]
 name = "systemd config"
 path = "~/.config/systemd/user"
 startup_command = "nvim"
+
+[[session]]
+name = "sesh"
+path = "~/.config/sesh/"
+startup_command = "nvim sesh.toml"
