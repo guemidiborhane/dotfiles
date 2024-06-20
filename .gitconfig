@@ -1,6 +1,5 @@
 [core]
 	fileMode = false
-	editor   = vim
 	abbrev   = 8
 [push]
   	default = simple

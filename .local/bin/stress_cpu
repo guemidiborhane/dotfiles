@@ -30,7 +30,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 echo "Stressing $cpus cpus, timeout $timeout seconds"
-stress -c $cpus -t $timeout&
+stress-ng -c $cpus -t $timeout&
 pid=$!
 
 timeout --foreground --kill-after=$timeout $timeout \
