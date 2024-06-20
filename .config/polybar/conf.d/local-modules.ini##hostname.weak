@@ -14,7 +14,7 @@ interval = 5
 time-format = %H:%M
 battery = BAT0
 adapter = AC
-full-at=95
+full-at=85
 
 ; Available tags:
 ;   <label-charging> (default)
