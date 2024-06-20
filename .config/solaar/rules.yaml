@@ -11,6 +11,12 @@
   - Execute: [playerctl, '--player=%any,firefox,chromium', previous]
 - Rule:
   - Active: 87044B39
+  - Key: [Mouse Gesture Button, pressed]
+  - KeyPress:
+    - [Super_R, Control_R, Tab]
+    - click
+- Rule:
+  - Active: 87044B39
   - Key: [Forward Button, pressed]
   - Execute: [playerctl, '--player=%any,firefox,chromium', next]
 - Rule:
