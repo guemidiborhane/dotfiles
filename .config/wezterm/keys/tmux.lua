@@ -48,6 +48,18 @@ local mappings = {
 		mods = "ALT",
 		action = tmuxMapping({ key = "f" }),
 	},
+
+	{
+		key = "LeftArrow",
+		mods = "CTRL|SHIFT",
+		action = tmuxMapping({ key = "{" }),
+	},
+
+	{
+		key = "RightArrow",
+		mods = "CTRL|SHIFT",
+		action = tmuxMapping({ key = "}" }),
+	},
 }
 
 mergeTables(tmuxWindowMappings(), mappings)
