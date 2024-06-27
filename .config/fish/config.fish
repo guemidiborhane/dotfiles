@@ -2,7 +2,7 @@
 
 fish_vi_key_bindings
 function fish_greeting
-    figlet -w $(tput cols) -f "ANSI Shadow.flf" 'I Rock, you suck. Stinson out!' | lolcat
+    fastfetch
 end
 
 function starship_transient_prompt_func
