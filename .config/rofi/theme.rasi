@@ -1,5 +1,5 @@
 configuration {
-    font: "FuraCode Nerd Font Light 14";
+    font: "FuraCode Nerd Font 14";
 
     eh: 1;
     hide-scrollbar: true;
