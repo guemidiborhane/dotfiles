@@ -1,0 +1,6 @@
+interface: wlp5s0
+dns-resolution: yes # Controls reverse lookup of IP addresses.
+port-display: on # Controls display of port numbers.
+port-resolution: yes # Controls conversion of port numbers to service names.
+line-display: one-line-both
+show-totals: yes
