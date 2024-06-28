@@ -1,36 +1,61 @@
+[init]
+	defaultBranch = master
+
 [core]
 	fileMode = false
 	abbrev   = 8
-[push]
-  	default = simple
-	autoSetupRemote = true
+	pager = delta --side-by-side
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true 
+
 [color]
-  	ui = true
+  ui = true
+
 [alias]
 	st = status -s
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	deploy = !git push  $1 $2 && bundle exec cap production deploy
 	glog = !"git --no-pager log --all --color=always --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' | sed -r -e 's/\\|(\\x1b\\[[0-9;]*m)+\\\\(\\x1b\\[[0-9;]*m)+ /├\\1─╮\\2/' -e 's/(\\x1b\\[[0-9;]+m)\\|\\x1b\\[m\\1\\/\\x1b\\[m /\\1├─╯\\x1b\\[m/' -e 's/\\|(\\x1b\\[[0-9;]*m)+\\\\(\\x1b\\[[0-9;]*m)+/├\\1╮\\2/' -e 's/(\\x1b\\[[0-9;]+m)\\|\\x1b\\[m\\1\\/\\x1b\\[m/\\1├╯\\x1b\\[m/' -e 's/╮(\\x1b\\[[0-9;]*m)+\\\\/╮\\1╰╮/' -e 's/╯(\\x1b\\[[0-9;]*m)+\\//╯\\1╭╯/' -e 's/(\\||\\\\)\\x1b\\[m   (\\x1b\\[[0-9;]*m)/╰╮\\2/' -e 's/(\\x1b\\[[0-9;]*m)\\\\/\\1╮/g' -e 's/(\\x1b\\[[0-9;]*m)\\//\\1╯/g' -e 's/^\\*|(\\x1b\\[m )\\*/\\1⎬/g' -e 's/(\\x1b\\[[0-9;]*m)\\|/\\1│/g' | less -r -X +/[^/]HEAD"
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
 [credential]
 	helper = store
+
 [pull]
 	rebase = false
-[gpg]
-	program = gpg2
-[init]
-	defaultBranch = master
-[include]
-	path = .gitconfig.local
+
+[push]
+  default = simple
+	autoSetupRemote = true
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+
 [gui]
 	historybrowser = gitk
-[diff]
-	tool = xxdiff
+	editor = wezterm start -e nvim
+
 [cola]
 	theme = flat-dark-blue
 	icontheme = dark
 	fontdiff = Monospace,12,-1,5,50,0,0,0,0,0
+	hidpi = 1.25
+
+
+[gpg]
+	program = gpg2
+
+[include]
+	path = .gitconfig.local

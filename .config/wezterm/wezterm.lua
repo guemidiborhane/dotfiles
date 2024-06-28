@@ -2,8 +2,13 @@ local wezterm = require("wezterm")
 local config = {}
 
 config.check_for_updates = false
+
 config.color_scheme = "Dracula (Official)"
 config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = true
+config.use_fancy_tab_bar = false
+config.window_decorations = "RESIZE"
+
 config.default_prog = { "/usr/bin/fish", "--login" }
 
 config.window_close_confirmation = "AlwaysPrompt"
