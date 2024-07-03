@@ -43,3 +43,5 @@ end
 starship init fish | source
 enable_transience
 
+# Required for touchscreen gestures in firefox
+set -gx MOZ_USE_XINPUT2 1

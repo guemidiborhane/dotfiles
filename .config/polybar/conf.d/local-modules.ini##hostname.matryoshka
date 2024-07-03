@@ -2,7 +2,7 @@
 
 [module/cputemp]
 inherit=module/base-cputemp
-hwmon-path=/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon7/temp1_input
+hwmon-path=${env:HWMON_PATH}
 
 [module/cpu-frequency]
 inherit=module/base-cpu-frequency
@@ -14,7 +14,7 @@ interval = 5
 time-format = %H:%M
 battery = BAT0
 adapter = AC
-full-at=85
+full-at=80
 
 ; Available tags:
 ;   <label-charging> (default)
