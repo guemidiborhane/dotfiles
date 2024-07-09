@@ -68,4 +68,4 @@ alias t "sesh connect (sesh list -i | gum filter --limit 1 --placeholder 'Pick a
 alias zid "eza -D | xargs -I {} zoxide add {}"
 
 # Credit Elijah Manor : https://youtu.be/K1FxGIG_lcA
-alias v "fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvim"
+alias v "fd --type f --hidden --exclude .git | fzf-tmux -p --reverse --preview 'bat -p --color=always {}' | xargs -r nvim"
