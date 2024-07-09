@@ -2,6 +2,7 @@
 
 function fish_greeting
     fastfetch
+    echo -e "\n"
 end
 
 function starship_transient_prompt_func
