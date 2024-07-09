@@ -4,10 +4,6 @@
 inherit=module/base-cputemp
 hwmon-path=${env:HWMON_PATH}
 
-[module/cpu-frequency]
-inherit=module/base-cpu-frequency
-exec = ~/.config/polybar/scripts/cpu-frequency.sh
-
 [module/battery]
 type = internal/battery
 interval = 5

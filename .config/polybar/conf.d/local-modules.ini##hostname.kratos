@@ -4,5 +4,3 @@
 inherit=module/base-cputemp
 hwmon-path=${env:HWMON_PATH}
 
-[module/cpu-frequency]
-inherit=module/base-cpu-frequency
