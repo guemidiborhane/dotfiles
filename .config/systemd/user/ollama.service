@@ -4,7 +4,7 @@ Description=Ollama and webui
 [Service]
 Type=simple
 StandardOutput=journal
-ExecStop=docker stop %N
+ExecStop=docker rm -f %N
 ExecStart=docker run \
         --rm \
         --gpus=all \
