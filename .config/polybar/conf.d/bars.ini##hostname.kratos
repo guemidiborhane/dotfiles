@@ -4,17 +4,17 @@
 [bar/DP-2]
 inherit = bar/default
 modules-center = tray
-modules-right = aio-fan-speed cputemp date time vpn
+modules-right = memory date time vpn
 modules-left = i3 xwindow
 
 # Left
 [bar/DP-4]
 inherit = bar/default
-modules-center = network
-modules-right = uptime cpu cpu-frequency memory time
+modules-center = uptime 
+modules-right = aio-fan-speed cputemp cpu cpu-frequency time
 
 # Right
 [bar/DP-0]
 inherit = bar/default
-modules-center = ping
+modules-center = ping network
 modules-right = fs-root date time
