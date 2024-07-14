@@ -127,10 +127,13 @@ if [ -x "$HOME/.layouts/main-setup.sh" ]; then
 	"$HOME/.layouts/main-setup.sh"
 fi
 
-eval "$(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)"
-export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
-
+# Start dunst notification daemon
+dunst --config ~/.config/dunst/dunstrc &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 udiskie -s &
+
+if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+	eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
 
 exec i3
