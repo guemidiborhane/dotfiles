@@ -16,7 +16,6 @@ end
 zoxide init --cmd cd fish | source
 fzf --fish | source
 source /usr/share/doc/find-the-command/ftc.fish quiet
-fish_ssh_agent
 
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
