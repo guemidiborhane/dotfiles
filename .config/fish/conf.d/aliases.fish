@@ -3,12 +3,10 @@
 abbr c "clear"
 abbr n "xdg-open"
 abbr n. "xdg-open ."
-# abbr code "cd ~/Code"
 
 abbr sshkey "xclip -sel clip < ~/.ssh/id_ed25519.pub && notify-send -t 1000 -i ~/.icons/key_ok.png 'Public Key copied to clipboard'"
 abbr sshconfig "vim ~/.ssh/config"
 
-set -x EDITOR "nvim"
 alias fishrc "$EDITOR ~/.config/fish/config.fish"
 abbr aliases "$EDITOR ~/.config/fish/conf.d/aliases.fish"
 
