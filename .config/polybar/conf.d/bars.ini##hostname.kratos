@@ -4,7 +4,7 @@
 [bar/DP-2]
 inherit = bar/default
 modules-center = tray
-modules-right = memory date time vpn
+modules-right = memory date time vpn caffeine
 modules-left = i3 xwindow
 
 # Left
