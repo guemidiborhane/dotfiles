@@ -7,12 +7,6 @@ local mappings = {
 		action = tmuxMapping({ key = "T" }),
 	},
 
-	-- {
-	-- 	key = "Tab",
-	-- 	mods = "SHIFT",
-	-- 	action = tmuxMapping({ key = "l" }),
-	-- },
-
 	{
 		key = "Enter",
 		mods = "CTRL",
@@ -59,6 +53,18 @@ local mappings = {
 		key = "RightArrow",
 		mods = "CTRL|SHIFT",
 		action = tmuxMapping({ key = "}" }),
+	},
+
+	{
+		key = "PageUp",
+		mods = "CTRL",
+		action = tmuxMapping({ key = "p" }),
+	},
+
+	{
+		key = "PageDown",
+		mods = "CTRL",
+		action = tmuxMapping({ key = "n" }),
 	},
 }
 
