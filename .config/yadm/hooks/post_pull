@@ -1,0 +1,36 @@
+#!/bin/sh
+
+TEMP_DIR="$(mktemp --directory)"
+PACKAGES_DIR="$HOME/.config/yadm/packages.d"
+
+sh -c "pacman -Qqem >$TEMP_DIR/aur.list | sort" &
+sh -c "pacman -Qnqe >$TEMP_DIR/pacman.list | sort" &
+wait
+
+added_packages=""
+removed_packages=""
+
+LISTS="$PACKAGES_DIR/*.list"
+
+for list in $LISTS; do
+  filename=$(basename "$list")
+  diff_output=$(diff "$list" "$TEMP_DIR/$filename")
+
+  added=$(echo "$diff_output" | grep '^>' | sed 's/^> //')
+  if [ -n "$added" ]; then
+    added_packages="$added_packages $added"
+  fi
+
+  removed=$(echo "$diff_output" | grep '^<' | sed 's/^< //')
+  if [ -n "$removed" ]; then
+    removed_packages="$removed_packages $removed"
+  fi
+done
+
+if [ -n "$added_packages" ]; then
+  yay -S "$added_packages"
+fi
+
+if [ -n "$removed_packages" ]; then
+  yay -Rns "$removed_packages"
+fi

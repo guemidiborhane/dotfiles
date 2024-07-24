@@ -5,6 +5,6 @@ INSTALL_ALL=no
 
 enabled_user_services="pi-hole wallpaper.timer wallpaper.service run-mount-scripts.timer xrandr.service polybar.service autotiling.service mega-webdav.service suspend-lock.service"
 enabled_system_services="fstrim.timer ntpd.service bluetooth.service"
-package_files_dir="$HOME/.config/yadm/packages/*.list"
+package_files_dir="$HOME/.config/yadm/packages.d/*.list"
 
 . $HOME/.config/yadm/main.sh

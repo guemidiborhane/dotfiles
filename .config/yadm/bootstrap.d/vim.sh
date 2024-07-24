@@ -3,38 +3,37 @@
 
 . "$HOME/.config/yadm/bootstrap.d/utils.sh"
 
-install_deps () {
+install_deps() {
     yay -Syy --noconfirm --needed $@
 }
 
-install_nvim () {
+install_nvim() {
     if [ ! -x "$(command -v neovim)" ]; then
         echo "Installing neovim"
-        install_deps neovim ripgrep bottom lazygit
+        install_deps neovim ripgrep fd bottom lazygit
         nvim --headless +q
     fi
 }
 
-update_vim_plugins () {
+update_vim_plugins() {
     nvim +AstroUpdate +q
 }
 
-clear_neovim_cache () {
+clear_neovim_cache() {
     rm -rf ~/.local/share/nvim
     rm -rf ~/.local/state/nvim
     rm -rf ~/.cache/nvim
 }
 
-configure_vim () {
+configure_vim() {
     clear_neovim_cache
     install_nvim
 }
 
-vim_main () {
+vim_main() {
     section "NeoVIM"
     ask "Install/Update neovim"
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
         if [ -d "$HOME/.config/nvim" ]; then
             update_vim_plugins
         else
