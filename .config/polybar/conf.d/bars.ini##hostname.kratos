@@ -16,5 +16,5 @@ modules-right = aio-fan-speed cputemp cpu cpu-frequency time
 # Right
 [bar/DP-0]
 inherit = bar/default
-modules-center = ping network
+modules-center = ping wired-network
 modules-right = fs-root date time
