@@ -11,7 +11,7 @@ modules-left = i3 xwindow
 [bar/DP-4]
 inherit = bar/default
 modules-center = uptime 
-modules-right = aio-fan-speed cputemp cpu cpu-frequency time
+modules-right = aio-fan-speed governor cputemp cpu cpu-frequency time
 
 # Right
 [bar/DP-0]
