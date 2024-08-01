@@ -23,6 +23,12 @@ systemctl --user enable gcr-ssh-agent.socket
 
 ## Commands cheatsheet
 
+### Fix teamviewer
+
+```bash
+echo -e '[Service]\nEnvironment=XDG_SESSION_TYPE=x11' | sudo tee -a /etc/systemd/system/getty@tty1.service.d/getty@tty1.service-drop-in.conf
+```
+
 ### Sign previous commits.
 
 ```bash
