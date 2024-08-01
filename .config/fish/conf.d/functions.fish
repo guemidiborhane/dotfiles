@@ -1,36 +1,40 @@
-function pagespeed
-    curl -s -w 'Testing Website Response Time for: %{url_effective}\n\nResponse Code:\t\t%{response_code}\nCookup Time:\t\t%{time_namelookup}\nConnect Time:\t\t%{time_connect}\nPre-transfer Time:\t%{time_pretransfer}\nStart-transfer Time:\t%{time_starttransfer}\n\nTotal Time:\t\t%{time_total}\n' -o /dev/null --connect-timeout 1 $argv[1]
+function pagespeed --argument url
+    set -q url[1]; or return
+
+    curl -s -w 'Testing Website Response Time for: %{url_effective}\n\nResponse Code:\t\t%{response_code}\nCookup Time:\t\t%{time_namelookup}\nConnect Time:\t\t%{time_connect}\nPre-transfer Time:\t%{time_pretransfer}\nStart-transfer Time:\t%{time_starttransfer}\n\nTotal Time:\t\t%{time_total}\n' -o /dev/null --connect-timeout 1 $url
 end
 
-function kickoff
-    if test -d $argv[1]
-        echo "Directory $argv[1] already exists"
+function kickoff --argument name
+    set -q name[1]; or return
+
+    if test -d $name
+        echo "Directory $name already exists"
         return 1
     end
 
     set git_repo "git@git.netsys.dz:guemidiborhane/kickoff.git"
-    git clone $git_repo $argv[1]
-    cd $argv[1]
+    git clone $git_repo $name
+    cd $name
     bash install.sh
 end
 
-function tn
-    if test (count $argv) -gt 0
-        set session_name $argv[1]
-    else
-        set session_name (basename $PWD)
-    end
+function tn --argument session_name
+    set -q session_name[1]; or set session_name (basename $PWD)
     tmux new-session -As "$session_name"
 end
 
-function mkcd
-    mkdir $argv[1]
-    cd $argv[1]
+function mkcd --argument name
+    set -q name[1]; or return
+
+    mkdir $name
+    cd $name
 end
 
-function clone
-    set repo_name (basename $argv[1] | sed -E 's/.git//')
-    git clone $argv[1] $repo_name
+function clone --argument name
+    set -q name[1]; or return
+
+    set repo_name (basename $name | sed -E 's/.git//')
+    git clone $name $repo_name
     cd $repo_name
 end
 
@@ -40,7 +44,7 @@ function pwd
     echo -n $dir | xclip -sel clipboard
 end
 
-# credit : https://stackoverflow.com/a/73108928
-function dockersize
-    docker manifest inspect -v $argv[1] | jq -c 'if type == "array" then .[] else . end' | jq -r '[ ( .Descriptor.platform | [ .os, .architecture, .variant, ."os.version" ] | del(..|nulls) | join("/") ), ( [ .SchemaV2Manifest.layers[].size ] | add ) ] | join(" ")' | numfmt --to iec --format '%.2f' --field 2 | sort | column -t
+function secure_random --argument size
+    set -q size[1]; or set size 64
+    tr -cd '[:alnum:]' < /dev/urandom | fold -w $size | head -n 1 | tr -d '\n' | xclip -sel clip
 end
