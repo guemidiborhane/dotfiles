@@ -38,20 +38,11 @@ local previous_buffer = {
 return {
   n = {
     ["<C-p>"] = find_files,
-    ["<S-A-p>"] = { "<cmd> Telescope projects <CR>", desc = "List projects" },
     ["|"] = vertical_split,
     ["\\"] = horizontal_split,
     ["<C-n>"] = toggle_neotree,
-    ["<C-PageDown>"] = next_buffer,
-    ["<C-PageUp>"] = previous_buffer,
-    ["<A-k>"] = {
-      ":m .-2<CR>==",
-      desc = "Move current line up",
-    },
-    ["<A-j>"] = {
-      ":m .+1<CR>==",
-      desc = "Move current line down",
-    },
+    ["<A-PageDown>"] = next_buffer,
+    ["<A-PageUp>"] = previous_buffer,
     ["<Tab>"] = {
       function()
         if #vim.t.bufs > 1 then
@@ -94,26 +85,9 @@ return {
     -- write file and escape to normal model
     ["<C-s>"] = { "<Esc><cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
     ["<C-n>"] = toggle_neotree,
-    ["<C-PageDown>"] = next_buffer,
-    ["<C-PageUp>"] = previous_buffer,
-    ["<A-k>"] = {
-      "<Esc>:m .-2<CR>==gi",
-      desc = "Move current line up",
-    },
-    ["<A-j>"] = {
-      "<Esc>:m .+1<CR>==gi",
-      desc = "Move current line down",
-    },
+    ["<A-PageDown>"] = next_buffer,
+    ["<A-PageUp>"] = previous_buffer,
   },
-  v = {
-    ["<A-k>"] = {
-      ":m '<-2<CR>gv=gv",
-      desc = "Move selected lines down",
-    },
-    ["<A-j>"] = {
-      ":m '>+1<CR>gv=gv",
-      desc = "Move selected lines up",
-    },
-  },
+  v = {},
   t = {},
 }
