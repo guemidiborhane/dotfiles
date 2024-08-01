@@ -15,7 +15,11 @@ end
 
 zoxide init --cmd cd fish | source
 fzf --fish | source
-source /usr/share/doc/find-the-command/ftc.fish quiet
+source /usr/share/doc/find-the-command/ftc.fish quiet noupdate
+
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+set -gx PAGER  less 
 
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1 -a -z "$SSH_CONNECTION" -a (tty | string match -r '/dev/tty[0-9]+')

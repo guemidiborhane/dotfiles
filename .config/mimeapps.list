@@ -15,6 +15,7 @@ message/rfc822=userapp-Thunderbird-GLY2P2.desktop
 x-scheme-handler/mid=userapp-Thunderbird-GLY2P2.desktop
 application/x-ms-shortcut=nvim.desktop
 inode/directory=thunar.desktop
+application/pdf=xreader.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;
@@ -28,7 +29,7 @@ application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
 image/jpeg=viewnior.desktop;
-application/pdf=wps-office-pdf.desktop;
+application/pdf=xreader.desktop;firefox-developer-edition.desktop;brave-browser.desktop;wps-office-pdf.desktop;
 text/plain=sublime_text.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-GLY2P2.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-GLY2P2.desktop;
