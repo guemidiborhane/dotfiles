@@ -72,3 +72,7 @@ alias v "fd --type f --hidden --exclude .git --exclude node_modules --exclude ca
 alias ye "yadm edit"
 alias yu "yadm pull"
 alias yp "yadm push"
+
+# Systemd
+abbr sc systemctl
+abbr scu systemctl --user

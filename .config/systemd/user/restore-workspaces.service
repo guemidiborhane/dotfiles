@@ -1,9 +1,0 @@
-[Unit]
-Description=Restore saved workspaces
-After=xrandr.service
-
-[Service]
-ExecStart=%h/.i3/scripts/restore-workspaces.sh
-
-[Install]
-WantedBy=default.target
