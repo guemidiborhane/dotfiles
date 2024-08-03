@@ -11,9 +11,9 @@ bind
 bitwarden
 blueman
 bluez
+bluez-utils
 btop
 cabextract
-cmatrix
 copyq
 cowsay
 cpupower
@@ -51,12 +51,12 @@ gparted
 gum
 helm
 htop
-i3lock
 i3-wm
 iftop
 imagemagick
 inetutils
 inkscape
+iperf3
 jdk17-openjdk
 jdk21-openjdk
 jq
@@ -73,7 +73,6 @@ lvm2
 lxappearance
 magic-wormhole
 man-db
-mcfly
 memtester
 mlocate
 ncdu
@@ -131,6 +130,7 @@ thunar-volman
 thunderbird
 tldr
 tmux
+traceroute
 ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
@@ -154,6 +154,7 @@ xorg-server
 xorg-xinit
 xorg-xinput
 xorg-xkill
+xreader
 xss-lock
 yadm
 yazi
