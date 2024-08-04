@@ -10,12 +10,10 @@ abbr sshconfig "vim ~/.ssh/config"
 alias fishrc "$EDITOR ~/.config/fish/config.fish"
 abbr aliases "$EDITOR ~/.config/fish/conf.d/aliases.fish"
 
-abbr uu "yay -Syyu --noconfirm"
 abbr clip "xclip -sel clip"
-abbr wtr "curl -s wttr.in | head -7"
 
 # eza (better ls)
-alias ls "eza --color --icons"
+alias ls "eza --color always --icons"
 alias la "ls -a"
 alias lla "ls -la"
 
@@ -29,6 +27,8 @@ alias gaa "git add ."
 alias gac "git add . && git commit -m"
 alias gc "git commit -m"
 alias gco "git checkout"
+alias gcd "git checkout develop"
+alias gcm "git checkout master"
 alias gs "git status"
 alias gd "git diff"
 alias s "git st"

@@ -19,13 +19,7 @@ source /usr/share/doc/find-the-command/ftc.fish quiet noupdate
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-set -gx PAGER  less 
-
-if status is-login
-    if test -z "$DISPLAY" -a "$XDG_VTNR" = 1 -a -z "$SSH_CONNECTION" -a (tty | string match -r '/dev/tty[0-9]+')
-        exec startx
-    end
-end
+set -gx PAGER  less -R
 
 starship init fish | source
 fish_vi_key_bindings

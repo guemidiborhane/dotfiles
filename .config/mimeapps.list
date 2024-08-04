@@ -16,6 +16,8 @@ x-scheme-handler/mid=userapp-Thunderbird-GLY2P2.desktop
 application/x-ms-shortcut=nvim.desktop
 inode/directory=thunar.desktop
 application/pdf=xreader.desktop
+image/png=viewnior.desktop
+x-scheme-handler/tonsite=org.telegram.desktop.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;
@@ -35,3 +37,4 @@ x-scheme-handler/mailto=userapp-Thunderbird-GLY2P2.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-GLY2P2.desktop;
 application/x-ms-shortcut=nvim.desktop;
 image/png=viewnior.desktop;
+x-scheme-handler/tonsite=org.telegram.desktop.desktop;
