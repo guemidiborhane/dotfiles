@@ -1,5 +1,4 @@
 local action = require("wezterm").action
-
 function tmuxMapping(mapping)
 	local prefix = action.SendKey({ mods = "CTRL", key = "a" })
 
@@ -9,22 +8,26 @@ function tmuxMapping(mapping)
 	})
 end
 
-function tmuxWindowMappings()
-	local mappings = {}
+return {
+	tmuxMapping = tmuxMapping,
 
-	for i = 1, 9 do
-		table.insert(mappings, {
-			key = tostring(i),
-			mods = "CTRL",
-			action = tmuxMapping({ key = tostring(i) }),
-		})
-	end
+	tmuxWindowMappings = function()
+		local mappings = {}
 
-	return mappings
-end
+		for i = 1, 9 do
+			table.insert(mappings, {
+				key = tostring(i),
+				mods = "CTRL",
+				action = tmuxMapping({ key = tostring(i) }),
+			})
+		end
 
-function mergeTables(src, dest)
-	for _, v in ipairs(src) do
-		table.insert(dest, v)
-	end
-end
+		return mappings
+	end,
+
+	mergeTables = function(src, dest)
+		for _, v in ipairs(src) do
+			table.insert(dest, v)
+		end
+	end,
+}
