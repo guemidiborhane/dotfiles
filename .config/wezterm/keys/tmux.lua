@@ -1,73 +1,69 @@
-local utils = require("utils")
+local map = require("utils").tmuxMapping
 
-local mappings = {
+return {
 	{
 		key = "p",
 		mods = "ALT",
-		action = tmuxMapping({ key = "T" }),
+		action = map({ key = "T" }),
 	},
 
 	{
 		key = "Enter",
 		mods = "CTRL",
-		action = tmuxMapping({ key = "'" }),
+		action = map({ key = "'" }),
 	},
 
 	{
 		key = "Enter",
 		mods = "ALT",
-		action = tmuxMapping({ key = '"' }),
+		action = map({ key = '"' }),
 	},
 
 	{
 		key = "t",
 		mods = "CTRL",
-		action = tmuxMapping({ key = "c" }),
+		action = map({ key = "c" }),
 	},
 
 	{
 		key = "w",
 		mods = "ALT",
-		action = tmuxMapping({ key = "x" }),
+		action = map({ key = "x" }),
 	},
 
 	{
 		key = "f",
 		mods = "ALT",
-		action = tmuxMapping({ key = "z" }),
+		action = map({ key = "z" }),
 	},
 
 	{
 		key = "`",
 		mods = "ALT",
-		action = tmuxMapping({ key = "f" }),
+		action = map({ key = "f" }),
 	},
 
 	{
 		key = "LeftArrow",
 		mods = "CTRL|SHIFT",
-		action = tmuxMapping({ key = "{" }),
+		action = map({ key = "{" }),
 	},
 
 	{
 		key = "RightArrow",
 		mods = "CTRL|SHIFT",
-		action = tmuxMapping({ key = "}" }),
+		action = map({ key = "}" }),
 	},
 
 	{
 		key = "PageUp",
 		mods = "CTRL",
-		action = tmuxMapping({ key = "p" }),
+		action = map({ key = "p" }),
 	},
 
 	{
 		key = "PageDown",
 		mods = "CTRL",
-		action = tmuxMapping({ key = "n" }),
+		action = map({ key = "n" }),
 	},
 }
-
-mergeTables(tmuxWindowMappings(), mappings)
-
-return mappings
