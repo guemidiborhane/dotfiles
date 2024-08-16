@@ -26,6 +26,30 @@ return {
 	},
 
 	{
+		key = "RightArrow",
+		mods = "ALT|SHIFT",
+		action = action.ActivatePaneDirection("Right"),
+	},
+
+	{
+		key = "LeftArrow",
+		mods = "ALT|SHIFT",
+		action = action.ActivatePaneDirection("Left"),
+	},
+
+	{
+		key = "UpArrow",
+		mods = "ALT|SHIFT",
+		action = action.ActivatePaneDirection("Up"),
+	},
+
+	{
+		key = "DownArrow",
+		mods = "ALT|SHIFT",
+		action = action.ActivatePaneDirection("Down"),
+	},
+
+	{
 		key = "e",
 		mods = "ALT",
 		action = action.SendKey({ key = "t", mods = "CTRL" }),
