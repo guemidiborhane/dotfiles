@@ -3,18 +3,18 @@
 # Primary
 [bar/DP-2]
 inherit = bar/default
-modules-center = datetime
 modules-right = memory vpn caffeine tray
+modules-center = datetime
 modules-left = i3 xwindow
 
 # Left
 [bar/DP-4]
 inherit = bar/default
-modules-center = date
-modules-right = cputemp uptime
+modules-right = governor cputemp cpu-frequency uptime
+modules-center = time
 
 # Right
 [bar/DP-0]
 inherit = bar/default
 modules-right = ping wired-network
-modules-center = time
+modules-center = date
