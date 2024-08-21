@@ -68,7 +68,6 @@ linux-firmware
 linux-headers
 liquidctl
 lm_sensors
-lolcat
 lvm2
 lxappearance
 magic-wormhole
@@ -121,6 +120,7 @@ rsync
 seahorse
 signal-desktop
 solaar
+squashfs-tools
 starship
 s-tui
 telegram-desktop
