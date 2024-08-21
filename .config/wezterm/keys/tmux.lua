@@ -66,4 +66,22 @@ return {
 		mods = "CTRL",
 		action = map({ key = "n" }),
 	},
+
+	{
+		key = "1",
+		mods = "CTRL",
+		action = map({ key = "1" }),
+	},
+
+	{
+		key = "2",
+		mods = "CTRL",
+		action = map({ key = "2" }),
+	},
+
+	{
+		key = "3",
+		mods = "CTRL",
+		action = map({ key = "3" }),
+	},
 }

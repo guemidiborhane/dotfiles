@@ -1,8 +1,8 @@
-ruby 3.2.2
-nodejs 20.15.0
-php 8.3.7
-yarn 1.22.19
-python system
 kubectl 1.24.6
-kubectx 0.9.4
-golang 1.22.0
+ruby 3.3.4
+nodejs 22.6.0
+php 8.3.10
+yarn 1.22.22
+python 3.12.5
+kubectx 0.9.5
+golang 1.23.0
