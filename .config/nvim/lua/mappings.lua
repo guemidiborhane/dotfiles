@@ -38,9 +38,7 @@ local previous_buffer = {
 return {
   n = {
     ["<C-p>"] = find_files,
-    ["|"] = vertical_split,
-    ["\\"] = horizontal_split,
-    ["<C-n>"] = toggle_neotree,
+    ["\\"] = toggle_neotree,
     ["<A-PageDown>"] = next_buffer,
     ["<A-PageUp>"] = previous_buffer,
     ["<Tab>"] = {
@@ -84,7 +82,6 @@ return {
     ["<C-p>"] = find_files,
     -- write file and escape to normal model
     ["<C-s>"] = { "<Esc><cmd> write <CR>", desc = "Save buffer and return to Normal mode" },
-    ["<C-n>"] = toggle_neotree,
     ["<A-PageDown>"] = next_buffer,
     ["<A-PageUp>"] = previous_buffer,
   },

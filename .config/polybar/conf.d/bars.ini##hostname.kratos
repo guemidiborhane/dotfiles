@@ -16,5 +16,5 @@ modules-center = time
 # Right
 [bar/DP-0]
 inherit = bar/default
-modules-right = ping wired-network
+modules-right = wired-network ping
 modules-center = date
