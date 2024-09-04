@@ -8,7 +8,7 @@ main() {
 		if [ "$panes_count" -gt 1 ]; then
 			tmux send-keys C-d
 		else
-			if tmux popup -w 25 -h 6 -E gum confirm "kill-pane ?" --default=1 --no-show-help; then
+			if tmux popup -w 25 -h 7 -E gum confirm "kill-pane ?" --default=1 --no-show-help; then
 				tmux send-keys C-d
 			fi
 		fi
