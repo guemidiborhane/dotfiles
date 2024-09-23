@@ -76,3 +76,6 @@ alias yp "yadm push"
 # Systemd
 abbr sc systemctl
 abbr scu systemctl --user
+
+
+alias clear "/usr/bin/clear && fish_greeting"

@@ -4,7 +4,7 @@ Description=dynamically adjust liquidctl device pump and fan speeds.
 [Service]
 Type=simple
 StandardOutput=journal
-ExecStart=%h/.local/bin/yoda -v --match H115i control fan with '(40,0),(50,40),(60,65),(70,80),(80,100)' on k10temp.tctl
+ExecStart=%h/.local/bin/yoda -v --match H115i control fan with '(40,0),(50,40),(60,65),(65,80),(75,100)' on k10temp.tctl
 
 [Install]
 WantedBy=default.target
