@@ -3,6 +3,6 @@ ruby 3.3.4
 nodejs 22.6.0
 php 8.3.10
 yarn 1.22.22
-python 3.12.5
+python system
 kubectx 0.9.5
 golang 1.23.0
