@@ -12,6 +12,8 @@ main() {
 				tmux send-keys C-d
 			fi
 		fi
+	else
+		tmux send-keys C-d
 	fi
 
 	return 0
