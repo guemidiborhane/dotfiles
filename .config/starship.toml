@@ -37,17 +37,16 @@ style = "bright_green"
 
 [git_status]
 style = "bold green"
-ahead = '[⇡${count}](green)'
-behind = '[⇣${count}](green)'
 
 format = '[$stashed$ahead_behind$modified$deleted$untracked$staged]($style)'
 
-diverged = '[⇣${behind_count}⇡${ahead_count}](green) '
-stashed = '[*$count](orange) '
+ahead = '[⇡${count}](green) '
+behind = '[⇣${count}](green) '
+stashed = '[*${count}](orange) '
 modified = '[!${count}](yellow) '
-deleted = '[-$count](red) '
-untracked = '[?$count](cyan) '
-staged = '[+$count](green) '
+deleted = '[-${count}](red) '
+untracked = '[?${count}](cyan) '
+staged = '[+${count}](green) '
 
 [golang]
 symbol = " "
