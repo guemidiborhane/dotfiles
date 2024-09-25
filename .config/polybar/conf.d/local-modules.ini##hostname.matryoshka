@@ -10,7 +10,7 @@ interval = 5
 time-format = %H:%M
 battery = BAT0
 adapter = AC
-full-at=80
+full-at=79
 
 ; Available tags:
 ;   <label-charging> (default)
@@ -42,9 +42,6 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-
-; Only applies if <bar-capacity> is used
-bar-capacity-width = 10
 
 ; Only applies if <animation-charging> is used
 animation-charging-0 = 
