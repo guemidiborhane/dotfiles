@@ -4,8 +4,8 @@
 inherit = bar/default
 monitor = eDP-1
 modules-left = i3 xwindow
-modules-center = tray
-modules-right = wireless-network cputemp cpu-frequency battery time vpn caffeine
+modules-center = datetime 
+modules-right = cputemp cpu-frequency governor vpn caffeine tray battery
 
 [bar/HDMI-1-0]
 inherit = bar/default
