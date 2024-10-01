@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Define the paths to your package lists
+PKG_LIST="$HOME/.config/yadm/packages.d/pacman.list"
+LOCAL_LIST="$HOME/.config/yadm/packages.d/local.list"
+AUR_PKG_LIST="$HOME/.config/yadm/packages.d/aur.list"
+
+# Check if the package lists exist
+if [ ! -f "$PKG_LIST" ]; then
+  echo "Package list not found: $PKG_LIST"
+  exit 1
+fi
+
+# Warn if the local or AUR lists are missing, but continue
+if [ ! -f "$LOCAL_LIST" ]; then
+  echo "Local package list not found: $LOCAL_LIST (continuing without local packages)"
+fi
+
+if [ ! -f "$AUR_PKG_LIST" ]; then
+  echo "AUR package list not found: $AUR_PKG_LIST (continuing without AUR packages)"
+fi
+
+# Get the list of explicitly installed packages on the system
+installed_packages=$(pacman -Qnqe)
+
+# Read the package list from pkglist.txt
+desired_packages=$(cat "$PKG_LIST" "$LOCAL_LIST" 2>/dev/null)
+
+# Check if desired_packages is not empty before proceeding
+if [ -z "$desired_packages" ]; then
+  echo "No packages listed in pacman or local lists."
+  exit 0
+fi
+
+# Find packages that need to be installed (present in pkglist.txt but not installed)
+packages_to_install=$(comm -23 <(echo "$desired_packages" | sort) <(echo "$installed_packages" | sort))
+
+# Find packages that need to be removed (installed but not present in pkglist.txt)
+packages_to_remove=$(comm -13 <(echo "$desired_packages" | sort) <(echo "$installed_packages" | sort))
+
+# Install new packages
+if [ -n "$packages_to_install" ]; then
+  echo "Installing new packages: $packages_to_install"
+  sudo pacman -S --needed $packages_to_install
+else
+  echo "No new packages to install."
+fi
+
+# Remove packages no longer in the package list
+if [ -n "$packages_to_remove" ]; then
+  echo "Removing packages no longer in list: $packages_to_remove"
+  sudo pacman -Rns $packages_to_remove
+else
+  echo "No packages to remove."
+fi
+
+# Handle AUR packages with yay
+if command -v yay &>/dev/null; then
+  # Get the list of installed AUR packages
+  installed_aur_packages=$(pacman -Qqem)
+
+  # Read the AUR package list
+  desired_aur_packages=$(cat "$AUR_PKG_LIST" 2>/dev/null)
+
+  if [ -z "$desired_aur_packages" ]; then
+    echo "No AUR packages listed in aur.list."
+    exit 0
+  fi
+
+  # Find AUR packages to install
+  aur_to_install=$(comm -23 <(echo "$desired_aur_packages" | sort) <(echo "$installed_aur_packages" | sort))
+
+  # Find AUR packages to remove
+  aur_to_remove=$(comm -13 <(echo "$desired_aur_packages" | sort) <(echo "$installed_aur_packages" | sort))
+
+  # Install new AUR packages
+  if [ -n "$aur_to_install" ]; then
+    echo "Installing new AUR packages: $aur_to_install"
+    yay -S --needed $aur_to_install
+  else
+    echo "No new AUR packages to install."
+  fi
+
+  # Remove AUR packages no longer in the list
+  if [ -n "$aur_to_remove" ]; then
+    echo "Removing AUR packages no longer in list: $aur_to_remove"
+    yay -Rs $aur_to_remove
+  else
+    echo "No AUR packages to remove."
+  fi
+else
+  echo "AUR helper (yay) not found, skipping AUR package management."
+fi

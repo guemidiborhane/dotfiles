@@ -1,3 +1,5 @@
+ddcutil
+liquidctl
 nvidia-container-toolkit
 nvidia-dkms
 nvidia-utils
