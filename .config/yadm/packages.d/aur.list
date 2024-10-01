@@ -1,12 +1,10 @@
 android-sdk
 asdf-vm
-autotiling
 betterlockscreen
 brave-bin
 docker-credential-pass
 dracula-gtk-theme
 enpass-bin
-figlet-fonts
 find-the-command
 geekbench
 git-cola
@@ -21,6 +19,7 @@ kernel-install-for-dracut
 kora-icon-theme
 krew-bin
 localsend-bin
+light
 megasync
 ngrok
 qogir-icon-theme
@@ -34,9 +33,8 @@ tmux-plugin-manager
 tor-browser-bin
 ttf-ms-fonts
 ttf-wps-fonts
-typora
 ventoy-bin
 visual-studio-code-bin
 wlogout
 wps-office
-yay
+yay-bin
