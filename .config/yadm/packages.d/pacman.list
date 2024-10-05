@@ -100,6 +100,8 @@ playerctl
 polkit-gnome
 polybar
 pv
+python-gdal
+python-owslib
 python-pip
 python-pipx
 qbittorrent
