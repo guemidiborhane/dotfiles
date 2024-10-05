@@ -5,6 +5,7 @@ function pagespeed --argument url
 end
 
 function kickoff --argument name
+    set template "git@git.netsys.dz:guemidiborhane/kickoff.git"
     set -q name[1]; or return
 
     if test -d $name
@@ -12,15 +13,24 @@ function kickoff --argument name
         return 1
     end
 
-    set git_repo "git@git.netsys.dz:guemidiborhane/kickoff.git"
-    git clone $git_repo $name
+    git clone --depth 1 $template $name
     cd $name
-    bash install.sh
+
+    . install.sh
 end
 
 function tn --argument session_name
     set -q session_name[1]; or set session_name (basename $PWD)
-    tmux new-session -As "$session_name"
+
+    if not tmux has-session -t "$session_name"
+        tmux new-session -ds "$session_name"
+    end
+
+    if test -z "$TMUX"
+        tmux attach-session -t "$session_name"
+    else 
+        tmux switch-client -t "$session_name"
+    end
 end
 
 function mkcd --argument name

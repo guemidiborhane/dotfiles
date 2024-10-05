@@ -69,9 +69,10 @@ alias zid "eza -D | xargs -I {} zoxide add {}"
 alias v "fd --type f --hidden --exclude .git --exclude node_modules --exclude cache --exclude log | fzf-tmux -p --reverse --preview 'bat -p --color=always {}' | xargs -r nvim"
 
 # YADM
-alias ye "yadm edit"
-alias yu "yadm pull"
-alias yp "yadm push"
+abbr ye "yadm edit"
+abbr yu "yadm pull"
+abbr yp "yadm push"
+abbr yl "yadm enter lazygit"
 
 # Systemd
 abbr sc systemctl
@@ -79,3 +80,4 @@ abbr scu systemctl --user
 
 
 alias clear "/usr/bin/clear && fish_greeting"
+alias qbtui "qbittorrentui -c ~/.config/qbtui/config.ini"
