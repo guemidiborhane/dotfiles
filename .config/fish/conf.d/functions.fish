@@ -16,7 +16,7 @@ function kickoff --argument name
     git clone --depth 1 $template $name
     cd $name
 
-    . install.sh
+    sh install.sh
 end
 
 function tn --argument session_name
