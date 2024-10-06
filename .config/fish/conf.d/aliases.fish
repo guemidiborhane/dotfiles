@@ -29,7 +29,7 @@ alias gc "git commit -m"
 alias gco "git checkout"
 alias gcd "git checkout develop"
 alias gcm "git checkout master"
-alias gs "git status"
+alias gs "git st"
 alias gd "git diff"
 alias s "git st"
 alias push "git push"
@@ -73,6 +73,7 @@ abbr ye "yadm edit"
 abbr yu "yadm pull"
 abbr yp "yadm push"
 abbr yl "yadm enter lazygit"
+abbr ys "yadm st"
 
 # Systemd
 abbr sc systemctl
