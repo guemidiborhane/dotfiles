@@ -1,3 +1,3 @@
 #!/bin/sh
 
-. $HOME/.config/yadm/packages.d/sync-packages 2>/dev/null
+. $HOME/.config/yadm/packages.d/sync-packages
