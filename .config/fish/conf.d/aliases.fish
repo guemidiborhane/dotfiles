@@ -76,8 +76,8 @@ abbr yl "yadm enter lazygit"
 abbr ys "yadm st"
 
 # Systemd
-abbr sc systemctl
-abbr scu systemctl --user
+abbr sc  "sudo systemctl"
+abbr scu "systemctl --user"
 
 
 alias clear "/usr/bin/clear && fish_greeting"
