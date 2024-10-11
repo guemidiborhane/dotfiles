@@ -19,16 +19,4 @@
   - Active: 87044B39
   - Key: [Forward Button, pressed]
   - Execute: [playerctl, '--player=%any,firefox,chromium', next]
-- Rule:
-  - Active: 87044B39
-  - Test: [thumb_wheel_up, 15]
-  - KeyPress:
-    - XF86_AudioRaiseVolume
-    - click
-- Rule:
-  - Active: 87044B39
-  - Test: [thumb_wheel_down, 15]
-  - KeyPress:
-    - XF86_AudioLowerVolume
-    - click
 ...
