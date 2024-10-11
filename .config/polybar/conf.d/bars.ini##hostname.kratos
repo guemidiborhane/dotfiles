@@ -10,7 +10,7 @@ modules-left = i3 xwindow
 # Left
 [bar/DP-4]
 inherit = bar/default
-modules-right = governor cputemp cpu-frequency uptime
+modules-right = governor cputemp cpu-frequency cpu uptime
 modules-center = time
 
 # Right
