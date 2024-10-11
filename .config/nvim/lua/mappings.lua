@@ -11,16 +11,6 @@ local find_files = {
   desc = "find files",
 }
 
-local vertical_split = {
-  "<cmd> vsplit <CR>" .. find_files_command,
-  desc = "vertical split",
-}
-
-local horizontal_split = {
-  "<cmd> split <CR>" .. find_files_command,
-  desc = "horizontal split",
-}
-
 local toggle_neotree = {
   "<cmd> Neotree toggle <CR>",
   desc = "toggle neotree",
@@ -41,7 +31,8 @@ return {
     ["\\"] = toggle_neotree,
     ["<A-PageDown>"] = next_buffer,
     ["<A-PageUp>"] = previous_buffer,
-    ["<Tab>"] = {
+    ["<Tab>"] = { "<C-^>" },
+    ["<C-R>"] = {
       function()
         if #vim.t.bufs > 1 then
           require("telescope.builtin").buffers { sort_mru = true, ignore_current_buffer = true }
@@ -52,7 +43,6 @@ return {
       desc = "Switch Buffers",
     },
     ["<Leader>m"] = { "<cmd>Mason<CR>", desc = "Mason" },
-    ["<C-Tab>"] = { "<C-^>" },
     ["<Leader>tc"] = {
       "<cmd>!tmux split-window -h make console<CR>",
       desc = "open console in spit",
