@@ -82,3 +82,6 @@ abbr scu "systemctl --user"
 
 alias clear "/usr/bin/clear && fish_greeting"
 alias qbtui "qbittorrentui -c ~/.config/qbtui/config.ini"
+
+
+alias wn "tn workshop"

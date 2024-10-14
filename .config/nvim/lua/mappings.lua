@@ -31,8 +31,8 @@ return {
     ["\\"] = toggle_neotree,
     ["<A-PageDown>"] = next_buffer,
     ["<A-PageUp>"] = previous_buffer,
-    ["<Tab>"] = { "<C-^>" },
-    ["<C-R>"] = {
+    ["<C-Tab>"] = { "<C-^>" },
+    ["<Tab>"] = {
       function()
         if #vim.t.bufs > 1 then
           require("telescope.builtin").buffers { sort_mru = true, ignore_current_buffer = true }
