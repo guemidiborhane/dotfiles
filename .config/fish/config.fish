@@ -25,8 +25,3 @@ starship init fish | source
 fish_vi_key_bindings
 enable_transience
 
-if test $status -eq 0
-  and test -z "$TMUX"
-  and test -n "$SSH_TTY"
-  tn workshop&& kill $fish_pid
-end

@@ -1,6 +1,8 @@
 ---
 gui:
   showFileTree: false
+  nerdFontsVersion: "3"
 git:
   autoFetch: false
   autoRefresh: true
+  parseEmoji: true
