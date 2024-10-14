@@ -87,7 +87,7 @@ return {
 
 	{
 		key = "Tab",
-		mods = "CTRL",
+		mods = "ALT",
 		action = map({ key = "l" }),
 	},
 }
