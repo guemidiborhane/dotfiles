@@ -103,6 +103,7 @@ python-gdal
 python-owslib
 python-pip
 python-pipx
+python-psycopg2
 qbittorrent
 qgis
 qt5ct
