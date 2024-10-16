@@ -1,5 +1,5 @@
 local wezterm = require("wezterm")
-local config = {}
+local config = wezterm.config_builder()
 
 config.check_for_updates = false
 
