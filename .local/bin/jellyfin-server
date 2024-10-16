@@ -53,7 +53,7 @@ for volume in volumes.values():
         print("Error: volume {} does not exist".format(volume["host"]))
         sys.exit(1)
     command += "-v \"{}:{}\" ".format(volume["host"], volume["container"])
-command += "-p 8096:8096 jellyfin/jellyfin:latest"
+command += "-p 8096:8096 jellyfin/jellyfin:10.9"
 
 # run command
 subprocess.run(command, shell=True)
