@@ -6,3 +6,4 @@ yarn 1.22.22
 python system
 kubectx 0.9.5
 golang 1.23.0
+rust 1.81.0
