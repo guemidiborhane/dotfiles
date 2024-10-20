@@ -1,7 +1,7 @@
 if test $status -eq 0
   and test -z "$TMUX"
   and test -n "$SSH_TTY"
-  tn workshop&& kill $fish_pid
+  exec tmux new-session -As workshop
 end
 
 
