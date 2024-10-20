@@ -1,6 +1,6 @@
 [user]
 	name = Borhaneddine GUEMIDI
 	email = guemidiborhane@gmail.com
-  signingkey = 37292331F7BDDAE9
+  signingkey = 01D3D8F39BBEAA2B
 [commit]
   gpgsign = true
