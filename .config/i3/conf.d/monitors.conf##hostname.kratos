@@ -13,11 +13,11 @@ set $portraitScreen DP-0
 ###############################################################################
 
 workspace $ws1 output $mainScreen
-workspace $ws2 output $secondaryScreen
+workspace $ws2 output $mainScreen
 workspace $ws3 output $secondaryScreen
-workspace $ws4 output $secondaryScreen
+workspace $ws4 output $mainScreenn
 workspace $ws6 output $portraitScreen
 workspace $ws7 output $portraitScreen
 workspace $ws8 output $portraitScreen
-workspace $ws11 output $mainScreen
+workspace $ws11 output $secondaryScreen
 workspace $ws19 output $mainScreen
