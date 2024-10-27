@@ -2,8 +2,9 @@
 
 # Define the paths to your package lists
 PKG_LIST="$HOME/.config/yadm/packages.d/pacman.list"
-LOCAL_LIST="$HOME/.config/yadm/packages.d/local.list"
+LOCAL_LIST="$HOME/.config/yadm/packages.d/pacman.local.list"
 AUR_PKG_LIST="$HOME/.config/yadm/packages.d/aur.list"
+LOCAL_AUR_PKG_LIST="$HOME/.config/yadm/packages.d/aur.local.list"
 
 # Check if the package lists exist
 if [ ! -f "$PKG_LIST" ]; then
@@ -60,7 +61,7 @@ if command -v yay &>/dev/null; then
   installed_aur_packages=$(pacman -Qqem)
 
   # Read the AUR package list
-  desired_aur_packages=$(cat "$AUR_PKG_LIST" 2>/dev/null)
+  desired_aur_packages=$(cat "$AUR_PKG_LIST" "$LOCAL_AUR_PKG_LIST" 2>/dev/null)
 
   if [ -z "$desired_aur_packages" ]; then
     echo "No AUR packages listed in aur.list."
