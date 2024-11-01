@@ -5,34 +5,32 @@
 [ "$(cat /proc/1/comm)" = "systemd" ] && logind=systemctl || logind=loginctl
 
 case "$1" in
-    lock)
-        ~/.local/bin/blurlock
-        ;;
-    logout)
-        ~/.config/i3/scripts/save-workspaces.sh
-        i3-msg exit
-        ;;
-    switch_user)
-        dm-tool switch-to-greeter
-        ;;
-    suspend)
-        $logind suspend
-        ;;
-    hibernate)
-        $logind hibernate
-        ;;
-    reboot)
-        ~/.config/i3/scripts/save-workspaces.sh
-        $logind reboot
-        ;;
-    shutdown)
-        ~/.config/i3/scripts/save-workspaces.sh
-        $logind poweroff
-        ;;
-    *)
-        echo "== ! i3exit: missing or invalid argument ! =="
-        echo "Try again with: lock | logout | switch_user | suspend | hibernate | reboot | shutdown"
-        exit 2
+lock)
+    hyprlock
+    ;;
+logout)
+    hyprctl dispatch exit
+    ;;
+switch_user)
+    dm-tool switch-to-greeter
+    ;;
+suspend)
+    $logind suspend
+    ;;
+hibernate)
+    $logind hibernate
+    ;;
+reboot)
+    $logind reboot
+    ;;
+shutdown)
+    $logind poweroff
+    ;;
+*)
+    echo "== ! i3exit: missing or invalid argument ! =="
+    echo "Try again with: lock | logout | switch_user | suspend | hibernate | reboot | shutdown"
+    exit 2
+    ;;
 esac
 
 exit 0
