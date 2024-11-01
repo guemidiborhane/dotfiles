@@ -4,7 +4,7 @@ Description=Choose a random wallpaper and update betterlockscreen cache
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/betterlockscreen -u %h/.wallpaper --fx dimblur
-ExecStartPost=/usr/bin/betterlockscreen -w
+ExecPostStart=sh -c "killall -9 hyprpaper && hyprpaper"
 StandardOutput=journal
 
 [Install]
