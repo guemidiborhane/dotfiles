@@ -10,9 +10,6 @@ function dmenu() {
 		-i -p "$1"
 }
 
-RED='%{F#ff5555}'
-CYAN='%{F#8be9fd}'
-
 function iface_with_ip() {
 	iface=$1
 	ip=$(nmcli -g ip4.address con show "$iface")
@@ -20,7 +17,8 @@ function iface_with_ip() {
 }
 
 if [ $# -eq 0 ]; then
-	icon="$CYAN " # lock
+	icon=" " # lock
+	class="up"
 	connected=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $1}')
 	# | xargs -I {} bash -c '
 	if [ -n "$connected" ]; then
@@ -29,11 +27,12 @@ if [ $# -eq 0 ]; then
 		status=$(echo -e "$connected" | tr '\n' ', ' | sed 's/,$//')
 	fi
 	if [ -z "$status" ]; then
-		icon="$RED"
+		icon=""
 		status=""
+		class="down"
 	fi
-	echo "$icon $status"
-	exit 1
+	echo "{\"text\": \"$icon$status\", \"class\": \"$class\"}"
+	exit 0
 fi
 
 CONNECTIONS=$(nc show | grep -iE 'vpn|wireguard' | awk '{print $1}')
