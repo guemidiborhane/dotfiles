@@ -33,7 +33,6 @@ firefox
 firefox-developer-edition
 firewalld
 fish
-flameshot
 fwupd
 fzf
 gd
@@ -44,6 +43,7 @@ git-lfs
 gnome-disk-utility
 gnome-keyring
 gparted
+grim
 gum
 helm
 htop
@@ -123,6 +123,7 @@ rsync
 scrcpy
 seahorse
 signal-desktop
+slurp
 solaar
 squashfs-tools
 starship
@@ -147,7 +148,9 @@ virtualbox
 virtualbox-guest-iso
 virtualbox-host-dkms
 vlc
+waybar
 wget
+wl-clipboard
 wireless_tools
 xarchiver
 xclip
