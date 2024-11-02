@@ -47,6 +47,10 @@ gparted
 gum
 helm
 htop
+hyprland
+hypridle
+hyprlock
+hyprpaper
 i3-wm
 iftop
 imagemagick
@@ -83,6 +87,7 @@ noto-fonts
 noto-fonts-emoji
 ntfs-3g
 nvtop
+nwg-look
 obsidian
 opendoas
 openssh
@@ -113,9 +118,9 @@ re2c
 rebuild-detector
 reflector
 ripgrep
-rofi
 rofi-calc
 rofi-emoji
+rofi-wayland
 rsync
 scrcpy
 seahorse
@@ -144,12 +149,13 @@ virtualbox
 virtualbox-guest-iso
 virtualbox-host-dkms
 vlc
-wezterm
 wget
 wireless_tools
 xarchiver
 xclip
 xcolor
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
 xfce4-terminal
 xorg-server
 xorg-xinit

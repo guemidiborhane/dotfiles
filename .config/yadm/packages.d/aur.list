@@ -1,3 +1,4 @@
+ags-hyprpanel-git
 android-sdk
 asdf-vm
 betterlockscreen
@@ -32,5 +33,6 @@ ventoy-bin
 vesktop-bin
 visual-studio-code-bin
 wlogout
+wezterm-git
 wps-office
 yay-bin
