@@ -1,4 +1,3 @@
-ags-hyprpanel-git
 android-sdk
 asdf-vm
 betterlockscreen
@@ -6,6 +5,7 @@ brave-bin
 docker-credential-pass
 dracula-gtk-theme
 find-the-command
+flameshot-git
 git-cola
 gitfiend
 gitflow-avh

@@ -1,0 +1,11 @@
+[Unit]
+Description=Polybar
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/waybar/launch.sh
+ExecStop=killall -q waybar
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

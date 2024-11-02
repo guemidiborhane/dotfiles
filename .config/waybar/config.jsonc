@@ -1,101 +1,120 @@
 {
-    "layer": "top",
-    "position": "top",
-    "mod": "dock",
-    "exclusive": true,
-    "passthrough": false,
-    "gtk-layer-shell": true,
-    "height": 32,
-    "spacing": 15,
-    "modules-left": ["wlr/workspaces"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["custom/weather", "network", "temperature", "battery", "clock", "tray"],
-    "hyprland/window": {
-        "format": "{}"
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 34,
+  "spacing": 15,
+  "modules-left": [
+    "hyprland/submap",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock#datetime"
+  ],
+  "modules-right": [
+    "temperature",
+    "custom/cpu-frequency",
+    "custom/governor",
+    "custom/vpn",
+    "idle_inhibitor",
+    "tray",
+    "battery",
+  ],
+  "hyprland/window": {
+    "format": "{title}",
+  },
+  "hyprland/workspaces": {
+    "format": "{name}  {icon}",
+    "disable-scroll": false,
+    "all-outputs": false,
+    "show-special": true,
+    "on-click": "activate",
+    "format-icons": {
+      "1": "󰈹",
+      "2": "",
+      "1y1": "󰈹",
+      "12": "",
+      "7": "",
+      "8": "",
+      "default": "",
+      "special": "",
     },
-
-    "wlr/workspaces": {
-        "disable-scroll": false,
-        "all-outputs": true,
-        "on-click": "activate",
-        "persistent_workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": [],
-            "6": [],
-            "7": [],
-            "8": [],
-            "9": [],
-            "10": []
-        }
+  },
+  "hyprland/submap": {
+    "format": "✌️ {}",
+    "max-length": 8,
+    "tooltip": false,
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 5,
+  },
+  "clock#time": {
+    "tooltip": false,
+    "format": "{:%I:%M %p}",
+    "format-alt": "{:%a, %d %b %Y}",
+  },
+  "clock#date": {
+    "tooltip": false,
+    "format": "{:%a, %d %b %Y}",
+    "format-alt": "{:%I:%M %p}",
+  },
+  "clock#datetime": {
+    "tooltip": false,
+    "format": "{:%a. %d %b | %I:%M %p}",
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15,
     },
-
-   "custom/weather" : {
-        //shows the current weather and forecast
-        "tooltip" : true,
-        "format" : "{}",
-        "interval" : 30,
-        "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
-        "return-type" : "json"
+    "interval": 5,
+    "full-at": 89,
+    "format": "{icon} {capacity}% <tt><small>({power}W)</small></tt>",
+    "tooltip-format": "{time} ({cycles})",
+    "format-charging": "󱐋 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+  },
+  "temperature": {
+    "interval": 1,
+    "hwmon-path": "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon7/temp1_input",
+    "format": "{temperatureC}°C ",
+    "critical-threshold": 70,
+    "format-critical": "{temperatureC}°C ",
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "",
     },
-
-    "tray": {
-        "icon-size": 16,
-        "spacing": 10
-    },
-
-    "clock": {
-        "format": "{:%I:%M %p}",
-        "tooltip-format": "{:%a, %d %b %Y}"
-    },
-
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{icon} {percent}%",
-        "format-icons": ["", "", ""],
-        "on-scroll-up": "brightnessctl set 1%+",
-        "on-scroll-down": "brightnessctl set 1%-",
-        "min-length": 6
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
-    },
-
-    "temperature": {
-        "hwmon-path": "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon7/temp1_input",
-        "format": "{temperatureC}°C ",
-        "critical-threshold": 80,
-        "format-critical": "{temperatureF}°C "
-    },
-
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "  {signalStrength}%",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{essid} - {ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
-    },
-
-    "bluetooth": {
-	    "format": " {status}",
-	    "format-disabled": "", // an empty format will hide the module
-	    "format-connected": " {num_connections}",
-	    "tooltip-format": "{device_alias}",
-	    "tooltip-format-connected": " {device_enumerate}",
-	    "tooltip-format-enumerate-connected": "{device_alias}"
-    }
+  },
+  "custom/cpu-frequency": {
+    "interval": 3,
+    "exec": "~/.config/waybar/scripts/cpu-frequency.sh",
+  },
+  "custom/governor": {
+    "interval": 5,
+    "exec": "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+    "on-click": "~/.config/waybar/scripts/set_governor.sh",
+  },
+  "custom/vpn": {
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/vpn_monitor.py",
+    "on-click": "~/.local/bin/vpn connect",
+    "on-click-right": "~/.local/bin/vpn disconnect",
+    "on-click-middle": "~/.local/bin/vpn reconnect",
+    "tooltip": false,
+  },
 }

@@ -1,110 +1,66 @@
 @import url("./colors.css");
 
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "Noto Sans", "FontAwesome", "Material Icons";
-    font-size: 15px;
-    font-weight: 400;
-    min-height: 0;
+  border: none;
+  border-radius: 0;
+  font-family: "Noto Sans", "FontAwesome", "Material Icons";
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-height: 0;
 }
 
 window#waybar {
-    background: @background-darker;
-    color: @foreground;
-    border-bottom: 2px solid @background;
+  background: @background;
+  color: @foreground;
 }
 
 tooltip {
-    background: #1e1e2e;
-    border-radius: 10px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #11111b;
+  background: @background;
+  border-radius: 10px;
+  border: 2px solid @foreground;
 }
 
 #workspaces button {
-    padding: 5px;
-    color: #313244;
-    margin-right: 5px;
+  padding: 0 10px;
+  color: @secondary;
+  border-bottom: 3px solid transparent;
 }
 
 #workspaces button.active {
-    color: #a6adc8;
-}
-
-#workspaces button.focused {
-    color: #a6adc8;
-    background: #eba0ac;
-    border-radius: 10px;
+  background: @selection;
+  color: @active;
+  border-bottom-color: @underline;
 }
 
 #workspaces button.urgent {
-    color: #11111b;
-    background: #a6e3a1;
-    border-radius: 10px;
+  color: @urgent;
 }
 
-#workspaces button:hover {
-    background: #11111b;
-    color: #cdd6f4;
-    border-radius: 10px;
-}
-
-#custom-power_profile,
-#custom-weather,
-#window,
-#clock,
-#battery,
-#pulseaudio,
-#network,
-#bluetooth,
-#temperature,
-#workspaces,
-#tray,
-#backlight {
-    padding: 0 4px;
-}
-
-#temperature.critical {
-    color: #eba0ac;
-}
-
-#custom-power_profile {
-    color: #a6e3a1;
+#window {
+  color: @yellow;
 }
 
 #clock {
-    color: #fab387;
+  color: @cyan;
 }
 
-#network {
-    color: #f9e2af;
+#temperature,
+#custom-cpu-frequency {
+  color: @cpu;
 }
 
-#bluetooth {
-    color: #89b4fa;
-}
-
-#pulseaudio {
-    color: #89b4fa;
-}
-
-#pulseaudio.microphone {
-    color: #cba6f7;
+#temperature.critical {
+  color: @yellow;
 }
 
 #battery {
-    color: #a6e3a1;
+  padding-right: 5px;
 }
 
-#workspaces button {
-    padding: 0 10px;
-    color: #4F5476;
-    border-bottom: 3px solid transparent;
+#custom-vpn.down {
+    color: @red;
 }
-#workspaces button.active {
-    background: @selection;
-    color: @foreground;
-    border-bottom: 3px solid @yellow;
+
+#custom-vpn.up {
+    color: @cyan;
 }
