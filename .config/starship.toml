@@ -61,7 +61,6 @@ symbol = " "
 symbol = "󰡨"
 style = "bold bright_blue"
 files = ["Dockerfile", "docker-compose.yml", "docker-compose.yaml"]
-when = """ command -v docker &> /dev/null; exit (echo $?); """
 format = '[$symbol($output )]($style) '
 
 [palettes.dracula]
