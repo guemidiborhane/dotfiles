@@ -118,8 +118,6 @@ re2c
 rebuild-detector
 reflector
 ripgrep
-rofi-calc
-rofi-emoji
 rofi-wayland
 rsync
 scrcpy
