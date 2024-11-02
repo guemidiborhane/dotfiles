@@ -4,7 +4,7 @@ configuration {
     case-sensitivity: false;
     sorting-method: "fzf";
     terminal: "wezterm";
-    modi: "drun,window";
+    modi: "drun,window,emoji,calc";
     drun-display-format: "{icon} {name}";
 }
 @theme "theme"
