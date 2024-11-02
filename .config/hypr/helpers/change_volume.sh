@@ -34,7 +34,7 @@ if [[ "$new_volume" -gt 100 ]]; then
     new_volume=100
 fi
 # Change the volume
-if [[ "$change" -eq "toggle-mute" ]]; then
+if [[ "$change" = "toggle" ]]; then
     pactl set-sink-mute "$default_sink" toggle
     if [[ "$mute_status" == "yes" ]]; then
         icon="up"
