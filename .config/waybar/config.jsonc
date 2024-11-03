@@ -18,7 +18,6 @@
   "modules-right": [
     "group/sys-info",
     "group/indicators",
-    "privacy",
     "tray",
     "group/battery",
   ],
@@ -131,8 +130,9 @@
     "orientation": "inherit",
     "modules": [
       "custom/governor",
-      "idle_inhibitor",
       "custom/vpn",
+      "idle_inhibitor",
+      "privacy",
     ]
   },
   "memory": {
@@ -143,9 +143,8 @@
   "group/sys-info": {
     "orientation": "inherit",
     "drawer": {
-      "transition-duration": 50,
+      "transition-duration": 250,
       "children-class": "not-power",
-      "click-to-reveal": true,
       "transition-left-to-right": false,
     },
     "modules": [
