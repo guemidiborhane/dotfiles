@@ -3,10 +3,9 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "Noto Sans", "FontAwesome", "Material Icons";
+  font-family: "Noto Sans", "JetBrainsMono NFP";
   font-size: 0.9rem;
   font-weight: 500;
-  min-height: 0;
 }
 
 window#waybar {
@@ -17,13 +16,17 @@ window#waybar {
 tooltip {
   background: @background;
   border-radius: 10px;
-  border: 2px solid @foreground;
+  border: 2px solid @secondary;
 }
 
 #workspaces button {
   padding: 0 10px;
   color: @secondary;
   border-bottom: 3px solid transparent;
+}
+
+#workspaces button:hover {
+  background: @transparent;
 }
 
 #workspaces button.active {
@@ -44,13 +47,20 @@ tooltip {
   color: @cyan;
 }
 
-#temperature,
-#custom-cpu-frequency {
-  color: @cpu;
+#sys-info #temperature {
+    padding-left: 5px;
+}
+
+#temperature {
+  color: @comment;
 }
 
 #temperature.critical {
   color: @yellow;
+}
+
+#cpu {
+  color: @cpu;
 }
 
 #battery {
@@ -58,9 +68,59 @@ tooltip {
 }
 
 #custom-vpn.down {
-    color: @red;
+  color: @red;
 }
 
 #custom-vpn.up {
-    color: @cyan;
+  color: @cyan;
 }
+
+.not-power .module,
+#indicators .module {
+  padding: 0 5px;
+}
+
+#custom-governor {
+  font-size: 1.1rem;
+}
+
+#custom-governor.performance {
+  color: @orange;
+}
+
+#custom-governor.powersave {
+  color: @green;
+}
+
+#custom-governor.conservative {
+  color: @comment;
+}
+
+#custom-governor.ondemand {
+  color: @purple;
+}
+
+#custom-governor.schedutil {
+  color: @yellow;
+}
+
+#custom-governor.userspace {
+  color: @selection;
+}
+
+#custom-governor.unknown {
+  color: @foreground;
+}
+
+#privacy {
+  color: @yellow;
+}
+
+#memory {
+  color: @yellow;
+}
+
+#custom-power-status {
+  margin-right: 10px;
+}
+
