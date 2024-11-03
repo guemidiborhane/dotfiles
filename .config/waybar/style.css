@@ -80,6 +80,10 @@ tooltip {
   padding: 0 5px;
 }
 
+#indicators #privacy {
+  padding: 0;
+}
+
 #custom-governor {
   font-size: 1.1rem;
 }
