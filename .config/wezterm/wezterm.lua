@@ -14,10 +14,10 @@ config.default_prog = { "/usr/bin/fish", "--login" }
 config.window_close_confirmation = "AlwaysPrompt"
 config.enable_scroll_bar = false
 config.window_padding = {
-	top = 3,
-	left = 3,
-	right = 3,
-	bottom = 3,
+	top = 0,
+	left = 0,
+	right = 0,
+	bottom = 0,
 }
 
 config.font_size = 13.0
