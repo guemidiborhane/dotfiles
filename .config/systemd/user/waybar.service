@@ -2,10 +2,9 @@
 Description=Polybar
 
 [Service]
-Type=oneshot
+Type=simple
+StandardOutput=journal
 ExecStart=%h/.config/waybar/launch.sh
-ExecStop=killall -q waybar
-RemainAfterExit=yes
 
 [Install]
 WantedBy=default.target
