@@ -48,7 +48,7 @@ tooltip {
 }
 
 #sys-info #temperature {
-    padding-left: 5px;
+  padding-left: 5px;
 }
 
 #temperature {
@@ -127,4 +127,3 @@ tooltip {
 #custom-power-status {
   margin-right: 10px;
 }
-
