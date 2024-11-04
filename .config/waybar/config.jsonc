@@ -31,6 +31,7 @@
     "disable-scroll": false,
     "all-outputs": false,
     "show-special": true,
+    "special-visible-only": true,
     "on-click": "activate",
     "format-icons": {
       "1": "󰈹",
