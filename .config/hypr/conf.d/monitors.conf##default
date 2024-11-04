@@ -1,0 +1,5 @@
+# vim: ft=hyprlang
+
+monitor = , preferred, auto, 1
+
+# source = ~/.config/hypr/conf.d/nvidia.conf
