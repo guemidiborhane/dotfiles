@@ -3,7 +3,6 @@
 
 CONFIG="$HOME/.config/waybar/config.jsonc"
 STYLE="$HOME/.config/waybar/style.css"
-CONFIG_FILES="$HOME/.config/waybar/config.jsonc $HOME/.config/waybar/style.css"
 
 unset GDK_BACKEND
 
@@ -23,5 +22,5 @@ if [[ "$mode" = "dev" ]]; then
         killall waybar
     done
 elif [[ "$mode" = "run" ]]; then
-    $cmd --log-level=warning &
+    $cmd --log-level=warning
 fi
