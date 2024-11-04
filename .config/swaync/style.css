@@ -1,0 +1,289 @@
+@import url("../waybar/colors.css");
+
+/* Base styles */
+.control-center {
+  background: alpha(@background, 0.9);
+  border: 2px solid @comment;
+  border-radius: 4px;
+  margin: 2px;
+  padding: 4px;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.8;
+}
+
+.blank-window {
+  background: transparent;
+}
+
+/* Widget styles */
+.widget-title {
+  margin: 8px;
+  font-size: 1.5rem;
+  background: alpha(@background, 0);
+}
+
+.widget-title > button {
+  background: alpha(@background, 0);
+  border: 1px solid alpha(@foreground, 0.5);
+  border-radius: 12px;
+  color: @foreground;
+  font-size: initial;
+  text-shadow: none;
+}
+
+.widget-title > button:hover {
+  background: @red;
+}
+
+.widget-label {
+  background: @background;
+  border-radius: 20px;
+  margin: 8px;
+  padding: 20px 20px 50px;
+}
+
+.widget-label > label {
+  font-size: 1.1rem;
+}
+
+/* DND Widget */
+.widget-dnd > switch {
+  background: @background;
+  border: 2px solid @comment;
+  border-radius: 14px;
+  font-size: initial;
+}
+
+.widget-dnd > switch:checked {
+  background: @pink;
+}
+
+.widget-dnd > switch slider {
+  background: @selection;
+  border-radius: 12px;
+}
+
+/* MPRIS Widget */
+.widget-mpris {
+  border: 0;
+  box-shadow: none;
+  font-family: "JetBrains Mono Nerd Font";
+}
+
+.widget-mpris-player {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 5px;
+  padding: 15px 30px;
+}
+
+.widget-mpris-album-art {
+  padding: 10px;
+}
+
+.widget-mpris-player button:hover {
+  background: @orange;
+  color: @purple;
+}
+
+.widget-mpris-title {
+  font-family: "JetBrains Mono Nerd Font";
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.widget-mpris-subtitle {
+  font-family: "JetBrains Mono Nerd Font";
+  font-size: 1.1rem;
+}
+
+/* Buttons Widget */
+.widget-buttons-grid {
+  background: alpha(@background, 0.9);
+  border-radius: 20px;
+  font-family: "JetBrains Mono Nerd Font";
+  font-size: 15px;
+  margin: 0 10px;
+  padding: 10px 5px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  background: @red;
+  border: 0;
+  border-radius: 20px;
+  color: @foreground;
+  margin: 2px;
+  padding: 10px;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+  background: @purple;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Notifications */
+.notification-row {
+  outline: none;
+}
+
+.notification-row:focus,
+.notification-row:hover {
+  background: alpha(@cyan, 0.5);
+}
+
+.notification-row .notification-background {
+  padding: 6px 12px;
+}
+
+.notification-row .notification-background .notification {
+  background: alpha(@background, 0.5);
+  border: 2px solid alpha(@comment, 0.5);
+  border-radius: 12px;
+  padding: 0;
+  transition: background 0.15s ease-in-out;
+}
+
+/* Close button */
+.notification-row .notification-background .close-button {
+  background: alpha(@purple, 0.5);
+  border: none;
+  border-radius: 100%;
+  box-shadow: none;
+  color: @foreground;
+  margin: 5px 5px 0 0;
+  min-height: 24px;
+  min-width: 24px;
+  padding: 0;
+  text-shadow: none;
+}
+
+.notification-row .notification-background .close-button:hover {
+  background: alpha(@secondary, 0.5);
+  transition: background 0.15s ease-in-out;
+}
+
+/* Notification content */
+.notification-default-action,
+.notification-action {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: @foreground;
+  margin: 0;
+  padding: 4px;
+  transition: background 0.15s ease-in-out;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  background: alpha(@pink, 0.5);
+}
+
+.notification-default-action {
+  border-radius: 12px;
+}
+
+.notification-default-action:not(:only-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Notification text */
+.notification-content {
+  background: transparent;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.notification-content .image {
+  border-radius: 100px;
+  margin: 4px;
+}
+
+.notification-content .app-icon {
+  -gtk-icon-shadow: 0 1px 4px black;
+  margin: 6px;
+}
+
+.notification-content .text-box .summary {
+  color: @foreground;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: none;
+}
+
+.notification-content .text-box .time {
+  color: @foreground;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 30px;
+  text-shadow: none;
+}
+
+.notification-content .text-box .body {
+  color: @foreground;
+  font-size: 15px;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+/* Inline reply */
+.inline-reply {
+  margin-top: 4px;
+}
+
+.inline-reply-entry {
+  background: alpha(@red, 0.5);
+  border: 1px solid alpha(@comment, 0.5);
+  border-radius: 12px;
+  color: @foreground;
+  caret-color: @foreground;
+}
+
+.inline-reply-button {
+  background: alpha(@background, 0.5);
+  border: 1px solid alpha(@comment, 0.5);
+  border-radius: 12px;
+  color: @foreground;
+  margin-left: 4px;
+}
+
+.inline-reply-button:disabled {
+  background: initial;
+  border-color: transparent;
+  color: alpha(@foreground, 0.5);
+}
+
+.inline-reply-button:hover {
+  background: alpha(@pink, 0.5);
+}
+
+/* Notification groups */
+.notification-group .notification-group-buttons,
+.notification-group .notification-group-headers {
+  color: @foreground;
+}
+
+.notification-group .notification-group-headers .notification-group-icon,
+.notification-group .notification-group-headers .notification-group-header {
+  color: @foreground;
+}
+
+.notification-group.collapsed .notification-row .notification {
+  background-color: alpha(@background, 0.5);
+}
+
+.notification-group.collapsed:hover .notification-row:not(:only-child) .notification {
+  background-color: alpha(@pink, 1);
+}
+
+.notification-group.collapsed .notification-row:not(:last-child) .notification-action,
+.notification-group.collapsed .notification-row:not(:last-child) .notification-default-action {
+  opacity: 0;
+}
