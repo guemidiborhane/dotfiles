@@ -1,5 +1,5 @@
 [Unit]
-Description=Hyprland compositor session
+Description=X11 session
 Documentation=man:systemd.special
 BindsTo=user-graphical-session.target
-AssertEnvironment=WAYLAND_DISPLAY
+AssertEnvironment=DISPLAY
