@@ -1,5 +1,8 @@
 [Unit]
 Description=Polybar
+PartOf=x-session.target
+After=x-session.target
+Requisite=x-session.target
 
 [Service]
 Type=oneshot
@@ -8,4 +11,4 @@ ExecStop=killall -q polybar
 RemainAfterExit=yes
 
 [Install]
-WantedBy=default.target
+WantedBy=x-session.target
