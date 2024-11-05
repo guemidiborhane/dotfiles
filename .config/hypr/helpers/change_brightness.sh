@@ -30,9 +30,10 @@ esac
 new_brightness=$(brightnessctl set "$arg" -m | cut -d',' -f4 | tr -d '%')
 
 # Show notification
-dunstify -i "$HOME/.icons/brightness.png" \
+notify-send \
+    -r 9991 \
+    -i "$HOME/.icons/brightness.png" \
     -h int:value:"$new_brightness" \
     -h string:synchronous:"brightness" \
     "Brightness" \
-    "$new_brightness%" \
-    -r 9991
+    "$new_brightness%"

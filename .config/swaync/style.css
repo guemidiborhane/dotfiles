@@ -142,9 +142,9 @@
 }
 
 .notification-row .notification-background .notification {
-  background: alpha(@background, 0.5);
+  background: alpha(@background, 0.95);
   border: 2px solid alpha(@comment, 0.5);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 0;
   transition: background 0.15s ease-in-out;
 }
@@ -180,11 +180,6 @@
   transition: background 0.15s ease-in-out;
 }
 
-.notification-default-action:hover,
-.notification-action:hover {
-  background: alpha(@pink, 0.5);
-}
-
 .notification-default-action {
   border-radius: 12px;
 }
@@ -198,7 +193,7 @@
 .notification-content {
   background: transparent;
   border-radius: 12px;
-  padding: 4px;
+  padding: 4px 10px 10px;
 }
 
 .notification-content .image {
@@ -212,14 +207,14 @@
 }
 
 .notification-content .text-box .summary {
-  color: @foreground;
+  color: @comment;
   font-size: 16px;
   font-weight: bold;
   text-shadow: none;
 }
 
 .notification-content .text-box .time {
-  color: @foreground;
+  color: @comment;
   font-size: 16px;
   font-weight: bold;
   margin-right: 30px;
