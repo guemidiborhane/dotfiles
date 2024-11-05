@@ -3,5 +3,4 @@
 HYPRCMDS=$(hyprctl -j clients | jq -j '.[] | "dispatch closewindow address:\(.address); "')
 hyprctl --batch "$HYPRCMDS" >>/tmp/hypr/hyprexitwithgrace.log 2>&1
 
-hyprctl dispatch exit 0
-loginctl terminal-user ""
+loginctl terminate-user $USER &
