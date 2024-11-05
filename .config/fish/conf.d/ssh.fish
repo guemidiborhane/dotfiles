@@ -4,5 +4,4 @@ if test $status -eq 0
   exec tmux new-session -As workshop
 end
 
-
 # vim ft=fish
