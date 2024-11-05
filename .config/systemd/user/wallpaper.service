@@ -1,5 +1,8 @@
 [Unit]
 Description=Choose a random wallpaper and update betterlockscreen cache
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
 
 [Service]
 Type=simple
@@ -7,4 +10,4 @@ StandardOutput=journal
 ExecStart=%h/.config/hypr/helpers/wallpaper.sh
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
