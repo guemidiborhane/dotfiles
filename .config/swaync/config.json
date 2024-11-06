@@ -5,7 +5,8 @@
   "layer": "overlay",
   "control-center-layer": "top",
   "layer-shell": true,
-  "cssPriority": "application",
+  "cssPriority": "user",
+  "fit-to-screen": true,
   "control-center-width": 450,
   "control-center-height": 795,
   "control-center-margin-top": 1,
@@ -21,7 +22,6 @@
   "timeout": 6,
   "timeout-low": 3,
   "timeout-critical": 0,
-  "fit-to-screen": false,
   "keyboard-shortcuts": true,
   "image-visibility": "when available",
   "transition-time": 100,
@@ -48,8 +48,8 @@
       "text": "Notification"
     },
     "mpris": {
-      "image-size": 60,
-      "image-radius": 10
+      "image-size": 64,
+      "image-radius": 4
     }
   }
 }
