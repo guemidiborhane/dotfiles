@@ -47,7 +47,6 @@ grim
 gum
 helm
 htop
-hyprland
 hypridle
 hyprlock
 hyprpaper
@@ -129,6 +128,7 @@ solaar
 squashfs-tools
 starship
 stress-ng
+swaync
 telegram-desktop
 thunar
 thunar-archive-plugin
