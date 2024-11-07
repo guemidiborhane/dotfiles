@@ -45,7 +45,7 @@
 }
 
 .notification-action {
-  border: 2px solid @comment;
+  border: 1px solid @comment;
   border-top: none;
 }
 
@@ -55,27 +55,17 @@
   background: @background;
 }
 
-.notification-default-action {
-  border-radius: 5px;
-}
-
-.notification-default-action:not(:only-child) {
-  border-radius: 0 0 7px 7px;
-}
-
 .notification-action:first-child {
-  border-bottom-left-radius: 10px;
   background: @selection;
 }
 
 .notification-action:last-child {
-  border-bottom-right-radius: 10px;
   background: @selection;
 }
 
 /* Close Button */
 .close-button {
-  background: @red;
+  background: @purple;
   color: @background;
   text-shadow: none;
   padding: 0;
@@ -84,7 +74,7 @@
 }
 
 .close-button:hover {
-  background: @pink;
+  background: @red;
   transition: all 0.15s ease-in-out;
   border: none;
   box-shadow: none;
@@ -137,7 +127,7 @@
   color: @foreground;
   font-size: 16px;
   font-weight: 700;
-  margin-right: 18px;
+  margin-right: 12px;
 }
 
 .body {
