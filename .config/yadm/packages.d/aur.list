@@ -10,6 +10,7 @@ git-cola
 gitfiend
 gitflow-avh
 github-desktop-bin
+hyprland-git
 i3lock-color
 i3-resurrect
 insomnium-bin
@@ -30,10 +31,9 @@ tidy-viewer
 tmux-plugin-manager
 tor-browser-bin
 ttf-ms-fonts
-ttf-wps-fonts
 ventoy-bin
 vesktop-bin
 wlogout
 wezterm-git
-wps-office
 yay-bin
+onlyoffice-bin
