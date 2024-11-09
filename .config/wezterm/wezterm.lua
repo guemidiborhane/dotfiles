@@ -9,7 +9,7 @@ config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.window_decorations = "NONE"
 
-config.default_prog = { "/usr/bin/fish", "--login" }
+-- config.default_prog = { "/usr/bin/fish", "--login" }
 
 config.window_close_confirmation = "AlwaysPrompt"
 config.enable_scroll_bar = false
