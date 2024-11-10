@@ -1,0 +1,19 @@
+{
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 34,
+  "spacing": 10,
+  "include": [
+    "~/.config/waybar/modules.d/base.jsonc",
+    "~/.config/waybar/modules.d/hyprland.jsonc",
+    "~/.config/waybar/modules.d/datetime.jsonc",
+    "~/.config/waybar/modules.d/battery.jsonc",
+    "~/.config/waybar/modules.d/custom.jsonc",
+    "~/.config/waybar/modules.d/groups.jsonc",
+  ],
+  "modules-left": ["hyprland/workspaces"],
+}
