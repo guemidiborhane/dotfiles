@@ -24,6 +24,11 @@ path = "~/.config/polybar"
 startup_command = "nvim"
 
 [[session]]
+name = "waybar config"
+path = "~/.config/waybar"
+startup_command = "nvim"
+
+[[session]]
 name = "yadm config"
 path = "~/.config/yadm"
 startup_command = "nvim"
