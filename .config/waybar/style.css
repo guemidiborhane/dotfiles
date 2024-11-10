@@ -4,13 +4,17 @@
   border: none;
   border-radius: 0;
   font-family: "Noto Sans", "JetBrainsMono NFP";
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 window#waybar {
   background: @background;
   color: @foreground;
+}
+
+.modules-right:last-child {
+  padding-right: 5px;
 }
 
 tooltip {
@@ -61,10 +65,6 @@ tooltip {
 
 #cpu {
   color: @cpu;
-}
-
-#battery {
-  padding-right: 5px;
 }
 
 #custom-vpn.down {
@@ -126,4 +126,42 @@ tooltip {
 
 #custom-power-status {
   margin-right: 10px;
+}
+
+#custom-uptime {
+  color: @cyan;
+}
+
+#custom-ping {
+  padding: 0 10px;
+}
+
+#custom-ping.good {
+  color: @green;
+}
+
+#custom-ping.warning {
+  color: @yellow;
+}
+
+#custom-ping.critical {
+  color: @orange;
+}
+
+#custom-ping.offline {
+  color: @red;
+}
+
+/* Network */
+#network {
+  color: @pink; /* Pink color for the icons */
+}
+
+/* Make the speed values a different color */
+#network {
+  color: @comment; /* The grayish-blue color for the text */
+}
+
+#network.disconnected {
+  color: @red;
 }
