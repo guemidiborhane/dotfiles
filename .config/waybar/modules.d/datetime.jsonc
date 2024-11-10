@@ -1,0 +1,16 @@
+{
+  "clock#time": {
+    "tooltip": false,
+    "format": "{:%I:%M %p}",
+    "format-alt": "{:%a, %d %b %Y}",
+  },
+  "clock#date": {
+    "tooltip": false,
+    "format": "{:%a, %d %b %Y}",
+    "format-alt": "{:%I:%M %p}",
+  },
+  "clock#datetime": {
+    "tooltip": false,
+    "format": "{:%a. %d %b | %I:%M %p}",
+  },
+}

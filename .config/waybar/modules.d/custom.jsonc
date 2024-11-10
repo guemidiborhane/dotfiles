@@ -1,0 +1,53 @@
+{
+  "custom/power-status": {
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/power-status.sh",
+  },
+  "custom/governor": {
+    "exec": "~/.config/waybar/scripts/cpu-governor.sh",
+    "on-click": "~/.config/waybar/scripts/cpu-governor.sh set",
+    "format": "{}",
+    "return-type": "json",
+    "interval": 5,
+    "tooltip": true,
+  },
+  "custom/vpn": {
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/vpn_monitor.py",
+    "on-click": "~/.local/bin/vpn connect",
+    "on-click-right": "~/.local/bin/vpn disconnect",
+    "on-click-middle": "~/.local/bin/vpn reconnect",
+    "tooltip": false,
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": "",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+  },
+  "custom/uptime": {
+    "exec": "uptime -p | sed -e 's/up //g'",
+    "interval": 30,
+    "format": "󱑆 {}",
+  },
+  "custom/ping": {
+    "exec": "~/.config/waybar/scripts/ping.sh",
+    "return-type": "json",
+    "format": "{}",
+    "interval": "5",
+  },
+}

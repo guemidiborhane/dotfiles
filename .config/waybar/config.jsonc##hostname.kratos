@@ -1,0 +1,57 @@
+[
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": [
+      "DP-1"
+    ],
+    "modules-center": [
+      "clock#datetime"
+    ],
+    "modules-right": [
+      "custom/ping",
+      "network",
+    ],
+  },
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": [
+      "DP-2"
+    ],
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/submap",
+      "hyprland/window",
+    ],
+    "modules-center": [
+      "clock#datetime"
+    ],
+    "modules-right": [
+      "group/sys-info",
+      "group/indicators",
+      "custom/notification",
+      "tray",
+    ],
+  },
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": [
+      "DP-3"
+    ],
+    "modules-center": [
+      "clock#datetime"
+    ],
+    "modules-right": [
+      "custom/governor",
+      "temperature",
+      "cpu",
+      "custom/uptime"
+    ],
+  },
+]
+// vim: ft=jsonc
