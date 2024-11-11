@@ -7,7 +7,7 @@
       "DP-1"
     ],
     "modules-center": [
-      "clock#datetime"
+      "clock#date"
     ],
     "modules-right": [
       "network",
@@ -44,7 +44,7 @@
       "DP-3"
     ],
     "modules-center": [
-      "clock#datetime"
+      "clock#time"
     ],
     "modules-right": [
       "custom/governor",
