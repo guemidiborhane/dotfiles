@@ -10,8 +10,8 @@
       "clock#datetime"
     ],
     "modules-right": [
-      "custom/ping",
       "network",
+      "custom/ping",
     ],
   },
   {
