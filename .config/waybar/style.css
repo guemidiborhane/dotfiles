@@ -14,7 +14,7 @@ window#waybar {
 }
 
 .modules-right:last-child {
-  padding-right: 5px;
+  padding-right: 10px;
 }
 
 tooltip {
@@ -77,7 +77,7 @@ tooltip {
 
 .not-power .module,
 #indicators .module {
-  padding: 0 5px;
+  padding: 0 7.5px;
 }
 
 #indicators #privacy {
@@ -130,10 +130,6 @@ tooltip {
 
 #custom-uptime {
   color: @cyan;
-}
-
-#custom-ping {
-  padding: 0 10px;
 }
 
 #custom-ping.good {
