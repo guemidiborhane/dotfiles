@@ -1,5 +1,7 @@
 mkdir ~/.cache/nushell
 
+$env.SSH_AUTH_SOCK = $"($env.XDG_RUNTIME_DIR)/gcr/ssh"
+
 $env.EDITOR = 'nvim'
 $env.VISUAL = 'nvim'
 $env.PAGER  = 'less'
