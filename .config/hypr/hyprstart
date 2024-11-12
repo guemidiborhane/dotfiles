@@ -1,6 +1,4 @@
 #!/bin/sh
-#
-# LightDM wrapper to run around X sessions.
 
 log() {
 	echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
@@ -38,6 +36,15 @@ initialize_shell() {
 		source_profiles
 		xsess_tmp=$(mktemp /tmp/xsess-env-XXXXXX)
 		$SHELL -c "/bin/sh -c 'export -p' > $xsess_tmp"
+		. $xsess_tmp
+		rm -f $xsess_tmp
+		;;
+	*/nu)
+		# Handle nushell specifically
+		source_profiles
+		xsess_tmp=$(mktemp /tmp/xsess-env-XXXXXX)
+		# Export current environment to sh-compatible format
+		nu -c "env | to text | lines | each { |line| if ($line | split row '=') != '' { echo $'export ($line)' } }" >$xsess_tmp
 		. $xsess_tmp
 		rm -f $xsess_tmp
 		;;
@@ -100,5 +107,8 @@ log "Hyprland compositor session complete, running session $@"
 if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
 	eval "$(dbus-launch --sh-syntax --exit-with-session)"
 fi
+#
+# Ensure Hyprland log directory exists
+mkdir -p $HOME/.cache/hyprland
 
 exec Hyprland >$HOME/.cache/hyprland/log 2>$HOME/.cache/hyprland/error
