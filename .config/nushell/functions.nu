@@ -24,7 +24,7 @@ def --env mkcd [name: string] {
         error make {msg: $"Directory ($name) already exists"}
     }
 
-    mkdir $name
+    ^mkdir -p $name
     cd $name
 }
 
