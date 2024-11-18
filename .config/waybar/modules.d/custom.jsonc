@@ -50,4 +50,11 @@
     "format": "{}",
     "interval": "5",
   },
+  "wlr/taskbar": {
+    "format": "{icon}  {title:.25}",
+    "icon-size": 18,
+    "tooltip": false,
+    "on-click": "activate",
+    "on-click-middle": "close",
+  },
 }

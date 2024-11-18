@@ -1,13 +1,19 @@
 [
   {
-    "include": ["~/.config/waybar/default-bar.jsonc"],
-    "output": ["eDP-1"],
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": [
+      "eDP-1"
+    ],
     "modules-left": [
-      "hyprland/submap",
       "hyprland/workspaces",
+      "hyprland/submap",
       "hyprland/window",
     ],
-    "modules-center": ["clock#datetime"],
+    "modules-center": [
+      "clock#datetime"
+    ],
     "modules-right": [
       "group/sys-info",
       "group/indicators",
