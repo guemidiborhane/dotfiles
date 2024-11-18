@@ -15,5 +15,8 @@
     "~/.config/waybar/modules.d/custom.jsonc",
     "~/.config/waybar/modules.d/groups.jsonc",
   ],
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
 }

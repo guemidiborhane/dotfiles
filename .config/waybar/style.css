@@ -1,5 +1,7 @@
 @import url("./colors.css");
 
+@define-color button-accent @yellow;
+
 * {
   border: none;
   border-radius: 0;
@@ -23,20 +25,34 @@ tooltip {
   border: 2px solid @secondary;
 }
 
+#taskbar button,
 #workspaces button {
   padding: 0 10px;
   color: @secondary;
-  border-bottom: 3px solid transparent;
+  border-top: 3px solid @purple;
+
+  box-shadow: none;
 }
 
+#taskbar button:hover,
 #workspaces button:hover {
   background: @transparent;
+  box-shadow: none;
 }
 
+#taskbar button.active,
 #workspaces button.active {
   background: @selection;
   color: @active;
-  border-bottom-color: @underline;
+}
+
+#workspaces button.active {
+  border-top-color: @button-accent;
+}
+
+#taskbar button.active {
+  background: @button-accent;
+  color: @background;
 }
 
 #workspaces button.urgent {
@@ -44,7 +60,8 @@ tooltip {
 }
 
 #window {
-  color: @yellow;
+  padding: 0 10px;
+  color: @button-accent;
 }
 
 #clock {

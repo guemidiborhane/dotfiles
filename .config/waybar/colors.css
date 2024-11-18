@@ -1,6 +1,6 @@
-@define-color background #282a36;
+@define-color background @theme_base_color;
+@define-color foreground @theme_text_color;
 @define-color selection #44475a;
-@define-color foreground #f8f8f2;
 @define-color comment #6272a4;
 @define-color cyan #8be9fd;
 @define-color green #50fa7b;
