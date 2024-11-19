@@ -10,7 +10,7 @@
     "disable-scroll": false,
     "all-outputs": false,
     "show-special": true,
-    "special-visible-only": true,
+    "special-visible-only": false,
     "on-click": "activate",
     "format-icons": {
       "1": "󰈹",
@@ -19,7 +19,7 @@
       "12": "",
       "7": "",
       "8": "",
-      "default": "󱄜",
+      "default": "󱂬",
       "special": "",
     },
   },

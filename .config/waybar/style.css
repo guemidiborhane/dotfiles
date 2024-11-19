@@ -46,7 +46,8 @@ tooltip {
   color: @active;
 }
 
-#workspaces button.active {
+#workspaces button.active,
+#workspaces button.visible {
   border-top-color: @button-accent;
 }
 
