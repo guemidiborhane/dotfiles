@@ -62,7 +62,7 @@ def pwd [] {
 }
 
 def clear [] { 
-    /usr/bin/clear
+    ^clear
     fastfetch
 }
 
