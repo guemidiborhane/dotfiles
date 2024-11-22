@@ -5,9 +5,10 @@ $mainMonitor = DP-2
 $secondaryMonitor = DP-3
 
 $scale = auto
+$refreshRate = 75
 
-monitor= $portraitMonitor, 2560x1440@74.97, 0x0, $scale, transform, 1
-monitor= $mainMonitor, 2560x1440@74.97, 1440x560, $scale
-monitor= $secondaryMonitor, 2560x1440@74.97, 4000x560, $scale
+monitor= $portraitMonitor, 2560x1440@$refreshRate, 0x0, $scale, transform, 1
+monitor= $mainMonitor, 2560x1440@$refreshRate, 1440x560, $scale
+monitor= $secondaryMonitor, 2560x1440@$refreshRate, 4000x560, $scale
 
 source = ~/.config/hypr/conf.d/nvidia.conf
