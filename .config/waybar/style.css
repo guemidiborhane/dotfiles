@@ -149,6 +149,10 @@ tooltip {
   color: @cyan;
 }
 
+#custom-ping {
+  background-color: transparent;
+}
+
 #custom-ping.good {
   color: @green;
 }
