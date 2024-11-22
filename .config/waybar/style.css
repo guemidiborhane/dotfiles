@@ -61,7 +61,6 @@ tooltip {
 }
 
 #window {
-  padding: 0 10px;
   color: @button-accent;
 }
 
