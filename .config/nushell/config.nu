@@ -101,7 +101,7 @@ $env.config = ($env.config? | default {} | merge {
 
 let tty_out = (tty | str trim)
 if (not ($env | has-env DISPLAY) and
-    ($env.XDG_VTNR == "1") and
+    (($env | get -i XDG_VTNR | default "") == "1") and
     not ($env | has-env SSH_CONNECTION) and 
     ($tty_out | str contains "/dev/tty")) {
 
