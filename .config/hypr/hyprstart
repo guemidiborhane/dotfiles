@@ -109,6 +109,6 @@ if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
 fi
 #
 # Ensure Hyprland log directory exists
-mkdir -p $HOME/.cache/hyprland
+mkdir -p "$HOME/.cache/hyprland"
 
 exec Hyprland >$HOME/.cache/hyprland/log 2>$HOME/.cache/hyprland/error
