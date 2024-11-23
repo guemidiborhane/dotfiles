@@ -57,8 +57,8 @@ def pagespeed [url: string] {
 # System Commands
 def pwd [] {
     let dir = (/usr/bin/pwd | str trim)
-    echo $dir
     echo $dir | clip
+    echo $dir
 }
 
 def clear [] { 
@@ -131,7 +131,8 @@ def tn [
     }
 
     let has_session = (do { tmux has-session -t $session_name } | complete).exit_code == 0
-    
+
+
     if not $has_session {
         tmux new-session -ds $session_name
     }
