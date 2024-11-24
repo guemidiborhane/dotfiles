@@ -39,19 +39,6 @@
         "input_combination": [
             {
                 "type": 1,
-                "code": 119,
-                "origin_hash": "affff947cafe9c1d8e10ebb94dc1dbdc"
-            }
-        ],
-        "target_uinput": "keyboard",
-        "output_symbol": "Super_R + L",
-        "mapping_type": "key_macro",
-        "release_combination_keys": false
-    },
-    {
-        "input_combination": [
-            {
-                "type": 1,
                 "code": 114,
                 "origin_hash": "c5acde5183d098ced38caa95b798c379"
             }
