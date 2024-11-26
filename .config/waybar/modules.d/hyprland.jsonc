@@ -24,8 +24,8 @@
     },
   },
   "hyprland/submap": {
-    "format": "✌️ {}",
-    "max-length": 8,
+    "format": "󰌓 {}",
+    "always-on": false,
     "tooltip": false,
   },
 }
