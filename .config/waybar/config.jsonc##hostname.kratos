@@ -11,7 +11,6 @@
     ],
     "modules-right": [
       "network",
-      "custom/ping",
     ],
   },
   {
@@ -30,7 +29,8 @@
       "clock#datetime"
     ],
     "modules-right": [
-      "memory",
+      "custom/ping",
+      "custom/governor",
       "group/indicators",
       "custom/notification",
       "tray",
@@ -47,7 +47,7 @@
       "clock#time"
     ],
     "modules-right": [
-      "custom/governor",
+      "memory",
       "temperature",
       "cpu",
       "custom/uptime"
