@@ -16,6 +16,7 @@
     ],
     "modules-right": [
       "group/sys-info",
+      "custom/governor",
       "group/indicators",
       "custom/notification",
       "tray",

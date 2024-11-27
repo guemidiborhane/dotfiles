@@ -30,7 +30,7 @@
       "clock#datetime"
     ],
     "modules-right": [
-      "group/sys-info",
+      "memory",
       "group/indicators",
       "custom/notification",
       "tray",
