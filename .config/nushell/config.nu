@@ -1,14 +1,3 @@
-# Source external configurations
-use ~/.cache/nushell/starship.nu
-source ~/.cache/nushell/carapace.nu
-source ~/.cache/nushell/zoxide.nu
-source /opt/asdf-vm/asdf.nu
-source ~/.asdf/plugins/golang/set-env.nu
-
-
-source ~/.config/nushell/functions.nu
-source ~/.config/nushell/aliases.nu
-
 let abbreviations = {
     k: 'kubectl'
     
@@ -99,6 +88,17 @@ $env.config = ($env.config? | default {} | merge {
     ]
 })
 
+# Source external configurations
+use ~/.cache/nushell/starship.nu
+source ~/.cache/nushell/carapace.nu
+source ~/.cache/nushell/zoxide.nu
+source /opt/asdf-vm/asdf.nu
+source ~/.asdf/plugins/golang/set-env.nu
+
+
+source ~/.config/nushell/functions.nu
+source ~/.config/nushell/aliases.nu
+
 let tty_out = (tty | str trim)
 if (not ($env | has-env DISPLAY) and
     (($env | get -i XDG_VTNR | default "") == "1") and
@@ -118,3 +118,4 @@ if ($env | get -i LAST_EXIT_CODE | default 0) == 0 and ($env | get -i TMUX | def
 
 # Initial greeting
 fastfetch
+
