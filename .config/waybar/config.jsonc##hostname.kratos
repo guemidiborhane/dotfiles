@@ -10,6 +10,7 @@
       "clock#date"
     ],
     "modules-right": [
+      "custom/ping",
       "network",
     ],
   },
@@ -29,7 +30,7 @@
       "clock#datetime"
     ],
     "modules-right": [
-      "custom/ping",
+      "group/sys-info",
       "custom/governor",
       "group/indicators",
       "custom/notification",
@@ -48,8 +49,7 @@
     ],
     "modules-right": [
       "memory",
-      "temperature",
-      "cpu",
+      "group/cpu",
       "custom/uptime"
     ],
   },

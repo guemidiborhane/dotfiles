@@ -7,6 +7,10 @@
     "orientation": "inherit",
     "modules": ["custom/vpn", "idle_inhibitor", "privacy"],
   },
+  "group/cpu": {
+    "orientation": "inherit",
+    "modules": ["cpu#usage", "temperature", "cpu"],
+  },
   "group/sys-info": {
     "orientation": "inherit",
     "drawer": {
@@ -14,6 +18,6 @@
       "children-class": "not-power",
       "transition-left-to-right": false,
     },
-    "modules": ["temperature", "memory", "cpu"],
+    "modules": ["temperature", "memory", "cpu", "cpu#usage"],
   },
 }
