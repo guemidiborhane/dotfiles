@@ -1,32 +1,44 @@
 (defcfg
   process-unmapped-keys yes
 )
+
 (defsrc
   caps a   s   d   f   j   k   l   ;
   spc
 )
+
 (defvar
   tap-time 200
   hold-time 200
+
+  met lmet
+  ctl lctl
+  alt lalt
+  sft sft
 )
+
 (deflayer base
   esc @a  @s  @d  @f  @j  @k  @l  @;
   @spc
 )
+
 (deflayermap nav
   h left
   j down
   k up
   l right
 )
+
 (defalias
-  a (tap-hold $tap-time $hold-time a lmet)
-  s (tap-hold $tap-time $hold-time s lalt)
-  d (tap-hold $tap-time $hold-time d lsft)
-  f (tap-hold $tap-time $hold-time f lctl)
-  j (tap-hold $tap-time $hold-time j lctl)
-  k (tap-hold $tap-time $hold-time k lsft)
-  l (tap-hold $tap-time $hold-time l lalt)
-  ; (tap-hold $tap-time $hold-time ; lmet)
+  a (tap-hold $tap-time $hold-time a $alt)
+  s (tap-hold $tap-time $hold-time s $sft)
+  d (tap-hold $tap-time $hold-time d $met)
+  f (tap-hold $tap-time $hold-time f $ctl)
+
+  j (tap-hold $tap-time $hold-time j $ctl)
+  k (tap-hold $tap-time $hold-time k $met)
+  l (tap-hold $tap-time $hold-time l $sft)
+  ; (tap-hold $tap-time $hold-time ; $alt)
+
   spc (tap-hold $tap-time $hold-time spc (layer-while-held nav))
 )
