@@ -3,6 +3,7 @@
 )
 (defsrc
   caps a   s   d   f   j   k   l   ;
+  spc
 )
 (defvar
   tap-time 200
@@ -12,8 +13,12 @@
   esc @a  @s  @d  @f  @j  @k  @l  @;
   @spc
 )
+(deflayermap nav
+  h left
+  j down
+  k up
+  l right
 )
-
 (defalias
   a (tap-hold $tap-time $hold-time a lmet)
   s (tap-hold $tap-time $hold-time s lalt)
@@ -23,4 +28,5 @@
   k (tap-hold $tap-time $hold-time k lsft)
   l (tap-hold $tap-time $hold-time l lalt)
   ; (tap-hold $tap-time $hold-time ; lmet)
+  spc (tap-hold $tap-time $hold-time spc (layer-while-held nav))
 )
