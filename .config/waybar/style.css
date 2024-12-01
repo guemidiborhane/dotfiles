@@ -183,3 +183,14 @@ tooltip {
 #network.disconnected {
   color: @red;
 }
+
+#battery {
+  background: transparent;
+}
+
+#battery.warning {
+  color: @yellow;
+}
+#battery.critical {
+  color: @red;
+}
