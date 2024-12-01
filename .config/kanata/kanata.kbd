@@ -4,7 +4,8 @@
 
 (defsrc
   caps a   s   d   f   j   k   l   ;
-  spc
+  lsft                              rsft
+  lctl lmet lalt    spc    ralt rctl
 )
 
 (defvar
@@ -14,12 +15,13 @@
   met lmet
   ctl lctl
   alt lalt
-  sft sft
+  sft lsft
 )
 
 (deflayer base
   esc @a  @s  @d  @f  @j  @k  @l  @;
-  @spc
+  ✗                              ✗
+  ✗ ✗ ✗    @spc    ✗ ✗
 )
 
 (deflayermap nav
