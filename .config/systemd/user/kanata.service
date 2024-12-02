@@ -5,7 +5,7 @@ Documentation=https://github.com/jtroo/kanata
 [Service]
 Type=simple
 ExecStart=/usr/bin/sh -c 'exec $$(which kanata) --cfg $${HOME}/.config/kanata/kanata.kbd'
-Restart=no
+Restart=Always
 
 [Install]
 WantedBy=user-graphical-session.target
