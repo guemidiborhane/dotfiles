@@ -3,7 +3,8 @@
 )
 
 (defsrc
-  caps a   s   d   f   j   k   l   ;
+      q   w   e   r  t  y
+  caps a   s   d   f   h   j   k   l   ;
   lsft                              rsft
   lctl lmet lalt    spc    ralt rctl
 )
@@ -19,16 +20,17 @@
 )
 
 (deflayer base
-  esc @a  @s  @d  @f  @j  @k  @l  @;
+      _   _   _   _  _  _
+  esc @a   @s   @d   @f   _   @j   @k   @l   @;
   ✗                              ✗
-  ✗ ✗ ✗    @spc    ✗ ✗
+  ✗ ✗ bspc    @spc    bspc ✗
 )
 
-(deflayermap nav
-  h left
-  j down
-  k up
-  l right
+(deflayer nav
+      _   1   2   3   4  5
+  _    _   _   _   _   left   down   up   right   _
+  _                              _
+  _ _ _    _    _ _
 )
 
 (defalias
