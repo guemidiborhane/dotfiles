@@ -36,7 +36,6 @@ fish
 fwupd
 fzf
 gd
-gimp
 git
 git-delta
 git-lfs
@@ -77,7 +76,6 @@ lxappearance
 magic-wormhole
 man-db
 memtest86+-efi
-plocate
 ncdu
 neovim
 nethogs
@@ -100,11 +98,13 @@ parallel
 pass
 pavucontrol
 picom
+pinta
 pipewire-alsa
 pipewire-audio
 pipewire-jack
 pipewire-pulse
 playerctl
+plocate
 polkit-gnome
 polybar
 pv
@@ -137,6 +137,7 @@ terminus-font
 thunar
 thunar-archive-plugin
 thunar-volman
+thunderbird
 tumbler
 tealdeer
 tmux
