@@ -4,7 +4,7 @@ Documentation=https://github.com/jtroo/kanata
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/sh -c 'exec $$(which kanata) --cfg $${HOME}/.config/kanata/kanata.kbd'
+ExecStart=/usr/bin/sh -c 'exec $$(which kanata) --nodelay --cfg $${HOME}/.config/kanata/kanata.kbd'
 Restart=Always
 
 [Install]
