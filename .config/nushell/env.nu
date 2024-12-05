@@ -1,4 +1,4 @@
-$env.SSH_AUTH_SOCK = $"($env.XDG_RUNTIME_DIR)/gcr/ssh"
+$env.SSH_AUTH_SOCK = $"($env.HOME)/.goldwarden-ssh-agent.sock"
 
 $env.EDITOR = 'nvim'
 $env.VISUAL = 'nvim'

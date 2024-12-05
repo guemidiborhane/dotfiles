@@ -1,4 +1,4 @@
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+export SSH_AUTH_SOCK="$HOME/.goldwarden-ssh-agent.sock"
 
 export PATH="$HOME/.asdf/shims:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
