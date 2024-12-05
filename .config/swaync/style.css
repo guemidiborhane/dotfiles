@@ -1,0 +1,298 @@
+@import url("../waybar/colors.css");
+
+/* Base Styles */
+* {
+  font-family: "JetBrainsMono NFM SemiBold";
+}
+
+/* Common Properties */
+.notification,
+.notification-content,
+.control-center {
+  background: @background;
+}
+
+.notification,
+.control-center {
+  border: 2px solid @comment;
+  border-radius: 0;
+}
+
+/* Notification Styles */
+.notification-row {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+  opacity: 1;
+  outline: none;
+  background: @selection;
+}
+
+.notification {
+  margin: 3px -2px 3px 0;
+}
+
+/* Action Buttons */
+.notification-default-action,
+.notification-action {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+.notification-action {
+  border: 1px solid @comment;
+  border-top: none;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  color: @purple;
+  background: @background;
+}
+
+.notification-action:first-child {
+  background: @selection;
+}
+
+.notification-action:last-child {
+  background: @selection;
+}
+
+/* Close Button */
+.close-button {
+  background: @purple;
+  color: @background;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 0;
+  margin: 10px 10px 0 0;
+}
+
+.close-button:hover {
+  background: @red;
+  transition: all 0.15s ease-in-out;
+  border: none;
+  box-shadow: none;
+}
+
+/* Inline Reply */
+.inline-reply {
+  margin-top: 8px;
+}
+
+.inline-reply-entry {
+  background: @selection;
+  color: @foreground;
+  caret-color: @foreground;
+  border: 1px solid @comment;
+  border-radius: 5px;
+}
+
+.inline-reply-button {
+  margin-left: 4px;
+  background: @background;
+  border: 1px solid @comment;
+  border-radius: 5px;
+  color: @foreground;
+}
+
+.inline-reply-button:disabled {
+  background: initial;
+  color: @comment;
+  border: 1px solid transparent;
+}
+
+.inline-reply-button:hover {
+  background: @selection;
+}
+
+/* Content Styling */
+.image {
+  border-radius: 0;
+  margin-right: 10px;
+}
+
+.summary {
+  color: @green;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.time {
+  color: @foreground;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 12px;
+}
+
+.body {
+  color: @foreground;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.summary,
+.time,
+.body {
+  background: transparent;
+  text-shadow: none;
+}
+
+/* Control Center */
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.5;
+}
+
+.floating-notifications {
+  background: transparent;
+}
+
+.blank-window {
+  background: alpha(black, 0.3);
+}
+
+/* Widgets */
+.widget-title {
+  color: @purple;
+  margin: 10px 10px 5px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+}
+
+.widget-title > button {
+  color: @foreground;
+  background: @background;
+  font-size: 24px;
+  border-radius: 5px;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.widget-title > button:hover {
+  background: @red;
+  color: @background;
+}
+
+/* DND Widget */
+.widget-dnd {
+  margin: 5px 10px;
+  border-radius: 5px;
+  font-size: large;
+  color: @purple;
+}
+
+.widget-dnd > switch {
+  border-radius: 5px;
+  background: @purple;
+}
+
+.widget-dnd > switch:checked {
+  background: @red;
+  border: 1px solid @red;
+}
+
+.widget-dnd > switch slider,
+.widget-dnd > switch:checked slider {
+  background: @background;
+  border-radius: 5px;
+}
+
+/* MPRIS Widget */
+.widget-mpris {
+  color: @foreground;
+  padding: 5px 0;
+  margin: 5px 10px;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+.widget-mpris > box > button {
+  border-radius: 5px;
+}
+
+.widget-mpris-player {
+  padding: 30px;
+  box-shadow: none;
+  margin: 5px;
+}
+
+.widget-mpris-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.widget-mpris-subtitle {
+  font-size: 1.1rem;
+}
+
+/* Button Grid Widget */
+.widget-buttons-grid {
+  font-size: x-large;
+  padding: 5px;
+  margin: 10px 10px 5px;
+  border-radius: 0;
+  background: @selection;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  margin: 3px;
+  background: @background;
+  border-radius: 0;
+  color: @foreground;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+  background: @purple;
+  color: @background;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:checked {
+  background: @green;
+  color: @background;
+}
+
+/* Volume and Backlight Widgets */
+.widget-volume,
+.widget-backlight {
+  background: @selection;
+  padding: 5px;
+  margin: 5px 10px;
+  border-radius: 0;
+  font-size: 2rem;
+  color: @purple;
+}
+
+/* Menubar */
+.widget-menubar > box > .menu-button-bar > button,
+.topbar-buttons > button {
+  border: none;
+  background: transparent;
+}
+
+/* Labels */
+.widget-label {
+  margin: 10px 10px 5px;
+}
+
+.widget-label > label {
+  font-size: 1rem;
+  color: @foreground;
+}
+
+/* Notification Group */
+.notification-group {
+  padding: 0;
+}
+
+.notification-background {
+  outline: none;
+}

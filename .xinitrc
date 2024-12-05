@@ -41,6 +41,15 @@ initialize_shell() {
 		. $xsess_tmp
 		rm -f $xsess_tmp
 		;;
+	*/nu)
+		# Handle nushell specifically
+		source_profiles
+		xsess_tmp=$(mktemp /tmp/xsess-env-XXXXXX)
+		# Export current environment to sh-compatible format
+		nu -c "env | to text | lines | each { |line| if ($line | split row '=') != '' { echo $'export ($line)' } }" >$xsess_tmp
+		. $xsess_tmp
+		rm -f $xsess_tmp
+		;;
 	*) # Plain sh, ksh, and anything we do not know.
 		source_profiles
 		;;

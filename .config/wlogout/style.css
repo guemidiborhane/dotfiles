@@ -1,68 +1,68 @@
 window {
-    font-family: monospace;
-    font-size: 14pt;
-    color: #cdd6f4; /* text */
-    background-color: rgba(30, 30, 46, 0.9);
+  font-family: monospace;
+  font-size: 14pt;
+  color: #cdd6f4; /* text */
+  background-color: rgba(30, 30, 46, 1);
 }
 
 button {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 25%;
-    border: none;
-    background-color: rgba(30, 30, 46, 0);
-    margin: 25px;
-    transition: background-color 0.1s ease-in-out;
-    box-shadow: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25%;
+  border: none;
+  background-color: rgba(30, 30, 46, 0);
+  margin: 25px;
+  transition: background-color 0.1s ease-in-out;
+  box-shadow: none;
 }
 
 button:hover {
-    background-color: rgba(49, 50, 68, 0.1);
+  background-color: rgba(49, 50, 68, 0.1);
 }
 
 button:focus {
-    background-color: #cba6f7;
-    color: #1e1e2e;
+  background-color: #cba6f7;
+  color: #1e1e2e;
 }
 
 #lock {
-    background-image: image(url("./default/lock.png"));
+  background-image: image(url("./default/lock.png"));
 }
 #lock:focus {
-    background-image: image(url("./focus/lock.png"));
+  background-image: image(url("./focus/lock.png"));
 }
 
 #logout {
-    background-image: image(url("./default/logout.png"));
+  background-image: image(url("./default/logout.png"));
 }
 #logout:focus {
-    background-image: image(url("./focus/logout.png"));
+  background-image: image(url("./focus/logout.png"));
 }
 
 #suspend {
-    background-image: image(url("./default/suspend.png"));
+  background-image: image(url("./default/suspend.png"));
 }
 #suspend:focus {
-    background-image: image(url("./focus/suspend.png"));
+  background-image: image(url("./focus/suspend.png"));
 }
 
 #reboot {
-    background-image: image(url("./default/reboot.png"));
+  background-image: image(url("./default/reboot.png"));
 }
 #reboot:focus {
-    background-image: image(url("./focus/reboot.png"));
+  background-image: image(url("./focus/reboot.png"));
 }
 
 #shutdown {
-    background-image: image(url("./default/shutdown.png"));
+  background-image: image(url("./default/shutdown.png"));
 }
 #shutdown:focus {
-    background-image: image(url("./focus/shutdown.png"));
+  background-image: image(url("./focus/shutdown.png"));
 }
 
 #hibernate {
-    background-image: image(url("./default/hibernate.png"));
+  background-image: image(url("./default/hibernate.png"));
 }
 #hibernate:focus {
-    background-image: image(url("./focus/hibernate.png"));
+  background-image: image(url("./focus/hibernate.png"));
 }

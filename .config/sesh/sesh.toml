@@ -14,8 +14,18 @@ path = "~/.config/i3"
 startup_command = "nvim"
 
 [[session]]
+name = "hypr config"
+path = "~/.config/hypr"
+startup_command = "nvim"
+
+[[session]]
 name = "polybar config"
 path = "~/.config/polybar"
+startup_command = "nvim"
+
+[[session]]
+name = "waybar config"
+path = "~/.config/waybar"
 startup_command = "nvim"
 
 [[session]]

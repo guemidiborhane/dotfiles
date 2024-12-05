@@ -1,5 +1,8 @@
 [Unit]
 Description=Automatically switch the horizontal / vertical window split orientation
+PartOf=x-session.target
+After=x-session.target
+Requisite=x-session.target
 
 [Service]
 Type=simple
@@ -9,4 +12,4 @@ ExecStop=/usr/bin/killall autotiling
 Restart=always
 
 [Install]
-WantedBy=default.target
+WantedBy=x-session.target

@@ -1,110 +1,196 @@
 @import url("./colors.css");
 
+@define-color button-accent @yellow;
+
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "Noto Sans", "FontAwesome", "Material Icons";
-    font-size: 15px;
-    font-weight: 400;
-    min-height: 0;
+  border: none;
+  border-radius: 0;
+  font-family: "Noto Sans", "JetBrainsMono NFP";
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 window#waybar {
-    background: @background-darker;
-    color: @foreground;
-    border-bottom: 2px solid @background;
+  background: @background;
+  color: @foreground;
+}
+
+.modules-right:last-child {
+  padding-right: 10px;
 }
 
 tooltip {
-    background: #1e1e2e;
-    border-radius: 10px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #11111b;
+  background: @background;
+  border-radius: 10px;
+  border: 2px solid @secondary;
 }
 
+#taskbar button,
 #workspaces button {
-    padding: 5px;
-    color: #313244;
-    margin-right: 5px;
+  padding: 0 10px;
+  color: @secondary;
+  border-top: 3px solid @purple;
+
+  box-shadow: none;
 }
 
+#taskbar button:hover,
+#workspaces button:hover {
+  background: @transparent;
+  box-shadow: none;
+}
+
+#taskbar button.active,
 #workspaces button.active {
-    color: #a6adc8;
+  background: @selection;
+  color: @active;
 }
 
-#workspaces button.focused {
-    color: #a6adc8;
-    background: #eba0ac;
-    border-radius: 10px;
+#workspaces button.visible,
+#workspaces button.active {
+  border-top-color: @button-accent;
+}
+
+#taskbar button.active {
+  background: @button-accent;
+  color: @background;
 }
 
 #workspaces button.urgent {
-    color: #11111b;
-    background: #a6e3a1;
-    border-radius: 10px;
+  color: @urgent;
 }
 
-#workspaces button:hover {
-    background: #11111b;
-    color: #cdd6f4;
-    border-radius: 10px;
-}
-
-#custom-power_profile,
-#custom-weather,
-#window,
-#clock,
-#battery,
-#pulseaudio,
-#network,
-#bluetooth,
-#temperature,
-#workspaces,
-#tray,
-#backlight {
-    padding: 0 4px;
-}
-
-#temperature.critical {
-    color: #eba0ac;
-}
-
-#custom-power_profile {
-    color: #a6e3a1;
+#window {
+  color: @button-accent;
 }
 
 #clock {
-    color: #fab387;
+  color: @cyan;
 }
 
+#sys-info #temperature {
+  padding-left: 5px;
+}
+
+#temperature {
+  color: @comment;
+}
+
+#temperature.critical {
+  color: @yellow;
+}
+
+#cpu {
+  color: @cpu;
+}
+
+#custom-vpn.down {
+  color: @red;
+}
+
+#custom-vpn.up {
+  color: @cyan;
+}
+
+.not-power .module,
+#cpu .module,
+#indicators .module {
+  padding: 0 5px;
+}
+
+#indicators #privacy {
+  padding: 0;
+}
+
+#custom-governor {
+  font-size: 1.1rem;
+}
+
+#custom-governor.performance {
+  color: @orange;
+}
+
+#custom-governor.powersave {
+  color: @green;
+}
+
+#custom-governor.conservative {
+  color: @comment;
+}
+
+#custom-governor.ondemand {
+  color: @purple;
+}
+
+#custom-governor.schedutil {
+  color: @yellow;
+}
+
+#custom-governor.userspace {
+  color: @selection;
+}
+
+#custom-governor.unknown {
+  color: @foreground;
+}
+
+#privacy {
+  color: @yellow;
+}
+
+#memory {
+  color: @yellow;
+}
+
+#custom-power-status {
+  margin-right: 10px;
+}
+
+#custom-uptime {
+  color: @cyan;
+}
+
+#custom-ping {
+  background-color: transparent;
+}
+
+#custom-ping.good {
+  color: @green;
+}
+
+#custom-ping.warning {
+  color: @yellow;
+}
+
+#custom-ping.critical {
+  color: @orange;
+}
+
+#custom-ping.offline {
+  color: @red;
+}
+
+/* Network */
 #network {
-    color: #f9e2af;
+  color: @pink; /* Pink color for the icons */
 }
 
-#bluetooth {
-    color: #89b4fa;
+/* Make the speed values a different color */
+#network {
+  color: @comment; /* The grayish-blue color for the text */
 }
 
-#pulseaudio {
-    color: #89b4fa;
-}
-
-#pulseaudio.microphone {
-    color: #cba6f7;
+#network.disconnected {
+  color: @red;
 }
 
 #battery {
-    color: #a6e3a1;
+  background: transparent;
 }
 
-#workspaces button {
-    padding: 0 10px;
-    color: #4F5476;
-    border-bottom: 3px solid transparent;
+#battery.warning {
+  color: @yellow;
 }
-#workspaces button.active {
-    background: @selection;
-    color: @foreground;
-    border-bottom: 3px solid @yellow;
+#battery.critical {
+  color: @red;
 }

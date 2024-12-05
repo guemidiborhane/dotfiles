@@ -1,0 +1,63 @@
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  caps
+  a s d f
+  j k l ;
+  g h
+  lmet rmet
+  lsft rsft
+  lctl rctl 
+  lalt ralt
+  spc
+)
+
+(defvar
+  tap-time 200
+  hold-time 150
+
+  met lmet
+  ctl lctl
+  alt lalt
+  sft lsft
+)
+
+(deflayer base
+  esc
+  @a @s @d @f
+  @j @k @l @;
+  _ _
+  ✗ ✗
+  ✗ ✗
+  ✗ ✗
+  ✗ ✗
+  @spc
+)
+
+(deflayermap secondary
+  a C-1
+  s M-2
+  d M-1
+  f bspc
+
+  h left
+  j down
+  k up
+  l right
+)
+
+(defalias
+  a (tap-hold $tap-time $hold-time a $alt)
+  s (tap-hold $tap-time $hold-time s $sft)
+  d (tap-hold $tap-time $hold-time d $met)
+  f (tap-hold $tap-time $hold-time f $ctl)
+
+  j (tap-hold $tap-time $hold-time j $ctl)
+  k (tap-hold $tap-time $hold-time k $met)
+  l (tap-hold $tap-time $hold-time l $sft)
+  ; (tap-hold $tap-time $hold-time ; $alt)
+
+  spc (tap-hold $tap-time $hold-time spc (layer-while-held secondary))
+)

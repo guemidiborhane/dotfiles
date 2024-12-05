@@ -1,0 +1,31 @@
+{
+  "hyprland/window": {
+    "format": "{title:.50}",
+    "icon": true,
+    "separate-outputs": true,
+    "icon-size": 20,
+  },
+  "hyprland/workspaces": {
+    "format": "{name}  {icon}",
+    "disable-scroll": false,
+    "all-outputs": false,
+    "show-special": true,
+    "special-visible-only": false,
+    "on-click": "activate",
+    "format-icons": {
+      "default": "󱂬",
+      "special": "",
+      "1": "󰈹",
+      "2": "",
+      "7": "",
+      "8": "",
+      "11": "󰈹",
+      "12": "",
+    },
+  },
+  "hyprland/submap": {
+    "format": "󰌓 {}",
+    "always-on": false,
+    "tooltip": false,
+  },
+}

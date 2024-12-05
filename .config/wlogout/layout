@@ -1,36 +1,36 @@
 {
     "label": "logout",
-    "action": "~/.config/i3/scripts/i3exit.sh logout",
+    "action": "~/.config/hypr/hyprexit logout",
     "text": "L[e]gout",
     "keybind": "e"
 }
 {
     "label" : "lock",
-    "action" : "~/.config/i3/scripts/i3exit.sh lock",
+    "action" : "~/.config/hypr/hyprexit lock",
     "text" : "L[o]ck",
     "keybind" : "o"
 }
 {
     "label" : "reboot",
-    "action" : "~/.config/i3/scripts/i3exit.sh reboot",
+    "action" : "~/.config/hypr/hyprexit reboot",
     "text" : "[R]eboot",
     "keybind" : "r"
 }
 {
     "label" : "shutdown",
-    "action" : "~/.config/i3/scripts/i3exit.sh shutdown",
+    "action" : "~/.config/hypr/hyprexit shutdown",
     "text" : "[S]hutdown",
     "keybind" : "S"
 }
 {
     "label" : "suspend",
-    "action" : "~/.config/i3/scripts/i3exit.sh suspend",
+    "action" : "~/.config/hypr/hyprexit suspend",
     "text" : "Su[s]pend",
     "keybind" : "s"
 }
 {
     "label" : "hibernate",
-    "action" : "~/.config/i3/scripts/i3exit.sh hibernate",
+    "action" : "~/.config/hypr/hyprexit hibernate",
     "text" : "[H]ibernate",
     "keybind" : "h"
 }

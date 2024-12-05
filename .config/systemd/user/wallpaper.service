@@ -1,11 +1,13 @@
 [Unit]
 Description=Choose a random wallpaper and update betterlockscreen cache
+PartOf=hypr-session.target
+After=hypr-session.target
+Requisite=hypr-session.target
 
 [Service]
-Type=oneshot
-ExecStart=/usr/bin/betterlockscreen -u %h/.wallpaper --fx dimblur
-ExecStartPost=/usr/bin/betterlockscreen -w
+Type=simple
 StandardOutput=journal
+ExecStart=%h/.config/hypr/helpers/wallpaper.sh
 
 [Install]
-WantedBy=default.target
+WantedBy=hypr-session.target
