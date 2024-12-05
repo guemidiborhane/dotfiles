@@ -45,19 +45,19 @@ return {
     ["<Leader>m"] = { "<cmd>Mason<CR>", desc = "Mason" },
     ["<Leader>tc"] = {
       "<cmd>!tmux split-window -h make console<CR>",
-      desc = "open console in spit",
+      desc = "open console in horizontal spit",
     },
     ["<Leader>tf"] = {
       "<cmd>!tmux split-window -h make fish<CR>",
-      desc = "open console in spit",
+      desc = "open fish in horizontal spit",
     },
     ["<Leader>tC"] = {
       "<cmd>!tmux split-window make console<CR>",
-      desc = "open console in spit",
+      desc = "open fish in vertical spit",
     },
     ["<Leader>tF"] = {
       "<cmd>!tmux split-window make fish<CR>",
-      desc = "open console in spit",
+      desc = "open console in vertical spit",
     },
     ["<Leader>c"] = {
       function()

@@ -1,0 +1,8 @@
+# vim: ft=hyprlang
+################
+### MONITORS ###
+################
+
+# See https://wiki.hyprland.org/Configuring/Monitors/
+monitor = eDP-1, 1920x1200@60, auto, 1.2
+

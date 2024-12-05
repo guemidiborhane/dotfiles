@@ -1,0 +1,27 @@
+[
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": [
+      "eDP-1"
+    ],
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/submap",
+      "hyprland/window",
+    ],
+    "modules-center": [
+      "clock#datetime"
+    ],
+    "modules-right": [
+      "group/sys-info",
+      "custom/governor",
+      "group/indicators",
+      "custom/notification",
+      "tray",
+      "group/battery",
+    ],
+  },
+]
+// vim: ft=jsonc

@@ -1,0 +1,14 @@
+# vim: ft=hyprlang
+
+$portraitMonitor = DP-1
+$mainMonitor = DP-2
+$secondaryMonitor = DP-3
+
+$resolution = 2560x1440@75
+$scale = auto
+
+monitor= $portraitMonitor, $resolution, 0x0, $scale, transform, 1
+monitor= $mainMonitor, $resolution, 1440x560, $scale
+monitor= $secondaryMonitor, $resolution, 4000x560, $scale
+
+source = ~/.config/hypr/conf.d/nvidia.conf

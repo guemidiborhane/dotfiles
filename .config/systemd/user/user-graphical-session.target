@@ -1,0 +1,8 @@
+[Unit]
+Description=User Graphical Session either X11 or Wayland
+Documentation=man:systemd.special
+BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
+RefuseManualStart=yes
+StopWhenUnneeded=yes
