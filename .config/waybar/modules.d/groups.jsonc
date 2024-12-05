@@ -1,0 +1,23 @@
+{
+  "include": [
+    "~/.config/waybar/modules.d/custom.jsonc",
+    "~/.config/waybar/modules.d/base.jsonc",
+  ],
+  "group/indicators": {
+    "orientation": "inherit",
+    "modules": ["custom/vpn", "idle_inhibitor", "privacy"],
+  },
+  "group/cpu": {
+    "orientation": "inherit",
+    "modules": ["cpu#usage", "temperature", "cpu"],
+  },
+  "group/sys-info": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 250,
+      "children-class": "not-power",
+      "transition-left-to-right": false,
+    },
+    "modules": ["temperature", "memory", "cpu", "cpu#usage"],
+  },
+}
