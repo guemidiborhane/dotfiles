@@ -40,3 +40,4 @@ application/x-ms-shortcut=nvim.desktop;
 image/png=viewnior.desktop;
 x-scheme-handler/tonsite=org.telegram.desktop.desktop;
 image/heif=viewnior.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=wps-office-wps.desktop;
