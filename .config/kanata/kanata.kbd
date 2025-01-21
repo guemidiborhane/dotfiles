@@ -16,7 +16,7 @@
 
 (defvar
   tap-time 200
-  hold-time 150
+  hold-time 250
 
   met lmet
   ctl lctl

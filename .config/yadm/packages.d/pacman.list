@@ -39,8 +39,6 @@ fwupd
 fzf
 gd
 ghostty
-ghostty-terminfo
-ghostty-shell-integration
 git
 git-delta
 git-lfs

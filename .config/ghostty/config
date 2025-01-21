@@ -15,6 +15,8 @@ confirm-close-surface = false
 mouse-hide-while-typing = true
 
 window-theme = ghostty
+window-padding-x = 0
+window-padding-y = 0
 window-padding-balance = true
 window-padding-color = background
 window-inherit-working-directory = true
