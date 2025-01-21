@@ -17,6 +17,7 @@
       "transition-duration": 250,
       "children-class": "not-power",
       "transition-left-to-right": false,
+      "click-to-reveal": true,
     },
     "modules": ["temperature", "memory", "cpu", "cpu#usage"],
   },
