@@ -1,3 +1,4 @@
+7zip
 amd-ucode
 android-tools
 ansible
@@ -28,6 +29,7 @@ eza
 fastfetch
 fd
 feh
+ffmpegthumbnailer
 filezilla
 firefox
 firefox-developer-edition
@@ -36,6 +38,9 @@ fish
 fwupd
 fzf
 gd
+ghostty
+ghostty-terminfo
+ghostty-shell-integration
 git
 git-delta
 git-lfs

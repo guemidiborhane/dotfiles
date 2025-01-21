@@ -1,5 +1,5 @@
-export TERMINAL=wezterm
-export BROWSER=/usr/bin/brave
+export TERMINAL=ghostty
+export BROWSER=zen-browser
 export QT_QPA_PLATFORMTHEME=qt5ct
 # Required for touchscreen gestures in firefox
 export MOZ_USE_XINPUT2=true
