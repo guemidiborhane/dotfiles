@@ -12,7 +12,7 @@ truncate_to_repo = false
 "~/Code/aina/pro" = "Work"
 "~/Code/aina/public" = "Public-work"
 "~/Code/lab" = "Lab"
-"~/Code/gitHub" = " GH"
+"~/Code/github" = " GH"
 "~/Downloads" = ""
 
 [fill]
@@ -29,7 +29,7 @@ vimcmd_visual_symbol = "[󰘌](bold yellow)"
 [kubernetes]
 disabled = false
 style = 'blue'
-format = '[$symbol$context( \($namespace\))]($style)'
+format = '[$symbol $context( \($namespace\))]($style)'
 
 [git_branch]
 symbol = " "
