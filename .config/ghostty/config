@@ -1,0 +1,27 @@
+config-file = dracula.conf
+shell-integration-features = no-cursor
+
+# Font
+font-family = JetBrainsMono Nerd Font
+font-size = 12
+font-thicken = true
+
+keybind = alt+shift+enter=new_split:down
+keybind = ctrl+shift+enter=new_split:right
+
+resize-overlay = never
+copy-on-select = false
+confirm-close-surface = false
+mouse-hide-while-typing = true
+
+window-theme = ghostty
+window-padding-balance = true
+window-padding-color = background
+window-inherit-working-directory = true
+window-inherit-font-size = true
+window-decoration = false
+
+gtk-titlebar = false
+gtk-single-instance = true
+gtk-tabs-location = bottom
+gtk-wide-tabs = false
