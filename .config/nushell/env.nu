@@ -12,6 +12,9 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 $env.ASDF_DIR = '/opt/asdf-vm/'
 $env.ASDF_GOLANG_MOD_VERSION_ENABLED = 'true'
 
+$env.INITIAL_COMMIT_MSG = "The same thing we do every night, Pinky - try to take over the world!"
+$env.BATMAN_INITIAL_COMMIT_MSG = "Batman! (this commit has no parents)"
+
 # mkdir ~/.cache/nushell
 let cache_path = "~/.cache/nushell"
 
