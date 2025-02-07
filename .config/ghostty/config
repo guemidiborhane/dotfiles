@@ -6,9 +6,6 @@ font-family = JetBrainsMono Nerd Font
 font-size = 12
 font-thicken = true
 
-keybind = alt+shift+enter=new_split:down
-keybind = ctrl+shift+enter=new_split:right
-
 resize-overlay = never
 copy-on-select = false
 confirm-close-surface = false
@@ -27,3 +24,7 @@ gtk-titlebar = false
 gtk-single-instance = true
 gtk-tabs-location = bottom
 gtk-wide-tabs = false
+
+keybind = alt+shift+enter=new_split:down
+keybind = ctrl+shift+enter=new_split:right
+keybind = ctrl+backspace=text:\x17
