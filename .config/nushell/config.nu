@@ -92,8 +92,6 @@ $env.config = ($env.config? | default {} | merge {
 use ~/.cache/nushell/starship.nu
 source ~/.cache/nushell/carapace.nu
 source ~/.cache/nushell/zoxide.nu
-source /opt/asdf-vm/asdf.nu
-source ~/.asdf/plugins/golang/set-env.nu
 
 source ~/.config/nushell/functions.nu
 source ~/.config/nushell/aliases.nu
