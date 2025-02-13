@@ -1,5 +1,24 @@
 return {
   "snacks.nvim",
+  config = function(_, opts)
+    require("snacks").setup(opts)
+
+    -- Create an autocommand group for the dashboard
+    local group = vim.api.nvim_create_augroup("dashboard_on_close", { clear = true })
+
+    vim.api.nvim_create_autocmd("BufDelete", {
+      group = group,
+      callback = function(args)
+        local deleted_name = vim.api.nvim_buf_get_name(args.buf)
+        local deleted_ft = vim.api.nvim_get_option_value("filetype", { buf = args.buf })
+        local dashboard_on_empty = (deleted_name == "" and deleted_ft == "")
+          or (vim.api.nvim_buf_get_name(0) == "" and vim.api.nvim_get_option_value("filetype", { buf = 0 }) == "")
+        if dashboard_on_empty then
+          Snacks.dashboard()
+        end
+      end,
+    })
+  end,
   opts = {
     dashboard = {
       preset = {
@@ -36,6 +55,13 @@ return {
           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
+      },
+      sections = {
+        { section = "header" },
+        { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+        { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+        { section = "startup" },
       },
     },
   },
