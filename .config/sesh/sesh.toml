@@ -47,3 +47,5 @@ startup_command = "nvim"
 name = "sesh"
 path = "~/.config/sesh/"
 startup_command = "nvim sesh.toml"
+
+blacklist = ["scratchpad"]
