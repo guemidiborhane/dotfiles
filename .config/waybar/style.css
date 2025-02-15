@@ -24,6 +24,9 @@ tooltip {
   border-radius: 10px;
   border: 2px solid @secondary;
 }
+tooltip label {
+  font-family: monospace;
+}
 
 #taskbar button,
 #workspaces button {
@@ -68,10 +71,6 @@ tooltip {
   color: @cyan;
 }
 
-#sys-info #temperature {
-  padding-left: 5px;
-}
-
 #temperature {
   color: @comment;
 }
@@ -92,9 +91,9 @@ tooltip {
   color: @cyan;
 }
 
-.not-power .module,
-#cpu .module,
-#indicators .module {
+#indicators .module,
+#wireless .module,
+.drawer-child .module {
   padding: 0 5px;
 }
 
