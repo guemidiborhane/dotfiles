@@ -3,11 +3,8 @@ return {
   config = function(_, opts)
     require("snacks").setup(opts)
 
-    -- Create an autocommand group for the dashboard
-    local group = vim.api.nvim_create_augroup("dashboard_on_close", { clear = true })
-
     vim.api.nvim_create_autocmd("BufDelete", {
-      group = group,
+      group = vim.api.nvim_create_augroup("dashboard_on_close", { clear = true }),
       callback = function(args)
         local deleted_name = vim.api.nvim_buf_get_name(args.buf)
         local deleted_ft = vim.api.nvim_get_option_value("filetype", { buf = args.buf })
