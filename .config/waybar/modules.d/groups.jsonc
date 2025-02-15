@@ -3,9 +3,20 @@
     "~/.config/waybar/modules.d/custom.jsonc",
     "~/.config/waybar/modules.d/base.jsonc",
   ],
+  "group/wireless": {
+    "orientation": "inherit",
+    "modules": ["custom/wifi", "bluetooth"],
+  },
   "group/indicators": {
     "orientation": "inherit",
-    "modules": ["custom/vpn", "idle_inhibitor", "privacy"],
+    "modules": [
+      "custom/vpn",
+      "idle_inhibitor",
+      "custom/governor",
+      "group/wireless",
+      "privacy",
+      "group/tray",
+    ],
   },
   "group/cpu": {
     "orientation": "inherit",
@@ -15,10 +26,19 @@
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 250,
-      "children-class": "not-power",
       "transition-left-to-right": false,
       "click-to-reveal": true,
     },
     "modules": ["temperature", "memory", "cpu", "cpu#usage"],
+  },
+  "custom/empty": { "format": "   ", "tooltip": false },
+  "group/tray": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 250,
+      "transition-left-to-right": true,
+      "click-to-reveal": false,
+    },
+    "modules": ["custom/tray-icon", "tray"],
   },
 }

@@ -11,7 +11,7 @@
     ],
     "modules-right": [
       "custom/ping",
-      "network",
+      "network#bandwidth",
     ],
   },
   {

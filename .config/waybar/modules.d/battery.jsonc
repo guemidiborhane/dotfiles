@@ -7,29 +7,11 @@
     "interval": 60,
     "full-at": 89,
     "format": "{icon}  {capacity}%",
-    "tooltip-format": "{timeTo} ({cycles})",
+    "tooltip-format": "{timeTo}\nPower draw: {power}W\nCycles: {cycles}",
     "format-icons": ["", "", "", "", ""],
-  },
-  "battery#time": {
-    "format": "{time}",
-    "tooltip": false,
-  },
-  "battery#draw": {
-    "interval": 30,
-    "format": "{power}W",
-    "tooltip": false,
-  },
-  "group/battery-status": {
-    "orientation": "inherit",
-    "modules": ["custom/power-status", "battery"],
   },
   "group/battery": {
     "orientation": "inherit",
-    "modules": ["group/battery-status", "battery#time", "battery#draw"],
-    "drawer": {
-      "click-to-reveal": true,
-      "transition-duration": 50,
-      "children-class": "not-power",
-    },
+    "modules": ["custom/power-status", "battery"],
   },
 }
