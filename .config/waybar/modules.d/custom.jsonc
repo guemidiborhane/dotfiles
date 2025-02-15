@@ -1,4 +1,8 @@
 {
+  "custom/tray-icon": {
+    "format": "",
+    "tooltip": false,
+  },
   "custom/power-status": {
     "interval": 1,
     "exec": "~/.config/waybar/scripts/power-status.sh",
@@ -56,5 +60,15 @@
     "tooltip": false,
     "on-click": "activate",
     "on-click-middle": "close",
+  },
+  "custom/wifi": {
+    "exec": "~/.config/waybar/scripts/wifi-status.sh",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "on-click": "~/.config/waybar/scripts/wifi-menu.sh",
+    "interval": 1,
+    "min-length": 1,
+    "max-length": 12,
   },
 }

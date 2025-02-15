@@ -1,7 +1,7 @@
 {
   "tray": {
     "icon-size": 16,
-    "spacing": 10,
+    "spacing": 5,
   },
   "privacy": {
     "icon-spacing": 10,
@@ -10,6 +10,7 @@
   },
   "idle_inhibitor": {
     "format": "{icon}",
+    "tooltip": false,
     "format-icons": {
       "activated": "",
       "deactivated": "",
@@ -40,10 +41,32 @@
     "tooltip": false,
   },
   "network": {
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "format-disconnected": " ", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-disconnected": "",
+    "max-length": 50,
+  },
+  "network#bandwidth": {
     "format": "  {bandwidthDownBytes}  {bandwidthUpBytes} ",
     "format-disconnected": "󰈂",
     "tooltip-format": "Connected to {ifname}\nIP: {ipaddr}\nDown: {bandwidthDownBits}\nUp: {bandwidthUpBits}",
     "interval": 3,
     "on-click": "nm-connection-editor",
+  },
+  "bluetooth": {
+    "format-connected": "󰂱",
+    "format-disabled": "󰂲",
+    "format": "",
+
+    "tooltip-format": "{num_connections} connected",
+    "tooltip-format-disabled": "",
+    "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
+
+    "on-click": "blueman-manager",
   },
 }
