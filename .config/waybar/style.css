@@ -169,20 +169,6 @@ tooltip label {
   color: @red;
 }
 
-/* Network */
-#network {
-  color: @pink; /* Pink color for the icons */
-}
-
-/* Make the speed values a different color */
-#network {
-  color: @comment; /* The grayish-blue color for the text */
-}
-
-#network.disconnected {
-  color: @red;
-}
-
 #battery {
   background: transparent;
 }
@@ -192,4 +178,8 @@ tooltip label {
 }
 #battery.critical {
   color: @red;
+}
+
+#bluetooth.connected {
+  color: @cpu;
 }
