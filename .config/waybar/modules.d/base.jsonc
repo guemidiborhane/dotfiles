@@ -40,14 +40,20 @@
     "format": " {usage}%",
     "tooltip": false,
   },
-  "network": {
-    "format": "{ifname}",
-    "format-wifi": "{essid} ({signalStrength}%) ",
-    "format-ethernet": "{ipaddr}/{cidr} ",
-    "format-disconnected": " ", //An empty format will hide the module.
-    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-    "tooltip-format-disconnected": "",
-    "max-length": 50,
+  "network#wifi": {
+    "interface": "wlp*",
+    "format": "{icon}",
+    "format-disconnected": "󰤭",
+    "tooltip-format-wifi": "{essid} ({signalStrength}% on {frequency}GHz)\nIP:\t{ipaddr}/{cidr}\nRates:\t{bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+    "on-click": "networkmanager_dmenu",
+  },
+  "network#ethernet": {
+    "interface": "enp*",
+    "format": "󰈀",
+    "format-disconnected": "",
+    "tooltip-format-ethernet": "{ifname}\nIP:\t{ipaddr}/{cidr}\nRates:\t{bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "on-click": "networkmanager_dmenu",
   },
   "network#bandwidth": {
     "format": "  {bandwidthDownBytes}  {bandwidthUpBytes} ",
@@ -57,7 +63,6 @@
     "on-click": "nm-connection-editor",
   },
   "bluetooth": {
-    "format-connected": "󰂱",
     "format-disabled": "󰂲",
     "format": "",
 

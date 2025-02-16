@@ -10,6 +10,7 @@ let abbreviations = {
     yu: 'yadm pull'
     yp: 'yadm push'
     yl: 'yadm enter lazygit'
+    yn: 'yadm enter nvim'
     ys: 'yadm st'
 
     # System Control
