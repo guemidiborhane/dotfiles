@@ -24,7 +24,7 @@
   "script-fail-notify": true,
   "widgets": ["title", "dnd", "notifications", "mpris"],
   "notification-visibility": {
-    "volume": {
+    "control": {
       "state": "transient",
       "summary": "(?i)(volume|brightness)"
     }

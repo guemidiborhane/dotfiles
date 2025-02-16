@@ -5,7 +5,7 @@
   ],
   "group/wireless": {
     "orientation": "inherit",
-    "modules": ["custom/wifi", "bluetooth"],
+    "modules": ["network#wifi", "bluetooth"],
   },
   "group/indicators": {
     "orientation": "inherit",
@@ -13,6 +13,7 @@
       "custom/vpn",
       "idle_inhibitor",
       "custom/governor",
+      "network#ethernet",
       "group/wireless",
       "privacy",
       "group/tray",
@@ -31,13 +32,12 @@
     },
     "modules": ["temperature", "memory", "cpu", "cpu#usage"],
   },
-  "custom/empty": { "format": "   ", "tooltip": false },
   "group/tray": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 250,
       "transition-left-to-right": true,
-      "click-to-reveal": false,
+      "click-to-reveal": true,
     },
     "modules": ["custom/tray-icon", "tray"],
   },

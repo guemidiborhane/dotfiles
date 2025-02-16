@@ -19,6 +19,7 @@ kernel-install-for-dracut
 kora-icon-theme
 localsend-bin
 megasync
+networkmanager-dmenu-git
 ngrok
 qogir-icon-theme
 rofi-calc-git
