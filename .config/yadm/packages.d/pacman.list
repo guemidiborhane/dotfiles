@@ -84,7 +84,6 @@ neovim
 nethogs
 net-tools
 networkmanager
-network-manager-applet
 networkmanager-openvpn
 noto-fonts
 noto-fonts-emoji
@@ -140,7 +139,6 @@ terminus-font
 thunar
 thunar-archive-plugin
 thunar-volman
-thunderbird
 tumbler
 tealdeer
 tmux
