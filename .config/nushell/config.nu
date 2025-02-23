@@ -93,6 +93,7 @@ $env.config = ($env.config? | default {} | merge {
 use ~/.cache/nushell/starship.nu
 source ~/.cache/nushell/carapace.nu
 source ~/.cache/nushell/zoxide.nu
+use ~/.cache/nushell/mise.nu
 
 source ~/.config/nushell/functions.nu
 source ~/.config/nushell/aliases.nu
