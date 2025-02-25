@@ -13,3 +13,4 @@
 @define-color underline @yellow;
 @define-color secondary #4F5476;
 @define-color cpu #0f7dc2;
+@define-color urgent @red;

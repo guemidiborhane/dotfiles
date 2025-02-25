@@ -51,7 +51,7 @@ get_governor_status() {
   max_formatted=$(format_freq "$max_freq")
 
   # Create tooltip with description and frequency range
-  tooltip="$desc\nFrequency range: ${min_formatted} - ${max_formatted}"
+  tooltip="$current_governor\n$desc\nFrequency range: ${min_formatted} - ${max_formatted}"
 
   # Output JSON
   echo "{\"text\": \"$icon\", \"class\": \"$current_governor\", \"tooltip\": \"$tooltip\"}"
