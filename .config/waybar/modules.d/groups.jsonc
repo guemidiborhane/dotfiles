@@ -10,12 +10,12 @@
   "group/indicators": {
     "orientation": "inherit",
     "modules": [
-      "custom/vpn",
-      "idle_inhibitor",
       "custom/governor",
+      "idle_inhibitor",
+      "privacy",
+      "custom/vpn",
       "network#ethernet",
       "group/wireless",
-      "privacy",
       "group/tray",
     ],
   },
