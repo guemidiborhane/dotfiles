@@ -4,7 +4,7 @@
     "spacing": 5,
   },
   "privacy": {
-    "icon-spacing": 10,
+    "icon-spacing": 5,
     "icon-size": 14,
     "transition-duration": 50,
   },
