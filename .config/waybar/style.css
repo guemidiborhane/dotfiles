@@ -93,12 +93,9 @@ tooltip label {
 
 #indicators .module,
 #wireless .module,
+#privacy,
 .drawer-child .module {
   padding: 0 5px;
-}
-
-#indicators #privacy {
-  padding: 0;
 }
 
 #custom-governor {

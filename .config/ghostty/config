@@ -28,3 +28,5 @@ gtk-wide-tabs = false
 keybind = alt+shift+enter=new_split:down
 keybind = ctrl+shift+enter=new_split:right
 keybind = ctrl+backspace=text:\x17
+
+# vim: set commentstring=#\ %s :
