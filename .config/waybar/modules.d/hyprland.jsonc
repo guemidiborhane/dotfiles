@@ -14,9 +14,9 @@
     "on-click": "activate",
     "format-icons": {
       "default": "󱂬",
-      "special": "",
       "1": "󰈹",
       "2": "",
+      "4": "",
       "7": "",
       "8": "",
       "11": "󰈹",
