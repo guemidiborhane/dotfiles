@@ -1,57 +1,25 @@
 [
   {
-    "include": [
-      "~/.config/waybar/default-bar.jsonc"
-    ],
-    "output": [
-      "DP-1"
-    ],
-    "modules-center": [
-      "clock#date"
-    ],
-    "modules-right": [
-      "custom/ping",
-      "network#bandwidth",
-    ],
-  },
-  {
-    "include": [
-      "~/.config/waybar/default-bar.jsonc"
-    ],
-    "output": [
-      "DP-2"
-    ],
+    "include": ["~/.config/waybar/default-bar.jsonc"],
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/submap",
       "hyprland/window",
     ],
-    "modules-center": [
-      "clock#datetime"
-    ],
-    "modules-right": [
-      "group/sys-info",
-      "custom/governor",
-      "group/indicators",
-      "custom/notification",
-      "tray",
-    ],
+    "modules-center": ["clock#datetime", "custom/notification"],
+    "modules-right": ["group/sys-info", "group/indicators"],
   },
   {
-    "include": [
-      "~/.config/waybar/default-bar.jsonc"
-    ],
-    "output": [
-      "DP-3"
-    ],
-    "modules-center": [
-      "clock#time"
-    ],
-    "modules-right": [
-      "memory",
-      "group/cpu",
-      "custom/uptime"
-    ],
+    "include": ["~/.config/waybar/default-bar.jsonc"],
+    "output": ["DP-1"],
+    "modules-center": ["clock#date"],
+    "modules-right": ["custom/ping", "network#bandwidth"],
+  },
+  {
+    "include": ["~/.config/waybar/default-bar.jsonc"],
+    "output": ["DP-3"],
+    "modules-center": ["clock#time"],
+    "modules-right": ["memory", "group/cpu", "custom/uptime"],
   },
 ]
 // vim: ft=jsonc
