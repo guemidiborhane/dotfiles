@@ -37,7 +37,7 @@
 )
 
 (deflayermap secondary
-  a C-1
+  a A-1
   s M-2
   d M-1
   f bspc
