@@ -1,5 +1,4 @@
 android-sdk
-asdf-vm
 betterbird-bin
 betterlockscreen
 brave-bin
@@ -10,7 +9,7 @@ find-the-command
 flameshot-git
 git-cola
 gitfiend
-gitflow-avh
+gitflow-cjs
 github-desktop-bin
 i3lock-color
 i3-resurrect
