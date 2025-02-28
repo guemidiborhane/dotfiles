@@ -8,6 +8,8 @@ import sys
 import signal
 
 container_name = "jellyfin"
+image = "jellyfin/jellyfin:10.9"
+port = 8096
 base_config_dir = os.path.join(os.environ["HOME"], ".srv", "jellyfin")
 
 # if 1 argument is passed, use it as the base config dir
@@ -46,17 +48,25 @@ if os.path.exists(volumes_list_path):
                 "container": container_path,
             }
 
-command = "docker run --rm --gpus all --name {} -m 8G ".format(container_name)
+command = "docker run --rm --name {} -m 8G ".format(container_name)
+flags = set()
+
 for volume in volumes.values():
     # check if volume exist on host, else exit 0
     if not os.path.exists(volume["host"]):
         print("Error: volume {} does not exist".format(volume["host"]))
         sys.exit(1)
-    command += "-v \"{}:{}\" ".format(volume["host"], volume["container"])
-command += "-p 8096:8096 jellyfin/jellyfin:10.10"
+    flags.add("-v \"{}:{}\"".format(volume["host"], volume["container"]))
 
-# run command
-subprocess.run(command, shell=True)
+flags_path = os.path.join(base_config_dir, "flags")
+if os.path.exists(flags_path):
+    with open(flags_path, "r") as f:
+        user_flags = f.read().strip()
+        flags.add(user_flags)
+
+# set port and image
+flags_string = " ".join(flags)
+command += "{} -p {}:8096 {}".format(flags_string, port, image)
 
 # catch SIGINT
 def signal_handler(sig, frame):
@@ -64,5 +74,10 @@ def signal_handler(sig, frame):
     subprocess.run("docker stop {}".format(container_name), shell=True)
     sys.exit(0)
 
-# catch keyboard interrupt
-signal.signal(signal.SIGINT, signal_handler)
+# run command
+print("Running command: {}".format(command))
+try:
+    subprocess.run(command, shell=True)
+    signal.signal(signal.SIGINT, signal_handler)
+except KeyboardInterrupt:
+    signal_handler(None, None)
