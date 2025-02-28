@@ -4,8 +4,17 @@ Description=Jellyfin Server
 [Service]
 Type=simple
 StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=180
+TimeoutStopSec=30
 ExecStop=docker rm -f %N
 ExecStart=python3 %h/.local/bin/jellyfin-server %h/.srv/jellyfin %N
+# Security enhancements
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateTmp=true
 
 [Install]
 WantedBy=default.target

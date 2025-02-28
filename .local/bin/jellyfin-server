@@ -6,78 +6,216 @@ import os
 import subprocess
 import sys
 import signal
+import logging
+import json
+from pathlib import Path
 
-container_name = "jellyfin"
-image = "jellyfin/jellyfin:10.9"
-port = 8096
-base_config_dir = os.path.join(os.environ["HOME"], ".srv", "jellyfin")
+# Setup logging
+logging.basicConfig(
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    level=logging.INFO,
+    handlers=[logging.StreamHandler()]
+)
+logger = logging.getLogger('jellyfin-server')
 
-# if 1 argument is passed, use it as the base config dir
-# if 2 arguments are passed, use the first as the base config dir and the second as the container name
-if len(sys.argv) == 2:
-    base_config_dir = sys.argv[1]
-elif len(sys.argv) == 3:
-    base_config_dir = sys.argv[1]
-    container_name = sys.argv[2]
-
-
-volumes = {
-    "config": {
-        "host": os.path.join(base_config_dir, "config"),
-        "container": "/config",
-    },
-    "cache": {
-        "host": os.path.join(base_config_dir, "cache"),
-        "container": "/cache",
-    },
+# Default configuration
+DEFAULT_CONFIG = {
+    "container_name": "jellyfin",
+    "image": "jellyfin/jellyfin:10.9",
+    "port": 8096,
+    "memory_limit": "8G",
+    "base_config_dir": os.path.join(os.environ["HOME"], ".srv", "jellyfin")
 }
 
-# parse base_config_dir/volumes.list
-# host_path:container_path (one per line)
-# lines starting with # are ignored
-volumes_list_path = os.path.join(base_config_dir, "volumes.list")
-if os.path.exists(volumes_list_path):
-    with open(volumes_list_path, "r") as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith("#"):
-                continue
-            host_path, container_path = line.split(":")
-            volumes[host_path] = {
-                "host": host_path,
-                "container": container_path,
-            }
-
-command = "docker run --rm --name {} -m 8G ".format(container_name)
-flags = set()
-
-for volume in volumes.values():
-    # check if volume exist on host, else exit 0
-    if not os.path.exists(volume["host"]):
-        print("Error: volume {} does not exist".format(volume["host"]))
+def load_config():
+    """Load configuration from command line and config files"""
+    config = DEFAULT_CONFIG.copy()
+    
+    # Process command line arguments
+    if len(sys.argv) >= 2:
+        config["base_config_dir"] = sys.argv[1]
+    if len(sys.argv) >= 3:
+        config["container_name"] = sys.argv[2]
+    
+    # Ensure base config directory exists
+    base_config_dir = Path(config["base_config_dir"])
+    if not base_config_dir.exists():
+        logger.error(f"Base configuration directory {base_config_dir} does not exist")
         sys.exit(1)
-    flags.add("-v \"{}:{}\"".format(volume["host"], volume["container"]))
+    
+    # Check for a config.json file
+    config_file = base_config_dir / "config.json"
+    if config_file.exists():
+        try:
+            with open(config_file, 'r') as f:
+                user_config = json.load(f)
+                config.update(user_config)
+                logger.info(f"Loaded configuration from {config_file}")
+        except json.JSONDecodeError:
+            logger.error(f"Invalid JSON in {config_file}")
+            sys.exit(1)
+        except Exception as e:
+            logger.error(f"Error reading config file: {e}")
+            sys.exit(1)
+    
+    return config
 
-flags_path = os.path.join(base_config_dir, "flags")
-if os.path.exists(flags_path):
-    with open(flags_path, "r") as f:
-        user_flags = f.read().strip()
-        flags.add(user_flags)
+def get_volumes(config):
+    """Load volume configurations"""
+    base_config_dir = Path(config["base_config_dir"])
+    volumes = {
+        "config": {
+            "host": str(base_config_dir / "config"),
+            "container": "/config",
+        },
+        "cache": {
+            "host": str(base_config_dir / "cache"),
+            "container": "/cache",
+        },
+    }
 
-# set port and image
-flags_string = " ".join(flags)
-command += "{} -p {}:8096 {}".format(flags_string, port, image)
+    # Parse additional volumes from volumes.list file
+    volumes_list_path = base_config_dir / "volumes.list"
+    if volumes_list_path.exists():
+        try:
+            with open(volumes_list_path, "r") as f:
+                for line_num, line in enumerate(f, 1):
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    try:
+                        host_path, container_path = line.split(":", 1)
+                        host_path = os.path.abspath(os.path.expanduser(host_path))
+                        volumes[host_path] = {
+                            "host": host_path,
+                            "container": container_path,
+                        }
+                    except ValueError:
+                        logger.warning(f"Invalid volume definition at line {line_num}: {line}")
+        except Exception as e:
+            logger.error(f"Error reading volumes list: {e}")
+            sys.exit(1)
 
-# catch SIGINT
-def signal_handler(sig, frame):
-    print("Stopping container...")
-    subprocess.run("docker stop {}".format(container_name), shell=True)
-    sys.exit(0)
+    # Validate volumes
+    for name, volume in list(volumes.items()):
+        host_path = Path(volume["host"])
+        if not host_path.exists():
+            logger.error(f"Volume host path does not exist: {host_path}")
+            sys.exit(1)
+        
+        # Convert host path to absolute path
+        volumes[name]["host"] = str(host_path.absolute())
+            
+    return volumes
 
-# run command
-print("Running command: {}".format(command))
-try:
-    subprocess.run(command, shell=True)
+def get_flags(config):
+    """Load additional Docker flags"""
+    flags = set()
+    
+    # Read custom flags from flags file
+    flags_path = Path(config["base_config_dir"]) / "flags"
+    if flags_path.exists():
+        try:
+            with open(flags_path, "r") as f:
+                user_flags = f.read().strip()
+                if user_flags:
+                    flags.add(user_flags)
+        except Exception as e:
+            logger.error(f"Error reading flags file: {e}")
+            sys.exit(1)
+    
+    # Add environment variables from env file
+    env_path = Path(config["base_config_dir"]) / "env"
+    if env_path.exists():
+        try:
+            with open(env_path, "r") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    flags.add(f"--env {line}")
+        except Exception as e:
+            logger.error(f"Error reading env file: {e}")
+            sys.exit(1)
+            
+    return flags
+
+def build_docker_command(config, volumes, flags):
+    """Build the Docker command with proper argument handling"""
+    cmd = ["docker", "run", "--rm", "--name", config["container_name"]]
+    
+    # Add memory limit
+    if "memory_limit" in config and config["memory_limit"]:
+        cmd.extend(["-m", config["memory_limit"]])
+    
+    # Add volumes
+    for volume in volumes.values():
+        cmd.extend(["-v", f"{volume['host']}:{volume['container']}"])
+    
+    # Add port mapping
+    cmd.extend(["-p", f"{config['port']}:8096"])
+    
+    # Add custom flags
+    for flag in flags:
+        # We'll need to split complex flags into separate arguments
+        cmd.extend(flag.split())
+    
+    # Add image
+    cmd.append(config["image"])
+    
+    return cmd
+
+def run_docker_container(cmd):
+    """Run the Docker container and handle signals properly"""
+    # Log the command to be executed
+    logger.info(f"Starting container with: {' '.join(cmd)}")
+    
+    # Setup signal handler before starting container
+    def signal_handler(sig, frame):
+        logger.info("Stopping container...")
+        try:
+            stop_cmd = ["docker", "stop", config["container_name"]]
+            subprocess.run(stop_cmd, check=True)
+            logger.info("Container stopped successfully")
+            sys.exit(0)
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to stop container: {e}")
+            sys.exit(1)
+    
+    # Register signal handlers
     signal.signal(signal.SIGINT, signal_handler)
-except KeyboardInterrupt:
-    signal_handler(None, None)
+    signal.signal(signal.SIGTERM, signal_handler)
+    
+    # Check if Docker is available
+    try:
+        subprocess.run(["docker", "--version"], check=True, stdout=subprocess.PIPE)
+    except (subprocess.SubprocessError, FileNotFoundError):
+        logger.error("Docker is not installed or not available")
+        sys.exit(1)
+    
+    # Run the container
+    try:
+        process = subprocess.run(cmd, check=True)
+        return process.returncode
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Docker container failed to start: {e}")
+        return e.returncode
+    except KeyboardInterrupt:
+        logger.info("Received interrupt, stopping container...")
+        signal_handler(signal.SIGINT, None)
+        return 0
+
+if __name__ == "__main__":
+    # Load configuration
+    config = load_config()
+    
+    # Get volumes and flags
+    volumes = get_volumes(config)
+    flags = get_flags(config)
+    
+    # Build and run Docker command
+    cmd = build_docker_command(config, volumes, flags)
+    exit_code = run_docker_container(cmd)
+    
+    # Exit with the appropriate code
+    sys.exit(exit_code)
