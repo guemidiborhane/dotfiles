@@ -6,3 +6,4 @@ git:
   autoFetch: false
   autoRefresh: true
   parseEmoji: true
+  overrideGpg: true
