@@ -6,6 +6,7 @@
   "custom/power-status": {
     "interval": 1,
     "exec": "~/.config/waybar/scripts/power-status.sh",
+    "tooltip": false,
   },
   "custom/governor": {
     "exec": "~/.config/waybar/scripts/cpu-governor.sh",
