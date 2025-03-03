@@ -75,8 +75,12 @@ tooltip label {
   color: @comment;
 }
 
-#temperature.critical {
+#temperature.warning {
   color: @yellow;
+}
+
+#temperature.critical {
+  color: @urgent;
 }
 
 #cpu {
