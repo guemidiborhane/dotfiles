@@ -29,4 +29,32 @@ keybind = alt+shift+enter=new_split:down
 keybind = ctrl+shift+enter=new_split:right
 keybind = ctrl+backspace=text:\x17
 
+# tmux prefix: ctrl+a (\x01)
+# prefix+T
+keybind = alt+p=text:\x01T
+# prefix+'
+keybind = ctrl+enter=text:\x01'
+# prefix+"
+keybind = alt+enter=text:\x01"
+# prefix+c
+keybind = ctrl+t=text:\x01c
+# prefix+z
+keybind = alt+f=text:\x01z
+# prefix+f
+keybind = alt+grave_accent=text:\x01f
+# prefix+p
+keybind = ctrl+page_up=text:\x01p
+# prefix+n
+keybind = ctrl+page_down=text:\x01n
+# prefix+{1,2,3}
+keybind = ctrl+1=text:\x011
+keybind = ctrl+2=text:\x012
+keybind = ctrl+3=text:\x013
+# prefix+l
+keybind = alt+tab=text:\x01l
+# prefix+{
+keybind = ctrl+shift+left=text:\x01{
+# prefix+}
+keybind = ctrl+shift+right=text:\x01}
+
 # vim: set commentstring=#\ %s :

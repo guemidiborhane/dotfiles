@@ -2,10 +2,10 @@
   "battery": {
     "states": {
       "warning": 30,
-      "critical": 15,
+      "critical": 20,
     },
     "interval": 60,
-    "full-at": 89,
+    "full-at": 84,
     "format": "{icon}  {capacity}%",
     "tooltip-format": "{timeTo}\nPower draw: {power}W\nCycles: {cycles}",
     "format-icons": ["", "", "", "", ""],
