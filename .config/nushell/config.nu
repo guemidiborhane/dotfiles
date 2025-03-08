@@ -1,9 +1,3 @@
-# Source external configurations
-source ~/.cache/nushell/carapace.nu
-source ~/.cache/nushell/zoxide.nu
-use ~/.cache/nushell/mise.nu
-use ~/.cache/nushell/starship.nu
-
 $env.config = ($env.config? | default {} | merge {
     ls: {
         use_ls_colors: true
@@ -59,6 +53,13 @@ if (not ($env | has-env DISPLAY) and
 if ($env | get -i LAST_EXIT_CODE | default 0) == 0 and ($env | get -i TMUX | default "") == "" and ($env | get -i SSH_TTY | default "") != "" {
     exec tmux -u new-session -As workshop
 }
+
+# Source external configurations
+source ~/.cache/nushell/carapace.nu
+source ~/.cache/nushell/zoxide.nu
+source ~/.cache/nushell/atuin.nu
+use ~/.cache/nushell/mise.nu
+use ~/.cache/nushell/starship.nu
 
 # Initial greeting
 fastfetch
