@@ -32,3 +32,18 @@ alias cat = bat --no-pager
 alias ollama = docker exec -it ollama ollama
 alias qbtui = qbittorrentui -c ~/.config/qbtui/config.ini
 alias wn = tn workshop
+
+alias k = kubectl
+# ping
+alias p1 = ping 1.1.1.1
+alias p8 = ping 8.8.8.8
+# YADM
+alias ye = yadm edit
+alias yu = yadm pull
+alias yp = yadm push
+alias yl = yadm enter lazygit
+alias yn = yadm enter nvim
+alias ys = yadm st
+# System Control
+alias sc = systemctl
+alias scu = systemctl --user
