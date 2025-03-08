@@ -1,7 +1,7 @@
 # vi: set ft=fish :
 
-abbr c "clear"
-abbr n "xdg-open"
+abbr c clear
+abbr n xdg-open
 abbr n. "xdg-open ."
 
 abbr sshkey "xclip -sel clip < ~/.ssh/id_ed25519.pub && notify-send -t 1000 -i ~/.icons/key_ok.png 'Public Key copied to clipboard'"
@@ -33,7 +33,7 @@ alias gs "git st"
 alias gd "git diff"
 alias s "git st"
 alias push "git push"
-alias p "push"
+alias p push
 alias gpf "git push -f"
 alias glog "git lg"
 alias amend "env HUSKY=0 git commit --amend"
@@ -73,15 +73,14 @@ abbr ye "yadm edit"
 abbr yu "yadm pull"
 abbr yp "yadm push"
 abbr yl "yadm enter lazygit"
+abbr yn "yadm enter nvim"
 abbr ys "yadm st"
 
 # Systemd
-abbr sc  "sudo systemctl"
+abbr sc "sudo systemctl"
 abbr scu "systemctl --user"
-
 
 alias clear "/usr/bin/clear && fish_greeting"
 alias qbtui "qbittorrentui -c ~/.config/qbtui/config.ini"
-
 
 alias wn "tn workshop"

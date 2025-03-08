@@ -72,14 +72,17 @@ tooltip label {
 }
 
 #temperature {
+  background: transparent;
   color: @comment;
 }
 
 #temperature.warning {
+  background: transparent;
   color: @yellow;
 }
 
 #temperature.critical {
+  background: transparent;
   color: @urgent;
 }
 
