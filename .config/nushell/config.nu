@@ -62,4 +62,3 @@ if ($env | get -i LAST_EXIT_CODE | default 0) == 0 and ($env | get -i TMUX | def
 
 # Initial greeting
 fastfetch
-
