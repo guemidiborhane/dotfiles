@@ -57,5 +57,7 @@ keybind = alt+tab=text:\x01l
 keybind = ctrl+shift+left=text:\x01{
 # prefix+}
 keybind = ctrl+shift+right=text:\x01}
+# prefix+e
+keybind = alt+e=text:\x01e
 
 # vim: set commentstring=#\ %s :
