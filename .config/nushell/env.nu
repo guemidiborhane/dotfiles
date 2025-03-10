@@ -8,12 +8,14 @@ $env.MANPAGER  = 'nvim +Man!'
 $env.PROMPT_INDICATOR_VI_INSERT = {|| "" }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| ": " }
 
+$env.TRANSIENT_PROMPT_COMMAND = {|| ^starship module character }
+$env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| $"(^starship module directory)(^starship module time)" }
+
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 $env.INITIAL_COMMIT_MSG = "The same thing we do every night, Pinky - try to take over the world!"
 $env.BATMAN_INITIAL_COMMIT_MSG = "Batman! (this commit has no parents)"
 
-# mkdir ~/.cache/nushell
-let cache_path = "~/.cache/nushell"
+const cache_path = "~/.cache/nushell"
 
 if not ($cache_path | path exists) {
   mkdir $cache_path
@@ -23,4 +25,4 @@ zoxide init --cmd cd nushell | save --force $"($cache_path)/zoxide.nu"
 starship init nu | save --force $"($cache_path)/starship.nu"
 carapace _carapace nushell | save --force $"($cache_path)/carapace.nu"
 mise activate nu | save --force $"($cache_path)/mise.nu"
-atuin init nu | save --force $"($cache_path)/atuin.nu"
+atuin init nu --disable-up-arrow | save --force $"($cache_path)/atuin.nu"

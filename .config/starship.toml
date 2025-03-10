@@ -57,6 +57,9 @@ symbol = " "
 [nodejs]
 symbol = " "
 
+[time]
+disabled = false
+
 [custom.docker]
 symbol = "󰡨"
 style = "bold bright_blue"
