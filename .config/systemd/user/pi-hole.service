@@ -14,8 +14,7 @@ ExecStart=docker run \
     -p 53:53/udp  \
     -p 127.0.0.1:8888:80 \
     -e TZ="Africa/Algiers" \
-    -e WEBPASSWORD="secret" \
-    -e PIHOLE_DNS_=1.1.1.1;1.0.0.1;208.67.222.222;208.67.220.220 \
+    -e FTLCONF_webserver_api_password="secret" \
     --hostname pi.hole \
     --dns 127.0.0.1 \
     --name %N \
