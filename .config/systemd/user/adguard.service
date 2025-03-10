@@ -1,0 +1,30 @@
+[Unit]
+Description=AdGuard Home DNS server
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart=docker run \
+    --rm \
+    -m 1G \
+    -v %h/.srv/adguard:/opt/adguardhome/work \
+    -v %h/.config/adguard:/opt/adguardhome/conf \
+    -p 127.0.1.1:53:53/tcp -p 127.0.1.1:53:53/udp \
+    -p 127.0.1.1:8000:8000/tcp \
+    -u %U:%G \
+    --name %N \
+    adguard/adguardhome:latest
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=180
+TimeoutStopSec=30
+ExecStop=docker rm -f %N
+# Security enhancements
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target
