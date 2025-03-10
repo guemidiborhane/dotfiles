@@ -1,7 +1,18 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """${custom.docker}$directory$git_branch$git_status$git_state$fill$all$kubernetes$line_break$character"""
+format = """
+${custom.docker}\
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$fill\
+$all\
+$kubernetes\
+$line_break\
+$character"""
+
 palette = "dracula"
 
 [directory]
@@ -21,7 +32,7 @@ symbol = " "
 [character]
 success_symbol = "[󰘍](bold green)"
 error_symbol = "[󰘍](bold red)"
-vicmd_symbol = "[󰘌](bold yellow)"
+vimcmd_symbol = "[󰘌](bold yellow)"
 vimcmd_replace_one_symbol = "[󰘌](bold purple)"
 vimcmd_replace_symbol = "[󰘌](bold purple)"
 vimcmd_visual_symbol = "[󰘌](bold yellow)"
@@ -63,7 +74,7 @@ disabled = false
 [custom.docker]
 symbol = "󰡨"
 style = "bold bright_blue"
-files = ["Dockerfile", "docker-compose.yml", "docker-compose.yaml"]
+detect_files = ["Dockerfile", "docker-compose.yml", "docker-compose.yaml"]
 format = '[$symbol($output )]($style) '
 
 [palettes.dracula]
