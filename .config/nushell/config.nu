@@ -34,8 +34,8 @@ $env.config = ($env.config? | default {} | merge {
 
 source ~/.config/nushell/functions.nu
 source ~/.config/nushell/aliases.nu
-source ~/.config/nushell/abbr.nu
 source ~/.config/nushell/completions.nu
+source $"($nu.default-config-dir)/abbreviations.nu"
 
 let tty_out = (tty | str trim)
 if (not ($env | has-env DISPLAY) and
