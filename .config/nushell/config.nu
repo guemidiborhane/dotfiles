@@ -17,7 +17,6 @@ $env.config = ($env.config? | default {} | merge {
         file_format: "sqlite"
         isolation: false
     }
-
     completions: {
         case_sensitive: false
         quick: true
@@ -32,10 +31,17 @@ $env.config = ($env.config? | default {} | merge {
     }
 })
 
-source ~/.config/nushell/functions.nu
-source ~/.config/nushell/aliases.nu
-source ~/.config/nushell/completions.nu
+# Source external configurations
+source $"($cache_path)/carapace.nu"
+source $"($cache_path)/zoxide.nu"
+source $"($cache_path)/atuin.nu"
+use    $"($cache_path)/mise.nu"
+use    $"($cache_path)/starship.nu"
+
+source $"($nu.default-config-dir)/functions.nu"
+source $"($nu.default-config-dir)/aliases.nu"
 source $"($nu.default-config-dir)/abbreviations.nu"
+source $"($nu.default-config-dir)/completions.nu"
 
 let tty_out = (tty | str trim)
 if (not ($env | has-env DISPLAY) and
@@ -53,13 +59,6 @@ if (not ($env | has-env DISPLAY) and
 if ($env | get -i LAST_EXIT_CODE | default 0) == 0 and ($env | get -i TMUX | default "") == "" and ($env | get -i SSH_TTY | default "") != "" {
     exec tmux -u new-session -As workshop
 }
-
-# Source external configurations
-source ~/.cache/nushell/carapace.nu
-source ~/.cache/nushell/zoxide.nu
-source ~/.cache/nushell/atuin.nu
-use ~/.cache/nushell/mise.nu
-use ~/.cache/nushell/starship.nu
 
 # Initial greeting
 fastfetch
