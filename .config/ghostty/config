@@ -51,6 +51,7 @@ keybind = ctrl+1=text:\x011
 keybind = ctrl+2=text:\x012
 keybind = ctrl+3=text:\x013
 # prefix+l
+keybind = ctrl+tab=text:\x01l
 keybind = alt+tab=text:\x01l
 # prefix+{
 keybind = ctrl+shift+left=text:\x01{
