@@ -115,6 +115,7 @@ filters:
 whitelist_filters: []
 user_rules:
   - '@@||fonts.gstatic.com^$important'
+  - '@@||ipinfo.io^$important'
 dhcp:
   enabled: false
   interface_name: ""
