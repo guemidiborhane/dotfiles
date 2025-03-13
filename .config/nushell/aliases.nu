@@ -33,17 +33,18 @@ alias ollama = docker exec -it ollama ollama
 alias qbtui = qbittorrentui -c ~/.config/qbtui/config.ini
 alias wn = tn workshop
 
-alias k = kubectl
+alias _k = kubectl
 # ping
-alias p1 = ping 1.1.1.1
-alias p8 = ping 8.8.8.8
-# YADM
-alias ye = yadm edit
-alias yu = yadm pull
-alias yp = yadm push
-alias yl = yadm enter lazygit
-alias yn = yadm enter nvim
-alias ys = yadm st
-# System Control
-alias sc = systemctl
-alias scu = systemctl --user
+alias _p1 = ping 1.1.1.1
+alias _p8 = ping 8.8.8.8
+
+# aliases that start with _ are treated like abbr in fish
+alias _ye = yadm edit
+alias _yu = yadm pull
+alias _yp = yadm push
+alias _yl = yadm enter lazygit
+alias _yn = yadm enter nvim
+alias _ys = yadm st
+alias _sc = systemctl
+alias _scu = systemctl --user
+

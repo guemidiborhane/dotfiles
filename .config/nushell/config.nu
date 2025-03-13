@@ -41,6 +41,7 @@ use    $"($cache_path)/starship.nu"
 source $"($nu.default-config-dir)/functions.nu"
 source $"($nu.default-config-dir)/aliases.nu"
 source $"($nu.default-config-dir)/abbreviations.nu"
+source $"($nu.cache-dir)/abbreviations.nu"
 source $"($nu.default-config-dir)/completions.nu"
 
 let tty_out = (tty | str trim)
