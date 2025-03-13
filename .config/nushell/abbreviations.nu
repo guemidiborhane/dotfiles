@@ -47,7 +47,7 @@ $env.config = (
         description_text: yellow
       }
       source: { |buffer, position|
-        let match = scope aliases | where name == $buffer | get expansion
+        let match = scope aliases | where name == $"_($buffer)" | get expansion
         if (($match | is-empty) or $match.0 =~ "zoxide") {
           { value: $buffer }
         } else {
@@ -57,3 +57,8 @@ $env.config = (
     }
   )
 )
+
+scope aliases | where name =~ '^_' | each { |alias|
+  $"alias ($alias.name | str replace -r '^_' '') = ($alias.expansion)"
+} | save -f $"($cache_path)/abbreviations.nu"
+
