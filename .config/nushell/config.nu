@@ -22,11 +22,6 @@ $env.config = ($env.config? | default {} | merge {
         quick: true
         partial: true
         algorithm: "prefix"
-        external: {
-            enable: true
-            max_results: 100
-            completer: null
-        }
         use_ls_colors: true
     }
 })
