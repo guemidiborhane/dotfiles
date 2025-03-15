@@ -1,3 +1,10 @@
+# Source external configurations
+source $"($nu.cache-dir)/carapace.nu"
+source $"($nu.cache-dir)/zoxide.nu"
+source $"($nu.cache-dir)/atuin.nu"
+use    $"($nu.cache-dir)/mise.nu"
+use    $"($nu.cache-dir)/starship.nu"
+
 $env.config = ($env.config? | default {} | merge {
     ls: {
         use_ls_colors: true
@@ -26,18 +33,10 @@ $env.config = ($env.config? | default {} | merge {
     }
 })
 
-# Source external configurations
-source $"($cache_path)/carapace.nu"
-source $"($cache_path)/zoxide.nu"
-source $"($cache_path)/atuin.nu"
-use    $"($cache_path)/mise.nu"
-use    $"($cache_path)/starship.nu"
-
 source $"($nu.default-config-dir)/functions.nu"
 source $"($nu.default-config-dir)/aliases.nu"
-source $"($nu.default-config-dir)/abbreviations.nu"
-source $"($nu.cache-dir)/abbreviations.nu"
 source $"($nu.default-config-dir)/completions.nu"
+source $"($nu.default-config-dir)/abbreviations.nu"
 
 let tty_out = (tty | str trim)
 if (not ($env | has-env DISPLAY) and
