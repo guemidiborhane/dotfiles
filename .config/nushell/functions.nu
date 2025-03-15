@@ -156,3 +156,11 @@ def v [] {
 def zid [] { 
     eza -D | xargs -I {} zoxide add {} 
 }
+
+def yadm_lazygit [] {
+  if ($env | get -i TMUX | is-empty) {
+    yadm enter lazygit
+  } else {
+    tmux popup -w 90% -h 90% -E yadm enter lazygit
+  }
+}

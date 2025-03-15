@@ -15,14 +15,12 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 $env.INITIAL_COMMIT_MSG = "The same thing we do every night, Pinky - try to take over the world!"
 $env.BATMAN_INITIAL_COMMIT_MSG = "Batman! (this commit has no parents)"
 
-const cache_path = "~/.cache/nushell"
-
-if not ($cache_path | path exists) {
-  mkdir $cache_path
+if not ($nu.cache-dir | path exists) {
+  mkdir $nu.cache-dir
 }
 
-zoxide init --cmd cd nushell | save --force $"($cache_path)/zoxide.nu"
-starship init nu | save --force $"($cache_path)/starship.nu"
-carapace _carapace nushell | save --force $"($cache_path)/carapace.nu"
-mise activate nu | save --force $"($cache_path)/mise.nu"
-atuin init nu --disable-up-arrow | save --force $"($cache_path)/atuin.nu"
+zoxide init --cmd cd nushell | save --force $"($nu.cache-dir)/zoxide.nu"
+starship init nu | save --force $"($nu.cache-dir)/starship.nu"
+carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
+mise activate nu | save --force $"($nu.cache-dir)/mise.nu"
+atuin init nu --disable-up-arrow | save --force $"($nu.cache-dir)/atuin.nu"
