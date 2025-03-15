@@ -1,5 +1,9 @@
 # source: https://hackmd.io/Y9S7BmRsSvWxG_1AqS_xFw#3-abbr
 
+scope aliases | where name =~ '^_' | each { |alias|
+  $"alias ($alias.name | str replace -r '^_' '') = ($alias.expansion)"
+} | save -f $"($nu.cache-dir)/abbreviations.nu"
+
 $env.config = (
   $env.config | upsert keybindings (
     $env.config.keybindings
@@ -58,7 +62,4 @@ $env.config = (
   )
 )
 
-scope aliases | where name =~ '^_' | each { |alias|
-  $"alias ($alias.name | str replace -r '^_' '') = ($alias.expansion)"
-} | save -f $"($cache_path)/abbreviations.nu"
-
+source $"($nu.cache-dir)/abbreviations.nu"
