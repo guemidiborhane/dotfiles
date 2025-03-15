@@ -1,3 +1,4 @@
+7zip
 amd-ucode
 android-tools
 ansible
@@ -151,6 +152,7 @@ ttf-nerd-fonts-symbols-mono
 ttf-noto-nerd
 udiskie
 unrar
+vagrant
 viewnior
 vim
 virtualbox
