@@ -120,6 +120,9 @@ whitelist_filters: []
 user_rules:
   - '@@||fonts.gstatic.com^$important'
   - '@@||ipinfo.io^$important'
+  - '@@||translate.google.com^$important'
+  - '@@||forum.sentry.io^$important'
+  - '@@||docs.sentry.io^$important'
 dhcp:
   enabled: false
   interface_name: ""
