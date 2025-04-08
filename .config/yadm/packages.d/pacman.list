@@ -1,7 +1,6 @@
 7zip
 amd-ucode
 android-tools
-ansible
 arandr
 arch-install-scripts
 atuin
@@ -76,6 +75,7 @@ linux-lts
 linux-lts-headers
 linux-firmware
 lm_sensors
+lutris
 lvm2
 lxappearance
 magic-wormhole
@@ -103,7 +103,6 @@ parallel
 pass
 pavucontrol
 picom
-pinta
 pipewire-alsa
 pipewire-audio
 pipewire-jack
@@ -163,6 +162,9 @@ waybar
 wget
 wl-clipboard
 wireless_tools
+wine
+wine-mono
+winetricks
 xarchiver
 xclip
 xcolor
