@@ -13,6 +13,7 @@
   lctl rctl 
   lalt ralt
   spc
+  mousebackward mouseforward
 )
 
 (defvar
@@ -36,6 +37,7 @@
   M-d ✗
   M-g ✗
   @spc
+  pp next
 )
 
 (deflayermap secondary
