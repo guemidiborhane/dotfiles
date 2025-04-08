@@ -11,7 +11,7 @@
   _unitId: 87044B39
   _wpid: '4082'
   change-host: null
-  divert-keys: {82: 0, 83: 1, 86: 1, 195: 1, 196: 0}
+  divert-keys: {82: 0, 83: 0, 86: 0, 195: 1, 196: 0}
   dpi: 800
   hires-scroll-mode: false
   hires-smooth-invert: false
