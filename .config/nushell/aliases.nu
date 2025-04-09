@@ -26,12 +26,14 @@ alias dce = docker-compose exec
 alias dclf = docker-compose logs -f
 alias dcps = docker-compose ps
 
-# System Tools
+# Utilities
 alias tv = tidy-viewer
 alias cat = bat --no-pager
 alias ollama = docker exec -it ollama ollama
 alias qbtui = qbittorrentui -c ~/.config/qbtui/config.ini
 alias wn = tn workshop
+alias fast = npx fast-cli --single-line
+alias speedtest = fast
 
 alias _k = kubectl
 # ping
