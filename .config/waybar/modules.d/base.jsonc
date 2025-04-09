@@ -58,6 +58,7 @@
     "on-click": "networkmanager_dmenu",
   },
   "network#bandwidth": {
+    "interface": "enp*",
     "format": "  {bandwidthDownBytes}  {bandwidthUpBytes} ",
     "format-disconnected": "󰈂",
     "tooltip-format": "Connected to {ifname}\nIP: {ipaddr}\nDown: {bandwidthDownBits}\nUp: {bandwidthUpBits}",

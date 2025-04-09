@@ -1,6 +1,7 @@
 [
   {
     "include": ["~/.config/waybar/default-bar.jsonc"],
+    "output": ["DP-2"],
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/submap",
@@ -19,7 +20,7 @@
     "include": ["~/.config/waybar/default-bar.jsonc"],
     "output": ["DP-3"],
     "modules-center": ["clock#time"],
-    "modules-right": ["memory", "group/cpu", "custom/uptime"],
+    "modules-right": ["custom/uptime"],
   },
 ]
 // vim: ft=jsonc
