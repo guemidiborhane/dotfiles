@@ -42,11 +42,10 @@ alias _p8 = ping 8.8.8.8
 
 # aliases that start with _ are treated like abbr in fish
 alias _ye = yadm edit
-alias _yu = yadm pull
+alias _yu = yadm pull --rebase
 alias _yp = yadm push
 alias _gg = yadm_lazygit
 alias _yn = yadm enter nvim
 alias _ys = yadm st
 alias _sc = systemctl
 alias _scu = systemctl --user
-
