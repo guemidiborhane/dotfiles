@@ -42,7 +42,7 @@ packages_to_remove=$(comm -13 <(echo "$desired_packages" | sort) <(echo "$instal
 # Install new packages
 if [ -n "$packages_to_install" ]; then
   echo "Installing new packages: $packages_to_install"
-  sudo pacman -S --needed $packages_to_install
+  sudo pacman -Sy --needed $packages_to_install
 else
   echo "No new packages to install."
 fi
