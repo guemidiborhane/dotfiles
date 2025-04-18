@@ -1,5 +1,11 @@
 (defcfg
   process-unmapped-keys yes
+  linux-dev-names-exclude (
+    "ELAN0676:00 04F3:3195 Touchpad"
+    "ELAN0676:00 04F3:3195 Mouse"
+    "TPPS/2 Elan TrackPoint"
+    "ThinkPad Extra Buttons"
+  )
 )
 
 (defsrc
@@ -18,7 +24,7 @@
 
 (defvar
   tap-time 150
-  hold-time 250
+  hold-time 200
 
   met lmet
   ctl lctl
