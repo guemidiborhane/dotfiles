@@ -123,6 +123,8 @@ user_rules:
   - '@@||translate.google.com^$important'
   - '@@||forum.sentry.io^$important'
   - '@@||docs.sentry.io^$important'
+  - '@@||torproject.org^$important'
+  - ""
 dhcp:
   enabled: false
   interface_name: ""
