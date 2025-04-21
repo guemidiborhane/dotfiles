@@ -1,6 +1,5 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.ai.codeium",
     "lazyvim.plugins.extras.coding.mini-surround",
     "lazyvim.plugins.extras.editor.mini-files",
     "lazyvim.plugins.extras.editor.telescope",
@@ -27,3 +26,4 @@
   },
   "version": 8
 }
+
