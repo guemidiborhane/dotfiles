@@ -11,6 +11,3 @@ o.swapfile = false
 
 -- sync buffers between neovim windows
 o.autoread = true
-
--- faster completion
-o.updatetime = 250
