@@ -23,14 +23,13 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-    - https://1.1.1.2/dns-query
-    - https://1.0.0.2/dns-query
-    - tls://1.1.1.2
-    - tls://1.0.0.2
+    - https://security.cloudflare-dns.com/dns-query
+    - tls://security.cloudflare-dns.com
     - https://dns.quad9.net/dns-query
     - tls://dns.quad9.net
-    - '[/netsys.arpa/]10.20.30.5'
     - '[/aina.arpa/]10.0.0.1'
+    - '[/netsys.arpa/]10.20.30.5'
+    - '[/bird.netsys/]100.127.97.248'
   upstream_dns_file: ""
   bootstrap_dns:
     - 9.9.9.10
@@ -66,7 +65,7 @@ dns:
   ipset: []
   ipset_file: ""
   bootstrap_prefer_ipv6: false
-  upstream_timeout: 10s
+  upstream_timeout: 3s
   private_networks: []
   use_private_ptr_resolvers: true
   local_ptr_upstreams: []
@@ -76,6 +75,8 @@ dns:
   use_http3_upstreams: false
   serve_plain_dns: true
   hostsfile_enabled: true
+  pending_requests:
+    enabled: true
 tls:
   enabled: false
   server_name: ""
@@ -124,6 +125,7 @@ user_rules:
   - '@@||forum.sentry.io^$important'
   - '@@||docs.sentry.io^$important'
   - '@@||torproject.org^$important'
+  - '@@||cloudflare-dns.com^$important'
   - ""
 dhcp:
   enabled: false
