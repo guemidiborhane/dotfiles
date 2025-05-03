@@ -34,7 +34,6 @@ ffmpegthumbnailer
 filezilla
 firefox
 firefox-developer-edition
-firewalld
 fish
 fwupd
 fzf
@@ -90,6 +89,7 @@ nethogs
 net-tools
 networkmanager
 networkmanager-openvpn
+network-manager-applet
 nm-connection-editor
 noto-fonts
 noto-fonts-emoji
@@ -152,8 +152,8 @@ ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
 ttf-noto-nerd
 udiskie
+ufw
 unrar
-vagrant
 viewnior
 vim
 virtualbox

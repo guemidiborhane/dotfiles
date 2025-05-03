@@ -19,6 +19,8 @@ kernel-install-for-dracut
 kora-icon-theme
 localsend-bin
 megasync
+netbird-bin
+netbird-ui
 networkmanager-dmenu-git
 ngrok
 protonup-qt
@@ -35,6 +37,8 @@ tmux-plugin-manager
 tor-browser-bin
 ttf-ms-fonts
 ttf-wps-fonts
+tufw-git
+ufw-docker
 ventoy-bin
 vesktop-bin
 wlogout
