@@ -30,6 +30,7 @@ dns:
     - '[/aina.arpa/]10.0.0.1'
     - '[/netsys.arpa/]10.20.30.5'
     - '[/bird.netsys/]100.127.97.248'
+    - '[/bird.netsys/]100.127.211.117'
   upstream_dns_file: ""
   bootstrap_dns:
     - 9.9.9.10
@@ -75,8 +76,6 @@ dns:
   use_http3_upstreams: false
   serve_plain_dns: true
   hostsfile_enabled: true
-  pending_requests:
-    enabled: true
 tls:
   enabled: false
   server_name: ""
