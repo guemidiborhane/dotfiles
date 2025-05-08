@@ -9,3 +9,5 @@ php = "latest"
 ruby = "latest"
 node = "22"
 usage = "latest"
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]
