@@ -1,0 +1,11 @@
+[Unit]
+Description=Multi-Purpose Launcher with a lot of features. Highly Customizable and fast. 
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart=walker --gapplication-service
+Restart=on-failure
+
+[Install]
+WantedBy=user-graphical-session.target
