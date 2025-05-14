@@ -1,0 +1,52 @@
+{
+  "temperature": {
+    "interval": 5,
+    "format": "{icon} {temperatureC}°C",
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+    "warning-threshold": 75,
+    "critical-threshold": 90,
+    "tooltip": false,
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "@ {max_frequency:>4}GHz",
+    "tooltip": false,
+  },
+  "cpu#usage": {
+    "interval": 1,
+    "format": "{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8} {usage:>2}%",
+    "tooltip": false,
+    "format-icons": [
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ]
+  },
+  "custom/governor": {
+    "exec": "~/.config/waybar/scripts/cpu-governor.sh",
+    "on-click": "~/.config/waybar/scripts/cpu-governor.sh set",
+    "format": "{}",
+    "return-type": "json",
+    "interval": 5,
+    "tooltip": true,
+  },
+  "group/cpu": {
+    "orientation": "inherit",
+    "modules": [
+      "cpu#usage",
+      "cpu",
+      "temperature"
+    ]
+  }
+}

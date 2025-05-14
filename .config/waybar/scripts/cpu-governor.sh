@@ -2,8 +2,8 @@
 
 # Map governors to icons and descriptions
 declare -A governor_icons=(
-  ["performance"]="󰓅"  # rocket
-  ["powersave"]="󰌪"    # leaf
+  ["performance"]=""  # rocket
+  ["powersave"]="󱤅"    # leaf
   ["schedutil"]="󰡴"    # processor
   ["ondemand"]="󰥔"     # gauge/speedometer
   ["conservative"]="󰾅" # balance

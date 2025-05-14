@@ -2,21 +2,15 @@
 
 @define-color button-accent @yellow;
 
+window#waybar {
+   background: @theme_base_color;
+   color: @theme_text_color;
+}
+
 * {
   border: none;
   border-radius: 0;
-  font-family: "Noto Sans", "JetBrainsMono NFP";
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-window#waybar {
-  background: @background;
-  color: @foreground;
-}
-
-.modules-right:last-child {
-  padding-right: 10px;
+  font-family: "MonaSpiceAr Nerd Font Propo";
 }
 
 tooltip {
@@ -24,13 +18,21 @@ tooltip {
   border-radius: 10px;
   border: 2px solid @secondary;
 }
-tooltip label {
-  font-family: monospace;
+
+.module {
+  padding: 0 5px;
+}
+
+.modules-right:last-child {
+  margin-right: 5px;
+}
+
+.modules-left:first-child {
+  margin-left: -5px;
 }
 
 #taskbar button,
 #workspaces button {
-  padding: 0 10px;
   color: @secondary;
   border-top: 3px solid @purple;
 
@@ -75,12 +77,10 @@ tooltip label {
   background: transparent;
   color: @comment;
 }
-
 #temperature.warning {
   background: transparent;
   color: @yellow;
 }
-
 #temperature.critical {
   background: transparent;
   color: @urgent;
@@ -93,60 +93,39 @@ tooltip label {
 #custom-vpn.down {
   color: @red;
 }
-
 #custom-vpn.up {
   color: @cyan;
-}
-
-#indicators .module,
-#wireless .module,
-#privacy,
-.drawer-child .module {
-  padding: 0 5px;
-}
-
-#custom-governor {
-  font-size: 1.1rem;
 }
 
 #custom-governor.performance {
   color: @orange;
 }
-
 #custom-governor.powersave {
   color: @green;
 }
-
 #custom-governor.conservative {
   color: @comment;
 }
-
 #custom-governor.ondemand {
   color: @purple;
 }
-
 #custom-governor.schedutil {
   color: @yellow;
 }
-
 #custom-governor.userspace {
   color: @selection;
 }
-
 #custom-governor.unknown {
   color: @foreground;
 }
 
 #privacy {
+  margin-left: 5px;
   color: @yellow;
 }
 
 #memory {
   color: @yellow;
-}
-
-#custom-power-status {
-  margin-right: 10px;
 }
 
 #custom-uptime {
@@ -156,19 +135,15 @@ tooltip label {
 #custom-ping {
   background-color: transparent;
 }
-
 #custom-ping.good {
   color: @green;
 }
-
 #custom-ping.warning {
   color: @yellow;
 }
-
 #custom-ping.critical {
   color: @orange;
 }
-
 #custom-ping.offline {
   color: @red;
 }
@@ -176,7 +151,6 @@ tooltip label {
 #battery {
   background: transparent;
 }
-
 #battery.warning {
   color: @yellow;
 }
