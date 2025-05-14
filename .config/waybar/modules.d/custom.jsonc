@@ -1,29 +1,4 @@
 {
-  "custom/tray-icon": {
-    "format": "",
-    "tooltip": false,
-  },
-  "custom/power-status": {
-    "interval": 1,
-    "exec": "~/.config/waybar/scripts/power-status.sh",
-    "tooltip": false,
-  },
-  "custom/governor": {
-    "exec": "~/.config/waybar/scripts/cpu-governor.sh",
-    "on-click": "~/.config/waybar/scripts/cpu-governor.sh set",
-    "format": "{}",
-    "return-type": "json",
-    "interval": 5,
-    "tooltip": true,
-  },
-  "custom/vpn": {
-    "return-type": "json",
-    "exec": "~/.config/waybar/scripts/vpn_monitor.py",
-    "on-click": "~/.local/bin/vpn connect",
-    "on-click-right": "~/.local/bin/vpn disconnect",
-    "on-click-middle": "~/.local/bin/vpn reconnect",
-    "tooltip": false,
-  },
   "custom/notification": {
     "tooltip": false,
     "format": "{icon}",
@@ -54,12 +29,5 @@
     "return-type": "json",
     "format": "{}",
     "interval": "5",
-  },
-  "wlr/taskbar": {
-    "format": "{icon}  {title:.25}",
-    "icon-size": 18,
-    "tooltip": false,
-    "on-click": "activate",
-    "on-click-middle": "close",
   },
 }
