@@ -3,8 +3,21 @@ configuration {
     sort: true;
     case-sensitivity: false;
     sorting-method: "fzf";
-    terminal: "wezterm";
+    terminal: "ghostty";
     modi: "drun,window,emoji,calc";
     drun-display-format: "{icon} {name}";
+    font: "Ubuntu Mono Nerd Font Propo 14";
+    display-drun: "";
+    display-run: "";
+    display-window: "";
+    display-emoji: "󰱨";
+    display-calc: "󰪚";
+    sidebar-mode: true;
+    show-icons: true;
+    fixed-num-lines: false;
+    terminal: "ghostty";
+    hover-select: true;
+    hide-scrollbar: false;
+    disable-history: true;
 }
 @theme "theme"

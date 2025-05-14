@@ -1,11 +1,16 @@
 {
   "network#wifi": {
-    "interface": "wlp*",
+    "interface": "wlan*",
     "format": "{icon}",
     "format-disconnected": "󰤭",
     "tooltip-format-wifi": "{essid} ({signalStrength}% on {frequency}GHz)\nIP:\t{ipaddr}/{cidr}\nRates:\t{bandwidthDownBytes}  {bandwidthUpBytes} ",
-    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
-    "on-click": "networkmanager_dmenu",
+    "format-icons": [
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "on-click": "iwmenu -l walker",
   },
   "network#ethernet": {
     "interface": "enp*",
@@ -32,17 +37,18 @@
   "bluetooth": {
     "format-disabled": "󰂲",
     "format": "",
-
     "tooltip-format": "{num_connections} connected",
     "tooltip-format-disabled": "",
     "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
     "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
-
-    "on-click": "blueman-manager",
+    "on-click": "bzmenu -l walker",
   },
   "group/wireless": {
     "orientation": "inherit",
-    "modules": ["network#wifi", "bluetooth"],
+    "modules": [
+      "network#wifi",
+      "bluetooth"
+    ],
   },
 }
