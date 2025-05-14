@@ -38,7 +38,8 @@ dns:
     - 2620:fe::10
     - 2620:fe::fe:10
   fallback_dns:
-    - https://dns10.quad9.net/dns-query
+    - 1.1.1.2
+    - 1.0.0.2
   upstream_mode: parallel
   fastest_timeout: 1s
   allowed_clients: []
@@ -76,6 +77,8 @@ dns:
   use_http3_upstreams: false
   serve_plain_dns: true
   hostsfile_enabled: true
+  pending_requests:
+    enabled: true
 tls:
   enabled: false
   server_name: ""
