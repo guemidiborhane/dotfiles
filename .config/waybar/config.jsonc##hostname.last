@@ -1,13 +1,48 @@
 [
   {
-    "include": ["~/.config/waybar/default-bar.jsonc"],
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": "eDP-1",
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/submap",
       "hyprland/window",
     ],
-    "modules-center": ["clock#datetime", "custom/notification"],
-    "modules-right": ["group/sys-info", "group/indicators", "group/battery"],
+    "modules-center": [
+      "clock#time",
+      "custom/notification",
+      "privacy"
+    ],
+    "modules-right": [
+      "group/sys-info",
+      "group/indicators",
+      "battery",
+      "group/tray"
+    ],
+  },
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": "!eDP-1",
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/submap",
+      "hyprland/window",
+    ],
+    "modules-center": [
+      "clock#time",
+      "custom/notification",
+      "privacy"
+    ],
+    "modules-right": [
+      "memory",
+      "group/cpu",
+      "group/indicators",
+      "battery",
+      "group/tray"
+    ],
   },
 ]
 // vim: ft=jsonc
