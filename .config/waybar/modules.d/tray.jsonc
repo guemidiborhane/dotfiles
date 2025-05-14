@@ -1,0 +1,19 @@
+{
+  "custom/tray-icon": {
+    "format": "󱍕",
+    "tooltip": false,
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 5,
+  },
+  "group/tray": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 250,
+      "transition-left-to-right": true,
+      "click-to-reveal": true,
+    },
+    "modules": ["custom/tray-icon", "tray"],
+  },
+}

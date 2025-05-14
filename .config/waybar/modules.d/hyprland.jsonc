@@ -1,12 +1,12 @@
 {
   "hyprland/window": {
-    "format": "{title:.50}",
+    "format": "{initialTitle}",
     "icon": true,
     "separate-outputs": true,
     "icon-size": 20,
   },
   "hyprland/workspaces": {
-    "format": "{name}  {icon}",
+    "format": "{name} {icon}",
     "disable-scroll": false,
     "all-outputs": false,
     "show-special": true,
@@ -27,5 +27,12 @@
     "format": "󰌓 {}",
     "always-on": false,
     "tooltip": false,
+  },
+  "wlr/taskbar": {
+    "format": "{icon}  {title:.25}",
+    "icon-size": 18,
+    "tooltip": false,
+    "on-click": "activate",
+    "on-click-middle": "close",
   },
 }

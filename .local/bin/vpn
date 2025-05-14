@@ -1,38 +1,37 @@
 #!/bin/bash
 
 function nc() {
-	nmcli connection "$@"
+  nmcli connection "$@"
 }
 
 function dmenu() {
-	command rofi -dmenu \
-		-theme "$HOME/.config/rofi/dmenu.rasi" \
-		-i -p "$1"
+  command rofi -dmenu \
+    -theme "$HOME/.config/rofi/dmenu.rasi" \
+    -i -p "$1"
 }
 
 function iface_with_ip() {
-	iface=$1
-	ip=$(nmcli -g ip4.address con show "$iface")
-	echo "$ip ($iface)"
+  iface=$1
+  ip=$(nmcli -g ip4.address con show "$iface")
+  echo "$iface: $ip"
 }
 
 if [ $# -eq 0 ]; then
-	icon=" " # lock
-	class="up"
-	connected=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $1}')
-	# | xargs -I {} bash -c '
-	if [ -n "$connected" ]; then
-		status=$(echo -e "$connected" | xargs -I % bash -c "$(declare -f iface_with_ip); iface_with_ip %" | tr '\n' ', ' | sed 's/,$//')
-	else
-		status=$(echo -e "$connected" | tr '\n' ', ' | sed 's/,$//')
-	fi
-	if [ -z "$status" ]; then
-		icon=""
-		status=""
-		class="down"
-	fi
-	echo "{\"text\": \"$icon$status\", \"class\": \"$class\"}"
-	exit 0
+  icon="" # lock
+  class="up"
+  connected=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $1}')
+  if [ -n "$connected" ]; then
+    status=$(echo -e "$connected" | xargs -I % bash -c "$(declare -f iface_with_ip); iface_with_ip %" | tr '\n' ',' | sed 's/,$//' | sed 's/,/\\n/g')
+  else
+    status=$(echo -e "$connected" | tr '\n' ', ' | sed 's/,$//')
+  fi
+  if [ -z "$status" ]; then
+    icon=""
+    status=""
+    class="down"
+  fi
+  echo "{\"text\": \"$icon\", \"tooltip\": \"$status\", \"class\": \"$class\"}"
+  exit 0
 fi
 
 CONNECTIONS=$(nc show | grep -iE 'vpn|wireguard' | awk '{print $1}')
@@ -40,51 +39,51 @@ ACTIVE_CONNECTIONS=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $
 INACTIVE_CONNECTIONS=$CONNECTIONS
 
 if [ -n "$ACTIVE_CONNECTIONS" ]; then
-	REGEX=$(echo "$ACTIVE_CONNECTIONS" | tr '\n' '|' | sed 's/|$/\n/')
-	INACTIVE_CONNECTIONS=$(echo "$CONNECTIONS" | grep -v -E "($REGEX)$")
+  REGEX=$(echo "$ACTIVE_CONNECTIONS" | tr '\n' '|' | sed 's/|$/\n/')
+  INACTIVE_CONNECTIONS=$(echo "$CONNECTIONS" | grep -v -E "($REGEX)$")
 fi
 
 function _connection() {
-	command=$1 # connect || disconnect || reconnect
-	optional_connections="all\ncancel\n"
+  command=$1 # connect || disconnect || reconnect
+  optional_connections="all\ncancel\n"
 
-	case $command in
-	connect | c)
-		connections="$INACTIVE_CONNECTIONS"
-		;;
-	disconnect | reconnect | d | r)
-		connections="$optional_connections$ACTIVE_CONNECTIONS"
-		;;
-	*)
-		echo $"Usage: $0 {connect|disconnect|reconnect}"
-		exit 1
-		;;
-	esac
+  case $command in
+  connect | c)
+    connections="$INACTIVE_CONNECTIONS"
+    ;;
+  disconnect | reconnect | d | r)
+    connections="$optional_connections$ACTIVE_CONNECTIONS"
+    ;;
+  *)
+    echo $"Usage: $0 {connect|disconnect|reconnect}"
+    exit 1
+    ;;
+  esac
 
-	if [[ -z "$connections" || "$connections" == "$optional_connections" ]]; then exit 1; fi
+  if [[ -z "$connections" || "$connections" == "$optional_connections" ]]; then exit 1; fi
 
-	connection=$(echo -e "$connections" | dmenu $command)
-	targets=$connection
-	case $connection in
-	all)
-		targets=$(echo -e "$connections" | grep -v -E '(cancel|all)')
-		;;
-	cancel)
-		exit 1
-		;;
-	esac
+  connection=$(echo -e "$connections" | dmenu $command)
+  targets=$connection
+  case $connection in
+  all)
+    targets=$(echo -e "$connections" | grep -v -E '(cancel|all)')
+    ;;
+  cancel)
+    exit 1
+    ;;
+  esac
 
-	case $command in
-	connect | c)
-		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc up %"
-		;;
-	disconnect | d)
-		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %"
-		;;
-	reconnect | r)
-		echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %; nc up %"
-		;;
-	esac
+  case $command in
+  connect | c)
+    echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc up %"
+    ;;
+  disconnect | d)
+    echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %"
+    ;;
+  reconnect | r)
+    echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %; nc up %"
+    ;;
+  esac
 }
 
 _connection $@
