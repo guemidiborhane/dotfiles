@@ -5,9 +5,7 @@ function nc() {
 }
 
 function dmenu() {
-  command rofi -dmenu \
-    -theme "$HOME/.config/rofi/dmenu.rasi" \
-    -i -p "$1"
+  command walker --dmenu --placeholder "$1"
 }
 
 function iface_with_ip() {

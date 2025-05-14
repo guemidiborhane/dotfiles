@@ -3,9 +3,7 @@
 files=$(find /run/media -maxdepth 4 -iname 'mount.sh')
 
 function dmenu() {
-    command rofi -dmenu \
-            -theme "$HOME/.config/rofi/dmenu.rasi" \
-            -i -p "$1"
+    command walker -k --dmenu --placeholder "$1"
 }
 
 if [ -z "$files" ]; then

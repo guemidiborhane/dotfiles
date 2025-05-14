@@ -19,6 +19,10 @@ declare -A governor_desc=(
   ["userspace"]="Manual frequency control"
 )
 
+function dmenu() {
+  command walker -k --dmenu --placeholder "$1"
+}
+
 # Function to format frequency
 format_freq() {
   freq_khz=$1
@@ -68,7 +72,7 @@ set_governor() {
   done)
 
   # Show rofi menu and extract selected governor (remove icon)
-  selected=$(echo "$menu_items" | rofi -dmenu -p "CPU Governor")
+  selected=$(echo "$menu_items" | dmenu "CPU Governor")
   governor=$(echo "$selected" | awk '{print $2}')
 
   if [ -n "$governor" ]; then

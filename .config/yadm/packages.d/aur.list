@@ -2,6 +2,7 @@ android-sdk
 betterbird-bin
 betterlockscreen
 brave-bin
+bzmenu
 carapace-bin
 docker-credential-pass
 dracula-gtk-theme
@@ -14,6 +15,7 @@ github-desktop-bin
 i3lock-color
 i3-resurrect
 insomnium-bin
+iwmenu
 kanata-bin
 kernel-install-for-dracut
 kora-icon-theme
@@ -41,7 +43,8 @@ tufw-git
 ufw-docker
 ventoy-bin
 vesktop-bin
+walker-bin
 wlogout
-yay-bin
 wps-office
+yay-bin
 zen-browser-bin
