@@ -1,80 +1,22 @@
 {
-  "tray": {
-    "icon-size": 16,
-    "spacing": 5,
-  },
   "privacy": {
-    "icon-spacing": 5,
+    "icon-spacing": 10,
     "icon-size": 14,
     "transition-duration": 50,
   },
   "idle_inhibitor": {
     "format": "{icon}",
-    "tooltip": false,
+    "start-activated": true,
     "format-icons": {
-      "activated": "",
-      "deactivated": "",
+      "activated": "󰅶",
+      "deactivated": "󰛊"
     },
+    "tooltip-format-activated": "Caffeine Mode Active",
+    "tooltip-format-deactivated": "Caffeine Mode Inactive"
   },
   "memory": {
     "interval": 30,
-    "format": "  {used} GiB",
+    "format": "  {used}GiB",
     "tooltip": false,
-  },
-  "temperature": {
-    "interval": 10,
-    "format": " {icon} {temperatureC}°C",
-    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
-    "input-filename": "temp1_input",
-    "warning-threshold": 75,
-    "critical-threshold": 90,
-    "tooltip": false,
-    "format-icons": ["", "", ""],
-  },
-  "cpu": {
-    "interval": 3,
-    "format": "{icon} {max_frequency}GHz",
-    "tooltip": false,
-    "format-icons": ["󰓅", "󰾅", "󰾆"],
-  },
-  "cpu#usage": {
-    "interval": 3,
-    "format": " {usage}%",
-    "tooltip": false,
-  },
-  "network#wifi": {
-    "interface": "wlp*",
-    "format": "{icon}",
-    "format-disconnected": "󰤭",
-    "tooltip-format-wifi": "{essid} ({signalStrength}% on {frequency}GHz)\nIP:\t{ipaddr}/{cidr}\nRates:\t{bandwidthDownBytes}  {bandwidthUpBytes} ",
-    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
-    "on-click": "networkmanager_dmenu",
-  },
-  "network#ethernet": {
-    "interface": "enp*",
-    "format": "󰈀",
-    "format-disconnected": "",
-    "tooltip-format-ethernet": "{ifname}\nIP:\t{ipaddr}/{cidr}\nRates:\t{bandwidthDownBytes}  {bandwidthUpBytes} ",
-    "on-click": "networkmanager_dmenu",
-  },
-  "network#bandwidth": {
-    "interface": "enp*",
-    "format": "  {bandwidthDownBytes}  {bandwidthUpBytes} ",
-    "format-disconnected": "󰈂",
-    "tooltip-format": "Connected to {ifname}\nIP: {ipaddr}\nDown: {bandwidthDownBits}\nUp: {bandwidthUpBits}",
-    "interval": 3,
-    "on-click": "nm-connection-editor",
-  },
-  "bluetooth": {
-    "format-disabled": "󰂲",
-    "format": "",
-
-    "tooltip-format": "{num_connections} connected",
-    "tooltip-format-disabled": "",
-    "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
-
-    "on-click": "blueman-manager",
   },
 }

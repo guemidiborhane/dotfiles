@@ -2,16 +2,26 @@
   "battery": {
     "states": {
       "warning": 30,
-      "critical": 20,
+      "critical": 20
     },
-    "interval": 60,
     "full-at": 84,
-    "format": "{icon}  {capacity}%",
-    "tooltip-format": "{timeTo}\nPower draw: {power}W\nCycles: {cycles}",
-    "format-icons": ["", "", "", "", ""],
-  },
-  "group/battery": {
-    "orientation": "inherit",
-    "modules": ["custom/power-status", "battery"],
+    "format": "{icon} {capacity:2}%",
+    "format-alt": "{icon} {time}",
+    "format-charging": "󱐋 {icon} {capacity:2}%",
+    "format-plugged": " {icon} {capacity:2}%",
+    "tooltip-format": "{timeTo} ({power}W)\nCycles: {cycles}\nHealth: {health}%",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ]
   },
 }

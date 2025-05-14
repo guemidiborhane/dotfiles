@@ -7,9 +7,8 @@
 
 monitor = eDP-1, preferred, 4096x480, 1.25
 # 4k tv
-monitor = desc:XXX SMART TV, 3840x2160@60.0, 1536x0, 1.5
+monitor = desc:LG Electronics webOS TV 0x01010101, 3840x2160@60.0, 1536x0, 1.5, bitdepth, 10
 # Projector
 monitor = desc:Seiko Epson Corporation EPSON PJ     0x01010101, 1920x1080@60, auto, 1, mirror, eDP-1
-# Default
 monitor = , preferred, auto, 1.5
 
