@@ -4,10 +4,11 @@ krew = "latest"
 kubectl = "1.24"
 kubectx = "latest"
 kubens = "latest"
-yarn = "4"
+yarn = "latest"
 php = "latest"
 ruby = "latest"
-node = "22"
+node = "latest"
 usage = "latest"
+
 [settings]
 idiomatic_version_file_enable_tools = ["ruby"]
