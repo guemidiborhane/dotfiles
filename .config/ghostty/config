@@ -1,4 +1,4 @@
-config-file = dracula.conf
+theme = dracula
 shell-integration-features = no-cursor
 
 # Font
