@@ -32,7 +32,7 @@
       "hyprland/window",
     ],
     "modules-center": [
-      "clock#time",
+      "clock#datetime",
       "custom/notification",
       "privacy"
     ],
