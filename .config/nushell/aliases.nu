@@ -34,6 +34,7 @@ alias qbtui = qbittorrentui -c ~/.config/qbtui/config.ini
 alias wn = tn workshop
 alias fast = npx fast-cli --single-line
 alias speedtest = fast
+alias sync = ~/.config/yadm/packages.d/sync-packages
 
 alias _k = kubectl
 # ping
