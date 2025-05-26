@@ -1,12 +1,10 @@
 /**
  * @name dracula
- * @description a dark mode discord theme based on the dracula color palette.
- * @author fawni
- * @version 1.3.2
- * @authorId 336678828233588736
- * @website https://github.com/fawni/dracula
- * @source https://github.com/fawni/dracula/blob/main/dracula.scss
+ * @description cute dracula theme for discord~
+ * @author rushii
+ * @version 1.0.0
+ * @website https://github.com/rushiiMachine/discord-dracula
+ * @source https://rushiiMachine.github.io/discord-dracula/main.css
  */
 
-@import url("https://fawni.github.io/dracula/BetterDiscord/source.css");
-@import url("https://mulverinex.github.io/legacy-settings-icons/dist-native.css");
+@import url("https://rushiiMachine.github.io/discord-dracula/main.css");
