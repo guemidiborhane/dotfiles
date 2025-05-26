@@ -1,0 +1,10 @@
+[Unit]
+Description=atuin shell history daemon
+
+[Service]
+ExecStart=atuin daemon
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=default.target
