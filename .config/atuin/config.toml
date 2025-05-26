@@ -1,3 +1,9 @@
 sync_address = "https://atuin.netsys.dz"
 update_check = false
 enter_accept = true
+
+[sync]
+records = true
+
+[daemon]
+enabled = true
