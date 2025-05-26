@@ -42,6 +42,7 @@ ghostty
 git
 git-delta
 git-lfs
+glances
 gnome-disk-utility
 gnome-keyring
 gparted
@@ -115,6 +116,7 @@ plocate
 polkit-gnome
 polybar
 pv
+python-docker
 python-gdal
 python-owslib
 python-pip
@@ -130,6 +132,7 @@ reflector
 ripgrep
 rofi-wayland
 rsync
+s-tui
 scrcpy
 seahorse
 signal-desktop
