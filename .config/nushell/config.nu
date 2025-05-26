@@ -50,9 +50,9 @@ if (not ($env | has-env DISPLAY) and
     }
 }
 
-# Auto-start tmux in SSH
+# Auto-start tmux
 if ($env | get -i LAST_EXIT_CODE | default 0) == 0 and ($env | get -i TMUX | default "") == "" {
-    exec sh -c 'tmux -u new-session -As workshop \; new-window'
+    exec sh -c 'tmux -u new-session -As workshop'
 }
 
 # Initial greeting
