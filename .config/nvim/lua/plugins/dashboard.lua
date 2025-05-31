@@ -5,7 +5,6 @@ return {
       "<leader>ba",
       function()
         Snacks.bufdelete.all()
-        Snacks.dashboard()
       end,
       desc = "Buffer delete all",
       mode = "n",

@@ -31,7 +31,7 @@ keybind = ctrl+backspace=text:\x17
 
 # tmux prefix: ctrl+a (\x01)
 # prefix+T
-keybind = alt+p=text:\x01T
+keybind = alt+t=text:\x01T
 # prefix+'
 keybind = ctrl+enter=text:\x01'
 # prefix+"
