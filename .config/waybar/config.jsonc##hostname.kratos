@@ -1,14 +1,14 @@
 [
   {
     "include": ["~/.config/waybar/default-bar.jsonc"],
-    "output": "DP-2",
+    "output": ["DP-2", "HDMI-A-1"],
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/submap",
       "hyprland/window",
     ],
     "modules-center": ["clock#datetime", "custom/notification", "privacy"],
-    "modules-right": ["memory", "group/cpu", "group/indicators"],
+    "modules-right": ["memory", "group/cpu", "group/indicators", "group/tray"],
   },
   {
     "include": ["~/.config/waybar/default-bar.jsonc"],
