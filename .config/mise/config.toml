@@ -7,7 +7,7 @@ kubens = "latest"
 yarn = "latest"
 php = "latest"
 ruby = "latest"
-node = "latest"
+node = "lts"
 usage = "latest"
 
 [settings]
