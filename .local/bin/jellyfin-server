@@ -21,7 +21,7 @@ logger = logging.getLogger('jellyfin-server')
 # Default configuration
 DEFAULT_CONFIG = {
     "container_name": "jellyfin",
-    "image": "jellyfin/jellyfin:10.9",
+    "image": "jellyfin/jellyfin",
     "port": 8096,
     "memory_limit": "8G",
     "base_config_dir": os.path.join(os.environ["HOME"], ".srv", "jellyfin")
