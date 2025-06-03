@@ -39,13 +39,10 @@ on_launch = ""
 on_query_change = ""
 
 [list]
-dynamic_sub = true
 keyboard_scroll_style = "vim"
 max_entries = 50
 show_initial_entries = true
-single_click = true
-visibility_threshold = 20
-placeholder = "No Results"
+placeholder = ""
 
 [search]
 argument_delimiter = "#"
