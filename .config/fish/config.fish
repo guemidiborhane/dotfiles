@@ -2,7 +2,6 @@
 
 function fish_greeting
     fastfetch
-    echo -e "\r"
 end
 
 function starship_transient_prompt_func
@@ -10,23 +9,23 @@ function starship_transient_prompt_func
 end
 
 function starship_transient_rprompt_func
+    starship module directory
     starship module time
 end
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx PAGER less -R
+set -gx MANPAGER nvim +Man!
 
 if status is-interactive
-    set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense' # optional
-    carapace _carapace | source
     zoxide init --cmd cd fish | source
-    fzf --fish | source
-    source /usr/share/doc/find-the-command/ftc.fish quiet noupdate
-
-    mise activate fish | source
     starship init fish | source
-    atuin init fish | source
+    set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
+    carapace _carapace | source
+    mise activate fish | source
+    atuin init fish --disable-up-arrow | source
+
     fish_vi_key_bindings
     enable_transience
 end
