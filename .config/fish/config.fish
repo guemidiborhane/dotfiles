@@ -18,6 +18,8 @@ set -gx VISUAL nvim
 set -gx PAGER less -R
 
 if status is-interactive
+    set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense' # optional
+    carapace _carapace | source
     zoxide init --cmd cd fish | source
     fzf --fish | source
     source /usr/share/doc/find-the-command/ftc.fish quiet noupdate

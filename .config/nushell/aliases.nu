@@ -36,17 +36,16 @@ alias fast = npx fast-cli --single-line
 alias speedtest = fast
 alias sync = ~/.config/yadm/packages.d/sync-packages
 
+# aliases that start with _ are treated like abbr in fish
 alias _k = kubectl
-# ping
 alias _p1 = ping 1.1.1.1
 alias _p8 = ping 8.8.8.8
-
-# aliases that start with _ are treated like abbr in fish
 alias _ye = yadm edit
 alias _yu = yadm pull --rebase
 alias _yp = yadm push
 alias _gg = yadm_lazygit
 alias _yn = yadm enter nvim
 alias _ys = yadm st
+alias _mk = make
 alias _sc = systemctl
 alias _scu = systemctl --user
