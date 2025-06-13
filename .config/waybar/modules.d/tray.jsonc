@@ -4,7 +4,7 @@
     "tooltip": false,
   },
   "tray": {
-    "icon-size": 16,
+    "icon-size": 15,
     "spacing": 5,
   },
   "group/tray": {
