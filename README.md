@@ -29,19 +29,19 @@ systemctl --user enable gcr-ssh-agent.socket
 echo -e '[Service]\nEnvironment=XDG_SESSION_TYPE=x11' | sudo tee -a /etc/systemd/system/getty@tty1.service.d/getty@tty1.service-drop-in.conf
 ```
 
-### Sign previous commits.
+### Sign previous commits
 
 ```bash
 git filter-branch --commit-filter 'git commit-tree -S "$@";' <COMMIT_HASH>..HEAD
 ```
 
-### Which process is listening on specific port.
+### Which process is listening on specific port
 
 ```bash
 sudo netstat -nlp | grep :80
 ```
 
-### Unlock luks.
+### Unlock luks
 
 ```bash
 echo -ne "SuperSecretPassphrase" > /lib/cryptsetup/passfifo
