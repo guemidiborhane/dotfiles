@@ -6,7 +6,8 @@
     m-key-leds, mr-key-led, multiplatform, gesture2-gestures, gesture2-divert, gesture2-params, sidetone, equalizer, adc_power_management]
   _battery: 4096
   _modelId: B02340820000
-  _sensitive: {divert-keys: false, hires-scroll-mode: false, hires-smooth-invert: false, hires-smooth-resolution: false, reprogrammable-keys: false, thumb-scroll-mode: false}
+  _sensitive: {change-host: false, divert-keys: false, hires-scroll-mode: false, hires-smooth-invert: false, hires-smooth-resolution: false, reprogrammable-keys: false,
+    thumb-scroll-mode: false}
   _serial: 87044B39
   _unitId: 87044B39
   _wpid: '4082'
@@ -29,11 +30,12 @@
     gesture2-params, sidetone, equalizer, adc_power_management]
   _battery: 4096
   _modelId: B35B408A0000
-  _sensitive: {hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore}
+  _sensitive: {backlight: false, change-host: false, divert-keys: false, hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore,
+    multiplatform: false}
   _serial: 54B00647
   _unitId: 54B00647
   _wpid: 408A
-  backlight: 0
+  backlight: 255
   change-host: null
   disable-keyboard-keys: {1: false, 2: false, 4: false, 8: false, 16: false}
   divert-keys: {10: 0, 110: 0, 111: 0, 191: 0, 199: 0, 200: 0, 209: 0, 210: 0, 211: 0, 224: 0, 225: 0, 226: 0, 227: 0, 228: 0, 229: 0, 230: 0, 231: 0, 232: 0,
