@@ -33,11 +33,11 @@ abbr p1 "ping 1.1.1.1"
 abbr p8 "ping 8.8.8.8"
 
 abbr k kubectl
-abbr mk make
 abbr sc "sudo systemctl"
 abbr scu "systemctl --user"
 abbr sync "~/.config/yadm/packages.d/sync-packages"
 
 source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
 source ~/.config/fish/conf.d/aliases.d/git.fish
+source ~/.config/fish/conf.d/aliases.d/make.fish
 source ~/.config/fish/conf.d/aliases.d/yadm.fish
