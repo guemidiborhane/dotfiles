@@ -28,6 +28,6 @@
     "exec": "~/.config/waybar/scripts/ping.sh",
     "return-type": "json",
     "format": "{}",
-    "interval": "5",
+    "interval": 5,
   },
 }
