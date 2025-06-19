@@ -36,6 +36,7 @@ abbr k kubectl
 abbr sc "sudo systemctl"
 abbr scu "systemctl --user"
 abbr sync "~/.config/yadm/packages.d/sync-packages"
+abbr --position anywhere vim nvim
 
 source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
 source ~/.config/fish/conf.d/aliases.d/git.fish
