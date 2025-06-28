@@ -37,6 +37,10 @@ abbr sc "sudo systemctl"
 abbr scu "systemctl --user"
 abbr sync "~/.config/yadm/packages.d/sync-packages"
 abbr --position anywhere vim nvim
+abbr y yay
+abbr s yay -Sy
+abbr ss yay -Ss
+abbr uu yay -Syyu
 
 source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
 source ~/.config/fish/conf.d/aliases.d/git.fish

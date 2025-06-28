@@ -12,7 +12,6 @@ alias gcd "git checkout develop"
 alias gcm "git checkout master"
 alias gs "git st"
 alias gd "git diff"
-alias s "git st"
 alias push "git push"
 alias p push
 alias gpf "git push -f"
