@@ -37,10 +37,13 @@ abbr sc "sudo systemctl"
 abbr scu "systemctl --user"
 abbr sync "~/.config/yadm/packages.d/sync-packages"
 abbr --position anywhere vim nvim
+abbr --position anywhere tp tmux_popup
 abbr y yay
 abbr s yay -Sy
 abbr ss yay -Ss
 abbr uu yay -Syyu
+
+alias tk "tmux popup -E -w 40% \"tmux kill-session -t (tmux list-session -F '#{session_name}' | gum filter --limit 1 --placeholder 'Pick a session to kill' --prompt=' ')\""
 
 source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
 source ~/.config/fish/conf.d/aliases.d/git.fish
