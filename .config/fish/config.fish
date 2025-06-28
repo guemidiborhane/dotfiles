@@ -13,10 +13,10 @@ function starship_transient_rprompt_func
     starship module time
 end
 
-set -gx EDITOR nvim
-set -gx VISUAL nvim
-set -gx PAGER less -R
-set -gx MANPAGER nvim +Man!
+set -Ux EDITOR nvim
+set -Ux VISUAL nvim
+set -Ux PAGER less -R
+set -Ux MANPAGER nvim +Man!
 
 if status is-interactive
     zoxide init --cmd cd fish | source
