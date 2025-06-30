@@ -130,6 +130,9 @@ user_rules:
   - '@@||cloudflare-dns.com^$important'
   - '@@||dashboard.ngrok.com^$important'
   - '@@||ngrok-free.app^$important'
+  - '@@||web.whatsapp.com^$important'
+  - '@@||cdn.whatsapp.com^$important'
+  - '@@||static.whatsapp.net^$important'
   - ""
 dhcp:
   enabled: false
