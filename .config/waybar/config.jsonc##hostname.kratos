@@ -1,26 +1,48 @@
 [
   {
-    "include": ["~/.config/waybar/default-bar.jsonc"],
-    "output": ["DP-2", "HDMI-A-1"],
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": [
+      "DP-2",
+      "HDMI-A-1"
+    ],
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/submap",
       "hyprland/window",
     ],
-    "modules-center": ["clock#datetime", "custom/notification", "privacy"],
-    "modules-right": ["memory", "group/cpu", "group/indicators", "group/tray"],
+    "modules-right": [
+      "memory",
+      "group/cpu",
+      "group/indicators",
+      "group/tray"
+    ],
   },
   {
-    "include": ["~/.config/waybar/default-bar.jsonc"],
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
     "output": "DP-1",
-    "modules-center": ["clock#date"],
-    "modules-right": ["custom/ping", "network#bandwidth"],
+    "modules-center": [
+      "clock"
+    ],
+    "modules-right": [
+      "custom/ping",
+      "network#bandwidth"
+    ],
   },
   {
-    "include": ["~/.config/waybar/default-bar.jsonc"],
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
     "output": "DP-3",
-    "modules-center": ["clock#time"],
-    "modules-right": ["custom/uptime"],
+    "modules-center": [
+      "clock"
+    ],
+    "modules-right": [
+      "custom/uptime"
+    ],
   },
 ]
 // vim: ft=jsonc

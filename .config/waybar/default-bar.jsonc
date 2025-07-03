@@ -16,7 +16,16 @@
     "~/.config/waybar/modules.d/network.jsonc",
     "~/.config/waybar/modules.d/tray.jsonc",
   ],
-  "modules-left": ["hyprland/workspaces", "hyprland/window"],
-  "modules-center": ["clock#datetime"],
-  "modules-right": ["group/tray"]
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock",
+    "custom/notification",
+    "privacy"
+  ],
+  "modules-right": [
+    "group/tray"
+  ]
 }
