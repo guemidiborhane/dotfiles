@@ -8,7 +8,7 @@ function tmux_popup -d "Run command in tmux popup or directly if not in tmux"
     if test -z "$TMUX"
         $argv
     else
-        tmux popup -d '#{pane_current_path}' -w 90% -h 90% -E $argv
+        tmux popup -d '#{pane_current_path}' -E $argv
     end
 end
 
