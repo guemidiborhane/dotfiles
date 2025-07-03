@@ -9,11 +9,6 @@
       "hyprland/submap",
       "hyprland/window",
     ],
-    "modules-center": [
-      "clock#time",
-      "custom/notification",
-      "privacy"
-    ],
     "modules-right": [
       "group/sys-info",
       "group/indicators",
@@ -30,11 +25,6 @@
       "hyprland/workspaces",
       "hyprland/submap",
       "hyprland/window",
-    ],
-    "modules-center": [
-      "clock#datetime",
-      "custom/notification",
-      "privacy"
     ],
     "modules-right": [
       "memory",
