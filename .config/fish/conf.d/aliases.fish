@@ -43,7 +43,7 @@ abbr s yay -Sy
 abbr ss yay -Ss
 abbr uu yay -Syyu
 
-alias tk "tmux popup -E -w 40% \"tmux kill-session -t (tmux list-session -F '#{session_name}' | gum filter --limit 1 --placeholder 'Pick a session to kill' --prompt=' ')\""
+alias tk 'tmux_popup tmux_kill'
 
 source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
 source ~/.config/fish/conf.d/aliases.d/git.fish
