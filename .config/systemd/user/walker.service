@@ -6,7 +6,6 @@ Type=simple
 StandardOutput=journal
 ExecStart=walker --gapplication-service
 Restart=on-failure
-KillMode=process
 
 [Install]
 WantedBy=user-graphical-session.target
