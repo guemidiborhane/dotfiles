@@ -29,6 +29,7 @@
     "modules-right": [
       "memory",
       "group/cpu",
+      "custom/ping",
       "group/indicators",
       "battery",
       "group/tray"
