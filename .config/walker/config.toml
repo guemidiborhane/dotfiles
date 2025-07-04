@@ -1,4 +1,4 @@
-app_launch_prefix = ""
+app_launch_prefix = "systemd-run --user "
 terminal_title_flag = ""
 locale = ""
 close_when_open = false
