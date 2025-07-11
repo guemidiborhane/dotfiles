@@ -1,0 +1,7 @@
+# vim: ft=hyprlang
+workspace = 1,  monitor:$TV
+workspace = 2,  monitor:$TV
+workspace = 4,  monitor:$TV
+workspace = 7,  monitor:$TV
+workspace = 8,  monitor:$internalMonitor
+workspace = special:$scratch, monitor:$TV
