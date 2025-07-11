@@ -1,14 +1,16 @@
 [Unit]
-Description=Polybar
-PartOf=x-session.target
-After=x-session.target
-Requisite=x-session.target
+Description=A fast and easy-to-use status bar for X11
+Documentation=https://github.com/polybar/polybar/wiki/
+BindsTo=x-session.target
+AssertEnvironment=DISPLAY
 
 [Service]
-Type=oneshot
+Slice=desktop-bar.slice
+Type=simple
+StandardOutput=journal
 ExecStart=%h/.config/polybar/launch.sh
-ExecStop=killall -q polybar
-RemainAfterExit=yes
+ExecReload=kill -SIGUSR1 $MAINPID
+Restart=on-failure
 
 [Install]
-WantedBy=x-session.target
+WantedBy=desktop-bar.target

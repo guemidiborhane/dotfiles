@@ -3,6 +3,7 @@ Description=Clipboard Manager with Advanced Features
 Requires=gnome-keyring-daemon.socket
 
 [Service]
+Slice=background-daemons.slice
 Type=simple
 StandardOutput=journal
 Environment=COPYQ_LOG_LEVEL=WARNING

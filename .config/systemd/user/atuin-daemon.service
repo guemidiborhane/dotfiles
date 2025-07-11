@@ -2,6 +2,7 @@
 Description=atuin shell history daemon
 
 [Service]
+Slice=background-daemons.slice
 ExecStart=atuin daemon
 Type=simple
 Restart=always
