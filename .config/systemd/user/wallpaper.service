@@ -5,6 +5,7 @@ After=hypr-session.target
 Requisite=hypr-session.target
 
 [Service]
+Slice=desktop.slice
 Type=simple
 StandardOutput=journal
 ExecStart=%h/.config/hypr/helpers/wallpaper.sh

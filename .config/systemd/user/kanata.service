@@ -3,6 +3,7 @@ Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
 
 [Service]
+Slice=background-daemons.slice
 Type=simple
 ExecStart=/usr/bin/sh -c 'exec $$(which kanata) --nodelay --cfg $${HOME}/.config/kanata/kanata.kbd'
 Restart=on-failure

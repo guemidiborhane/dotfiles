@@ -2,6 +2,7 @@
 Description=AdGuard Home DNS server
 
 [Service]
+Slice=background-containers.slice
 Type=simple
 StandardOutput=journal
 ExecStart=docker run \

@@ -5,6 +5,7 @@ After=x-session.target
 Requisite=x-session.target
 
 [Service]
+Slice=desktop.slice
 Type=simple
 StandardOutput=journal
 ExecStart=/usr/bin/autotiling -d
