@@ -14,6 +14,7 @@ Commands:
 "
 
 _envs=(
+	PATH
 	# display
 	WAYLAND_DISPLAY
 	DISPLAY
@@ -30,8 +31,6 @@ _envs=(
 	# hyprland
 	HYPRLAND_CMD
 	HYPRLAND_INSTANCE_SIGNATURE
-	# sway
-	SWAYSOCK
 	# misc
 	XCURSOR_SIZE
 	# toolkit

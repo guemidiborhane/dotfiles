@@ -2,6 +2,7 @@
 Description=Multi-Purpose Launcher with a lot of features. Highly Customizable and fast. 
 
 [Service]
+Slice=desktop.slice
 Type=simple
 StandardOutput=journal
 ExecStart=walker --gapplication-service

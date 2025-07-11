@@ -1,0 +1,162 @@
+#!/bin/bash
+# source: https://www.mageta.org/blog/2021/2021.06.04-plasma521-i3.html#starting-child-porcesses-in-app-slice-with-i3
+
+set -euo pipefail
+
+# Default values
+declare -g foreground=false
+declare -g cpwd=false
+declare -g custom_name=""
+declare -g custom_description=""
+declare -g verbose=false
+declare -g prefix="drun"
+declare -g slice="desktop-apps.slice"
+
+show_help() {
+  cat <<EOF
+Usage: $(basename "${0}") [OPTIONS] [--] <command> [args...]
+
+Start a program as systemd transient .scope unit for better resource management.
+
+OPTIONS:
+    -f, --foreground         Run command in foreground (default: background)
+    -p, --pwd                Use current directory as working directory
+    -n, --name <name>        Use custom unit name prefix
+    -r, --prefix <prefix>    Use custom prefix (default: drun)
+    -s, --slice <slice>      Use custom systemd slice (default: app.slice)
+    -d, --description <desc> Use custom unit description
+    -v, --verbose            Enable verbose output
+    -h, --help               Show this help message
+
+EXAMPLES:
+    $(basename "${0}") firefox
+    $(basename "${0}") --pwd --foreground firefox
+    $(basename "${0}") --description "Web browser" firefox
+    $(basename "${0}") --slice "user.slice" firefox
+
+EOF
+}
+
+if [ "${#}" -lt 1 ]; then
+  show_help
+  exit 1
+fi
+
+declare opts
+opts="$(getopt --shell bash \
+  -o "fpn:d:r:s:hv" \
+  -l "foreground,pwd,name:,description:,prefix:,slice:,help,verbose" \
+  -n "$(basename "${0}")" -- "${@}")" || exit 1
+
+eval set -- "${opts}"
+unset opts
+
+while true; do
+  case "${1}" in
+  '-f' | '--foreground') foreground=true ;;
+  '-p' | '--pwd') cpwd=true ;;
+  '-n' | '--name')
+    custom_name="${2}"
+    shift
+    ;;
+  '-d' | '--description')
+    custom_description="${2}"
+    shift
+    ;;
+  '-r' | '--prefix')
+    prefix="${2}"
+    shift
+    ;;
+  '-s' | '--slice')
+    slice="${2}"
+    shift
+    ;;
+  '-v' | '--verbose') verbose=true ;;
+  '-h' | '--help')
+    show_help
+    exit 0
+    ;;
+  '--')
+    shift
+    break
+    ;;
+  esac
+  shift
+done
+
+if [ "${#}" -eq 0 ]; then
+  echo "Error: No command specified" >&2
+  show_help
+  exit 1
+fi
+
+declare -ga selection=("${@}")
+readonly selection
+
+# Generate base name
+declare -g name
+if [ -n "${custom_name}" ]; then
+  name="${custom_name}"
+else
+  read -r -d '' -n 192 name < <(
+    echo -n "${selection[0]}" | tr -c 'a-zA-Z0-9_-' '[_*]' || exit 1
+    echo -e '\0' || exit 2
+  ) || exit 126
+fi
+readonly name
+
+# Validate name
+max_name_len=$((217 - ${#prefix} - 37)) # UUID adds 36 characters + dash
+if [ "${#name}" -eq 0 ] || [ "${#name}" -gt "${max_name_len}" ]; then
+  echo "Error: Invalid unit name length" >&2
+  exit 125
+fi
+
+# Generate UUID suffix
+declare -g uuid
+uuid="$(uuidgen)" || exit 124
+readonly uuid
+
+# Build systemd-run arguments
+declare -ga runargs=(
+  --user
+  --scope
+  --collect
+  --slice="${slice}"
+  --unit="${prefix}-${name}-${uuid}"
+)
+
+if ! ${verbose}; then
+  runargs+=(--quiet)
+fi
+
+if [ -n "${custom_description}" ]; then
+  runargs+=(--description="${custom_description}")
+else
+  runargs+=(--description="Command: ${selection[*]@Q}")
+fi
+
+if ${cpwd}; then
+  runargs+=(--working-directory="${PWD:-/}")
+else
+  runargs+=(--working-directory="${HOME:-/}")
+fi
+
+readonly runargs
+
+if ${verbose}; then
+  echo "Unit name: ${prefix}-${name}-${uuid}" >&2
+  echo "Command: ${selection[*]@Q}" >&2
+  echo "Working directory: ${cpwd:+${PWD:-/}}${cpwd:-${HOME:-/}}" >&2
+  echo "Slice: ${slice}" >&2
+  echo "Mode: ${foreground:+foreground}${foreground:-background}" >&2
+fi
+
+if ${foreground}; then
+  exec systemd-run "${runargs[@]}" -- "${selection[@]}"
+else
+  systemd-run "${runargs[@]}" -- "${selection[@]}" &
+  if ${verbose}; then
+    echo "Started in background (PID: $!)" >&2
+  fi
+fi
