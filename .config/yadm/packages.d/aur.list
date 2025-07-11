@@ -6,12 +6,8 @@ bzmenu
 carapace-bin
 docker-credential-pass
 dracula-gtk-theme
-find-the-command
 flameshot-git
-git-cola
-gitfiend
 gitflow-cjs
-github-desktop-bin
 i3lock-color
 i3-resurrect
 insomnium-bin
@@ -24,9 +20,7 @@ localsend-bin
 megasync
 netbird-bin
 netbird-ui
-networkmanager-dmenu-git
 ngrok
-protonup-qt
 qogir-icon-theme
 rofi-calc-git
 rofi-emoji-git
