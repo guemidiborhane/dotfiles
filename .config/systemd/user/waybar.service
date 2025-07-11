@@ -5,6 +5,7 @@ BindsTo=hypr-session.target
 AssertEnvironment=WAYLAND_DISPLAY
 
 [Service]
+Slice=desktop-bar.slice
 Type=simple
 StandardOutput=journal
 ExecStart=%h/.config/waybar/launch.sh

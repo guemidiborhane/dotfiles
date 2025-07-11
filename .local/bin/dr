@@ -1,0 +1,193 @@
+#!/bin/bash
+# source: https://www.mageta.org/blog/2021/2021.06.04-plasma521-i3.html#starting-child-porcesses-in-app-slice-with-i3
+set -euo pipefail
+
+# Defaults
+declare -g foreground=false custom_name="" custom_description="" verbose=false
+declare -g prefix="drun" slice="desktop-apps.slice" custom_unit=""
+declare -g workspace="" tile=false float=false focus=false hypr_batch=""
+
+show_help() {
+  cat <<EOF
+Usage: $(basename "${0}") [OPTIONS] [--] <command> [args...]
+
+Start a program as systemd transient unit (.scope for background, .service for foreground)
+for better resource management, with optional Hyprland dispatcher actions.
+OPTIONS:
+    -f, --foreground         Run command in foreground (default: background)
+    -n, --name <name>        Use custom unit name prefix
+    -r, --prefix <prefix>    Use custom prefix (default: drun)
+    -s, --slice <slice>      Use custom systemd slice (default: desktop-apps.slice)
+    -d, --description <desc> Use custom unit description
+    -u, --unit <unit>        Use custom unit name (bypasses name generation)
+    -v, --verbose            Enable verbose output
+    -h, --help               Show this help message
+
+HYPRLAND OPTIONS:
+    -w, --workspace <n>      Move window to specific workspace (always silent)
+    -t, --tile               Force window to tile
+    -F, --float              Force window to float
+    --focus                  Focus on window after moving to workspace
+    -b, --batch <cmds>       Additional hyprctl commands (semicolon-separated)
+
+EXAMPLES:
+    $(basename "${0}") firefox
+    $(basename "${0}") --workspace 3 --tile firefox
+    $(basename "${0}") --float --workspace 2 --focus code
+    $(basename "${0}") --batch "keyword general:border_size 2;keyword general:gaps_out 20" firefox
+    $(basename "${0}") --workspace 2 --batch "dispatch pin;keyword windowrule 'float,class:firefox'" firefox
+
+EOF
+}
+
+# Parse arguments
+[ "${#}" -lt 1 ] && {
+  show_help
+  exit 1
+}
+
+opts="$(getopt -o "fn:d:r:s:u:w:tFb:hv" -l "foreground,name:,description:,prefix:,slice:,unit:,workspace:,tile,float,focus,batch:,help,verbose" -n "$(basename "${0}")" -- "${@}")" || exit 1
+eval set -- "${opts}"
+
+while true; do
+  case "${1}" in
+  -f | --foreground) foreground=true ;;
+  -n | --name)
+    custom_name="${2}"
+    shift
+    ;;
+  -d | --description)
+    custom_description="${2}"
+    shift
+    ;;
+  -r | --prefix)
+    prefix="${2}"
+    shift
+    ;;
+  -s | --slice)
+    slice="${2}"
+    shift
+    ;;
+  -u | --unit)
+    custom_unit="${2}"
+    shift
+    ;;
+  -w | --workspace)
+    workspace="${2}"
+    shift
+    ;;
+  -t | --tile) tile=true ;;
+  -F | --float) float=true ;;
+  --focus) focus=true ;;
+  -b | --batch)
+    hypr_batch="${2}"
+    shift
+    ;;
+  -v | --verbose) verbose=true ;;
+  -h | --help)
+    show_help
+    exit 0
+    ;;
+  --)
+    shift
+    break
+    ;;
+  esac
+  shift
+done
+
+[ "${#}" -eq 0 ] && {
+  echo "Error: No command specified" >&2
+  show_help
+  exit 1
+}
+
+declare -ga selection=("${@}")
+readonly selection
+
+# Generate unit name
+if [ -n "${custom_unit}" ]; then
+  unit_name="${custom_unit}"
+else
+  if [ -n "${custom_name}" ]; then
+    name="${custom_name}"
+  else
+    read -r -d '' -n 192 name < <(
+      basename "${selection[0]}" | tr -c 'a-zA-Z0-9_-' '[_*]' || exit 1
+      echo -e '\0' || exit 2
+    ) || exit 126
+  fi
+
+  max_name_len=$((217 - ${#prefix} - 37))
+  [ "${#name}" -eq 0 ] || [ "${#name}" -gt "${max_name_len}" ] && {
+    echo "Error: Invalid unit name length" >&2
+    exit 125
+  }
+
+  uuid="$(uuidgen)" || exit 124
+  unit_name="${prefix}-${name}-${uuid}"
+fi
+
+# systemd-run args
+declare -ga runargs=(--user --collect --slice="${slice}" --unit="${unit_name}")
+${verbose} || runargs+=(--quiet)
+runargs+=(--description="${custom_description:-Command: ${selection[*]@Q}}")
+
+# Hyprland helpers
+need_hyprland_dispatch() {
+  [[ -n "${workspace}" || "${tile}" == true || "${float}" == true || "${focus}" == true || -n "${hypr_batch}" ]]
+}
+
+build_batch_commands() {
+  local pid_var="${1}" commands=()
+
+  ${tile} && commands+=("dispatch settiled pid:${pid_var}")
+  ${float} && commands+=("dispatch setfloating pid:${pid_var}")
+  [ -n "${workspace}" ] && commands+=("dispatch movetoworkspacesilent ${workspace},pid:${pid_var}")
+  ${focus} && commands+=("dispatch focuswindow pid:${pid_var}")
+
+  if [ -n "${hypr_batch}" ]; then
+    IFS=';' read -ra extra <<<"${hypr_batch}"
+    for x in "${extra[@]}"; do
+      x="$(echo "${x}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+      [ -n "$x" ] && commands+=("$x")
+    done
+  fi
+
+  local IFS='; '
+  echo "${commands[*]}"
+}
+
+# Verbose logging
+if ${verbose}; then
+  echo "Unit name: ${unit_name}" >&2
+  echo "Command: ${selection[*]@Q}" >&2
+  echo "Slice: ${slice}" >&2
+  echo "Foreground: ${foreground}" >&2
+  need_hyprland_dispatch && echo "Hyprland batch: $(build_batch_commands "<pid>")" >&2
+fi
+
+# Build command array
+if need_hyprland_dispatch; then
+  wrapped_selection=(bash -c "
+    $(printf '%q ' "${selection[@]}") &
+    main_pid=\$!
+    {
+      for i in {1..50}; do
+        hyprctl clients | grep -q \"pid\":\ \"\${main_pid}\" && break
+        sleep 0.1
+      done
+      hyprctl --batch \"$(build_batch_commands "\${main_pid}")\"
+    } &
+  ")
+else
+  wrapped_selection=("${selection[@]}")
+fi
+
+# Execute
+if ${foreground}; then
+  exec systemd-run --wait "${runargs[@]}" -- "${wrapped_selection[@]}"
+else
+  systemd-run --scope "${runargs[@]}" -- "${wrapped_selection[@]}" &
+  ${verbose} && echo "Started in background (PID: $!)" >&2
+fi

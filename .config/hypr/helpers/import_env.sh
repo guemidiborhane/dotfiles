@@ -14,6 +14,7 @@ Commands:
 "
 
 _envs=(
+	PATH
 	# display
 	WAYLAND_DISPLAY
 	DISPLAY
@@ -30,8 +31,6 @@ _envs=(
 	# hyprland
 	HYPRLAND_CMD
 	HYPRLAND_INSTANCE_SIGNATURE
-	# sway
-	SWAYSOCK
 	# misc
 	XCURSOR_SIZE
 	# toolkit
@@ -39,6 +38,7 @@ _envs=(
 	QT_QPA_PLATFORM
 	QT_WAYLAND_DISABLE_WINDOWDECORATION
 	GRIM_DEFAULT_DIR
+	ELECTRON_OZONE_PLATFORM_HINT
 	# ssh
 	SSH_AUTH_SOCK
 )
