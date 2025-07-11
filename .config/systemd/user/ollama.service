@@ -2,6 +2,7 @@
 Description=Ollama and webui
 
 [Service]
+Slice=background-containers.slice
 Type=simple
 StandardOutput=journal
 ExecStop=docker rm -f %N

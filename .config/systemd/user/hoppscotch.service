@@ -2,6 +2,7 @@
 Description=Hoppscotch.io
 
 [Service]
+Slice=background-containers.slice
 Type=simple
 StandardOutput=journal
 ExecStart=docker run --name hoppscotch -p 9999:3000 --restart always hoppscotch/hoppscotch:latest

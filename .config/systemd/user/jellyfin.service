@@ -2,6 +2,7 @@
 Description=Jellyfin Server
 
 [Service]
+Slice=background-containers.slice
 Type=simple
 StandardOutput=journal
 StandardError=journal

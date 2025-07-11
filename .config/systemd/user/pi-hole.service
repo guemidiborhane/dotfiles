@@ -2,6 +2,7 @@
 Description=Pi-hole DNS server
 
 [Service]
+Slice=background-containers.slice
 Type=simple
 StandardOutput=journal
 ExecStop=docker stop %N

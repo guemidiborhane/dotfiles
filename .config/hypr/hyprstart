@@ -99,6 +99,7 @@ source_xprofile
 load_resources &
 run_xinit_scripts
 run_user_xsession
+~/.config/hypr/helpers/import_env.sh system
 
 wait
 
@@ -107,8 +108,5 @@ log "Hyprland compositor session complete, running session $@"
 if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
 	eval "$(dbus-launch --sh-syntax --exit-with-session)"
 fi
-#
-# Ensure Hyprland log directory exists
-mkdir -p "$HOME/.cache/hyprland"
 
-exec Hyprland >$HOME/.cache/hyprland/log 2>$HOME/.cache/hyprland/error
+exec dr --foreground --unit hyprland --slice desktop.slice -- Hyprland
