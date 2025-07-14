@@ -14,6 +14,7 @@ else
         random=$(echo $RANDOM | tr '[0-9]' '[a-z]')
         hostname=$(hostname)
         keys_present=$(find $dir -maxdepth 4 -iname ".$hostname.*")
+        already_mounted=false
 
         if [ -z "$keys_present" ]; then
             echo "No key found in $dir, creating ..."
@@ -22,10 +23,17 @@ else
             echo "Key found in $dir"
             for key in $keys_present; do
                 random=$(basename $key | cut -d '.' -f 3)
-                if [ -f $HOME/.umount_scripts/.$hostname.$random ]; then
-                    exit 1
+                if [ -f "$HOME/.umount_scripts/$random" ]; then
+                    echo "Already mounted: $dir (found $HOME/.umount_scripts/$random)"
+                    already_mounted=true
+                    break
                 fi
             done
+        fi
+
+        # Skip this mount point if already mounted
+        if [ "$already_mounted" = true ]; then
+            continue
         fi
 
         if [ -f "$dir/.$hostname.$random" ] && [ ! -f "$HOME/.umount_scripts/$random" ]; then
@@ -43,19 +51,15 @@ else
                         mkdir $HOME/.umount_scripts
                     fi
                     # copy umount.sh to ~/.umount_scripts
-                    if [ -f "~/.umount_scripts/$random" ]; then
-                        echo "~/.umount_scripts/$random already exists"
+                    if [ -f "$HOME/.umount_scripts/$random" ]; then
+                        echo "$HOME/.umount_scripts/$random already exists"
                     else
                         cp $dir/umount.sh $HOME/.umount_scripts/$random
                     fi
                 fi
-            elif [[ "$check" = "no" ]]; then
-
+            elif [ "$check" = "no" ]; then
                 touch $HOME/.umount_scripts/$random
             fi
-
-        else
-            exit 1
         fi
     done
 fi
