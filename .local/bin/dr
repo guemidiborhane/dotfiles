@@ -167,22 +167,33 @@ if ${verbose}; then
   need_hyprland_dispatch && echo "Hyprland batch: $(build_batch_commands "<pid>")" >&2
 fi
 
+unit_cmd=""
+if ! ${foreground}; then
+  unit_cmd="
+    exec 1> >(systemd-cat -t \"${unit_name}\")
+    exec 2> >(systemd-cat -t \"${unit_name}\")
+  "
+fi
+
 # Build command array
 if need_hyprland_dispatch; then
-  wrapped_selection=(bash -c "
-    $(printf '%q ' "${selection[@]}") &
-    main_pid=\$!
+  # Use process substitution to preserve main process PID while capturing logs
+  unit_cmd+="
+    # Background the hyprctl dispatch
     {
       for i in {1..50}; do
-        hyprctl clients | grep -q \"pid\":\ \"\${main_pid}\" && break
+        hyprctl clients | grep -q \"pid\":\ \"\$\$\" && break
         sleep 0.1
       done
-      hyprctl --batch \"$(build_batch_commands "\${main_pid}")\"
+      hyprctl --batch \"$(build_batch_commands "\$\$")\" 2>/dev/null
     } &
-  ")
-else
-  wrapped_selection=("${selection[@]}")
+  "
 fi
+
+unit_cmd+="
+  exec $(printf '%q ' "${selection[@]}")
+"
+wrapped_selection=(bash -c "${unit_cmd}")
 
 # Execute
 if ${foreground}; then
