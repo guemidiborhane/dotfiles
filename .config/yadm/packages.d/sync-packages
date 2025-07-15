@@ -1,94 +1,265 @@
 #!/bin/bash
 
-# Define the paths to your package lists
-PKG_LIST="$HOME/.config/yadm/packages.d/pacman.list"
-LOCAL_LIST="$HOME/.config/yadm/packages.d/pacman.local.list"
-AUR_PKG_LIST="$HOME/.config/yadm/packages.d/aur.list"
-LOCAL_AUR_PKG_LIST="$HOME/.config/yadm/packages.d/aur.local.list"
+# Package synchronization script for Arch Linux
+# Syncs installed packages with predefined lists for both official and AUR packages
 
-# Check if the package lists exist
-if [ ! -f "$PKG_LIST" ]; then
-  echo "Package list not found: $PKG_LIST"
-  exit 1
-fi
+set -euo pipefail # Exit on error, undefined vars, pipe failures
 
-# Warn if the local or AUR lists are missing, but continue
-if [ ! -f "$LOCAL_LIST" ]; then
-  echo "Local package list not found: $LOCAL_LIST (continuing without local packages)"
-fi
+# Color codes for better output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
 
-if [ ! -f "$AUR_PKG_LIST" ]; then
-  echo "AUR package list not found: $AUR_PKG_LIST (continuing without AUR packages)"
-fi
+# Logging function
+log() {
+  local level="$1"
+  shift
+  case "$level" in
+  "INFO") echo -e "${GREEN}[INFO]${NC} $*" ;;
+  "WARN") echo -e "${YELLOW}[WARN]${NC} $*" ;;
+  "ERROR") echo -e "${RED}[ERROR]${NC} $*" ;;
+  "DEBUG") echo -e "${BLUE}[DEBUG]${NC} $*" ;;
+  esac
+}
 
-# Get the list of explicitly installed packages on the system
-installed_packages=$(pacman -Qnqe)
+# Function to check if running as root
+check_root() {
+  if [[ $EUID -eq 0 ]]; then
+    log "ERROR" "This script should not be run as root"
+    exit 1
+  fi
+}
 
-# Read the package list from pkglist.txt
-desired_packages=$(cat "$PKG_LIST" "$LOCAL_LIST" 2>/dev/null)
+# Function to validate package lists
+validate_package_list() {
+  local file="$1"
+  local list_type="$2"
 
-# Check if desired_packages is not empty before proceeding
-if [ -z "$desired_packages" ]; then
-  echo "No packages listed in pacman or local lists."
-  exit 0
-fi
-
-# Find packages that need to be installed (present in pkglist.txt but not installed)
-packages_to_install=$(comm -23 <(echo "$desired_packages" | sort) <(echo "$installed_packages" | sort))
-
-# Find packages that need to be removed (installed but not present in pkglist.txt)
-packages_to_remove=$(comm -13 <(echo "$desired_packages" | sort) <(echo "$installed_packages" | sort))
-
-# Install new packages
-if [ -n "$packages_to_install" ]; then
-  echo "Installing new packages: $packages_to_install"
-  sudo pacman -Sy --needed $packages_to_install
-else
-  echo "No new packages to install."
-fi
-
-# Remove packages no longer in the package list
-if [ -n "$packages_to_remove" ]; then
-  echo "Removing packages no longer in list: $packages_to_remove"
-  sudo pacman -Rns $packages_to_remove
-else
-  echo "No packages to remove."
-fi
-
-# Handle AUR packages with yay
-if command -v yay &>/dev/null; then
-  # Get the list of installed AUR packages
-  installed_aur_packages=$(pacman -Qqem)
-
-  # Read the AUR package list
-  desired_aur_packages=$(cat "$AUR_PKG_LIST" "$LOCAL_AUR_PKG_LIST" 2>/dev/null)
-
-  if [ -z "$desired_aur_packages" ]; then
-    echo "No AUR packages listed in aur.list."
-    exit 0
+  if [[ ! -f "$file" ]]; then
+    return 1
   fi
 
-  # Find AUR packages to install
-  aur_to_install=$(comm -23 <(echo "$desired_aur_packages" | sort) <(echo "$installed_aur_packages" | sort))
+  # Check for empty lines, comments, and basic validation
+  if ! grep -qE '^[a-zA-Z0-9][a-zA-Z0-9._+-]*$' "$file" 2>/dev/null; then
+    log "WARN" "$list_type package list contains invalid entries: $file"
+  fi
 
-  # Find AUR packages to remove
-  aur_to_remove=$(comm -13 <(echo "$desired_aur_packages" | sort) <(echo "$installed_aur_packages" | sort))
+  return 0
+}
 
-  # Install new AUR packages
-  if [ -n "$aur_to_install" ]; then
-    echo "Installing new AUR packages: $aur_to_install"
-    yay -S --needed $aur_to_install
+# Function to prompt for confirmation
+confirm() {
+  local prompt="$1"
+  local default="${2:-y}"
+
+  while true; do
+    read -p "$prompt (y/n) [${default}]: " response
+    response=${response:-$default}
+    case "$response" in
+    [Yy]*) return 0 ;;
+    [Nn]*) return 1 ;;
+    *) echo "Please answer y or n." ;;
+    esac
+  done
+}
+
+# Function to handle package operations with error checking
+install_packages() {
+  local packages="$1"
+  local manager="$2"
+
+  if [[ -z "$packages" ]]; then
+    return 0
+  fi
+
+  log "INFO" "Installing packages with $manager: $(echo "$packages" | tr '\n' ' ')"
+
+  case "$manager" in
+  "pacman")
+    if ! sudo pacman -Sy --needed $packages; then
+      log "ERROR" "Failed to install some packages with pacman"
+      return 1
+    fi
+    ;;
+  "yay")
+    if ! yay -S --needed $packages; then
+      log "ERROR" "Failed to install some AUR packages with yay"
+      return 1
+    fi
+    ;;
+  esac
+}
+
+# Function to remove packages with error checking
+remove_packages() {
+  local packages="$1"
+  local manager="$2"
+
+  if [[ -z "$packages" ]]; then
+    return 0
+  fi
+
+  log "WARN" "Removing packages with $manager: $(echo "$packages" | tr '\n' ' ')"
+
+  if ! confirm "Are you sure you want to remove these packages?"; then
+    log "INFO" "Skipping package removal"
+    return 0
+  fi
+
+  case "$manager" in
+  "pacman")
+    if ! sudo pacman -Rns $packages; then
+      log "ERROR" "Failed to remove some packages with pacman"
+      return 1
+    fi
+    ;;
+  "yay")
+    if ! yay -Rs $packages; then
+      log "ERROR" "Failed to remove some AUR packages with yay"
+      return 1
+    fi
+    ;;
+  esac
+}
+
+# Function to check system dependencies
+check_dependencies() {
+  if ! command -v pacman &>/dev/null; then
+    log "ERROR" "pacman not found. This script requires Arch Linux."
+    exit 1
+  fi
+
+  if ! command -v sudo &>/dev/null; then
+    log "ERROR" "sudo not found. Please install sudo."
+    exit 1
+  fi
+}
+
+# Main function
+main() {
+  log "INFO" "Starting package synchronization..."
+
+  # Check prerequisites
+  check_root
+  check_dependencies
+
+  # Define the paths to package lists
+  local config_dir="$HOME/.config/yadm/packages.d"
+  local pkg_list="$config_dir/pacman.list"
+  local local_list="$config_dir/pacman.local.list"
+  local aur_pkg_list="$config_dir/aur.list"
+  local local_aur_pkg_list="$config_dir/aur.local.list"
+
+  # Create config directory if it doesn't exist
+  mkdir -p "$config_dir"
+
+  # Validate main package list
+  if ! validate_package_list "$pkg_list" "Main"; then
+    log "ERROR" "Main package list not found: $pkg_list"
+    exit 1
+  fi
+
+  # Validate optional lists (warn but continue)
+  if ! validate_package_list "$local_list" "Local"; then
+    log "WARN" "Local package list not found: $local_list (continuing without local packages)"
+    touch "$local_list" # Create empty file to avoid errors
+  fi
+
+  log "INFO" "Processing official packages..."
+
+  # Get the list of explicitly installed packages on the system
+  local installed_packages
+  installed_packages=$(pacman -Qnqe)
+
+  # Read the package list from files, filtering out empty lines and comments
+  local desired_packages
+  desired_packages=$(grep -hE '^[^#]' "$pkg_list" "$local_list" 2>/dev/null | grep -v '^$' | sort -u)
+
+  if [[ -z "$desired_packages" ]]; then
+    log "WARN" "No packages listed in pacman lists."
   else
-    echo "No new AUR packages to install."
+    # Find packages that need to be installed
+    local packages_to_install
+    packages_to_install=$(comm -23 <(echo "$desired_packages") <(echo "$installed_packages" | sort))
+
+    # Find packages that need to be removed
+    local packages_to_remove
+    packages_to_remove=$(comm -13 <(echo "$desired_packages") <(echo "$installed_packages" | sort))
+
+    # Install new packages
+    if [[ -n "$packages_to_install" ]]; then
+      install_packages "$packages_to_install" "pacman"
+    else
+      log "INFO" "No new packages to install."
+    fi
+
+    # Remove packages no longer in the package list
+    if [[ -n "$packages_to_remove" ]]; then
+      remove_packages "$packages_to_remove" "pacman"
+    else
+      log "INFO" "No packages to remove."
+    fi
   fi
 
-  # Remove AUR packages no longer in the list
-  if [ -n "$aur_to_remove" ]; then
-    echo "Removing AUR packages no longer in list: $aur_to_remove"
-    yay -Rs $aur_to_remove
+  # Handle AUR packages
+  if command -v yay &>/dev/null; then
+    log "INFO" "Processing AUR packages..."
+
+    # Validate AUR package lists
+    local aur_lists_exist=false
+    if validate_package_list "$aur_pkg_list" "AUR"; then
+      aur_lists_exist=true
+    else
+      log "WARN" "AUR package list not found: $aur_pkg_list"
+      touch "$aur_pkg_list"
+    fi
+
+    if ! validate_package_list "$local_aur_pkg_list" "Local AUR"; then
+      log "WARN" "Local AUR package list not found: $local_aur_pkg_list"
+      touch "$local_aur_pkg_list"
+    fi
+
+    # Get the list of installed AUR packages
+    local installed_aur_packages
+    installed_aur_packages=$(pacman -Qqem)
+
+    # Read the AUR package list
+    local desired_aur_packages
+    desired_aur_packages=$(grep -hE '^[^#]' "$aur_pkg_list" "$local_aur_pkg_list" 2>/dev/null | grep -v '^$' | sort -u)
+
+    if [[ -z "$desired_aur_packages" ]]; then
+      log "INFO" "No AUR packages listed."
+    else
+      # Find AUR packages to install
+      local aur_to_install
+      aur_to_install=$(comm -23 <(echo "$desired_aur_packages") <(echo "$installed_aur_packages" | sort))
+
+      # Find AUR packages to remove
+      local aur_to_remove
+      aur_to_remove=$(comm -13 <(echo "$desired_aur_packages") <(echo "$installed_aur_packages" | sort))
+
+      # Install new AUR packages
+      if [[ -n "$aur_to_install" ]]; then
+        install_packages "$aur_to_install" "yay"
+      else
+        log "INFO" "No new AUR packages to install."
+      fi
+
+      # Remove AUR packages no longer in the list
+      if [[ -n "$aur_to_remove" ]]; then
+        remove_packages "$aur_to_remove" "yay"
+      else
+        log "INFO" "No AUR packages to remove."
+      fi
+    fi
   else
-    echo "No AUR packages to remove."
+    log "WARN" "AUR helper (yay) not found, skipping AUR package management."
   fi
-else
-  echo "AUR helper (yay) not found, skipping AUR package management."
-fi
+
+  log "INFO" "Package synchronization completed successfully!"
+}
+
+# Run the main function
+main "$@"
