@@ -163,6 +163,7 @@ virtualbox
 virtualbox-guest-iso
 virtualbox-host-dkms
 vlc
+vlc-plugins-all
 waybar
 wget
 wl-clipboard
