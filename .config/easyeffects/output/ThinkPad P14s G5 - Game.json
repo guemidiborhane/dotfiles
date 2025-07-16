@@ -6,7 +6,7 @@
             "bypass": false,
             "input-gain": 0.0,
             "ir-width": 100,
-            "kernel-name": "P14s_G4_Voice",
+            "kernel-name": "P14s_G5_Game",
             "output-gain": 0.0
         },
         "gate#0": {

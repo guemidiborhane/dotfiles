@@ -37,7 +37,7 @@
             "bypass": false,
             "input-gain": 0.0,
             "ir-width": 100,
-            "kernel-name": "P14s_G4_Music_Movies",
+            "kernel-name": "P14s_G5_Music_Movies",
             "output-gain": 0.0
         },
         "equalizer#0": {
