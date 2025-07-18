@@ -42,6 +42,8 @@ abbr y yay
 abbr s yay -Sy
 abbr ss yay -Ss
 abbr uu yay -Syyu
+abbr b btop
+abbr pp fish -P
 
 alias tk 'tmux_popup tmux_kill'
 
