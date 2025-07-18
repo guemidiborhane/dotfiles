@@ -7,7 +7,7 @@
   _battery: 4096
   _modelId: B02340820000
   _sensitive: {change-host: false, divert-keys: false, hires-scroll-mode: false, hires-smooth-invert: false, hires-smooth-resolution: false, reprogrammable-keys: false,
-    thumb-scroll-mode: false}
+    smart-shift: false, thumb-scroll-mode: false}
   _serial: 87044B39
   _unitId: 87044B39
   _wpid: '4082'
