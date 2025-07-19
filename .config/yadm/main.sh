@@ -11,9 +11,6 @@ done
 main() {
     echo "Bootstrapping"
     ask_run_all_scripts                                 # scripts/misc.sh
-    install_packages "$package_files_dir"               # scripts/misc.sh
-    vim_main                                            # scripts/vim.sh
-    fish_main                                           # scripts/zsh.sh
     section "Miscellaneous"                             # scripts/misc.sh
     enable_system_services "${enabled_system_services}" # scripts/system.sh
     enable_user_services "${enabled_user_services}"     # scripts/misc.sh
@@ -39,11 +36,9 @@ if [ "$UPDATE" = "yes" ]; then
         yadm reset --hard "origin/$branch"
         yadm alt
     fi
-    vim_main # scripts/vim.sh
-    zsh_main # scripts/zsh.sh
     ask "Update packages"
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        install_packages "$package_files_dir" # scripts/misc.sh
+        . $HOME/.config/yadm/packages.d/sync-packages
     fi
 else
     main

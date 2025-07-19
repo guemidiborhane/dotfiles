@@ -15,10 +15,6 @@ install_nvim() {
     fi
 }
 
-update_vim_plugins() {
-    nvim +AstroUpdate +q
-}
-
 clear_neovim_cache() {
     rm -rf ~/.local/share/nvim
     rm -rf ~/.local/state/nvim
@@ -28,16 +24,4 @@ clear_neovim_cache() {
 configure_vim() {
     clear_neovim_cache
     install_nvim
-}
-
-vim_main() {
-    section "NeoVIM"
-    ask "Install/Update neovim"
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        if [ -d "$HOME/.config/nvim" ]; then
-            update_vim_plugins
-        else
-            configure_vim
-        fi
-    fi
 }
