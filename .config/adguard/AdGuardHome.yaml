@@ -189,6 +189,7 @@ user_rules:
   - '@@||web.whatsapp.com^$important'
   - '@@||cdn.whatsapp.com^$important'
   - '@@||static.whatsapp.net^$important'
+  - '@@||dz^$important'
   - ""
 dhcp:
   enabled: false

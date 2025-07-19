@@ -11,37 +11,6 @@ clean_slate() {
     yay -Syy
 }
 
-install_packages () {
-    section "Packages"
-    ALL_PACKAGES="no"
-
-    ask "Install packages"
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        clean_slate
-        for package_file in $1; do
-            if [ -f "$package_file" ]; then
-                category=$(basename $package_file | cut -d'.' -f1)
-                section "Installing $category packages"
-
-                if [[ $ALL_PACKAGES == "no" ]]; then
-                    ask "Install $category packages", "y/N/a"
-                fi
-
-                if [[ $REPLY =~ ^[Aa]$ ]]
-                then
-                    ALL_PACKAGES="yes"
-                fi
-
-                if [[ $REPLY =~ ^[Yy]$ ]] || [[ $ALL_PACKAGES == "yes" ]]
-                then
-                    yay -S --needed --noconfirm - < $package_file
-                fi
-            fi
-        done
-    fi
-}
-
 enable_user_services () {
     ask "Enable user services"
     if [[ $REPLY =~ ^[Yy]$ ]]
