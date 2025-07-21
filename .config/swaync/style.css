@@ -1,39 +1,93 @@
 @import url("../waybar/colors.css");
 
-/* Base Styles */
+/* CSS Variables for consistency - uses waybar colors as fallback */
+:root {
+  --bg-primary: @background;
+  --bg-secondary: @selection;
+  --bg-button: @comment;
+  --bg-button-hover: @purple;
+  --text-primary: @foreground;
+  --text-secondary: @green;
+  --text-disabled: @comment;
+  --border-color: @comment;
+  --priority-low: @foreground;
+  --priority-normal: @green;
+  --priority-critical: @red;
+  --accent-color: @purple;
+  --transition-standard: 0.15s ease-in-out;
+}
+
+/* Base styles */
 * {
   font-family: "JetBrainsMono NFM SemiBold";
+  outline: none;
+}
+
+*:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Scrollbar */
+scrollbar,
+scrollbar slider {
+  opacity: 0;
+  min-width: 0px;
+  min-height: 0px;
+  background: transparent;
 }
 
 /* Common Properties */
 .notification,
 .notification-content,
 .control-center {
-  background: @background;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .notification,
 .control-center {
-  border: 2px solid @comment;
+  border: 2px solid var(--border-color);
   border-radius: 0;
 }
 
-/* Notification Styles */
+/* Notification Rows */
 .notification-row {
   outline: none;
   margin: 0;
   padding: 0;
+  background: none;
 }
 
 .control-center .notification-row:focus,
 .control-center .notification-row:hover {
   opacity: 1;
   outline: none;
-  background: @selection;
+  background: var(--bg-secondary);
 }
 
-.notification {
+.notification-row .notification-background {
   margin: 3px -2px 3px 0;
+}
+
+/* Base notification styles */
+.notification {
+  margin: 0;
+  padding: 4px;
+  transition: background var(--transition-standard);
+}
+
+/* Priority-based notification styles */
+.notification.low {
+  border-left: 4px solid var(--priority-low);
+}
+
+.notification.normal {
+  border-left: 4px solid var(--priority-normal);
+}
+
+.notification.critical {
+  border-left: 4px solid var(--priority-critical);
 }
 
 /* Action Buttons */
@@ -42,42 +96,104 @@
   margin: 0;
   padding: 0;
   border-radius: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  transition: background var(--transition-standard);
 }
 
 .notification-action {
-  border: 1px solid @comment;
+  border: 1px solid var(--border-color);
   border-top: none;
+  background: var(--bg-secondary);
 }
 
 .notification-default-action:hover,
 .notification-action:hover {
-  color: @purple;
-  background: @background;
+  color: var(--accent-color);
+  background: var(--bg-primary);
 }
 
-.notification-action:first-child {
-  background: @selection;
-}
-
+.notification-action:first-child,
 .notification-action:last-child {
-  background: @selection;
+  background: var(--bg-secondary);
 }
 
 /* Close Button */
 .close-button {
-  background: @purple;
-  color: @background;
+  background: var(--accent-color);
+  color: var(--bg-primary);
   text-shadow: none;
   padding: 0;
   border-radius: 0;
   margin: 10px 10px 0 0;
+  min-width: 20px;
+  min-height: 20px;
+  border: none;
+  box-shadow: none;
+  transition: background var(--transition-standard);
 }
 
 .close-button:hover {
-  background: @red;
-  transition: all 0.15s ease-in-out;
-  border: none;
-  box-shadow: none;
+  background: var(--priority-critical);
+  transition: all var(--transition-standard);
+}
+
+/* Notification content */
+.notification-content {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+}
+
+.notification-content .image {
+  -gtk-icon-filter: none;
+  -gtk-icon-size: 48px;
+  border-radius: 0;
+  margin-right: 10px;
+}
+
+.notification-content .app-icon {
+  -gtk-icon-filter: none;
+  -gtk-icon-size: 32px;
+  margin: 6px;
+}
+
+/* Text elements */
+.summary {
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 700;
+  background: transparent;
+  text-shadow: none;
+}
+
+.time {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 12px;
+  background: transparent;
+  text-shadow: none;
+}
+
+.body {
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 400;
+  background: transparent;
+  text-shadow: none;
+}
+
+/* Progress and images */
+.notification-content progressbar {
+  margin-top: 4px;
+}
+
+.notification-content .body-image {
+  margin-top: 8px;
+  background-color: white;
+  -gtk-icon-filter: none;
 }
 
 /* Inline Reply */
@@ -86,64 +202,73 @@
 }
 
 .inline-reply-entry {
-  background: @selection;
-  color: @foreground;
-  caret-color: @foreground;
-  border: 1px solid @comment;
-  border-radius: 5px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  caret-color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
 }
 
 .inline-reply-button {
   margin-left: 4px;
-  background: @background;
-  border: 1px solid @comment;
-  border-radius: 5px;
-  color: @foreground;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  color: var(--text-primary);
 }
 
 .inline-reply-button:disabled {
   background: initial;
-  color: @comment;
+  color: var(--text-disabled);
   border: 1px solid transparent;
 }
 
 .inline-reply-button:hover {
-  background: @selection;
+  background: var(--bg-secondary);
 }
 
-/* Content Styling */
-.image {
-  border-radius: 0;
-  margin-right: 10px;
+/* Notification Groups */
+.notification-group {
+  transition: opacity 200ms ease-in-out;
 }
 
-.summary {
-  color: @green;
-  font-size: 16px;
+.notification-group .notification-group-close-button .close-button {
+  margin: 12px 20px;
+}
+
+.notification-group .notification-group-buttons,
+.notification-group .notification-group-headers {
+  margin: 0 16px;
+  color: var(--text-primary);
+}
+
+.notification-group .notification-group-headers {
+  font-size: 14px;
+}
+
+.notification-group .notification-group-headers .notification-group-icon {
+  color: var(--text-primary);
+  -gtk-icon-size: 20px;
+  font-size: 14px;
   font-weight: 700;
+  margin: 5px 5px 5px 0px;
 }
 
-.time {
-  color: @foreground;
-  font-size: 16px;
+.notification-group .notification-group-headers .notification-group-header {
+  font-size: 14px;
   font-weight: 700;
-  margin-right: 12px;
+  color: var(--text-primary);
 }
 
-.body {
-  color: @foreground;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.summary,
-.time,
-.body {
-  background: transparent;
-  text-shadow: none;
+.notification-group.collapsed.not-expanded {
+  opacity: 1.0;
 }
 
 /* Control Center */
+.control-center {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
 .control-center-list {
   background: transparent;
 }
@@ -152,6 +277,7 @@
   opacity: 0.5;
 }
 
+/* Floating notifications */
 .floating-notifications {
   background: transparent;
 }
@@ -160,69 +286,71 @@
   background: alpha(black, 0.3);
 }
 
-/* Widgets */
+/* Widget Styles */
 .widget-title {
-  color: @purple;
+  color: var(--accent-color);
   margin: 10px 10px 5px;
   font-size: 1.5rem;
-  border-radius: 5px;
+  border-radius: 0;
 }
 
 .widget-title > button {
-  color: @foreground;
-  background: @background;
+  color: var(--text-primary);
+  background: var(--bg-primary);
   font-size: 24px;
-  border-radius: 5px;
+  border-radius: 0;
   text-shadow: none;
   box-shadow: none;
+  border: none;
+  transition: background var(--transition-standard);
 }
 
 .widget-title > button:hover {
-  background: @red;
-  color: @background;
+  background: var(--priority-critical);
+  color: var(--bg-primary);
 }
 
 /* DND Widget */
 .widget-dnd {
   margin: 5px 10px;
-  border-radius: 5px;
+  border-radius: 0;
   font-size: large;
-  color: @purple;
+  color: var(--accent-color);
 }
 
 .widget-dnd > switch {
-  border-radius: 5px;
-  background: @purple;
+  border-radius: 0;
+  background: var(--accent-color);
 }
 
 .widget-dnd > switch:checked {
-  background: @red;
-  border: 1px solid @red;
+  background: var(--priority-critical);
+  border: 1px solid var(--priority-critical);
 }
 
 .widget-dnd > switch slider,
 .widget-dnd > switch:checked slider {
-  background: @background;
-  border-radius: 5px;
+  background: var(--bg-primary);
+  border-radius: 0;
 }
 
 /* MPRIS Widget */
 .widget-mpris {
-  color: @foreground;
+  color: var(--text-primary);
   padding: 5px 0;
-  margin: 5px 10px;
-  border-radius: 5px;
+  border-radius: 0;
   box-shadow: none;
 }
 
 .widget-mpris > box > button {
-  border-radius: 5px;
+  border-radius: 0;
 }
 
 .widget-mpris-player {
-  padding: 30px;
   box-shadow: none;
   margin: 5px;
+  border-radius: 0;
+  border: 2px solid var(--border-color);
 }
 
 .widget-mpris-title {
@@ -240,35 +368,36 @@
   padding: 5px;
   margin: 10px 10px 5px;
   border-radius: 0;
-  background: @selection;
+  background: var(--bg-secondary);
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button {
   margin: 3px;
-  background: @background;
+  background: var(--bg-primary);
   border-radius: 0;
-  color: @foreground;
+  color: var(--text-primary);
+  border: none;
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button:hover {
-  background: @purple;
-  color: @background;
+  background: var(--accent-color);
+  color: var(--bg-primary);
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button:checked {
-  background: @green;
-  color: @background;
+  background: var(--text-secondary);
+  color: var(--bg-primary);
 }
 
 /* Volume and Backlight Widgets */
 .widget-volume,
 .widget-backlight {
-  background: @selection;
+  background: var(--bg-secondary);
   padding: 5px;
   margin: 5px 10px;
   border-radius: 0;
   font-size: 2rem;
-  color: @purple;
+  color: var(--accent-color);
 }
 
 /* Menubar */
@@ -285,14 +414,24 @@
 
 .widget-label > label {
   font-size: 1rem;
-  color: @foreground;
+  color: var(--text-primary);
 }
 
-/* Notification Group */
-.notification-group {
-  padding: 0;
+/* Inhibitors widget */
+.widget-inhibitors > label {
+  margin: 8px;
+  font-size: 14px;
+  color: var(--text-primary);
 }
 
-.notification-background {
-  outline: none;
+.widget-inhibitors > button {
+  margin: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 0;
+}
+
+.widget-inhibitors > button:hover {
+  background: var(--bg-secondary);
 }
