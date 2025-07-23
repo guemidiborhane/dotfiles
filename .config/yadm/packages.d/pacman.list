@@ -65,8 +65,8 @@ inotify-tools
 inkscape
 iperf3
 iptables-nft
-jdk17-openjdk
 jdk21-openjdk
+jellyfin-mpv-shim
 jq
 kitty
 lazygit
@@ -84,6 +84,7 @@ magic-wormhole
 man-db
 memtest86+-efi
 mise
+mpv
 ncdu
 neovim
 nethogs
@@ -122,6 +123,7 @@ python-owslib
 python-pip
 python-pipx
 python-psycopg2
+python-pystray
 qbittorrent
 qgis
 qt5ct
@@ -162,8 +164,6 @@ vim
 virtualbox
 virtualbox-guest-iso
 virtualbox-host-dkms
-vlc
-vlc-plugins-all
 waybar
 wget
 wl-clipboard
