@@ -1,4 +1,4 @@
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 
 export PATH="$PATH:$HOME/.asdf/shims"
 export PATH="$PATH:$HOME/.local/bin"
