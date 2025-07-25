@@ -65,6 +65,142 @@ confirm() {
   done
 }
 
+# Function to add package to appropriate list with alphabetical sorting
+add_package_to_list() {
+  local package="$1"
+  local is_aur="$2"
+  local config_dir="$3"
+
+  if [[ "$is_aur" == "true" ]]; then
+    local main_list="$config_dir/aur.list"
+    local local_list="$config_dir/aur.local.list"
+    local list_type="AUR"
+  else
+    local main_list="$config_dir/pacman.list"
+    local local_list="$config_dir/pacman.local.list"
+    local list_type="official"
+  fi
+
+  echo
+  log "INFO" "Where would you like to add '$package'?"
+  echo "1) Main $list_type list ($(basename "$main_list")) [default]"
+  echo "2) Local $list_type list ($(basename "$local_list"))"
+
+  while true; do
+    read -p "Choose option [1-2]: " choice
+    choice=${choice:-1} # Default to option 1 (main list)
+    case "$choice" in
+    1)
+      add_package_sorted "$package" "$main_list"
+      log "INFO" "Added '$package' to main $list_type list"
+      return 0
+      ;;
+    2)
+      add_package_sorted "$package" "$local_list"
+      log "INFO" "Added '$package' to local $list_type list"
+      return 0
+      ;;
+    *)
+      echo "Please choose 1 or 2."
+      ;;
+    esac
+  done
+}
+
+# Function to add package to list while maintaining alphabetical order
+add_package_sorted() {
+  local package="$1"
+  local list_file="$2"
+  local temp_file=$(mktemp)
+
+  # Check if package already exists in the list
+  if [[ -f "$list_file" ]] && grep -Fxq "$package" "$list_file"; then
+    log "WARN" "Package '$package' already exists in $(basename "$list_file")"
+    rm "$temp_file"
+    return 0
+  fi
+
+  # Add package and sort the list
+  if [[ -f "$list_file" ]]; then
+    # Preserve comments and empty lines at the top, sort package names
+    {
+      # Extract comments and empty lines from the beginning
+      grep -E '^(#|$)' "$list_file" 2>/dev/null || true
+      # Add the new package and existing non-comment lines, then sort
+      {
+        echo "$package"
+        grep -vE '^(#|$)' "$list_file" 2>/dev/null || true
+      } | sort -u
+    } >"$temp_file"
+  else
+    echo "$package" >"$temp_file"
+  fi
+
+  mv "$temp_file" "$list_file"
+}
+
+# Function to handle package removal with add-to-list option
+interactive_package_removal() {
+  local packages="$1"
+  local manager="$2"
+  local is_aur="$3"
+  local config_dir="$4"
+
+  if [[ -z "$packages" ]]; then
+    return 0
+  fi
+
+  local package_array=($packages)
+  local packages_to_remove=""
+
+  log "WARN" "Found packages installed but not in your lists:"
+  echo "$packages" | tr ' ' '\n' | sed 's/^/  - /'
+  echo
+
+  for package in "${package_array[@]}"; do
+    echo "Package: $package"
+
+    # First ask if they want to remove the package (default: yes)
+    if confirm "Remove '$package'?" "y"; then
+      packages_to_remove="$packages_to_remove $package"
+      log "INFO" "Marked '$package' for removal"
+    else
+      # Only offer to add to list if they refused removal
+      if confirm "Add '$package' to a package list?" "y"; then
+        add_package_to_list "$package" "$is_aur" "$config_dir"
+      else
+        log "INFO" "Left '$package' as-is (not in any list)"
+      fi
+    fi
+    echo
+  done
+
+  # Remove packages that were marked for removal
+  if [[ -n "$packages_to_remove" ]]; then
+    packages_to_remove=$(echo "$packages_to_remove" | xargs) # trim whitespace
+    log "WARN" "Removing packages with $manager: $packages_to_remove"
+
+    if confirm "Proceed with removal of marked packages?"; then
+      case "$manager" in
+      "pacman")
+        if ! sudo pacman -Rns $packages_to_remove; then
+          log "ERROR" "Failed to remove some packages with pacman"
+          return 1
+        fi
+        ;;
+      "yay")
+        if ! yay -Rs $packages_to_remove; then
+          log "ERROR" "Failed to remove some AUR packages with yay"
+          return 1
+        fi
+        ;;
+      esac
+    else
+      log "INFO" "Skipped package removal"
+    fi
+  fi
+}
+
 # Function to handle package operations with error checking
 install_packages() {
   local packages="$1"
@@ -92,7 +228,7 @@ install_packages() {
   esac
 }
 
-# Function to remove packages with error checking
+# Function to remove packages with error checking (legacy function, kept for compatibility)
 remove_packages() {
   local packages="$1"
   local manager="$2"
@@ -137,9 +273,56 @@ check_dependencies() {
   fi
 }
 
+# Function to show usage information
+show_usage() {
+  echo "Usage: $0 [OPTIONS]"
+  echo "Options:"
+  echo "  -h, --help          Show this help message"
+  echo "  -a, --auto-remove   Automatically remove packages without interactive prompts"
+  echo "  -i, --interactive   Use interactive mode for package removal (default)"
+  echo
+  echo "Interactive mode allows you to:"
+  echo "  - Add packages to your lists instead of removing them"
+  echo "  - Choose which list to add packages to (main or local)"
+  echo "  - Skip packages without taking any action"
+}
+
 # Main function
 main() {
+  local auto_remove=false
+  local interactive=true
+
+  # Parse command line arguments
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+    -h | --help)
+      show_usage
+      exit 0
+      ;;
+    -a | --auto-remove)
+      auto_remove=true
+      interactive=false
+      shift
+      ;;
+    -i | --interactive)
+      interactive=true
+      auto_remove=false
+      shift
+      ;;
+    *)
+      log "ERROR" "Unknown option: $1"
+      show_usage
+      exit 1
+      ;;
+    esac
+  done
+
   log "INFO" "Starting package synchronization..."
+  if [[ "$interactive" == "true" ]]; then
+    log "INFO" "Running in interactive mode"
+  else
+    log "INFO" "Running in automatic removal mode"
+  fi
 
   # Check prerequisites
   check_root
@@ -195,9 +378,13 @@ main() {
       log "INFO" "No new packages to install."
     fi
 
-    # Remove packages no longer in the package list
+    # Handle package removal
     if [[ -n "$packages_to_remove" ]]; then
-      remove_packages "$packages_to_remove" "pacman"
+      if [[ "$interactive" == "true" ]]; then
+        interactive_package_removal "$packages_to_remove" "pacman" "false" "$config_dir"
+      else
+        remove_packages "$packages_to_remove" "pacman"
+      fi
     else
       log "INFO" "No packages to remove."
     fi
@@ -247,9 +434,13 @@ main() {
         log "INFO" "No new AUR packages to install."
       fi
 
-      # Remove AUR packages no longer in the list
+      # Handle AUR package removal
       if [[ -n "$aur_to_remove" ]]; then
-        remove_packages "$aur_to_remove" "yay"
+        if [[ "$interactive" == "true" ]]; then
+          interactive_package_removal "$aur_to_remove" "yay" "true" "$config_dir"
+        else
+          remove_packages "$aur_to_remove" "yay"
+        fi
       else
         log "INFO" "No AUR packages to remove."
       fi
