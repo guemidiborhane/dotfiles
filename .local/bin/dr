@@ -31,12 +31,11 @@ HYPRLAND OPTIONS:
     -b, --batch <cmds>       Additional hyprctl commands (semicolon-separated)
 
 EXAMPLES:
-    $(basename "${0}") firefox
-    $(basename "${0}") --workspace 3 --tile firefox
-    $(basename "${0}") --float --workspace 2 --focus code
-    $(basename "${0}") --batch "keyword general:border_size 2;keyword general:gaps_out 20" firefox
-    $(basename "${0}") --workspace 2 --batch "dispatch pin;keyword windowrule 'float,class:firefox'" firefox
-
+    $(basename "${0}") -- firefox
+    $(basename "${0}") --workspace 3 --tile -- firefox
+    $(basename "${0}") --float --workspace 2 --focus -- code
+    $(basename "${0}") --batch "keyword general:border_size 2;keyword general:gaps_out 20" -- firefox
+    $(basename "${0}") --workspace 2 --batch "dispatch pin;keyword windowrule 'float,class:firefox'" -- firefox
 EOF
 }
 
@@ -105,6 +104,12 @@ done
 declare -ga selection=("${@}")
 readonly selection
 
+# Check if stdin is available (not a terminal)
+stdin_available=false
+if [ ! -t 0 ]; then
+  stdin_available=true
+fi
+
 # Generate unit name
 if [ -n "${custom_unit}" ]; then
   unit_name="${custom_unit}"
@@ -164,7 +169,20 @@ if ${verbose}; then
   echo "Command: ${selection[*]@Q}" >&2
   echo "Slice: ${slice}" >&2
   echo "Foreground: ${foreground}" >&2
+  echo "Stdin available: ${stdin_available}" >&2
   need_hyprland_dispatch && echo "Hyprland batch: $(build_batch_commands "<pid>")" >&2
+fi
+
+# Handle stdin by creating a temporary file if needed
+stdin_file=""
+cleanup_stdin() {
+  [ -n "${stdin_file}" ] && [ -f "${stdin_file}" ] && rm -f "${stdin_file}"
+}
+trap cleanup_stdin EXIT
+
+if ${stdin_available}; then
+  stdin_file=$(mktemp)
+  cat >"${stdin_file}"
 fi
 
 unit_cmd=""
@@ -190,9 +208,16 @@ if need_hyprland_dispatch; then
   "
 fi
 
-unit_cmd+="
-  exec $(printf '%q ' "${selection[@]}")
-"
+if ${stdin_available}; then
+  unit_cmd+="
+    exec $(printf '%q ' "${selection[@]}") < $(printf '%q' "${stdin_file}")
+  "
+else
+  unit_cmd+="
+    exec $(printf '%q ' "${selection[@]}")
+  "
+fi
+
 wrapped_selection=(bash -c "${unit_cmd}")
 
 # Execute
@@ -201,4 +226,15 @@ if ${foreground}; then
 else
   systemd-run --scope "${runargs[@]}" -- "${wrapped_selection[@]}" &
   ${verbose} && echo "Started in background (PID: $!)" >&2
+fi
+
+# Clean up stdin file after systemd-run starts
+if ${stdin_available} && ! ${foreground}; then
+  # For background processes, we need to delay cleanup slightly
+  # to ensure the process can read the file
+  (
+    sleep 1
+    cleanup_stdin
+  ) &
+  trap - EXIT # Remove the trap since we're handling cleanup manually
 fi
