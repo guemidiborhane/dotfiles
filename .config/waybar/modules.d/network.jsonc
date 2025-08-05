@@ -10,7 +10,7 @@
       "󰤥",
       "󰤨"
     ],
-    "on-click": "iwmenu -l walker",
+    "on-click": "dr --float --batch 'dispatch resizeactive exact 1280 720; dispatch centerwindow' -- ghostty -e impala",
   },
   "network#ethernet": {
     "interface": "enp*",
