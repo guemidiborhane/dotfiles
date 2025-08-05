@@ -10,11 +10,3 @@ map("i", "jj", "<Esc>")
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", "Next open Buffer on tabline")
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", "Previous open Buffer on tabline")
 map("n", "<leader>bf", "<cmd>Telescope buffers<CR>", "Find Buffer")
-
-local show_dashboard = function()
-  vim.cmd("enew")
-  Snacks.dashboard()
-end
--- stylua: ignore start
-map("n", "<leader>h", show_dashboard, "Show dashboard")
--- stylua: ignore end
