@@ -41,7 +41,7 @@ abbr --position anywhere tp tmux_popup
 abbr y yay
 abbr s yay -Sy
 abbr ss yay -Ss
-abbr uu "yes | yay -Syyu"
+abbr uu update_all
 abbr b btop
 abbr pp fish -P
 
