@@ -1,7 +1,7 @@
 app_launch_prefix = "dr --prefix walker "
 terminal_title_flag = ""
 locale = ""
-close_when_open = false
+close_when_open = true                    # Toggle on reopen
 theme = "dracula"
 monitor = ""
 hotreload_theme = true
@@ -39,10 +39,13 @@ on_launch = ""
 on_query_change = ""
 
 [list]
+dynamic_sub = true
 keyboard_scroll_style = "vim"
-max_entries = 50
+max_entries = 200
 show_initial_entries = true
-placeholder = ""
+single_click = true
+visibility_threshold = 20
+placeholder = "No Results"
 
 [search]
 argument_delimiter = "#"
@@ -54,22 +57,23 @@ resume_last_query = false
 labels = "jklmasdf"
 
 [builtins.applications]
-typeahead = true
 weight = 5
 name = "applications"
-placeholder = "Applications"
-prioritize_new = true
+placeholder = "Search..."
+prioritize_new = false
 hide_actions_with_empty_query = true
-context_aware = true
+context_aware = false
 refresh = true
-show_sub_when_single = true
+show_sub_when_single = false
 show_icon_when_single = true
 show_generic = true
 history = false
+icon = ""
+hidden = true
 
 [builtins.applications.actions]
-enabled = true
-hide_category = false
+enabled = false
+hide_category = true
 hide_without_query = true
 
 [builtins.bookmarks]
@@ -78,6 +82,7 @@ placeholder = "Bookmarks"
 name = "bookmarks"
 icon = "bookmark"
 switcher_only = true
+hidden = true
 
 [[builtins.bookmarks.entries]]
 label = "dotfiles"
@@ -113,7 +118,8 @@ weight = 5
 name = "calc"
 icon = "accessories-calculator"
 placeholder = "Calculator"
-min_chars = 4
+min_chars = 3                   # Min chars to calculate. 3 allows "3+3"
+prefix = "="
 
 [builtins.windows]
 weight = 5
@@ -121,6 +127,8 @@ icon = "view-restore"
 name = "windows"
 placeholder = "Windows"
 show_icon_when_single = true
+switcher_only = true
+hidden = true
 
 [builtins.clipboard]
 always_put_new_on_top = true
@@ -132,6 +140,7 @@ placeholder = "Clipboard"
 image_height = 300
 max_entries = 10
 switcher_only = true
+hidden = true
 
 [builtins.commands]
 weight = 5
@@ -139,22 +148,14 @@ icon = "utilities-terminal"
 switcher_only = true
 name = "commands"
 placeholder = "Commands"
+hidden = true
 
 [builtins.custom_commands]
-weight = 10
+weight = 5
 icon = "utilities-terminal"
 name = "custom_commands"
 placeholder = "Custom Commands"
-
-[[builtins.custom_commands.commands]]
-icon = "bluetooth"
-name = "Bluetooth Menu"
-cmd = "bzmenu --launcher walker"
-
-[[builtins.custom_commands.commands]]
-icon = "wifi"
-name = "Wifi Menu"
-cmd = "iwmenu --launcher walker"
+hidden = true
 
 [builtins.emojis]
 exec = "wl-copy"
@@ -165,6 +166,7 @@ switcher_only = true
 history = true
 typeahead = true
 show_unqualified = false
+prefix = ":"
 
 [builtins.symbols]
 after_copy = ""
@@ -174,10 +176,12 @@ placeholder = "Symbols"
 switcher_only = true
 history = true
 typeahead = true
+hidden = true
 
 [builtins.finder]
-use_fd = false
-fd_flags = "--ignore-vcs --type file"
+use_fd = true
+fd_flags = "--ignore-vcs --type file --type directory"
+cmd_alt = "xdg-open $(dirname ~/%RESULT%)"
 weight = 5
 icon = "file"
 name = "finder"
@@ -187,7 +191,9 @@ ignore_gitignore = true
 refresh = true
 concurrency = 8
 show_icon_when_single = true
-preview_images = false
+preview_images = true
+hidden = false
+prefix = "."
 
 [builtins.runner]
 eager_loading = true
@@ -197,9 +203,12 @@ name = "runner"
 placeholder = "Runner"
 typeahead = true
 history = true
-generic_entry = false
+generic_entry = false       # Generic command runner
+shell_config = ""           # Path to shell to parse for aliases
 refresh = true
 use_fd = false
+switcher_only = true
+hidden = true
 
 [builtins.ssh]
 weight = 5
@@ -209,6 +218,7 @@ placeholder = "SSH"
 switcher_only = true
 history = true
 refresh = true
+hidden = true
 
 [builtins.switcher]
 weight = 5
@@ -222,6 +232,8 @@ weight = 5
 icon = "applications-internet"
 name = "websearch"
 placeholder = "Websearch"
+switcher_only = true
+hidden = true
 
 [[builtins.websearch.entries]]
 name = "Google"
@@ -232,21 +244,11 @@ switcher_only = true
 name = "DuckDuckGo"
 url = "https://duckduckgo.com/?q=%TERM%"
 
-[[builtins.websearch.entries]]
-name = "Ecosia"
-url = "https://www.ecosia.org/search?q=%TERM%"
-switcher_only = true
-
-[[builtins.websearch.entries]]
-name = "Yandex"
-url = "https://yandex.com/search/?text=%TERM%"
-switcher_only = true
-
 [builtins.dmenu]
 hidden = true
 weight = 5
 name = "dmenu"
-placeholder = "Choose"
+placeholder = "Dmenu"
 switcher_only = true
 show_icon_when_single = true
 
@@ -258,3 +260,4 @@ icon = "accessories-dictionary"
 placeholder = "Translation"
 switcher_only = true
 provider = "googlefree"
+hidden = true
