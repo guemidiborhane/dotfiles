@@ -1,58 +1,97 @@
 #!/bin/bash
 
-# Configuration
 WALLPAPER_DIR="$HOME/.wallpaper"
 CACHE_DIR="$HOME/.cache/wallpaper"
 
 # Create cache directory if it doesn't exist
 mkdir -p "$CACHE_DIR"
 
-# Function to get all connected monitors
+# Function to get monitor info (name, width, height)
+get_monitor_info() {
+  hyprctl monitors -j | jq -r '.[] | "\(.name) \(.width) \(.height)"'
+}
+
+# Function to get all connected monitors (names only)
 get_monitors() {
   hyprctl monitors -j | jq -r '.[].name'
 }
 
-# Function to get a random wallpaper
+get_monitor_resolution() {
+  local monitor="$1"
+  hyprctl monitors -j | jq -r ".[] | select(.name == \"$monitor\") | \"\(.width)x\(.height)\""
+}
+
 get_random_wallpaper() {
   find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | shuf -n 1
 }
 
-# Function to get file extension
 get_extension() {
   local filename="$1"
   echo "${filename##*.}"
 }
 
-# Create dimmed and blurred version for lock screen
 create_lock_background() {
   local source="$1"
   local output="$2"
+  local target_resolution="$3" # e.g., "1920x1080"
 
   local dim_level=40
-  local blur_level=1
-  local blur_shrink=$(echo "scale=2; 20 / $blur_level" | bc)
-  local blur_sigma=$(echo "scale=2; 0.6 * $blur_level" | bc)
+  local blur_sigma=6
 
-  magick convert "$source" \
-    -fill black -colorize "$dim_level"% \
-    -filter Gaussian \
-    -resize "$blur_shrink%" \
-    -define "filter:sigma=$blur_sigma" \
+  local source_info=$(magick identify -format "%wx%h" "$source")
+  local source_width=$(echo "$source_info" | cut -d'x' -f1)
+  local source_height=$(echo "$source_info" | cut -d'x' -f2)
+
+  local target_width=$(echo "$target_resolution" | cut -d'x' -f1)
+  local target_height=$(echo "$target_resolution" | cut -d'x' -f2)
+
+  echo "  Processing: ${source_width}x${source_height} -> ${target_width}x${target_height}"
+
+  if [ "$source_width" -gt "$((target_width * 2))" ] || [ "$source_height" -gt "$((target_height * 2))" ]; then
+    # Image is significantly larger than target, resize first for performance
+    echo "  Large image detected, resizing before blur..."
+    magick "$source" \
+      -resize "${target_resolution}^" \
+      -gravity center \
+      -extent "$target_resolution" \
+      -gaussian-blur "0x${blur_sigma}" \
+      -fill black -colorize "$dim_level"% \
+      "$output"
+  else
+    # Image is reasonable size, blur at full resolution then resize
+    magick "$source" \
+      -gaussian-blur "0x${blur_sigma}" \
+      -resize "${target_resolution}^" \
+      -gravity center \
+      -extent "$target_resolution" \
+      -fill black -colorize "$dim_level"% \
+      "$output"
+  fi
+}
+
+create_monitor_wallpaper() {
+  local source="$1"
+  local output="$2"
+  local target_resolution="$3"
+
+  # For regular wallpaper, we might want to resize to exact monitor resolution
+  magick "$source" \
+    -resize "${target_resolution}^" \
+    -gravity center \
+    -extent "$target_resolution" \
     "$output"
 }
 
 restart_hyprpaper() {
   killall -q hyprpaper
 
-  # Wait until the processes have been shut down
   while pgrep -u $UID -x hyprpaper >/dev/null; do sleep 1; done
 
-  hyprpaper
+  hyprpaper &
+  disown
 }
 
-# Main execution
 main() {
-  # Get random wallpaper
   wallpaper=$(get_random_wallpaper)
 
   if [ -z "$wallpaper" ]; then
@@ -60,36 +99,48 @@ main() {
     exit 1
   fi
 
-  # Get the extension of the source wallpaper
+  echo "Selected wallpaper: $(basename "$wallpaper")"
+
   extension=$(get_extension "$wallpaper")
 
-  # Process each monitor
-  for monitor in $(get_monitors); do
-    # Create symbolic links for wallpaper and lock screen
+  primary_monitor=$(hyprctl monitors -j | jq -r '.[0].name')
+
+  while IFS= read -r monitor_line; do
+    read -r monitor width height <<<"$monitor_line"
+    resolution="${width}x${height}"
+
+    echo "Processing monitor: $monitor ($resolution)"
+
     monitor_wallpaper="$CACHE_DIR/$monitor.$extension"
     monitor_lock="$CACHE_DIR/$monitor-lock.$extension"
 
-    # Remove old files if they exist
     rm -f "$CACHE_DIR/$monitor."* "$CACHE_DIR/$monitor-lock."*
 
-    # Create new links and files
+    # Create monitor-specific wallpaper (optional - comment out if you prefer symbolic links)
+    # create_monitor_wallpaper "$wallpaper" "$monitor_wallpaper" "$resolution"
+
+    # Or use symbolic link for wallpaper (lighter on storage)
     ln -sf "$wallpaper" "$monitor_wallpaper"
-    create_lock_background "$wallpaper" "$monitor_lock"
+
+    # Create monitor-specific lock screen background
+    create_lock_background "$wallpaper" "$monitor_lock" "$resolution"
 
     # If this is the primary monitor, create additional links for hyprlock
-    if [ "$monitor" = "$(hyprctl monitors -j | jq -r '.[0].name')" ]; then
+    if [ "$monitor" = "$primary_monitor" ]; then
       rm -f "$CACHE_DIR/primary-lock."*
       ln -sf "$monitor_lock" "$CACHE_DIR/primary-lock.$extension"
+      echo "  Created primary lock screen link"
     fi
 
-    echo "Set wallpaper for $monitor: $monitor_wallpaper"
-    echo "Created lock screen for $monitor: $monitor_lock"
-  done
+    echo "  Wallpaper: $monitor_wallpaper"
+    echo "  Lock screen: $monitor_lock"
+    echo
+
+  done < <(get_monitor_info)
 
   echo "Wallpaper update complete!"
 }
 
-# Run main function
 main
 
 restart_hyprpaper
