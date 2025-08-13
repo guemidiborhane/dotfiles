@@ -133,6 +133,7 @@ rdesktop
 re2c
 rebuild-detector
 reflector
+retry
 ripgrep
 rofi-wayland
 rsync
