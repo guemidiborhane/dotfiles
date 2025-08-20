@@ -3,7 +3,7 @@
 
 INSTALL_ALL=no
 
-enabled_user_services="adguard.service run-mount-scripts.timer autotiling.service atuin-daemon.service copyq.service gcr-ssh-agent.service hypridle.service kanata.service swaync.service walker.service wallpaper.timer waybar.service"
+enabled_user_services="adguard.service run-mount-scripts.timer autotiling.service atuin-daemon.service copyq.service hyprpaper.service hypridle.service kanata.service swaync.service walker.service wallpaper.timer waybar.service"
 enabled_system_services="fstrim.timer ntpd.service bluetooth.service netbird.service ufw.service reflector.timer"
 
 . $HOME/.config/yadm/main.sh
