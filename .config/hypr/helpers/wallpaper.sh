@@ -83,12 +83,7 @@ create_monitor_wallpaper() {
 }
 
 restart_hyprpaper() {
-  killall -q hyprpaper
-
-  while pgrep -u $UID -x hyprpaper >/dev/null; do sleep 1; done
-
-  hyprpaper &
-  disown
+  systemctl --user restart hyprpaper.service
 }
 
 main() {
