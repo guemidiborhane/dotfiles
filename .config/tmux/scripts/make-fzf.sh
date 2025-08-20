@@ -2,7 +2,7 @@
 # Exit if no Makefile present
 [ ! -f Makefile ] && exit 0
 
-task="$(make -npq | awk -v RS= -F: '$1 ~ /^[^#%.]+$/ { print $1 }' | fzf-tmux -p)"
+task="$(make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}' | sort -u | fzf-tmux -p)"
 
 # Exit if task is empty/cancelled
 [ -z "$task" ] && exit 0
