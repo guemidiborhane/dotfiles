@@ -28,6 +28,7 @@ if status is-interactive
     carapace _carapace | source
     mise activate fish | source
     atuin init fish --disable-up-arrow | source
+    dr --completion fish | source
 
     fish_vi_key_bindings
     enable_transience
