@@ -35,7 +35,6 @@ abbr p8 "ping 8.8.8.8"
 abbr k kubectl
 abbr sc "sudo systemctl"
 abbr scu "systemctl --user"
-abbr sync "~/.config/yadm/packages.d/sync-packages"
 abbr --position anywhere vim nvim
 abbr --position anywhere tp tmux_popup
 abbr y yay
