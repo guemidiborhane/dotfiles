@@ -561,6 +561,9 @@
         },
         "ExpressionCloner": {
             "enabled": false
+        },
+        "CopyStickerLinks": {
+            "enabled": false
         }
     },
     "notifications": {
@@ -573,6 +576,6 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1754409440713
+        "settingsSyncVersion": 1755688908837
     }
 }

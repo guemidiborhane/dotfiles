@@ -36,6 +36,154 @@ EXAMPLES:
     $(basename "${0}") --float --workspace 2 --focus -- code
     $(basename "${0}") --batch "keyword general:border_size 2;keyword general:gaps_out 20" -- firefox
     $(basename "${0}") --workspace 2 --batch "dispatch pin;keyword windowrule 'float,class:firefox'" -- firefox
+
+AUTOCOMPLETION:
+    Bash - Add to ~/.bashrc:
+    eval "\$(dr --completion)"
+
+    Fish - Add to ~/.config/fish/config.fish:
+    dr --completion fish | source
+
+    Or create completion file:
+    dr --completion fish > ~/.config/fish/completions/dr.fish
+EOF
+}
+
+# Shell completion functions
+show_completion() {
+  local script_name shell_type
+  script_name="$(basename "${0}")"
+
+  # Detect shell type
+  if [ -n "${FISH_VERSION:-}" ] || [ "${1:-}" = "fish" ]; then
+    shell_type="fish"
+  else
+    shell_type="bash"
+  fi
+
+  case "$shell_type" in
+  "fish")
+    show_fish_completion "$script_name"
+    ;;
+  "bash" | *)
+    show_bash_completion "$script_name"
+    ;;
+  esac
+}
+
+show_bash_completion() {
+  local script_name="$1"
+
+  cat <<'EOF'
+_drun_completion() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    
+    # Find if we have -- in the command line
+    local dash_dash_pos=-1
+    local i
+    for ((i=1; i<COMP_CWORD; i++)); do
+        if [[ "${COMP_WORDS[i]}" == "--" ]]; then
+            dash_dash_pos=$i
+            break
+        fi
+    done
+    
+    # If we're after --, complete commands and files
+    if [[ $dash_dash_pos -ne -1 && $COMP_CWORD -gt $dash_dash_pos ]]; then
+        # We're completing the command after --
+        if [[ $COMP_CWORD -eq $((dash_dash_pos + 1)) ]]; then
+            # Complete executable commands
+            local commands
+            commands=$(compgen -c -- "$cur" 2>/dev/null)
+            COMPREPLY=($commands)
+        else
+            # Complete files for command arguments
+            COMPREPLY=($(compgen -f -- "$cur"))
+        fi
+        return 0
+    fi
+    
+    # Handle option arguments that expect values
+    case "$prev" in
+        -n|--name|-d|--description|-r|--prefix|-s|--slice|-u|--unit|-w|--workspace|-b|--batch)
+            # These options expect a value, don't complete
+            return 0
+            ;;
+    esac
+    
+    # Complete script options
+    opts="--foreground --name --description --prefix --slice --unit --workspace --tile --float --focus --batch --help --verbose --completion --"
+    short_opts="-f -n -d -r -s -u -w -t -F -h -v"
+    
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=($(compgen -W "$opts $short_opts" -- "$cur"))
+    else
+        # If no -- yet, suggest it
+        COMPREPLY=($(compgen -W "--" -- "$cur"))
+    fi
+}
+
+# Register the completion function
+EOF
+  echo "complete -F _drun_completion ${script_name}"
+}
+
+show_fish_completion() {
+  local script_name="$1"
+
+  cat <<EOF
+# Fish completion for ${script_name}
+
+# Define a function to check if we're after --
+function __${script_name}_after_doubledash
+    set -l cmd (commandline -opc)
+    for i in (seq 2 (count \$cmd))
+        if test "\$cmd[\$i]" = "--"
+            return 0
+        end
+    end
+    return 1
+end
+
+# Define a function to get position after --
+function __${script_name}_doubledash_pos
+    set -l cmd (commandline -opc)
+    for i in (seq 2 (count \$cmd))
+        if test "\$cmd[\$i]" = "--"
+            echo \$i
+            return
+        end
+    end
+    echo 0
+end
+
+# Complete commands after --
+complete -c ${script_name} -n '__${script_name}_after_doubledash' -a '(__fish_complete_command)'
+
+# Complete files for command arguments (when not completing the first command after --)
+complete -c ${script_name} -n '__${script_name}_after_doubledash; and test (math (count (commandline -opc)) - (__${script_name}_doubledash_pos)) -gt 1' -F
+
+# Complete script options (before --)
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s f -l foreground -d 'Run command in foreground'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s n -l name -d 'Use custom unit name prefix' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s d -l description -d 'Use custom unit description' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s r -l prefix -d 'Use custom prefix' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s s -l slice -d 'Use custom systemd slice' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s u -l unit -d 'Use custom unit name' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s w -l workspace -d 'Move window to specific workspace' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s t -l tile -d 'Force window to tile'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s F -l float -d 'Force window to float'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -l focus -d 'Focus on window after moving to workspace'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s b -l batch -d 'Additional hyprctl commands' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s h -l help -d 'Show help message'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s v -l verbose -d 'Enable verbose output'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -l completion -d 'Show completion script'
+
+# Complete -- separator
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -a '--' -d 'Command separator'
 EOF
 }
 
@@ -45,7 +193,16 @@ EOF
   exit 1
 }
 
-opts="$(getopt -o "fn:d:r:s:u:w:tFb:hv" -l "foreground,name:,description:,prefix:,slice:,unit:,workspace:,tile,float,focus,batch:,help,verbose" -n "$(basename "${0}")" -- "${@}")" || exit 1
+# Check for completion flag first
+if [[ "${1:-}" == "--completion" ]]; then
+  show_completion "${2:-}"
+  exit 0
+fi
+
+opts="$(getopt -o "fn:d:r:s:u:w:tFb:hv" -l "foreground,name:,description:,prefix:,slice:,unit:,workspace:,tile,float,focus,batch:,help,verbose,completion" -n "$(basename "${0}")" -- "${@}")" || {
+  echo "Error: Invalid arguments" >&2
+  exit 1
+}
 eval set -- "${opts}"
 
 while true; do
@@ -83,6 +240,10 @@ while true; do
     shift
     ;;
   -v | --verbose) verbose=true ;;
+  --completion)
+    show_completion
+    exit 0
+    ;;
   -h | --help)
     show_help
     exit 0
