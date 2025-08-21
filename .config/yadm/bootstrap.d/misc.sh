@@ -11,14 +11,6 @@ clean_slate() {
     yay -Syy
 }
 
-enable_user_services () {
-    ask "Enable user services"
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        systemctl --user enable --now $@
-    fi
-}
-
 _configure_docker () {
 tee $HOME/.docker/config.json &>/dev/null <<EOF
     {
