@@ -42,10 +42,3 @@ configure_resolvconf () {
     fi
 }
 
-enable_system_services () {
-    ask "Enable system services"
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        sudo systemctl enable --now $@
-    fi
-}
