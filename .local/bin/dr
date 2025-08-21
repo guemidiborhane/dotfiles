@@ -279,9 +279,9 @@ else
     name="${custom_name}"
   else
     read -r -d '' -n 192 name < <(
-      basename "${selection[0]}" | tr -c 'a-zA-Z0-9_-' '[_*]' || exit 1
-      echo -e '\0' || exit 2
-    ) || exit 126
+      basename "${selection[0]}" | tr -c 'a-zA-Z0-9_-' '[_*]' || true
+      echo -e '\0' || true
+    ) || true
   fi
 
   max_name_len=$((217 - ${#prefix} - 37))
@@ -290,7 +290,10 @@ else
     exit 125
   }
 
-  uuid="$(uuidgen)" || exit 124
+  uuid="$(uuidgen)" || {
+    echo "Error: Failed to generate UUID" >&2
+    exit 1
+  }
   unit_name="${prefix}-${name}-${uuid}"
 fi
 
@@ -337,13 +340,19 @@ fi
 # Handle stdin by creating a temporary file if needed
 stdin_file=""
 cleanup_stdin() {
-  [ -n "${stdin_file}" ] && [ -f "${stdin_file}" ] && rm -f "${stdin_file}"
+  [ -n "${stdin_file}" ] && [ -f "${stdin_file}" ] && rm -f "${stdin_file}" || true
 }
 trap cleanup_stdin EXIT
 
 if ${stdin_available}; then
-  stdin_file=$(mktemp)
-  cat >"${stdin_file}"
+  stdin_file=$(mktemp) || {
+    echo "Error: Failed to create temporary file" >&2
+    exit 1
+  }
+  cat >"${stdin_file}" || {
+    echo "Error: Failed to write to temporary file" >&2
+    exit 1
+  }
 fi
 
 unit_cmd=""
@@ -385,8 +394,10 @@ wrapped_selection=(bash -c "${unit_cmd}")
 if ${foreground}; then
   exec systemd-run --wait "${runargs[@]}" -- "${wrapped_selection[@]}"
 else
+  # For background execution, start systemd-run and let it handle its own errors
   systemd-run --scope "${runargs[@]}" -- "${wrapped_selection[@]}" &
-  ${verbose} && echo "Started in background (PID: $!)" >&2
+  background_pid=$!
+  ${verbose} && echo "Started in background (PID: $background_pid)" >&2
 fi
 
 # Clean up stdin file after systemd-run starts
@@ -397,5 +408,8 @@ if ${stdin_available} && ! ${foreground}; then
     sleep 1
     cleanup_stdin
   ) &
-  trap - EXIT # Remove the trap since we're handling cleanup manually
+  trap - EXIT || true # Remove the trap since we're handling cleanup manually
 fi
+
+# Ensure script exits successfully
+exit 0
