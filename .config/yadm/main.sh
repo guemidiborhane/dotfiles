@@ -10,14 +10,12 @@ done
 
 main() {
     echo "Bootstrapping"
-    ask_run_all_scripts                                 # scripts/misc.sh
-    section "Miscellaneous"                             # scripts/misc.sh
-    enable_system_services "${enabled_system_services}" # scripts/system.sh
-    enable_user_services "${enabled_user_services}"     # scripts/misc.sh
-    configure_resolvconf                                # scripts/system.sh
-    configure_backlight                                 # scripts/system.sh
-    configure_docker                                    # scripts/misc.sh
-    local_bin_permissions                               # scripts/misc.sh
+    ask_run_all_scripts     # scripts/misc.sh
+    section "Miscellaneous" # scripts/misc.sh
+    configure_resolvconf    # scripts/system.sh
+    configure_backlight     # scripts/system.sh
+    configure_docker        # scripts/misc.sh
+    local_bin_permissions   # scripts/misc.sh
     yadm alt
     configure_polybar # scripts/polybar.sh
     readme            # scripts/misc.sh

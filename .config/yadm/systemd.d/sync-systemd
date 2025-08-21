@@ -1,0 +1,533 @@
+#!/bin/bash
+
+# Systemd service synchronization script
+# Syncs enabled systemd services/timers with predefined lists for both user and system
+
+set -euo pipefail # Exit on error, undefined vars, pipe failures
+
+# Color codes for better output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging function
+log() {
+  local level="$1"
+  shift
+  case "$level" in
+  "INFO") echo -e "${GREEN}[INFO]${NC} $*" ;;
+  "WARN") echo -e "${YELLOW}[WARN]${NC} $*" ;;
+  "ERROR") echo -e "${RED}[ERROR]${NC} $*" ;;
+  "DEBUG") echo -e "${BLUE}[DEBUG]${NC} $*" ;;
+  esac
+}
+
+# Function to check if running as root for system services
+check_sudo_available() {
+  if ! command -v sudo &>/dev/null; then
+    log "ERROR" "sudo not found. Please install sudo for system service management."
+    exit 1
+  fi
+}
+
+# Function to validate service lists
+validate_service_list() {
+  local file="$1"
+  local list_type="$2"
+
+  if [[ ! -f "$file" ]]; then
+    return 1
+  fi
+
+  # Check for empty lines, comments, and basic validation
+  # Service names can contain letters, numbers, hyphens, underscores, dots, and @
+  if ! grep -qE '^[a-zA-Z0-9][a-zA-Z0-9._@-]*\.(service|timer|socket|mount|automount|swap|target|path|slice|scope)$' "$file" 2>/dev/null; then
+    log "WARN" "$list_type service list may contain invalid entries: $file"
+  fi
+
+  return 0
+}
+
+# Function to prompt for confirmation
+confirm() {
+  local prompt="$1"
+  local default="${2:-y}"
+
+  while true; do
+    read -p "$prompt (y/n) [${default}]: " response
+    response=${response:-$default}
+    case "$response" in
+    [Yy]*) return 0 ;;
+    [Nn]*) return 1 ;;
+    *) echo "Please answer y or n." ;;
+    esac
+  done
+}
+
+# Function to add service to ignore list
+add_service_to_ignore_list() {
+  local service="$1"
+  local is_user="$2"
+  local config_dir="$3"
+
+  if [[ "$is_user" == "true" ]]; then
+    local ignore_list="$config_dir/user.ignore.list"
+    local list_type="user ignore"
+  else
+    local ignore_list="$config_dir/system.ignore.list"
+    local list_type="system ignore"
+  fi
+
+  add_service_sorted "$service" "$ignore_list"
+  log "INFO" "Added '$service' to $list_type list"
+}
+
+# Function to add service to appropriate list with alphabetical sorting
+add_service_to_list() {
+  local service="$1"
+  local is_user="$2"
+  local config_dir="$3"
+
+  if [[ "$is_user" == "true" ]]; then
+    local main_list="$config_dir/user.wants.list"
+    local local_list="$config_dir/user.wants.local.list"
+    local list_type="user"
+  else
+    local main_list="$config_dir/system.wants.list"
+    local local_list="$config_dir/system.wants.local.list"
+    local list_type="system"
+  fi
+
+  echo
+  log "INFO" "Where would you like to add '$service'?"
+  echo "1) Main $list_type list ($(basename "$main_list")) [default]"
+  echo "2) Local $list_type list ($(basename "$local_list"))"
+  echo "3) $list_type ignore list"
+
+  while true; do
+    read -p "Choose option [1-3]: " choice
+    choice=${choice:-1} # Default to option 1 (main list)
+    case "$choice" in
+    1)
+      add_service_sorted "$service" "$main_list"
+      log "INFO" "Added '$service' to main $list_type list"
+      return 0
+      ;;
+    2)
+      add_service_sorted "$service" "$local_list"
+      log "INFO" "Added '$service' to local $list_type list"
+      return 0
+      ;;
+    3)
+      add_service_to_ignore_list "$service" "$is_user" "$config_dir"
+      return 0
+      ;;
+    *)
+      echo "Please choose 1, 2, or 3."
+      ;;
+    esac
+  done
+}
+
+# Function to add service to list while maintaining alphabetical order
+add_service_sorted() {
+  local service="$1"
+  local list_file="$2"
+  local temp_file=$(mktemp)
+
+  # Check if service already exists in the list
+  if [[ -f "$list_file" ]] && grep -Fxq "$service" "$list_file"; then
+    log "WARN" "Service '$service' already exists in $(basename "$list_file")"
+    rm "$temp_file"
+    return 0
+  fi
+
+  # Add service and sort the list
+  if [[ -f "$list_file" ]]; then
+    # Preserve comments and empty lines at the top, sort service names
+    {
+      # Extract comments and empty lines from the beginning
+      grep -E '^(#|$)' "$list_file" 2>/dev/null || true
+      # Add the new service and existing non-comment lines, then sort
+      {
+        echo "$service"
+        grep -vE '^(#|$)' "$list_file" 2>/dev/null || true
+      } | sort -u
+    } >"$temp_file"
+  else
+    echo "$service" >"$temp_file"
+  fi
+
+  mv "$temp_file" "$list_file"
+}
+
+# Function to get enabled services
+get_enabled_services() {
+  local is_user="$1"
+
+  if [[ "$is_user" == "true" ]]; then
+    # Get user services
+    systemctl --user list-unit-files --state=enabled --no-legend --no-pager | awk '{print $1}' | sort
+  else
+    # Get system services
+    systemctl list-unit-files --state=enabled --no-legend --no-pager | awk '{print $1}' | sort
+  fi
+}
+
+# Function to enable services
+enable_services() {
+  local services="$1"
+  local is_user="$2"
+
+  if [[ -z "$services" ]]; then
+    return 0
+  fi
+
+  local service_type="system"
+  [[ "$is_user" == "true" ]] && service_type="user"
+
+  log "INFO" "Enabling $service_type services: $(echo "$services" | tr '\n' ' ')"
+
+  local service_array=($services)
+  local failed_services=""
+
+  for service in "${service_array[@]}"; do
+    if [[ "$is_user" == "true" ]]; then
+      if ! systemctl --user enable "$service" 2>/dev/null; then
+        log "WARN" "Failed to enable user service: $service"
+        failed_services="$failed_services $service"
+      fi
+    else
+      if ! sudo systemctl enable "$service" 2>/dev/null; then
+        log "WARN" "Failed to enable system service: $service"
+        failed_services="$failed_services $service"
+      fi
+    fi
+  done
+
+  if [[ -n "$failed_services" ]]; then
+    log "ERROR" "Some services failed to enable: $failed_services"
+    return 1
+  fi
+}
+
+# Function to handle service removal with add-to-list option
+interactive_service_removal() {
+  local services="$1"
+  local is_user="$2"
+  local config_dir="$3"
+  local ignore_list="$4"
+
+  if [[ -z "$services" ]]; then
+    return 0
+  fi
+
+  local service_array=($services)
+  local services_to_disable=""
+  local service_type="system"
+  [[ "$is_user" == "true" ]] && service_type="user"
+
+  log "WARN" "Found $service_type services enabled but not in your lists:"
+  echo "$services" | tr ' ' '\n' | sed 's/^/  - /'
+  echo
+
+  for service in "${service_array[@]}"; do
+    # Skip if service is in ignore list
+    if grep -Fxq "$service" "$ignore_list" 2>/dev/null; then
+      log "INFO" "Skipping '$service' (found in ignore list)"
+      continue
+    fi
+
+    echo "Service: $service"
+    echo "What would you like to do with this service?"
+    echo "1) Disable it [default]"
+    echo "2) Add it to a wants list"
+    echo "3) Add it to ignore list"
+    echo "4) Skip (leave as-is)"
+
+    while true; do
+      read -p "Choose option [1-4]: " choice
+      choice=${choice:-1} # Default to option 1 (disable)
+      case "$choice" in
+      1)
+        services_to_disable="$services_to_disable $service"
+        log "INFO" "Marked '$service' for disabling"
+        break
+        ;;
+      2)
+        add_service_to_list "$service" "$is_user" "$config_dir"
+        break
+        ;;
+      3)
+        add_service_to_ignore_list "$service" "$is_user" "$config_dir"
+        break
+        ;;
+      4)
+        log "INFO" "Skipping '$service' (leaving as-is)"
+        break
+        ;;
+      *)
+        echo "Please choose 1, 2, 3, or 4."
+        ;;
+      esac
+    done
+    echo
+  done
+
+  # Disable services that were marked for disabling
+  if [[ -n "$services_to_disable" ]]; then
+    services_to_disable=$(echo "$services_to_disable" | xargs) # trim whitespace
+    log "WARN" "Disabling $service_type services: $services_to_disable"
+
+    if confirm "Proceed with disabling marked $service_type services?"; then
+      disable_services "$services_to_disable" "$is_user"
+    else
+      log "INFO" "Skipped service disabling"
+    fi
+  fi
+}
+
+# Function to disable services with error checking
+disable_services() {
+  local services="$1"
+  local is_user="$2"
+
+  if [[ -z "$services" ]]; then
+    return 0
+  fi
+
+  local service_type="system"
+  [[ "$is_user" == "true" ]] && service_type="user"
+
+  log "WARN" "Disabling $service_type services: $(echo "$services" | tr '\n' ' ')"
+
+  if ! confirm "Are you sure you want to disable these $service_type services?"; then
+    log "INFO" "Skipping service disabling"
+    return 0
+  fi
+
+  local service_array=($services)
+  local failed_services=""
+
+  for service in "${service_array[@]}"; do
+    if [[ "$is_user" == "true" ]]; then
+      if ! systemctl --user disable "$service" 2>/dev/null; then
+        log "WARN" "Failed to disable user service: $service"
+        failed_services="$failed_services $service"
+      fi
+    else
+      if ! sudo systemctl disable "$service" 2>/dev/null; then
+        log "WARN" "Failed to disable system service: $service"
+        failed_services="$failed_services $service"
+      fi
+    fi
+  done
+
+  if [[ -n "$failed_services" ]]; then
+    log "ERROR" "Some services failed to disable: $failed_services"
+    return 1
+  fi
+}
+
+# Function to check system dependencies
+check_dependencies() {
+  if ! command -v systemctl &>/dev/null; then
+    log "ERROR" "systemctl not found. This script requires systemd."
+    exit 1
+  fi
+}
+
+# Function to show usage information
+show_usage() {
+  echo "Usage: $0 [OPTIONS]"
+  echo "Options:"
+  echo "  -h, --help            Show this help message"
+  echo "  -a, --auto-disable    Automatically disable services without interactive prompts"
+  echo "  -i, --interactive     Use interactive mode for service management (default)"
+  echo "  -u, --user-only       Only manage user services"
+  echo "  -s, --system-only     Only manage system services"
+  echo
+  echo "Interactive mode allows you to:"
+  echo "  - Add services to your wants lists instead of disabling them"
+  echo "  - Add services to ignore lists to prevent future prompts"
+  echo "  - Choose which list to add services to (main, local, or ignore)"
+  echo "  - Skip services without taking any action"
+  echo
+  echo "Service list files:"
+  echo "  ~/.config/yadm/systemd.d/user.wants.list        - User services"
+  echo "  ~/.config/yadm/systemd.d/user.wants.local.list  - User local services"
+  echo "  ~/.config/yadm/systemd.d/user.ignore.list       - User services to ignore"
+  echo "  ~/.config/yadm/systemd.d/system.wants.list      - System services"
+  echo "  ~/.config/yadm/systemd.d/system.wants.local.list - System local services"
+  echo "  ~/.config/yadm/systemd.d/system.ignore.list     - System services to ignore"
+}
+
+# Function to process services for a given type (user or system)
+process_services() {
+  local is_user="$1"
+  local interactive="$2"
+  local config_dir="$3"
+
+  local service_type="system"
+  local wants_list="$config_dir/system.wants.list"
+  local local_list="$config_dir/system.wants.local.list"
+  local ignore_list="$config_dir/system.ignore.list"
+
+  if [[ "$is_user" == "true" ]]; then
+    service_type="user"
+    wants_list="$config_dir/user.wants.list"
+    local_list="$config_dir/user.wants.local.list"
+    ignore_list="$config_dir/user.ignore.list"
+  fi
+
+  log "INFO" "Processing $service_type services..."
+
+  # Validate service lists
+  if ! validate_service_list "$wants_list" "$service_type"; then
+    log "WARN" "$service_type wants list not found: $wants_list (continuing without $service_type services)"
+    touch "$wants_list" # Create empty file to avoid errors
+  fi
+
+  # Create empty ignore list if it doesn't exist
+  if [[ ! -f "$ignore_list" ]]; then
+    touch "$ignore_list"
+  fi
+
+  # Create empty local list if it doesn't exist
+  if [[ ! -f "$local_list" ]]; then
+    touch "$local_list"
+  fi
+
+  # Get currently enabled services
+  local enabled_services
+  enabled_services=$(get_enabled_services "$is_user")
+
+  # Read the desired services from files, filtering out empty lines and comments
+  local desired_services
+  desired_services=$(grep -hE '^[^#]' "$wants_list" "$local_list" 2>/dev/null | grep -v '^$' | sort -u)
+
+  if [[ -z "$desired_services" ]]; then
+    log "INFO" "No $service_type services listed."
+  else
+    # Find services that need to be enabled
+    local services_to_enable
+    services_to_enable=$(comm -23 <(echo "$desired_services") <(echo "$enabled_services"))
+
+    # Find services that need to be disabled
+    local services_to_disable
+    services_to_disable=$(comm -13 <(echo "$desired_services") <(echo "$enabled_services"))
+
+    # Enable new services
+    if [[ -n "$services_to_enable" ]]; then
+      enable_services "$services_to_enable" "$is_user"
+    else
+      log "INFO" "No new $service_type services to enable."
+    fi
+
+    # Handle service disabling
+    if [[ -n "$services_to_disable" ]]; then
+      if [[ "$interactive" == "true" ]]; then
+        interactive_service_removal "$services_to_disable" "$is_user" "$config_dir" "$ignore_list"
+      else
+        # In auto mode, skip services in ignore list
+        local filtered_services_to_disable=""
+        for service in $services_to_disable; do
+          if ! grep -Fxq "$service" "$ignore_list" 2>/dev/null; then
+            filtered_services_to_disable="$filtered_services_to_disable $service"
+          else
+            log "INFO" "Skipping '$service' (found in ignore list)"
+          fi
+        done
+
+        if [[ -n "$filtered_services_to_disable" ]]; then
+          disable_services "$filtered_services_to_disable" "$is_user"
+        fi
+      fi
+    else
+      log "INFO" "No $service_type services to disable."
+    fi
+  fi
+}
+
+# Main function
+main() {
+  local auto_disable=false
+  local interactive=true
+  local user_only=false
+  local system_only=false
+
+  # Parse command line arguments
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+    -h | --help)
+      show_usage
+      exit 0
+      ;;
+    -a | --auto-disable)
+      auto_disable=true
+      interactive=false
+      shift
+      ;;
+    -i | --interactive)
+      interactive=true
+      auto_disable=false
+      shift
+      ;;
+    -u | --user-only)
+      user_only=true
+      shift
+      ;;
+    -s | --system-only)
+      system_only=true
+      shift
+      ;;
+    *)
+      log "ERROR" "Unknown option: $1"
+      show_usage
+      exit 1
+      ;;
+    esac
+  done
+
+  # Validate conflicting options
+  if [[ "$user_only" == "true" && "$system_only" == "true" ]]; then
+    log "ERROR" "Cannot specify both --user-only and --system-only"
+    exit 1
+  fi
+
+  log "INFO" "Starting systemd service synchronization..."
+  if [[ "$interactive" == "true" ]]; then
+    log "INFO" "Running in interactive mode"
+  else
+    log "INFO" "Running in automatic disabling mode"
+  fi
+
+  # Check prerequisites
+  check_dependencies
+  if [[ "$system_only" == "false" ]]; then
+    check_sudo_available
+  fi
+
+  # Define the paths to service lists
+  local config_dir="$HOME/.config/yadm/systemd.d"
+
+  # Create config directory if it doesn't exist
+  mkdir -p "$config_dir"
+
+  # Process user services
+  if [[ "$system_only" == "false" ]]; then
+    process_services "true" "$interactive" "$config_dir"
+  fi
+
+  # Process system services
+  if [[ "$user_only" == "false" ]]; then
+    process_services "false" "$interactive" "$config_dir"
+  fi
+
+  log "INFO" "Systemd service synchronization completed successfully!"
+}
+
+# Run the main function
+main "$@"

@@ -1,0 +1,10 @@
+bluetooth.service
+docker.socket
+fstrim.timer
+netbird.service
+NetworkManager-dispatcher.service
+NetworkManager.service
+NetworkManager-wait-online.service
+reflector.timer
+systemd-timesyncd.service
+ufw.service
