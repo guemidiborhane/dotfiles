@@ -10,7 +10,9 @@ v_align = "fill"
 
 [ui.window.box]
 h_align = "center"
+v_align = "center"
 width = 500
+max_height = 500
 
 [ui.window.box.bar.entry]
 h_align = "fill"
@@ -21,9 +23,6 @@ h_align = "center"
 h_expand = true
 pixel_size = 24
 theme = ""
-
-[ui.window.box.margins]
-top = 200
 
 [ui.window.box.scroll.list]
 always_show = false
