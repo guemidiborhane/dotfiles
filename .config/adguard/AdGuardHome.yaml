@@ -190,6 +190,8 @@ user_rules:
   - '@@||cdn.whatsapp.com^$important'
   - '@@||static.whatsapp.net^$important'
   - '@@||dz^$important'
+  - '@@||fitgirl-repacks.site^$important'
+  - '@@||templ.guide^$important'
   - ""
 dhcp:
   enabled: false
