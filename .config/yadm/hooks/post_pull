@@ -1,5 +1,4 @@
 #!/bin/sh
 
-. $HOME/.config/yadm/packages.d/sync-packages
-. $HOME/.config/yadm/systemd.d/sync-systemd
-nvim --headless "+Lazy! sync" +qa
+. $HOME/.config/yadm/packages.d/sync
+. $HOME/.config/yadm/systemd.d/sync

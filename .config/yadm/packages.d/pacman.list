@@ -136,7 +136,7 @@ rebuild-detector
 reflector
 retry
 ripgrep
-rofi-wayland
+rofi
 rsync
 scrcpy
 seahorse
