@@ -43,6 +43,7 @@ abbr ss yay -Ss
 abbr uu update_all
 abbr b btop
 abbr pp fish -P
+abbr hr hyprctl reload
 
 alias tk 'tmux_popup tmux_kill'
 
