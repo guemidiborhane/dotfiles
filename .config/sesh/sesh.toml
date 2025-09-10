@@ -1,52 +1,50 @@
 blacklist = ["scratchpad"]
 
 [[window]]
-name = "dotfiles"
-windows = ["dotfiles"]
+name = "editor"
 startup_command = "nvim"
-preview_command = "exa"
 
 [[session]]
 name = "tmux"
 path = "~/.config/tmux"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "nvim"
 path = "~/.config/nvim"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "i3"
 path = "~/.config/i3"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "hypr"
 path = "~/.config/hypr"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "polybar"
 path = "~/.config/polybar"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "waybar"
 path = "~/.config/waybar"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "yadm"
 path = "~/.config/yadm"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "nushell"
 path = "~/.config/nu"
-windows = ["dotfiles"]
+windows = ["editor"]
 
 [[session]]
 name = "user systemd"
 path = "~/.config/systemd/user"
-windows = ["dotfiles"]
+windows = ["editor"]

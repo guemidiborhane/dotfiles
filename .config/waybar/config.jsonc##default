@@ -1,0 +1,17 @@
+[
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/submap",
+      "hyprland/window",
+    ],
+    "modules-right": [
+      "group/indicators",
+      "group/tray"
+    ],
+  },
+]
+// vim: ft=jsonc
