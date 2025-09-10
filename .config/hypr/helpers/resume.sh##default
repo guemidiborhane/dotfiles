@@ -1,0 +1,5 @@
+# vim: ft=sh
+
+run="dr --prefix resume"
+
+$run --workspace 1 --focus -- zen-browser
