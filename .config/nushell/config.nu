@@ -40,7 +40,7 @@ source $"($nu.default-config-dir)/abbreviations.nu"
 
 let tty_out = (tty | str trim)
 if (not ($env | has-env DISPLAY) and
-    (($env | get -i XDG_VTNR | default "") == "1") and
+    (($env | get -o XDG_VTNR | default "") == "1") and
     not ($env | has-env SSH_CONNECTION) and 
     ($tty_out | str contains "/dev/tty")) {
 
@@ -51,7 +51,7 @@ if (not ($env | has-env DISPLAY) and
 }
 
 # Auto-start tmux in SSH
-if ($env | get -i LAST_EXIT_CODE | default 0) == 0 and ($env | get -i TMUX | default "") == ""  and ($env | get -i SSH_TTY | default "") != "" {
+if ($env | get -o LAST_EXIT_CODE | default 0) == 0 and ($env | get -o TMUX | default "") == ""  and ($env | get -o SSH_TTY | default "") != "" {
     exec sh -c 'tmux -u new-session -As workshop \; new-window'
 }
 

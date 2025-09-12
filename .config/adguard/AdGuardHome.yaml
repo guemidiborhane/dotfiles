@@ -192,6 +192,7 @@ user_rules:
   - '@@||dz^$important'
   - '@@||fitgirl-repacks.site^$important'
   - '@@||templ.guide^$important'
+  - '@@||fresh.deno.dev^$important'
   - ""
 dhcp:
   enabled: false

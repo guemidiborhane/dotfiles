@@ -1,6 +1,6 @@
 # Helper Functions
 def has-env [name: string] {
-    ($env | get -i $name | default "") != ""
+    ($env | get -o $name | default "") != ""
 }
 
 # Clipboard Management
@@ -158,7 +158,7 @@ def zid [] {
 }
 
 def yadm_lazygit [] {
-  if ($env | get -i TMUX | is-empty) {
+  if ($env | get -o TMUX | is-empty) {
     yadm enter lazygit
   } else {
     tmux popup -w 90% -h 90% -E yadm enter lazygit
