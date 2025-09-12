@@ -16,6 +16,7 @@ bluetui
 bluez
 bluez-utils
 btop
+cantarell-fonts
 copyq
 cowsay
 cpupower
@@ -43,6 +44,7 @@ git
 git-delta
 git-lfs
 glances
+gnome-boxes
 gnome-disk-utility
 gnome-keyring
 gparted
