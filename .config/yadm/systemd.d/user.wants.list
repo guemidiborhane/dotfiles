@@ -11,6 +11,7 @@ pipewire-pulse.service
 pipewire-pulse.socket
 pipewire.service
 pipewire.socket
+polybar.service
 swaync.service
 walker.service
 wallpaper.timer
