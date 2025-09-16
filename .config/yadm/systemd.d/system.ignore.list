@@ -1,3 +1,11 @@
 getty@.service
+libvirtd-admin.socket
+libvirtd-ro.socket
+libvirtd.service
+libvirtd.socket
 remote-fs.target
 systemd-userdbd.socket
+virtlockd-admin.socket
+virtlockd.socket
+virtlogd-admin.socket
+virtlogd.socket
