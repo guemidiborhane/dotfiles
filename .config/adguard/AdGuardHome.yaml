@@ -147,7 +147,7 @@ filters:
     url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_55.txt
     name: HaGeZi's Badware Hoster Blocklist
     id: 1752367274
-  - enabled: true
+  - enabled: false
     url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_56.txt
     name: HaGeZi's The World's Most Abused TLDs
     id: 1752367275
