@@ -13,6 +13,8 @@ image/jpeg=viewnior.desktop
 image/png=viewnior.desktop
 image/heif=viewnior.desktop
 inode/directory=thunar.desktop
-application/pdf=xreader.desktop
+application/pdf=org.gnome.Evince.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
 x-scheme-handler/discord=vesktop.desktop
+
+[Added Associations]
