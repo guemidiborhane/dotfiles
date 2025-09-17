@@ -27,6 +27,7 @@ docker
 docker-buildx
 docker-compose
 dunst
+evince
 eza
 fastfetch
 fd
@@ -189,7 +190,6 @@ xorg-server
 xorg-xinit
 xorg-xinput
 xorg-xkill
-xreader
 xss-lock
 yadm
 yq
