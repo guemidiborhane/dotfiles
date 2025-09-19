@@ -1,0 +1,21 @@
+{
+    "closeOnFocusLoss": false,
+    "faviconService": "twenty",
+    "font": {
+        "normal": "MonaspiceNe Nerd Font Mono",
+        "size": 11
+    },
+    "popToRootOnClose": true,
+    "rootSearch": {
+        "searchFiles": false
+    },
+    "theme": {
+        "iconTheme": "Default",
+        "name": "dracula.json"
+    },
+    "window": {
+        "csd": false,
+        "opacity": 0.95,
+        "rounding": 0
+    }
+}

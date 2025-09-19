@@ -1,7 +1,6 @@
 adguard.service
 atuin-daemon.service
 autotiling.service
-copyq.service
 gnome-keyring-daemon.socket
 hypridle.service
 hyprpaper.service
@@ -14,6 +13,7 @@ pipewire.socket
 polybar.service
 sunsetr.service
 swaync.service
+vicinae.service
 walker.service
 wallpaper.timer
 waybar.service
