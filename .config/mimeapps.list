@@ -16,5 +16,6 @@ inode/directory=thunar.desktop
 application/pdf=org.gnome.Evince.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
 x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/terminal=ghostty.desktop
 
 [Added Associations]
