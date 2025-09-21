@@ -29,8 +29,8 @@ dns:
     - tls://dns.quad9.net
     - '[/aina.arpa/]10.0.0.1'
     - '[/netsys.arpa/]10.20.30.5'
-    - '[/bird.netsys/]100.127.97.248'
-    - '[/bird.netsys/]100.127.211.117'
+    - '[/bird.netsys/]154.94.174.39'
+    - '[/bird.netsys/]154.94.131.78'
   upstream_dns_file: ""
   bootstrap_dns:
     - 9.9.9.10
@@ -193,6 +193,7 @@ user_rules:
   - '@@||fitgirl-repacks.site^$important'
   - '@@||templ.guide^$important'
   - '@@||fresh.deno.dev^$important'
+  - '@@||cpasfini.cfd^$important'
   - ""
 dhcp:
   enabled: false
