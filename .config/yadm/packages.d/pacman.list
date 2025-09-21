@@ -116,6 +116,7 @@ pacutils
 parallel
 pass
 pavucontrol
+perl-image-exiftool
 pgcli
 picom
 pipewire-alsa
