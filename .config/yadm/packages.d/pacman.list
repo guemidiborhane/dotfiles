@@ -79,6 +79,7 @@ jq
 kitty
 lazygit
 less
+libreoffice-fresh
 linux-firmware
 linux-lts
 linux-lts-headers
@@ -115,6 +116,7 @@ pacutils
 parallel
 pass
 pavucontrol
+pgcli
 picom
 pipewire-alsa
 pipewire-audio
