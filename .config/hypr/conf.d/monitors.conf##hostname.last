@@ -4,7 +4,7 @@ $internalMonitor = eDP-1
 $TV = desc:LG Electronics webOS TV 0x01010101
 $projector = desc:Seiko Epson Corporation EPSON PJ     0x01010101
 
-monitor = , preferred, auto, 1
+monitor = , preferred, auto, 1.5
 monitor = $internalMonitor, preferred, 4096x480, 1.25
 monitor = $TV, 3840x2160@60.0, 1536x0, 1.5, bitdepth, 10
 monitor = $projector, 1920x1080@60, auto, 1, mirror, eDP-1
