@@ -1,12 +1,11 @@
 # vi: set ft=fish :
 
 # source: https://denshub.com/en/best-ls-command-alternative/#first-time
-alias ld 'eza -lD'
-alias lf 'eza -lF --color=always'
-alias lh 'eza -dl .* --group-directories-first'
-alias ll 'eza -al --group-directories-first'
-alias ls 'eza -alF --color=always --sort=size'
-alias lt 'eza -al --sort=modified'
+alias ls 'eza --color=always --icons=auto --group-directories-first'
+alias ld 'ls -lD'
+alias lf 'ls -lF'
+alias ll 'ls -al'
+alias lt 'ls -al --sort=modified'
 
 alias tv tidy-viewer
 alias cat "bat --no-pager"
