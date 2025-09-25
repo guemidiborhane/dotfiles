@@ -25,9 +25,16 @@ gtk-single-instance = true
 gtk-tabs-location = bottom
 gtk-wide-tabs = false
 
+keybind = ctrl+backspace=text:\x17
+
+keybind = ctrl+shift+r=reload_config
+
 keybind = alt+shift+enter=new_split:down
 keybind = ctrl+shift+enter=new_split:right
-keybind = ctrl+backspace=text:\x17
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+j=goto_split:bottom
+keybind = ctrl+shift+k=goto_split:top
+keybind = ctrl+shift+l=goto_split:right
 
 # tmux prefix: ctrl+a (\x01)
 # prefix+T
