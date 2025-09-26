@@ -124,6 +124,7 @@ pipewire-alsa
 pipewire-audio
 pipewire-jack
 pipewire-pulse
+pkgfile
 playerctl
 plocate
 polkit-gnome
