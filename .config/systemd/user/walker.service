@@ -1,5 +1,6 @@
 [Unit]
 Description=Multi-Purpose Launcher with a lot of features. Highly Customizable and fast. 
+Requires=elephant.service
 
 [Service]
 Slice=desktop.slice
