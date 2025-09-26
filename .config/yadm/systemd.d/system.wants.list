@@ -6,6 +6,7 @@ NetworkManager-dispatcher.service
 NetworkManager.service
 NetworkManager-wait-online.service
 pacman-filesdb-refresh.timer
+pkgfile-update.timer
 reflector.timer
 systemd-timesyncd.service
 ufw.service
