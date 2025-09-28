@@ -1,5 +1,5 @@
 theme = dracula
-shell-integration-features = no-cursor
+shell-integration-features = cursor,sudo,no-title,ssh-env,ssh-terminfo
 
 # Font
 font-family = JetBrainsMono Nerd Font
