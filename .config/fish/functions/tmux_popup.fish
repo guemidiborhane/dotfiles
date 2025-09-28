@@ -5,8 +5,9 @@ function tmux_popup -d "Run command in tmux popup or directly if not in tmux"
         return 1
     end
 
-    if test -z "$TMUX"
-        # Filter out tmux-specific options when not in tmux
+    # Run directly if not in tmux OR in a popup (no $TMUX_PANE)
+    if test -z "$TMUX"; or test -z "$TMUX_PANE"
+        # Filter out tmux-specific options
         set -l filtered_args
         set -l skip_next false
 
