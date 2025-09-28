@@ -1,5 +1,7 @@
 ---
+quitOnTopLevelReturn: true
 gui:
+  border: "single"
   showFileTree: false
   nerdFontsVersion: "3"
   theme:
