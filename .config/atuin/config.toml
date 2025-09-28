@@ -1,6 +1,8 @@
 sync_address = "https://atuin.netsys.dz"
 update_check = false
 enter_accept = true
+style = "compact"
+inline_height = 20
 
 [sync]
 records = true
