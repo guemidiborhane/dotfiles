@@ -1,0 +1,11 @@
+[Unit]
+Description=Audio Effects for Pipewire applications
+
+[Service]
+Slice=background-daemons.slice
+Type=simple
+StandardOutput=journal
+ExecStart=easyeffects --gapplication-service
+
+[Install]
+WantedBy=default.target
