@@ -2,3 +2,4 @@
 
 . $HOME/.config/yadm/packages.d/sync
 . $HOME/.config/yadm/systemd.d/sync
+nvim --headless "+Lazy! sync" +qa
