@@ -23,6 +23,8 @@ alias fast "bunx -- fast-cli --single-line"
 # Credit Elijah Manor : https://youtu.be/K1FxGIG_lcA
 alias v "fd --type f --hidden --exclude .git --exclude node_modules --exclude cache --exclude log | fzf-tmux -p --reverse --preview 'bat -p --color=always {}' | xargs -r nvim"
 
+alias which "type -a"
+
 abbr c clear
 
 abbr n xdg-open
@@ -50,3 +52,4 @@ source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
 source ~/.config/fish/conf.d/aliases.d/git.fish
 source ~/.config/fish/conf.d/aliases.d/make.fish
 source ~/.config/fish/conf.d/aliases.d/yadm.fish
+source ~/.config/fish/conf.d/aliases.d/yay.fish
