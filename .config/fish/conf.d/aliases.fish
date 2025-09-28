@@ -1,4 +1,9 @@
 # vi: set ft=fish :
+status is-interactive; or exit
+
+abbr mv "mv -iv"
+abbr cp "cp -riv"
+abbr mkdir "mkdir -vp"
 
 # source: https://denshub.com/en/best-ls-command-alternative/#first-time
 alias ls 'eza --color=always --icons=auto --group-directories-first'

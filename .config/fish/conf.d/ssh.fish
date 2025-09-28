@@ -1,3 +1,5 @@
+status is-interactive; or exit
+
 if test $status -eq 0
     and test -z "$TMUX"
     and test -n "$SSH_TTY"
