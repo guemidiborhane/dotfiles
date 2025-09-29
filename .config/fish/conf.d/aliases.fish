@@ -58,3 +58,4 @@ source ~/.config/fish/conf.d/aliases.d/git.fish
 source ~/.config/fish/conf.d/aliases.d/make.fish
 source ~/.config/fish/conf.d/aliases.d/yadm.fish
 source ~/.config/fish/conf.d/aliases.d/yay.fish
+source ~/.config/fish/conf.d/aliases.d/systemd.fish
