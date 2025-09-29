@@ -5,6 +5,6 @@ run="dr --prefix resume"
 $run --workspace 1 --focus -- zen-browser
 $run --workspace 8 --tile -- pavucontrol --tab 3
 $run -- Telegram
-$run -- signal-desktop
+$run -- signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
 $run -- vesktop --wayland
 $run --name spotify -- gtk-launch spotify-adblock
