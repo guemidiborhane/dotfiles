@@ -4,5 +4,11 @@
     "arRPC": true,
     "splashColor": "rgb(239, 239, 240)",
     "splashBackground": "rgb(40, 42, 54)",
-    "tray": false
+    "tray": true,
+    "spellCheckLanguages": [
+        "en-GB",
+        "en",
+        "fr",
+        "fr-FR"
+    ]
 }
