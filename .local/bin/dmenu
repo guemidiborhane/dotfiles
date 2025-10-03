@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if ! systemctl --user is-active --quiet vicinae.service; then
+  systemctl --user start vicinae.service
+
+  while ! vicinae ping; do
+    sleep 0.1
+  done
+fi
+
+vicinae dmenu "$@"
