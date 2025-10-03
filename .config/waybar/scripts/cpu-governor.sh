@@ -20,7 +20,7 @@ declare -A governor_desc=(
 )
 
 function dmenu() {
-  command walker -k --dmenu --placeholder "$1"
+  command dmenu --placeholder "$1"
 }
 
 # Function to format frequency
