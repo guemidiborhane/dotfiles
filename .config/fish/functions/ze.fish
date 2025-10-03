@@ -26,10 +26,7 @@ function ze --description "Browse zoxide directories with fzf and open in defaul
     end
 
     # Get directory list from zoxide and let user select with fzf
-    set selected (zoxide query -l | fzf \
-        --preview="ls -la --color=always {}" \
-        --header="Select directory to open with file manager (ESC to cancel)" \
-        --border)
+    set selected (zoxide query -l | dmenu --placeholder="Select directory to open with file manager (ESC to cancel)")
 
     # Only launch file manager if a directory was selected and it exists
     if test -n "$selected" -a -d "$selected"

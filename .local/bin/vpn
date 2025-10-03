@@ -5,7 +5,7 @@ function nc() {
 }
 
 function dmenu() {
-  command walker --dmenu --placeholder "$1"
+  command dmenu --placeholder "$1"
 }
 
 function iface_with_ip() {

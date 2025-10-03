@@ -2,9 +2,9 @@
 Name=superfile
 Icon=filemanager
 Comment=Pretty fancy and modern terminal file manager
-Terminal=true
+Terminal=false
 TryExec=spf
-Exec=spf %U
+Exec=ghostty --class="terminal.popup" -e spf %U
 Type=Application
 MimeType=inode/directory
 Categories=Utility;Core;System;FileTools;FileManager;ConsoleOnly
