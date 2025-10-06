@@ -10,7 +10,7 @@
       "󰤥",
       "󰤨"
     ],
-    "on-click": "dr --float --batch 'dispatch resizeactive exact 1280 720; dispatch centerwindow' -- ghostty -e impala",
+    "on-click": "ghostty --class='terminal.popup' -e impala",
   },
   "network#ethernet": {
     "interface": "enp*",
@@ -42,7 +42,7 @@
     "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
     "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
-    "on-click": "dr --float --batch 'dispatch resizeactive exact 1280 720; dispatch centerwindow' -- ghostty -e bluetui",
+    "on-click": "ghostty --class='terminal.popup' -e bluetui",
   },
   "group/wireless": {
     "orientation": "inherit",
