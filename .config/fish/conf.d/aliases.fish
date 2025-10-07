@@ -25,7 +25,7 @@ abbr n xdg-open
 abbr n. "xdg-open ."
 abbr p1 "ping 1.1.1.1"
 abbr p8 "ping 8.8.8.8"
-abbr k kubectl
+abbr --position anywhere k kubectl
 abbr --position anywhere vim nvim
 abbr uu update_all
 abbr pp fish -P
@@ -34,6 +34,7 @@ abbr --position anywhere tp tmux_popup
 alias tk 'tmux_popup tmux_kill'
 alias t "sesh connect (sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --prompt=' ')"
 alias wn "tn workshop"
+abbr watch "watch -d -n 10"
 
 source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
 source ~/.config/fish/conf.d/aliases.d/git.fish
