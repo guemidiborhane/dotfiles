@@ -8,5 +8,8 @@ NetworkManager-wait-online.service
 pacman-filesdb-refresh.timer
 pkgfile-update.timer
 reflector.timer
+systemd-resolved-monitor.socket
+systemd-resolved.service
+systemd-resolved-varlink.socket
 systemd-timesyncd.service
 ufw.service
