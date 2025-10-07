@@ -27,10 +27,6 @@ dns:
     - tls://security.cloudflare-dns.com
     - https://dns.quad9.net/dns-query
     - tls://dns.quad9.net
-    - '[/aina.arpa/]10.0.0.1'
-    - '[/netsys.arpa/]10.20.30.5'
-    - '[/bird.netsys/]154.94.174.39'
-    - '[/bird.netsys/]154.94.131.78'
   upstream_dns_file: ""
   bootstrap_dns:
     - 9.9.9.10
@@ -195,6 +191,7 @@ user_rules:
   - '@@||templ.guide^$important'
   - '@@||fresh.deno.dev^$important'
   - '@@||cpasfini.cfd^$important'
+  - '@@||t.co^$important'
   - ""
 dhcp:
   enabled: false
@@ -233,7 +230,9 @@ filtering:
   blocking_mode: default
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
-  rewrites: []
+  rewrites:
+    - domain: freedium.cfd
+      answer: 146.103.108.112
   safe_fs_patterns:
     - /opt/adguardhome/work/userfilters/*
   safebrowsing_cache_size: 1048576
