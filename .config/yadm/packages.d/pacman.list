@@ -179,6 +179,7 @@ vim
 virtualbox
 virtualbox-guest-iso
 virtualbox-host-dkms
+virt-viewer
 waybar
 wget
 wine
