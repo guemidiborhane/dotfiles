@@ -1,0 +1,3 @@
+#!/bin/sh
+
+yadm remote | grep -v origin | xargs -I {} yadm lfs push {} master
