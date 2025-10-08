@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -eu
+
+networks_list() {
+  status="$1"
+  netbird networks list | yq ".\"Available Networks\".[] | select(.Status == \"$status\") | .ID" -r
+}
+
+nm() {
+  command netbird networks "$@"
+}
+
+notify() {
+  command notify-send --app-name="netbird" "Netbird" "$@"
+}
+
+cmd="${1:-select}"
+status="Not Selected"
+
+if [ "$cmd" = "deselect" ]; then
+  status="Selected"
+elif [ "$cmd" != "select" ]; then
+  echo "Error: command must be either 'select' or 'deselect'" >&2
+  exit 1
+fi
+
+network=$(networks_list "$status" | dmenu) || exit 0
+
+if [ -n "$network" ]; then
+  if [ "$cmd" = "select" ]; then
+    nm select -a "$network" || exit_code=$?
+  else
+    nm deselect "$network" || exit_code=$?
+  fi
+
+  if [ "${exit_code:-0}" -eq 0 ]; then
+    notify "$network ${cmd}ed successfully"
+  else
+    notify -u critical "Failed to $cmd $network"
+    exit 1
+  fi
+fi
