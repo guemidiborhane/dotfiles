@@ -5,3 +5,10 @@ nvidia-dkms
 nvidia-utils
 steam
 obs-studio
+bridge-utils
+cockpit
+cockpit-docker
+cockpit-machines
+dnsmasq
+pcp
+virt-install
