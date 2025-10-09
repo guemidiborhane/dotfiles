@@ -4,7 +4,6 @@ shell-integration-features = cursor,sudo,no-title,ssh-env
 # Font
 font-family = JetBrainsMono Nerd Font
 font-size = 12
-font-thicken = true
 
 resize-overlay = never
 copy-on-select = false
@@ -37,34 +36,41 @@ keybind = ctrl+shift+k=goto_split:top
 keybind = ctrl+shift+l=goto_split:right
 
 # tmux prefix: ctrl+a (\x01)
-# prefix+T
+# fzf-make (custom script)
 keybind = alt+t=text:\x01T
-# prefix+'
+# split-window -h # horizontal split
 keybind = ctrl+enter=text:\x01'
-# prefix+"
+# split-window # vertical window
 keybind = alt+enter=text:\x01"
-# prefix+c
+# new-window
 keybind = ctrl+t=text:\x01c
-# prefix+z
+# resize-pane -z
 keybind = alt+f=text:\x01z
-# prefix+f
-keybind = alt+grave_accent=text:\x01f
-# prefix+p
+# previous-window
 keybind = ctrl+page_up=text:\x01p
-# prefix+n
+# next-window
 keybind = ctrl+page_down=text:\x01n
-# prefix+{1,2,3}
+# select-window -t :=1
 keybind = ctrl+1=text:\x011
+# select-window -t :=2
 keybind = ctrl+2=text:\x012
+# select-window -t :=0
 keybind = ctrl+3=text:\x013
-# prefix+l
+# last-window
 keybind = ctrl+tab=text:\x01l
-keybind = alt+tab=text:\x01l
-# prefix+{
+# switch-pane -U
 keybind = ctrl+shift+left=text:\x01{
-# prefix+}
+# switch-pane -D
 keybind = ctrl+shift+right=text:\x01}
-# prefix+e
-keybind = alt+e=text:\x01e
+# $EDITOR
+keybind = ctrl+e=text:\x01e
+# yadm enter $EDITOR
+keybind = alt+e=text:\x01E
+# btop
+keybind = ctrl+b=text:\x01b
+# lazygit
+keybind = ctrl+g=text:\x01g
+# sesh connect
+keybind = ctrl+n=text:\x01N
 
 # vim: set commentstring=#\ %s :
