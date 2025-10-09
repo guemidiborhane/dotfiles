@@ -1,35 +1,70 @@
 local wezterm = require("wezterm")
-local config = wezterm.config_builder()
+local a = wezterm.action
 
-config.check_for_updates = false
+function Bind(m, k, action)
+	return { key = k, mods = m, action = action }
+end
 
-config.color_scheme = "Dracula (Official)"
-config.hide_tab_bar_if_only_one_tab = true
-config.tab_bar_at_bottom = false
-config.use_fancy_tab_bar = false
-config.window_decorations = "NONE"
+function Tmux(m, k, bind)
+	local prefix = { mods = "CTRL", key = "a" }
+	bind = { key = bind or k }
 
--- config.default_prog = { "/usr/bin/fish", "--login" }
+	return Bind(
+		m,
+		k,
+		a.Multiple({
+			a.SendKey(prefix),
+			a.SendKey(bind),
+		})
+	)
+end
 
-config.window_close_confirmation = "AlwaysPrompt"
-config.enable_scroll_bar = false
-config.window_padding = {
-	top = 0,
-	left = 0,
-	right = 0,
-	bottom = 0,
+local keybinds = {
+	Tmux("CTRL", "t", "c"), -- new-window
+	Tmux("ALT", "f", "z"), -- resize-pane -Z
+	Tmux("CTRL", "Enter", "'"), -- split-window -h # horizontal split
+	Tmux("ALT", "Enter", '"'), -- split-window # vertical split
+	Tmux("ALT", "t", "T"), -- fzf-make (custom script)
+	Tmux("CTRL", "PageUp", "p"), -- previous-window
+	Tmux("CTRL", "PageDown", "n"), -- next-window
+	Tmux("CTRL", "Tab", "l"), -- last-window
+	Tmux("CTRL|SHIFT", "LeftArrow", "{"), -- switch-pane -U
+	Tmux("CTRL|SHIFT", "RightArrow", "}"), -- switch-pane -D
+	Tmux("CTRL", "e"), -- $EDITOR
+	Tmux("ALT", "e", "E"), -- yadm enter $EDITOR
+	Tmux("CTRL", "b"), -- btop
+	Tmux("CTRL", "n", "N"), -- sesh connect
+	Tmux("CTRL", "g"), -- lazygit
+	Bind("CTRL", "Backspace", a.SendString("\x17")),
+	Bind("CTRL|SHIFT", "Enter", a.SplitHorizontal({ domain = "CurrentPaneDomain" })),
+	Bind("ALT|SHIFT", "Enter", a.SplitVertical({ domain = "CurrentPaneDomain" })),
 }
 
-config.font_size = 13.0
-config.font = wezterm.font_with_fallback({
-	{
-		family = "Operator Mono Book",
-		weight = "Book",
-	},
-	"MesloLGS NF",
-	{ family = "Symbols Nerd Font Mono", scale = 0.65 },
-	"Noto Color Emoji",
-})
-config.keys = require("keys")
+for _, dir in ipairs({ "Up", "Down", "Right", "Left" }) do
+	table.insert(keybinds, Bind("ALT|SHIFT", dir .. "Arrow", a.ActivatePaneDirection(dir)))
+end
 
-return config
+for i = 1, 9 do
+	table.insert(keybinds, Tmux("CTRL", tostring(i)))
+end
+
+return {
+	keys = keybinds,
+	color_scheme = "Dracula (Official)",
+	font_size = 12,
+	font = wezterm.font("JetBrainsMono Nerd Font"),
+	freetype_load_target = "Light",
+	window_padding = {
+		top = 0,
+		left = 0,
+		right = 0,
+		bottom = 0,
+	},
+	use_fancy_tab_bar = false,
+	tab_bar_at_bottom = true,
+	hide_tab_bar_if_only_one_tab = true,
+	window_decorations = "NONE",
+	enable_scroll_bar = false,
+	mux_enable_ssh_agent = false,
+	check_for_updates = false,
+}
