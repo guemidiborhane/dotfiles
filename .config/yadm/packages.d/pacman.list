@@ -1,6 +1,7 @@
 7zip
 amd-ucode
 android-tools
+ansible
 arandr
 arch-install-scripts
 atuin
@@ -132,6 +133,7 @@ polybar
 pv
 python-docker
 python-gdal
+python-netaddr
 python-owslib
 python-pip
 python-pipx
