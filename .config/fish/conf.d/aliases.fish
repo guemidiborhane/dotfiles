@@ -3,9 +3,9 @@ alias wn "tn workshop"
 
 status is-interactive; or exit
 
-abbr mv "mv -iv"
-abbr cp "cp -riv"
-abbr mkdir "mkdir -vp"
+abbr --position anywhere mv "mv -iv"
+abbr --position anywhere cp "cp -riv"
+abbr --position anywhere mkdir "mkdir -vp"
 # source: https://denshub.com/en/best-ls-command-alternative/#first-time
 alias ls 'eza --color=always --icons=auto --group-directories-first'
 alias ld 'ls -lD'
