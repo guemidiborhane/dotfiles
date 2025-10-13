@@ -1,4 +1,6 @@
 # vi: set ft=fish :
+alias wn "tn workshop"
+
 status is-interactive; or exit
 
 abbr mv "mv -iv"
@@ -33,7 +35,6 @@ abbr hr hyprctl reload
 abbr --position anywhere tp tmux_popup
 alias tk 'tmux_popup tmux_kill'
 alias t "sesh connect (sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --prompt=' ')"
-alias wn "tn workshop"
 abbr watch "watch -d -n 10"
 
 source ~/.config/fish/conf.d/aliases.d/docker-compose.fish
