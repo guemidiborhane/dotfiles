@@ -67,4 +67,20 @@ return {
 	enable_scroll_bar = false,
 	mux_enable_ssh_agent = false,
 	check_for_updates = false,
+
+	clean_exit_codes = { 130 },
+	exit_behavior = "CloseOnCleanExit",
+	exit_behavior_messaging = "Verbose",
+	skip_close_confirmation_for_processes_named = {
+		"bash",
+		"sh",
+		"zsh",
+		"fish",
+		"tmux",
+		"nu",
+		"cmd.exe",
+		"pwsh.exe",
+		"powershell.exe",
+	},
+	window_close_confirmation = "AlwaysPrompt",
 }
