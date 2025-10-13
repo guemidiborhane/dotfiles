@@ -38,6 +38,10 @@ local keybinds = {
 	Bind("CTRL", "Backspace", act.SendString("\x17")),
 	Bind("CTRL|SHIFT", "Enter", act.SplitHorizontal({ domain = "CurrentPaneDomain" })),
 	Bind("ALT|SHIFT", "Enter", act.SplitVertical({ domain = "CurrentPaneDomain" })),
+	Bind("CTRL|SHIFT", "T", act.SpawnTab("CurrentPaneDomain")),
+	Bind("CTRL|SHIFT", "W", act.CloseCurrentTab({ confirm = true })),
+	Bind("CTRL|SHIFT", "C", act.CopyTo("Clipboard")),
+	Bind("CTRL|SHIFT", "V", act.PasteFrom("Clipboard")),
 }
 
 for _, dir in ipairs({ "Up", "Down", "Right", "Left" }) do
@@ -53,6 +57,7 @@ return {
 	font_size = 12,
 	font = wezterm.font("JetBrainsMono Nerd Font"),
 	freetype_load_target = "Light",
+	disable_default_key_bindings = true,
 	keys = keybinds,
 	window_padding = {
 		top = 0,
