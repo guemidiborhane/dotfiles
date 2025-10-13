@@ -27,7 +27,6 @@ abbr n xdg-open
 abbr n. "xdg-open ."
 abbr p1 "ping 1.1.1.1"
 abbr p8 "ping 8.8.8.8"
-abbr --position anywhere k kubectl
 abbr --position anywhere vim nvim
 abbr uu update_all
 abbr pp fish -P
@@ -43,3 +42,4 @@ source ~/.config/fish/conf.d/aliases.d/make.fish
 source ~/.config/fish/conf.d/aliases.d/yadm.fish
 source ~/.config/fish/conf.d/aliases.d/yay.fish
 source ~/.config/fish/conf.d/aliases.d/systemd.fish
+source ~/.config/fish/conf.d/aliases.d/kubectl.fish
