@@ -1,5 +1,5 @@
 local wezterm = require("wezterm")
-local a = wezterm.action
+local act = wezterm.action
 
 function Bind(m, k, action)
 	return { key = k, mods = m, action = action }
@@ -12,9 +12,9 @@ function Tmux(m, k, bind)
 	return Bind(
 		m,
 		k,
-		a.Multiple({
-			a.SendKey(prefix),
-			a.SendKey(bind),
+		act.Multiple({
+			act.SendKey(prefix),
+			act.SendKey(bind),
 		})
 	)
 end
@@ -35,13 +35,13 @@ local keybinds = {
 	Tmux("CTRL", "b"), -- btop
 	Tmux("CTRL", "n", "N"), -- sesh connect
 	Tmux("CTRL", "g"), -- lazygit
-	Bind("CTRL", "Backspace", a.SendString("\x17")),
-	Bind("CTRL|SHIFT", "Enter", a.SplitHorizontal({ domain = "CurrentPaneDomain" })),
-	Bind("ALT|SHIFT", "Enter", a.SplitVertical({ domain = "CurrentPaneDomain" })),
+	Bind("CTRL", "Backspace", act.SendString("\x17")),
+	Bind("CTRL|SHIFT", "Enter", act.SplitHorizontal({ domain = "CurrentPaneDomain" })),
+	Bind("ALT|SHIFT", "Enter", act.SplitVertical({ domain = "CurrentPaneDomain" })),
 }
 
 for _, dir in ipairs({ "Up", "Down", "Right", "Left" }) do
-	table.insert(keybinds, Bind("ALT|SHIFT", dir .. "Arrow", a.ActivatePaneDirection(dir)))
+	table.insert(keybinds, Bind("ALT|SHIFT", dir .. "Arrow", act.ActivatePaneDirection(dir)))
 end
 
 for i = 1, 9 do
@@ -49,11 +49,11 @@ for i = 1, 9 do
 end
 
 return {
-	keys = keybinds,
 	color_scheme = "Dracula (Official)",
 	font_size = 12,
 	font = wezterm.font("JetBrainsMono Nerd Font"),
 	freetype_load_target = "Light",
+	keys = keybinds,
 	window_padding = {
 		top = 0,
 		left = 0,
