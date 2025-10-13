@@ -1,4 +1,5 @@
 7zip
+age
 amd-ucode
 android-tools
 ansible
@@ -7,6 +8,7 @@ arch-install-scripts
 atuin
 autotiling
 awesome-terminal-fonts
+bandwhich
 base
 base-devel
 bat
