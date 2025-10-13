@@ -54,20 +54,28 @@ end
 
 return {
 	color_scheme = "Dracula (Official)",
+
 	font_size = 12,
-	font = wezterm.font("JetBrainsMono Nerd Font"),
-	freetype_load_target = "Light",
+	font = wezterm.font({
+		family = "JetBrainsMono Nerd Font",
+		weight = "Medium",
+	}),
+	freetype_load_target = "Normal",
+	freetype_render_target = "Normal",
+
 	disable_default_key_bindings = true,
 	keys = keybinds,
+
+	use_fancy_tab_bar = false,
+	tab_bar_at_bottom = true,
+	hide_tab_bar_if_only_one_tab = true,
+
 	window_padding = {
 		top = 0,
 		left = 0,
 		right = 0,
 		bottom = 0,
 	},
-	use_fancy_tab_bar = false,
-	tab_bar_at_bottom = true,
-	hide_tab_bar_if_only_one_tab = true,
 	window_decorations = "NONE",
 	enable_scroll_bar = false,
 	mux_enable_ssh_agent = false,
