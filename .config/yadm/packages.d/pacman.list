@@ -123,6 +123,7 @@ pavucontrol
 perl-image-exiftool
 pgcli
 picom
+pigz
 pipewire-alsa
 pipewire-audio
 pipewire-jack
