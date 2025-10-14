@@ -6,6 +6,21 @@ CACHE_DIR="$HOME/.cache/wallpaper"
 # Create cache directory if it doesn't exist
 mkdir -p "$CACHE_DIR"
 
+# Exit if on battery power
+check_battery() {
+  if [ -d /sys/class/power_supply ]; then
+    for supply in /sys/class/power_supply/BAT*/status; do
+      if [ -f "$supply" ]; then
+        status=$(cat "$supply")
+        if [ "$status" = "Discharging" ]; then
+          echo "On battery power, skipping wallpaper update"
+          exit 0
+        fi
+      fi
+    done
+  fi
+}
+
 # Function to get monitor info (name, width, height)
 get_monitor_info() {
   hyprctl monitors -j | jq -r '.[] | "\(.name) \(.width) \(.height)"'
@@ -38,35 +53,21 @@ create_lock_background() {
   local dim_level=40
   local blur_sigma=6
 
-  local source_info=$(magick identify -format "%wx%h" "$source")
-  local source_width=$(echo "$source_info" | cut -d'x' -f1)
-  local source_height=$(echo "$source_info" | cut -d'x' -f2)
-
   local target_width=$(echo "$target_resolution" | cut -d'x' -f1)
   local target_height=$(echo "$target_resolution" | cut -d'x' -f2)
 
-  echo "  Processing: ${source_width}x${source_height} -> ${target_width}x${target_height}"
-
-  if [ "$source_width" -gt "$((target_width * 2))" ] || [ "$source_height" -gt "$((target_height * 2))" ]; then
-    # Image is significantly larger than target, resize first for performance
-    echo "  Large image detected, resizing before blur..."
-    magick "$source" \
-      -resize "${target_resolution}^" \
-      -gravity center \
-      -extent "$target_resolution" \
-      -gaussian-blur "0x${blur_sigma}" \
-      -fill black -colorize "$dim_level"% \
-      "$output"
-  else
-    # Image is reasonable size, blur at full resolution then resize
-    magick "$source" \
-      -gaussian-blur "0x${blur_sigma}" \
-      -resize "${target_resolution}^" \
-      -gravity center \
-      -extent "$target_resolution" \
-      -fill black -colorize "$dim_level"% \
-      "$output"
-  fi
+  # Use lower quality/faster operations
+  # First resize to target (fast), then apply effects
+  magick "$source" \
+    -resize "${target_resolution}^" \
+    -gravity center \
+    -extent "$target_resolution" \
+    -scale 50% \
+    -blur "0x${blur_sigma}" \
+    -resize "${target_resolution}!" \
+    -fill black -colorize "$dim_level"% \
+    -quality 85 \
+    "$output"
 }
 
 create_monitor_wallpaper() {
@@ -86,7 +87,51 @@ restart_hyprpaper() {
   systemctl --user restart hyprpaper.service
 }
 
+# Process a single monitor (for parallel execution)
+process_monitor() {
+  local monitor="$1"
+  local width="$2"
+  local height="$3"
+  local wallpaper="$4"
+  local extension="$5"
+  local primary_monitor="$6"
+
+  local resolution="${width}x${height}"
+
+  echo "Processing monitor: $monitor ($resolution)"
+
+  local monitor_wallpaper="$CACHE_DIR/$monitor.$extension"
+  local monitor_lock="$CACHE_DIR/$monitor-lock.$extension"
+
+  rm -f "$CACHE_DIR/$monitor."* "$CACHE_DIR/$monitor-lock."*
+
+  # Use symbolic link for wallpaper (lighter on storage)
+  ln -sf "$wallpaper" "$monitor_wallpaper"
+
+  # Create monitor-specific lock screen background
+  create_lock_background "$wallpaper" "$monitor_lock" "$resolution"
+
+  # If this is the primary monitor, create additional links for hyprlock
+  if [ "$monitor" = "$primary_monitor" ]; then
+    rm -f "$CACHE_DIR/primary-lock."*
+    ln -sf "$monitor_lock" "$CACHE_DIR/primary-lock.$extension"
+    echo "  Created primary lock screen link"
+  fi
+
+  echo "  Wallpaper: $monitor_wallpaper"
+  echo "  Lock screen: $monitor_lock"
+}
+
+# Export functions for parallel execution
+export -f process_monitor
+export -f create_lock_background
+export -f get_extension
+export CACHE_DIR
+
 main() {
+  # Check battery status first
+  check_battery
+
   wallpaper=$(get_random_wallpaper)
 
   if [ -z "$wallpaper" ]; then
@@ -100,38 +145,18 @@ main() {
 
   primary_monitor=$(hyprctl monitors -j | jq -r '.[0].name')
 
-  while IFS= read -r monitor_line; do
-    read -r monitor width height <<<"$monitor_line"
-    resolution="${width}x${height}"
-
-    echo "Processing monitor: $monitor ($resolution)"
-
-    monitor_wallpaper="$CACHE_DIR/$monitor.$extension"
-    monitor_lock="$CACHE_DIR/$monitor-lock.$extension"
-
-    rm -f "$CACHE_DIR/$monitor."* "$CACHE_DIR/$monitor-lock."*
-
-    # Create monitor-specific wallpaper (optional - comment out if you prefer symbolic links)
-    # create_monitor_wallpaper "$wallpaper" "$monitor_wallpaper" "$resolution"
-
-    # Or use symbolic link for wallpaper (lighter on storage)
-    ln -sf "$wallpaper" "$monitor_wallpaper"
-
-    # Create monitor-specific lock screen background
-    create_lock_background "$wallpaper" "$monitor_lock" "$resolution"
-
-    # If this is the primary monitor, create additional links for hyprlock
-    if [ "$monitor" = "$primary_monitor" ]; then
-      rm -f "$CACHE_DIR/primary-lock."*
-      ln -sf "$monitor_lock" "$CACHE_DIR/primary-lock.$extension"
-      echo "  Created primary lock screen link"
-    fi
-
-    echo "  Wallpaper: $monitor_wallpaper"
-    echo "  Lock screen: $monitor_lock"
-    echo
-
-  done < <(get_monitor_info)
+  # Check if GNU parallel is available
+  if command -v parallel &>/dev/null; then
+    echo "Using parallel processing..."
+    get_monitor_info | parallel --colsep ' ' process_monitor {1} {2} {3} "$wallpaper" "$extension" "$primary_monitor"
+  else
+    echo "GNU parallel not found, processing sequentially..."
+    while IFS= read -r monitor_line; do
+      read -r monitor width height <<<"$monitor_line"
+      process_monitor "$monitor" "$width" "$height" "$wallpaper" "$extension" "$primary_monitor"
+      echo
+    done < <(get_monitor_info)
+  fi
 
   echo "Wallpaper update complete!"
 }
