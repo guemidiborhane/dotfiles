@@ -16,9 +16,9 @@ while [ -z "$ping" ]; do
 done
 
 get_icon() {
-    if [ "$1" -lt 50 ]; then
+    if [ "$1" -lt 20 ]; then
         echo "󰓅"
-    elif [ "$1" -lt 150 ]; then
+    elif [ "$1" -lt 70 ]; then
         echo "󰾅"
     else
         echo "󰾆"
@@ -26,9 +26,9 @@ get_icon() {
 }
 
 get_class() {
-    if [ "$1" -lt 50 ]; then
+    if [ "$1" -lt 20 ]; then
         echo "good"
-    elif [ "$1" -lt 150 ]; then
+    elif [ "$1" -lt 70 ]; then
         echo "warning"
     else
         echo "critical"

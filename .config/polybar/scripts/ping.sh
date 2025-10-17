@@ -13,9 +13,9 @@ while [ -z "$ping" ]; do
 done
 
 function icon() {
-    if [ "$1" -lt 50 ]; then
+    if [ "$1" -lt 20 ]; then
         icon="󰓅"
-    elif [ "$1" -lt 150 ]; then
+    elif [ "$1" -lt 70 ]; then
         icon="󰾅"
     else
         icon="󰾆"
@@ -26,9 +26,9 @@ function icon() {
 }
 
 function text_color() {
-    if [ "$1" -lt 50 ]; then
+    if [ "$1" -lt 20 ]; then
         color="%{F#3cb703}"
-    elif [ "$1" -lt 150 ]; then
+    elif [ "$1" -lt 70 ]; then
         color="%{F#f9dd04}"
     else
         color="%{F#d60606}"
