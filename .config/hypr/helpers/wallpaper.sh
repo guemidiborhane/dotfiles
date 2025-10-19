@@ -2,6 +2,7 @@
 
 WALLPAPER_DIR="$HOME/.wallpaper"
 CACHE_DIR="$HOME/.cache/wallpaper"
+wallpaper="$1"
 
 # Create cache directory if it doesn't exist
 mkdir -p "$CACHE_DIR"
@@ -37,7 +38,11 @@ get_monitor_resolution() {
 }
 
 get_random_wallpaper() {
-  find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | shuf -n 1
+  if [[ -f "$wallpaper" ]]; then
+    echo "$wallpaper"
+  else
+    find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" \) | shuf -n 1
+  fi
 }
 
 get_extension() {
