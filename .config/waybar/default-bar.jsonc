@@ -3,7 +3,9 @@
   "position": "top",
   "exclusive": true,
   "passthrough": false,
-  "height": 34,
+  "margin-top": 0,
+  "margin-left": 0,
+  "margin-right": 0,
   "spacing": 0,
   "include": [
     "~/.config/waybar/modules.d/base.jsonc",
