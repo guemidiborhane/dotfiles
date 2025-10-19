@@ -42,6 +42,9 @@ local keybinds = {
 	Bind("CTRL|SHIFT", "W", act.CloseCurrentTab({ confirm = true })),
 	Bind("CTRL|SHIFT", "C", act.CopyTo("Clipboard")),
 	Bind("CTRL|SHIFT", "V", act.PasteFrom("Clipboard")),
+	Bind("CTRL", "-", act.DecreaseFontSize),
+	Bind("CTRL", "=", act.IncreaseFontSize),
+	Bind("CTRL", "0", act.ResetFontSize),
 }
 
 for _, dir in ipairs({ "Up", "Down", "Right", "Left" }) do
@@ -56,6 +59,7 @@ return {
 	color_scheme = "Dracula (Official)",
 
 	font_size = 12,
+	line_height = 1.1,
 	font = wezterm.font({
 		family = "JetBrainsMono Nerd Font",
 		weight = "Medium",
@@ -71,10 +75,10 @@ return {
 	hide_tab_bar_if_only_one_tab = true,
 
 	window_padding = {
-		top = 0,
-		left = 0,
-		right = 0,
-		bottom = 0,
+		top = 10,
+		left = 10,
+		right = 10,
+		bottom = 10,
 	},
 	window_decorations = "NONE",
 	enable_scroll_bar = false,
