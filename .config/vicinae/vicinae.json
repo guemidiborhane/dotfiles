@@ -1,5 +1,5 @@
 {
-    "closeOnFocusLoss": false,
+    "closeOnFocusLoss": true,
     "faviconService": "twenty",
     "font": {
         "normal": "MonaspiceNe Nerd Font Mono",
@@ -14,7 +14,7 @@
     },
     "theme": {
         "iconTheme": "Default",
-        "name": "dracula.json"
+        "name": "dracula"
     },
     "window": {
         "csd": false,
