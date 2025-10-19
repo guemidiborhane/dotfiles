@@ -16,7 +16,7 @@ cmd="waybar --config $CONFIG --style $STYLE"
 
 if [[ "$mode" = "dev" ]]; then
     while true; do
-        WATCH_FILES="$CONFIG $STYLE ./modules.d/*"
+        WATCH_FILES="* ./**/*"
         $cmd --log-level=debug &
         inotifywait -e create,modify $WATCH_FILES
         killall waybar

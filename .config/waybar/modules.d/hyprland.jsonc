@@ -1,6 +1,7 @@
 {
   "hyprland/window": {
-    "format": "{initialTitle}",
+    "format": "{title}",
+    "max-length": 50,
     "icon": true,
     "separate-outputs": true,
     "icon-size": 20,
