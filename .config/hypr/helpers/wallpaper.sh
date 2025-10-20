@@ -4,6 +4,27 @@ WALLPAPER_DIR="$HOME/.wallpaper"
 CACHE_DIR="$HOME/.cache/wallpaper"
 wallpaper="$1"
 
+# Parse command line flags
+INTERACTIVE_MODE=false
+REVIEW_MODE=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+  --interactive)
+    INTERACTIVE_MODE=true
+    shift
+    ;;
+  --review)
+    REVIEW_MODE=true
+    shift
+    ;;
+  *)
+    wallpaper="$1"
+    shift
+    ;;
+  esac
+done
+
 # Create cache directory if it doesn't exist
 mkdir -p "$CACHE_DIR"
 
@@ -37,11 +58,15 @@ get_monitor_resolution() {
   hyprctl monitors -j | jq -r ".[] | select(.name == \"$monitor\") | \"\(.width)x\(.height)\""
 }
 
+get_wallpapers_list() {
+  find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \)
+}
+
 get_random_wallpaper() {
   if [[ -f "$wallpaper" ]]; then
     echo "$wallpaper"
   else
-    find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" \) | shuf -n 1
+    get_wallpapers_list | shuf -n 1
   fi
 }
 
@@ -127,6 +152,73 @@ process_monitor() {
   echo "  Lock screen: $monitor_lock"
 }
 
+# Interactive mode: select wallpaper with fzf and preview
+interactive_select() {
+  if ! command -v fzf &>/dev/null; then
+    echo "Error: fzf is required for interactive mode"
+    exit 1
+  fi
+
+  if ! command -v chafa &>/dev/null; then
+    echo "Error: chafa is required for interactive mode preview"
+    exit 1
+  fi
+
+  local selected
+  selected=$(get_wallpapers_list | fzf --preview='chafa -f iterm -s {$FZF_PREVIEW_COLUMNS}x{$FZF_PREVIEW_LINES} {}')
+
+  if [ -z "$selected" ]; then
+    echo "No wallpaper selected"
+    exit 0
+  fi
+
+  wallpaper="$selected"
+}
+
+# Review mode: iterate through wallpapers and delete unwanted ones
+review_wallpapers() {
+  echo "Starting wallpaper review..."
+  echo ""
+
+  local count=0
+  local deleted=0
+  local kept=0
+
+  for file in "$WALLPAPER_DIR"/*.jpg; do
+    # Check if any files exist (avoid running on literal "*.jpg" if no files found)
+    [ -e "$file" ] || continue
+
+    count=$((count + 1))
+
+    # Run the wallpaper script to preview
+    "$0" "$file"
+
+    # Ask if file should be deleted
+    echo ""
+    read -p "Delete $(basename "$file")? (y/n): " response
+
+    case "$response" in
+    [Yy]*)
+      rm "$file"
+      echo "Deleted: $file"
+      deleted=$((deleted + 1))
+      ;;
+    *)
+      echo "Kept: $file"
+      kept=$((kept + 1))
+      ;;
+    esac
+
+    echo "---"
+  done
+
+  echo ""
+  echo "Review complete!"
+  echo "Total reviewed: $count"
+  echo "Deleted: $deleted"
+  echo "Kept: $kept"
+}
+
 # Export functions for parallel execution
 export -f process_monitor
 export -f create_lock_background
@@ -134,7 +226,18 @@ export -f get_extension
 export CACHE_DIR
 
 main() {
-  # Check battery status first
+  # Handle review mode
+  if [ "$REVIEW_MODE" = true ]; then
+    review_wallpapers
+    exit 0
+  fi
+
+  # Handle interactive mode
+  if [ "$INTERACTIVE_MODE" = true ]; then
+    interactive_select
+  fi
+
+  # Check battery status
   check_battery
 
   wallpaper=$(get_random_wallpaper)
