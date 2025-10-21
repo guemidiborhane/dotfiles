@@ -1,7 +1,7 @@
 [tools]
 go = "latest"
 krew = "latest"
-kubectl = "1.24"
+kubectl = "latest"
 kubectx = "latest"
 kubens = "latest"
 yarn = "latest"
