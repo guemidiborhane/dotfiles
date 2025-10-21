@@ -14,6 +14,8 @@ set -Ux FZF_DEFAULT_OPTS "--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#
 
 status is-interactive; or exit
 
+fish_add_path -mg ~/.local/bin ~/.krew/bin
+
 zoxide init --cmd cd fish | source
 starship init fish | source
 set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
