@@ -1,0 +1,14 @@
+[prayer]
+method = "ALGERIA"
+madhab = "Shafi"
+fajr_mod = 0
+dhuhr_mod = 0
+asr_mod = 0
+maghrib_mod = 3
+isha_mod = 0
+
+[notification]
+notify_before = true
+urgency = "Critical"
+interval = 20
+icon = '/usr/share/icons/mosque-svgrepo-com.png'
