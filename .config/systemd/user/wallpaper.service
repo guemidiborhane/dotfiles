@@ -3,6 +3,7 @@ Description=Choose a random wallpaper and update betterlockscreen cache
 PartOf=hypr-session.target
 After=hypr-session.target
 Requisite=hypr-session.target
+Wants=wallpaper.timer
 
 [Service]
 Slice=desktop.slice
