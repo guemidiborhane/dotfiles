@@ -25,6 +25,7 @@ copyq
 cowsay
 cpupower
 cronie
+croc
 dbeaver
 dive
 docker
@@ -94,7 +95,6 @@ lm_sensors
 lutris
 lvm2
 lxappearance
-magic-wormhole
 man-db
 memtest86+-efi
 mise
