@@ -16,8 +16,7 @@ main() {
     configure_docker        # scripts/misc.sh
     local_bin_permissions   # scripts/misc.sh
     yadm alt
-    configure_polybar # scripts/polybar.sh
-    readme            # scripts/misc.sh
+    readme # scripts/misc.sh
 }
 
 if [ "$UPDATE" = "yes" ]; then

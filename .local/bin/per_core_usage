@@ -1,7 +1,0 @@
-#!/bin/sh
-
-mpstat -P ALL -o JSON 1 1 |\
-    jq '.sysstat.hosts[].statistics[]."cpu-load"[] | (.cpu|tostring) + " " + (.idle|tostring)' |\
-    xargs -I {} sh -c "echo {}" |\
-    tail -n +2 |\
-    awk '{print "CPU #" sprintf("%.2d",$1) "\t  " sprintf("%.1f",(100-$2)) "%"}'
