@@ -1,6 +1,5 @@
 adguard.service
 atuin-daemon.service
-autotiling.service
 gnome-keyring-daemon.socket
 hypridle.service
 hyprpaper.service
@@ -10,7 +9,6 @@ pipewire-pulse.service
 pipewire-pulse.socket
 pipewire.service
 pipewire.socket
-polybar.service
 sunsetr.service
 swaync.service
 vicinae.service

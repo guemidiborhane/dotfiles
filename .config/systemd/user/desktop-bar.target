@@ -1,3 +1,3 @@
 [Unit]
 Description=Target to signal that a bar is available
-Wants=polybar.service waybar.service
+Wants=waybar.service

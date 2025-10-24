@@ -1,5 +1,0 @@
-[Unit]
-Description=X11 session
-Documentation=man:systemd.special
-BindsTo=user-graphical-session.target
-AssertEnvironment=DISPLAY

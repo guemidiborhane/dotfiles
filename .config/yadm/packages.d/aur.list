@@ -1,16 +1,11 @@
 android-sdk
 banana-cursor-bin
 betterbird-bin
-betterlockscreen
 bitwarden-bin
 brave-bin
-carapace-bin
 docker-credential-pass
 dracula-gtk-theme
 gitflow-cjs
-i3lock-color
-i3-resurrect
-insomnium-bin
 kanata-bin
 kernel-install-for-dracut
 kora-icon-theme
@@ -24,8 +19,6 @@ packet
 prayer-times
 qogir-icon-theme
 rancher-k3d-bin
-rofi-calc-git
-rofi-emoji-git
 sesh-bin
 spotify-adblock
 sublime-text-4

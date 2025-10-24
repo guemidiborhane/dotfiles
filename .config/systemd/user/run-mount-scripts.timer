@@ -1,9 +1,0 @@
-[Unit]
-Description=Run mount.sh scripts found in /run/media/
-
-[Timer]
-OnUnitActiveSec=3s
-AccuracySec=1us
-
-[Install]
-WantedBy=timers.target

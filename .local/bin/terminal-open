@@ -1,9 +1,0 @@
-#!/bin/sh
-FALLBACK_TERMINAL="kitty"
-
-# Launch $TERMINAL with arguments and fallback to $FALLBACK_TERMINAL if $TERMINAL throws error
-if [ -n "$TERMINAL" ]; then
-	$TERMINAL "$@" || $FALLBACK_TERMINAL "$@"
-else
-	$FALLBACK_TERMINAL "$@"
-fi
