@@ -15,18 +15,8 @@ path = "~/.config/nvim"
 windows = ["editor"]
 
 [[session]]
-name = "i3"
-path = "~/.config/i3"
-windows = ["editor"]
-
-[[session]]
 name = "hypr"
 path = "~/.config/hypr"
-windows = ["editor"]
-
-[[session]]
-name = "polybar"
-path = "~/.config/polybar"
 windows = ["editor"]
 
 [[session]]
@@ -37,11 +27,6 @@ windows = ["editor"]
 [[session]]
 name = "yadm"
 path = "~/.config/yadm"
-windows = ["editor"]
-
-[[session]]
-name = "nushell"
-path = "~/.config/nu"
 windows = ["editor"]
 
 [[session]]
