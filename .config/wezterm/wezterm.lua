@@ -59,7 +59,6 @@ return {
 	color_scheme = "Dracula (Official)",
 
 	font_size = 12,
-	line_height = 1.1,
 	font = wezterm.font({
 		family = "JetBrainsMono Nerd Font",
 		weight = "Medium",
