@@ -80,7 +80,7 @@ _drun_completion() {
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    
+
     # Find if we have -- in the command line
     local dash_dash_pos=-1
     local i
@@ -90,7 +90,7 @@ _drun_completion() {
             break
         fi
     done
-    
+
     # If we're after --, complete commands and files
     if [[ $dash_dash_pos -ne -1 && $COMP_CWORD -gt $dash_dash_pos ]]; then
         # We're completing the command after --
@@ -105,7 +105,7 @@ _drun_completion() {
         fi
         return 0
     fi
-    
+
     # Handle option arguments that expect values
     case "$prev" in
         -n|--name|-d|--description|-r|--prefix|-s|--slice|-u|--unit|-w|--workspace|-b|--batch)
@@ -113,11 +113,11 @@ _drun_completion() {
             return 0
             ;;
     esac
-    
+
     # Complete script options
     opts="--foreground --name --description --prefix --slice --unit --workspace --tile --float --focus --batch --help --verbose --completion --"
     short_opts="-f -n -d -r -s -u -w -t -F -h -v"
-    
+
     if [[ "$cur" == -* ]]; then
         COMPREPLY=($(compgen -W "$opts $short_opts" -- "$cur"))
     else
@@ -266,150 +266,232 @@ declare -ga selection=("${@}")
 readonly selection
 
 # Check if stdin is available (not a terminal)
-stdin_available=false
-if [ ! -t 0 ]; then
-  stdin_available=true
-fi
+has_stdin() {
+  [ ! -t 0 ]
+}
 
-# Generate unit name
-if [ -n "${custom_unit}" ]; then
-  unit_name="${custom_unit}"
-else
+# Create temporary file for stdin and populate it
+# Returns the temp file path in stdout
+prepare_stdin_file() {
+  local temp_file
+  temp_file=$(mktemp) || {
+    echo "Error: Failed to create temporary file" >&2
+    return 1
+  }
+
+  cat >"${temp_file}" || {
+    echo "Error: Failed to write to temporary file" >&2
+    rm -f "${temp_file}"
+    return 1
+  }
+
+  echo "${temp_file}"
+}
+
+generate_unit_name() {
+  local name uuid max_name_len
+
+  if [ -n "${custom_unit}" ]; then
+    echo "${custom_unit}"
+    return 0
+  fi
+
   if [ -n "${custom_name}" ]; then
     name="${custom_name}"
   else
+    # Extract and sanitize name from command
     read -r -d '' -n 192 name < <(
       basename "${selection[0]}" | tr -c 'a-zA-Z0-9_-' '[_*]' || true
       echo -e '\0' || true
     ) || true
+    # Trim leading and trailing spaces/underscores
+    name="${name#"${name%%[!_]*}"}"
+    name="${name%"${name##*[!_]}"}"
   fi
 
   max_name_len=$((217 - ${#prefix} - 37))
-  [ "${#name}" -eq 0 ] || [ "${#name}" -gt "${max_name_len}" ] && {
+  if [ "${#name}" -eq 0 ] || [ "${#name}" -gt "${max_name_len}" ]; then
     echo "Error: Invalid unit name length" >&2
-    exit 125
-  }
+    return 125
+  fi
 
   uuid="$(uuidgen)" || {
     echo "Error: Failed to generate UUID" >&2
-    exit 1
+    return 1
   }
-  unit_name="${prefix}-${name}-${uuid}"
-fi
 
-# systemd-run args
-declare -ga runargs=(--user --collect --slice="${slice}" --unit="${unit_name}")
-${verbose} || runargs+=(--quiet)
-runargs+=(--description="${custom_description:-Command: ${selection[*]@Q}}")
+  echo "${prefix}-${name}-${uuid}"
+}
 
-# Hyprland helpers
 need_hyprland_dispatch() {
   [[ -n "${workspace}" || "${tile}" == true || "${float}" == true || "${focus}" == true || -n "${hypr_batch}" ]]
 }
 
-build_batch_commands() {
-  local pid_var="${1}" commands=()
+# Build hyprctl batch command string for a given PID
+build_hyprland_batch() {
+  local pid="$1"
+  local -a commands=()
 
-  ${tile} && commands+=("dispatch settiled pid:${pid_var}")
-  ${float} && commands+=("dispatch setfloating pid:${pid_var}")
-  [ -n "${workspace}" ] && commands+=("dispatch movetoworkspacesilent ${workspace},pid:${pid_var}")
-  ${focus} && commands+=("dispatch focuswindow pid:${pid_var}")
+  ${tile} && commands+=("dispatch settiled pid:${pid}")
+  ${float} && commands+=("dispatch setfloating pid:${pid}")
+  [ -n "${workspace}" ] && commands+=("dispatch movetoworkspacesilent ${workspace},pid:${pid}")
+  ${focus} && commands+=("dispatch focuswindow pid:${pid}")
 
+  # Parse additional batch commands
   if [ -n "${hypr_batch}" ]; then
     IFS=';' read -ra extra <<<"${hypr_batch}"
-    for x in "${extra[@]}"; do
-      x="$(echo "${x}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-      [ -n "$x" ] && commands+=("$x")
+    for cmd in "${extra[@]}"; do
+      cmd="$(echo "${cmd}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+      [ -n "$cmd" ] && commands+=("$cmd")
     done
   fi
 
+  # Join with semicolons
   local IFS='; '
   echo "${commands[*]}"
 }
 
-# Verbose logging
-if ${verbose}; then
-  echo "Unit name: ${unit_name}" >&2
-  echo "Command: ${selection[*]@Q}" >&2
-  echo "Slice: ${slice}" >&2
-  echo "Foreground: ${foreground}" >&2
-  echo "Stdin available: ${stdin_available}" >&2
-  need_hyprland_dispatch && echo "Hyprland batch: $(build_batch_commands "<pid>")" >&2
-fi
+# Generate the Hyprland dispatch background job as a string
+# We need to track the actual process PID, not bash wrapper PID
+generate_hyprland_dispatcher() {
+  cat <<'HYPR_SCRIPT'
+{
+  target_pid=$$$
 
-# Handle stdin by creating a temporary file if needed
-stdin_file=""
-cleanup_stdin() {
-  [ -n "${stdin_file}" ] && [ -f "${stdin_file}" ] && rm -f "${stdin_file}" || true
+  for i in {1..50}; do
+    if [ -n "$target_pid" ]; then
+      if hyprctl clients -j 2> /dev/null | jq --arg pid $target_pid '.[] | select(.pid == ($pid | tonumber))' -jre > /dev/null; then
+        break
+      fi
+    fi
+    sleep 0.1
+  done
+
+  if [ -n "$target_pid" ]; then
+    hyprctl --batch "BATCH_COMMANDS_PLACEHOLDER" 2>/dev/null
+  fi
+} &
+HYPR_SCRIPT
 }
-trap cleanup_stdin EXIT
 
-if ${stdin_available}; then
-  stdin_file=$(mktemp) || {
-    echo "Error: Failed to create temporary file" >&2
-    exit 1
-  }
-  cat >"${stdin_file}" || {
-    echo "Error: Failed to write to temporary file" >&2
-    exit 1
-  }
-fi
+# Build the logging redirection for background processes
+build_logging_redirect() {
+  local unit_name="$1"
+  cat <<LOGGING
+exec 1> >(systemd-cat -t "${unit_name}")
+exec 2> >(systemd-cat -t "${unit_name}")
+LOGGING
+}
 
-unit_cmd=""
-if ! ${foreground}; then
-  unit_cmd="
-    exec 1> >(systemd-cat -t \"${unit_name}\")
-    exec 2> >(systemd-cat -t \"${unit_name}\")
-  "
-fi
+# Build the exec command with optional stdin redirection
+build_exec_command() {
+  local stdin_file="${1:-}"
+  local cmd_line
 
-# Build command array
-if need_hyprland_dispatch; then
-  # Use process substitution to preserve main process PID while capturing logs
-  unit_cmd+="
-    # Background the hyprctl dispatch
-    {
-      for i in {1..50}; do
-        hyprctl clients | grep -q \"pid\":\ \"\$\$\" && break
-        sleep 0.1
-      done
-      hyprctl --batch \"$(build_batch_commands "\$\$")\" 2>/dev/null
-    } &
-  "
-fi
+  # Build the command line with proper quoting
+  cmd_line="exec $(printf '%q ' "${selection[@]}")"
 
-if ${stdin_available}; then
-  unit_cmd+="
-    exec $(printf '%q ' "${selection[@]}") < $(printf '%q' "${stdin_file}")
-  "
-else
-  unit_cmd+="
-    exec $(printf '%q ' "${selection[@]}")
-  "
-fi
+  if [ -n "${stdin_file}" ]; then
+    cmd_line+=" < $(printf '%q' "${stdin_file}")"
+  fi
 
-wrapped_selection=(bash -c "${unit_cmd}")
+  echo "${cmd_line}"
+}
 
-# Execute
-if ${foreground}; then
-  exec systemd-run --wait "${runargs[@]}" -- "${wrapped_selection[@]}"
-else
-  # For background execution, start systemd-run and let it handle its own errors
-  systemd-run --scope "${runargs[@]}" -- "${wrapped_selection[@]}" &
-  background_pid=$!
-  ${verbose} && echo "Started in background (PID: $background_pid)" >&2
-fi
+# Assemble the complete wrapper script
+build_wrapper_script() {
+  local unit_name="$1"
+  local stdin_file="${2:-}"
+  local script=""
 
-# Clean up stdin file after systemd-run starts
-if ${stdin_available} && ! ${foreground}; then
-  # For background processes, we need to delay cleanup slightly
-  # to ensure the process can read the file
-  (
-    sleep 1
-    cleanup_stdin
-  ) &
-  trap - EXIT || true # Remove the trap since we're handling cleanup manually
-fi
+  # Add logging redirection for background processes
+  if ! ${foreground}; then
+    script+="$(build_logging_redirect "${unit_name}")"
+    script+=$'\n'
+  fi
 
-# Ensure script exits successfully
+  # Add Hyprland dispatcher if needed
+  if need_hyprland_dispatch; then
+    local dispatcher batch_cmds
+    dispatcher="$(generate_hyprland_dispatcher)"
+    batch_cmds="$(build_hyprland_batch '$target_pid')"
+    # Replace placeholder with actual commands
+    dispatcher="${dispatcher//BATCH_COMMANDS_PLACEHOLDER/${batch_cmds}}"
+    script+="${dispatcher}"
+    script+=$'\n'
+  fi
+
+  # Add the actual command execution
+  script+="$(build_exec_command "${stdin_file}")"
+
+  echo "${script}"
+}
+
+build_systemd_run_args() {
+  local unit_name="$1"
+  local -a args=(--user --collect --slice="${slice}" --unit="${unit_name}")
+
+  ${verbose} || args+=(--quiet)
+  args+=(--description="${custom_description:-Command: ${selection[*]@Q}}")
+
+  printf '%s\n' "${args[@]}"
+}
+
+#############################################################################
+# Main execution logic
+#############################################################################
+
+main() {
+  local unit_name stdin_file="" wrapper_script
+  local -a runargs
+
+  # Generate unit name
+  unit_name="$(generate_unit_name)" || exit $?
+
+  # Prepare stdin if available
+  if has_stdin; then
+    stdin_file="$(prepare_stdin_file)" || exit 1
+    trap 'rm -f "${stdin_file}"' EXIT
+  fi
+
+  # Build systemd-run arguments
+  mapfile -t runargs < <(build_systemd_run_args "${unit_name}")
+
+  # Build wrapper script
+  wrapper_script="$(build_wrapper_script "${unit_name}" "${stdin_file}")"
+
+  # Verbose logging
+  if ${verbose}; then
+    echo "Unit name: ${unit_name}" >&2
+    echo "Command: ${selection[*]@Q}" >&2
+    echo "Slice: ${slice}" >&2
+    echo "Foreground: ${foreground}" >&2
+    echo "Stdin available: $(has_stdin && echo true || echo false)" >&2
+    need_hyprland_dispatch && echo "Hyprland batch: $(build_hyprland_batch "<pid>")" >&2
+    echo "=== Wrapper Script ===" >&2
+    echo "${wrapper_script}" >&2
+    echo "======================" >&2
+  fi
+
+  # Execute
+  if ${foreground}; then
+    exec systemd-run --wait "${runargs[@]}" -- bash -c "${wrapper_script}"
+  else
+    systemd-run --scope "${runargs[@]}" -- bash -c "${wrapper_script}" &
+    local bg_pid=$!
+    ${verbose} && echo "Started in background (PID: ${bg_pid})" >&2
+
+    # Cleanup stdin file after a delay for background processes
+    if [ -n "${stdin_file}" ]; then
+      (
+        sleep 1
+        rm -f "${stdin_file}"
+      ) &
+      trap - EXIT
+    fi
+  fi
+}
+
+# Run main function
+main
 exit 0
