@@ -10,7 +10,7 @@
       "󰤥",
       "󰤨"
     ],
-    "on-click": "wezterm start --class='terminal.popup' -e impala",
+    "on-click": "terminal-popup impala",
   },
   "network#ethernet": {
     "interface": "enp*",
@@ -42,7 +42,7 @@
     "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
     "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
-    "on-click": "wezterm start --class='terminal.popup' -e bluetui",
+    "on-click": "terminal-popup bluetui",
   },
   "group/wireless": {
     "orientation": "inherit",

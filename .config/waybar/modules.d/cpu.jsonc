@@ -22,6 +22,7 @@
     "interval": 1,
     "format": "{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8} {usage:>2}%",
     "tooltip": false,
+    "on-click": "terminal-popup btop",
     "format-icons": [
       "▁",
       "▂",
