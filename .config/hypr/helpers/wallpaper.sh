@@ -165,7 +165,7 @@ interactive_select() {
   fi
 
   local selected
-  selected=$(get_wallpapers_list | fzf --preview='chafa -f iterm -s {$FZF_PREVIEW_COLUMNS}x{$FZF_PREVIEW_LINES} {}')
+  selected=$(get_wallpapers_list | fzf --preview='chafa -f kitty -s {$FZF_PREVIEW_COLUMNS}x{$FZF_PREVIEW_LINES} {}')
 
   if [ -z "$selected" ]; then
     echo "No wallpaper selected"
