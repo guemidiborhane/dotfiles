@@ -4,7 +4,7 @@ Icon=filemanager
 Comment=Pretty fancy and modern terminal file manager
 Terminal=false
 TryExec=spf
-Exec=wezterm start --class="terminal.popup" -e spf %U
+Exec=terminal-popup spf %U
 Type=Application
 MimeType=inode/directory
 Categories=Utility;Core;System;FileTools;FileManager;ConsoleOnly
