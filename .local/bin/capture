@@ -1,0 +1,30 @@
+#!/bin/bash
+
+modes="region,window,output"
+mode=""
+extra_args=()
+
+while test $# -gt 0; do
+  case "$1" in
+  -m | --mode)
+    shift
+    mode="$1"
+    ;;
+  *)
+    extra_args+=("$1")
+    ;;
+  esac
+  shift
+done
+
+if [[ -z "$mode" ]]; then
+  modes="$(echo "$modes" | sed 's/,/\\n/g')"
+  mode="$(echo -e $modes | dmenu)"
+
+  if [[ "$mode" == "output" ]]; then
+    monitor="$(hyprctl monitors -j | jq -r '.[].name' | dmenu)"
+    mode="output --mode $monitor"
+  fi
+fi
+
+sleep 0.1 && hyprshot --mode $mode "${extra_args[@]}" --freeze
