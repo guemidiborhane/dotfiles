@@ -8,3 +8,4 @@ $run -- Telegram
 $run -- signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
 $run -- vesktop --wayland
 $run --name spotify -- gtk-launch spotify-adblock
+$run --workspace 9 -- betterbird
