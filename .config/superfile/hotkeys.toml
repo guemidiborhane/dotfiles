@@ -1,7 +1,7 @@
 # =================================================================================================
 # Global hotkeys (cannot conflict with other hotkeys)
 confirm = ['enter', 'right', 'l']
-quit = ['q', 'esc']
+quit = ['q', 'esc', '']
 cd_quit = ['Q', '']
 # movement
 list_up = ['up', 'k']
@@ -9,7 +9,7 @@ list_down = ['down', 'j']
 page_up = ['pgup','']
 page_down = ['pgdown','']
 # file panel control
-create_new_file_panel = ['n', '']
+create_new_file_panel = ['N', '']
 close_file_panel = ['w', '']
 next_file_panel = ['tab', 'L']
 previous_file_panel = ['shift+left', 'H']
@@ -21,13 +21,13 @@ focus_on_process_bar = ['p', '']
 focus_on_sidebar = ['s', '']
 focus_on_metadata = ['m', '']
 # create file/directory and rename
-file_panel_item_create = ['ctrl+n', '']
-file_panel_item_rename = ['ctrl+r', '']
+file_panel_item_create = ['n', '']
+file_panel_item_rename = ['r', '']
 # file operations
-copy_items = ['ctrl+c', '']
-cut_items = ['ctrl+x', '']
-paste_items = ['ctrl+v', 'ctrl+w', '']
-delete_items = ['ctrl+d', 'delete', '']
+copy_items = ['y', '']
+cut_items = ['x', '']
+paste_items = ['p', '']
+delete_items = ['d', 'delete', '']
 permanently_delete_items = ['D', '']
 # compress and extract
 extract_file = ['ctrl+e', '']
