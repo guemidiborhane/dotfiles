@@ -7,7 +7,7 @@ function update_all
     end
     if type -q mise
         mise plugins update
-        mise upgrade
+        mise upgrade --interactive --jobs (nproc)
     end
     if type -q nvim
         nvim --headless "+Lazy! update" +qa

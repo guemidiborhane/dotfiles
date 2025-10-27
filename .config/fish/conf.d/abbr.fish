@@ -17,6 +17,9 @@ abbr hr hyprctl reload
 abbr tp tmux_popup
 abbr watch "watch -d -n 10"
 
+abbr elhakim 'kubectl --context elhakim'
+abbr benboulaid 'kubectl --context benboulaid'
+
 set dc docker-compose
 abbr dc $dc
 abbr dcb "$dc build"
@@ -33,9 +36,10 @@ abbr kg kubectl get
 
 set mk make
 abbr mk $mk
+abbr mkc "$mk console"
+abbr mkf "$mk fish"
 abbr mkd "$mk dev"
 abbr mkdd "$mk down"
-abbr mkc "$mk console"
 abbr mkr "$mk restart"
 
 abbr sc "sudo systemctl"

@@ -35,6 +35,7 @@ fd
 ffmpegthumbnailer
 filezilla
 fish
+fisher
 fwupd
 fzf
 gd
@@ -118,7 +119,6 @@ playerctl
 plocate
 polkit-gnome
 pv
-python-docker
 python-gdal
 python-netaddr
 python-owslib
