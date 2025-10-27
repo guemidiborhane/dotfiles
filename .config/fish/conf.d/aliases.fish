@@ -45,6 +45,3 @@ alias p push
 alias gpf "git push -f"
 alias glog "git lg"
 alias amend "env HUSKY=0 git commit --amend"
-
-abbr elhakim 'kubectl --context elhakim'
-abbr benboulaid 'kubectl --context benboulaid'

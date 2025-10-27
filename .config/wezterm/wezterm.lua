@@ -93,10 +93,6 @@ return {
 		"zsh",
 		"fish",
 		"tmux",
-		"nu",
-		"cmd.exe",
-		"pwsh.exe",
-		"powershell.exe",
 	},
 	window_close_confirmation = "AlwaysPrompt",
 }

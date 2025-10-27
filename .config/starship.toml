@@ -23,8 +23,6 @@ truncate_to_repo = false
 "~/Code/aina/pro" = "Work"
 "~/Code/aina/public" = "Public-work"
 "~/Code/lab" = "Lab"
-"~/Code/github" = " GH"
-"~/Downloads" = ""
 
 [fill]
 symbol = " "
