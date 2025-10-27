@@ -9,3 +9,4 @@ $run -- vesktop --wayland
 $run -- wezterm start -e fish -c 'tn monitors'
 $run --name spotify -- gtk-launch spotify-adblock
 $run --workspace 8 --tile -- pavucontrol --tab 3
+$run --workspace 9 -- betterbird
