@@ -35,7 +35,6 @@ fd
 ffmpegthumbnailer
 filezilla
 fish
-flameshot
 fwupd
 fzf
 gd
@@ -47,7 +46,6 @@ gnome-boxes
 gnome-disk-utility
 gnome-keyring
 gparted
-grim
 gum
 gvfs
 gvfs-mtp
@@ -59,6 +57,7 @@ hyprland
 hyprlock
 hyprpaper
 hyprpicker
+hyprshot
 iftop
 imagemagick
 impala
@@ -139,7 +138,6 @@ rsync
 scrcpy
 seahorse
 signal-desktop
-slurp
 socat
 solaar
 squashfs-tools
