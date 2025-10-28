@@ -135,6 +135,7 @@ rebuild-detector
 reflector
 ripgrep
 rsync
+satty
 scrcpy
 seahorse
 signal-desktop
