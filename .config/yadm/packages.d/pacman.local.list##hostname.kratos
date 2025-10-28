@@ -1,4 +1,5 @@
 ddcutil
+ethtool
 liquidctl
 lutris
 nvidia-container-toolkit
@@ -12,4 +13,5 @@ cockpit-docker
 cockpit-machines
 dnsmasq
 pcp
+qbittorrent-nox
 virt-install
