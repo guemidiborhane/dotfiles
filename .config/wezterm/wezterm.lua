@@ -23,7 +23,9 @@ local keybinds = {
 	Tmux("CTRL", "t", "c"), -- new-window
 	Tmux("ALT", "f", "z"), -- resize-pane -Z
 	Tmux("CTRL", "Enter", "'"), -- split-window -h # horizontal split
+	Tmux("CTRL", "\\"),
 	Tmux("ALT", "Enter", '"'), -- split-window # vertical split
+	Tmux("ALT", "\\", "_"),
 	Tmux("ALT", "t", "T"), -- fzf-make (custom script)
 	Tmux("CTRL", "PageUp", "p"), -- previous-window
 	Tmux("CTRL", "PageDown", "n"), -- next-window
@@ -35,6 +37,10 @@ local keybinds = {
 	Tmux("CTRL", "b"), -- btop
 	Tmux("CTRL", "n", "N"), -- sesh connect
 	Tmux("CTRL", "g"), -- lazygit
+	Tmux("CTRL|SHIFT", "H"),
+	Tmux("CTRL|SHIFT", "J"),
+	Tmux("CTRL|SHIFT", "K"),
+	Tmux("CTRL|SHIFT", "L"),
 	Bind("CTRL", "Backspace", act.SendString("\x17")),
 	Bind("CTRL|SHIFT", "Enter", act.SplitHorizontal({ domain = "CurrentPaneDomain" })),
 	Bind("ALT|SHIFT", "Enter", act.SplitVertical({ domain = "CurrentPaneDomain" })),
