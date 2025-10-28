@@ -56,3 +56,4 @@ abbr ys "yadm st"
 abbr y yay
 abbr s yay -Sy
 abbr ss yay -Ss
+abbr yy "yes | yay -Syyu"
