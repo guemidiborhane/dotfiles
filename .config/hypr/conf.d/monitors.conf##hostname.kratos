@@ -1,16 +1,42 @@
 # vim: ft=hyprlang
 
-$portraitMonitor = DP-1
-$mainMonitor = DP-2
-$secondaryMonitor = DP-3
+source = ~/.config/hypr/conf.d/nvidia.conf
 
 $resolution = 2560x1440@75
 $scale = auto
 
-monitor = , preferred, auto, 1
-monitor= $portraitMonitor, $resolution, 0x0, $scale, transform, 1
-monitor= $mainMonitor, $resolution, 1440x560, $scale
-monitor= $secondaryMonitor, $resolution, 4000x560, $scale
+# portrait (left)
+monitorv2 {
+  output = DP-1
+  resolution = $resolution
+  scale = $scale
+  position = 0x0
+  transform = 1 # 90deg
+}
 
-monitor = desc:LG Electronics webOS TV 0x01010101, 3840x2160@60.0, 0x0, 1.5, bitdepth, 10
-source = ~/.config/hypr/conf.d/nvidia.conf
+# main monitor (center)
+monitorv2 {
+  output = DP-2
+  resolution = $resolution
+  scale = $scale
+  position = 1440x560
+  # position = auto-center-right
+}
+
+# secondary (right)
+monitorv2 {
+  output = DP-3
+  resolution = $resolution
+  scale = $scale
+  position = 4000x560
+  # position = auto-center-right
+}
+
+# TV
+monitorv2 {
+  output = desc:LG Electronics webOS TV 0x01010101
+  mode = 3840x2160@60
+  position = auto
+  scale = 1.5
+  bitdepth = 10
+}
