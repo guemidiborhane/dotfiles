@@ -1,35 +1,27 @@
-blacklist = ["scratchpad"]
-
-[[window]]
-name = "editor"
-startup_command = "nvim"
+[default_session]
+startup_command = "nvim -c ':Telescope find_files'"
+preview_command = "eza --all --git --icons --color=always {}"
 
 [[session]]
 name = "tmux"
 path = "~/.config/tmux"
-windows = ["editor"]
 
 [[session]]
 name = "nvim"
 path = "~/.config/nvim"
-windows = ["editor"]
 
 [[session]]
 name = "hypr"
 path = "~/.config/hypr"
-windows = ["editor"]
 
 [[session]]
 name = "waybar"
 path = "~/.config/waybar"
-windows = ["editor"]
 
 [[session]]
 name = "yadm"
 path = "~/.config/yadm"
-windows = ["editor"]
 
 [[session]]
 name = "user systemd"
 path = "~/.config/systemd/user"
-windows = ["editor"]
