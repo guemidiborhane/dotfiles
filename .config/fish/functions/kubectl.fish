@@ -48,7 +48,7 @@ function kubectl --wraps kubectl --description "Wraps kubectl with correct versi
     end
 
     if set -q KUBECTL_WRAPPER_DEBUG
-        echo "Running: mise exec kubectl@$kubectl_version -- kubectl $final_args"
+        echo "Running: mise exec kubectl@$kubectl_version -- kubectl $final_args" >&2
     end
 
     mise exec kubectl@$kubectl_version -- kubectl $final_args
