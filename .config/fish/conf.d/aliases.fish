@@ -19,8 +19,7 @@ alias fast "bunx -- fast-cli --single-line"
 # Credit Elijah Manor : https://youtu.be/K1FxGIG_lcA
 alias v "fd --type f | fzf-tmux -p --reverse --preview 'bat -p --color=always {}' | xargs -r nvim"
 
-alias tk 'tmux_popup tmux_kill'
-alias t "sesh connect (sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --prompt=' ')"
+alias t sesh-connect
 
 alias which "type -a"
 alias gzip pigz

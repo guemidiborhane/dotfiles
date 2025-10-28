@@ -16,6 +16,6 @@ inode/directory=superfile.desktop
 application/pdf=org.gnome.Evince.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
 x-scheme-handler/discord=vesktop.desktop
-x-scheme-handler/terminal=wezterm.desktop
+x-scheme-handler/terminal=org.wezfurlong.wezterm.desktop
 
 [Added Associations]
