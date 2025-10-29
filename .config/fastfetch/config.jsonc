@@ -8,9 +8,10 @@
   },
   "modules": [
     {
-      "key": "󰅐 Uptime",
+      "key": "󰅐 OS Age",
+      "type": "command",
       "keyColor": "red",
-      "type": "uptime",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
     },
     {
       "key": "󰻠 CPU",
@@ -30,7 +31,9 @@
     {
       "key": " Packages",
       "keyColor": "green",
-      "type": "packages",
+      "type": "command",
+      "text": "pacman -Qe | wc -l",
+      "format": "{} (explicit)"
     },
     {
       "key": " WM ",
