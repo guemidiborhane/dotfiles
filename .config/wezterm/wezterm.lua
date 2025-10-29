@@ -5,42 +5,7 @@ function Bind(m, k, action)
 	return { key = k, mods = m, action = action }
 end
 
-function Tmux(m, k, bind)
-	local prefix = { mods = "CTRL", key = "a" }
-	bind = { key = bind or k }
-
-	return Bind(
-		m,
-		k,
-		act.Multiple({
-			act.SendKey(prefix),
-			act.SendKey(bind),
-		})
-	)
-end
-
 local keybinds = {
-	Tmux("CTRL", "t", "c"), -- new-window
-	Tmux("ALT", "f", "z"), -- resize-pane -Z
-	Tmux("CTRL", "Enter", "'"), -- split-window -h # horizontal split
-	Tmux("CTRL", "\\"),
-	Tmux("ALT", "Enter", '"'), -- split-window # vertical split
-	Tmux("ALT", "\\", "_"),
-	Tmux("ALT", "t", "T"), -- fzf-make (custom script)
-	Tmux("CTRL", "PageUp", "p"), -- previous-window
-	Tmux("CTRL", "PageDown", "n"), -- next-window
-	Tmux("CTRL", "Tab", "l"), -- last-window
-	Tmux("CTRL|SHIFT", "LeftArrow", "{"), -- switch-pane -U
-	Tmux("CTRL|SHIFT", "RightArrow", "}"), -- switch-pane -D
-	Tmux("CTRL", "e"), -- $EDITOR
-	Tmux("ALT", "e", "E"), -- yadm enter $EDITOR
-	Tmux("CTRL", "b"), -- btop
-	Tmux("CTRL", "n", "N"), -- sesh connect
-	Tmux("CTRL", "g"), -- lazygit
-	Tmux("CTRL|SHIFT", "H"),
-	Tmux("CTRL|SHIFT", "J"),
-	Tmux("CTRL|SHIFT", "K"),
-	Tmux("CTRL|SHIFT", "L"),
 	Bind("CTRL", "Backspace", act.SendString("\x17")),
 	Bind("CTRL|SHIFT", "Enter", act.SplitHorizontal({ domain = "CurrentPaneDomain" })),
 	Bind("ALT|SHIFT", "Enter", act.SplitVertical({ domain = "CurrentPaneDomain" })),
@@ -55,10 +20,6 @@ local keybinds = {
 
 for _, dir in ipairs({ "Up", "Down", "Right", "Left" }) do
 	table.insert(keybinds, Bind("ALT|SHIFT", dir .. "Arrow", act.ActivatePaneDirection(dir)))
-end
-
-for i = 1, 9 do
-	table.insert(keybinds, Tmux("CTRL", tostring(i)))
 end
 
 return {
