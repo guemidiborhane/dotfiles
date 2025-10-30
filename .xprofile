@@ -1,5 +1,0 @@
-export TERMINAL=wezterm
-export BROWSER=zen-browser
-export QT_QPA_PLATFORMTHEME=qt5ct
-# Required for touchscreen gestures in firefox
-export MOZ_USE_XINPUT2=true
