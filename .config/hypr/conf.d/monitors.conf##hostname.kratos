@@ -8,7 +8,7 @@ $scale = auto
 # portrait (left)
 monitorv2 {
   output = DP-1
-  resolution = $resolution
+  mode = $resolution
   scale = $scale
   position = 0x0
   transform = 1 # 90deg
@@ -17,19 +17,17 @@ monitorv2 {
 # main monitor (center)
 monitorv2 {
   output = DP-2
-  resolution = $resolution
+  mode = $resolution
   scale = $scale
-  position = 1440x560
-  # position = auto-center-right
+  position = auto-center-right
 }
 
 # secondary (right)
 monitorv2 {
   output = DP-3
-  resolution = $resolution
+  mode = $resolution
   scale = $scale
-  position = 4000x560
-  # position = auto-center-right
+  position = auto-center-right
 }
 
 # TV
