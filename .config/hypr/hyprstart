@@ -39,25 +39,7 @@ initialize_shell() {
   esac
 }
 
-# Source xprofile files
-source_xprofile() {
-  for xprofile in /etc/xprofile /usr/local/etc/xprofile "$HOME/.xprofile"; do
-    [ -f "$xprofile" ] && . "$xprofile"
-  done
-}
-
-# Run user xsession script
-run_user_xsession() {
-  script="$HOME/.xsession"
-  if [ -x "$script" -a ! -d "$script" ]; then
-    log "Loading xsession script $script"
-    . "$script"
-  fi
-}
-
 initialize_shell
-source_xprofile
-run_user_xsession
 ~/.config/hypr/helpers/import_env.sh system
 
 wait
