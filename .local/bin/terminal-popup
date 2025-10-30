@@ -1,3 +1,3 @@
 #!/bin/sh
 
-dr -- kitty --class="terminal.popup" -e -- $SHELL -c "$@"
+dr -- ghostty --class="terminal.popup" -e $SHELL -c "$@"
