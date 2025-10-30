@@ -3,7 +3,7 @@
 abbr mv "mv -iv"
 abbr cp "cp -riv"
 abbr mkdir "mkdir -vp"
-abbr rm "rm -iv"
+abbr rmi "rm -iv"
 
 abbr c clear
 abbr n xdg-open
