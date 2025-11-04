@@ -17,8 +17,8 @@ abbr hr hyprctl reload
 abbr tp tmux_popup
 abbr watch "watch -d -n 10"
 
-abbr elhakim 'kubectl --context elhakim'
-abbr benboulaid 'kubectl --context benboulaid'
+abbr prod 'kubectl --context elhakim'
+abbr stage 'kubectl --context benboulaid'
 
 set dc docker-compose
 abbr dc $dc
