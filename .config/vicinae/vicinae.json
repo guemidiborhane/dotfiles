@@ -17,8 +17,8 @@
         "name": "dracula"
     },
     "window": {
-        "csd": false,
+        "csd": true,
         "opacity": 0.95,
-        "rounding": 0
+        "rounding": 5
     }
 }
