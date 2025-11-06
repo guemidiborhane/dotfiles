@@ -8,5 +8,5 @@ $run -- signal-desktop
 $run -- vesktop --wayland
 $run -- $TERMINAL -e fish -c 'tn monitors'
 $run --name spotify -- gtk-launch spotify-adblock
-$run --workspace 8 --tile -- pavucontrol --tab 3
+$run --tile --workspace 8 -- $TERMINAL -e fish -c 'wiremix --tab output'
 $run --workspace 9 -- betterbird

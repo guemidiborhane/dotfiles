@@ -107,7 +107,6 @@ otf-monaspace-nerd
 pacutils
 parallel
 pass
-pavucontrol
 perl-image-exiftool
 pgcli
 picom
@@ -176,6 +175,7 @@ wine
 wine-mono
 winetricks
 wireless_tools
+wiremix
 wl-clipboard
 wol
 xarchiver
