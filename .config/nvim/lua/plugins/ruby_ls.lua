@@ -9,7 +9,7 @@ return {
         },
         rubocop = {
           mason = false,
-          cmd = { vim.fn.expand("~/.local/share/mise/shims/rubocop") },
+          cmd = { vim.fn.expand("~/.local/share/mise/shims/rubocop"), "--lsp" },
         },
       },
     },
