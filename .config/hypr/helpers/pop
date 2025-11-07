@@ -1,0 +1,19 @@
+#!/bin/sh
+# source: https://github.com/basecamp/omarchy/blob/master/bin/omarchy-hyprland-window-pop
+
+active=$(hyprctl activewindow -j)
+pinned=$(echo "$active" | jq .pinned)
+addr=$(echo "$active" | jq -r  ".address")
+[ -z "$addr" ] && { echo "No active window"; exit 0; }
+
+if [ "$pinned" = "true" ]; then
+  hyprctl -q --batch \
+  "dispatch pin address:$addr;" \
+  "dispatch togglefloating address:$addr;"
+else
+  hyprctl -q --batch \
+  "dispatch togglefloating address:$addr;" \
+  "dispatch centerwindow address:$addr;" \
+  "dispatch pin address:$addr;" \
+  "dispatch alterzorder top address:$addr;"
+fi
