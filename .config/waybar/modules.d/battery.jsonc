@@ -11,7 +11,7 @@
     "format-plugged": " {icon} {capacity:2}%",
     "tooltip-format": "{timeTo} ({power}W)\nCycles: {cycles}\nHealth: {health}%",
     "format-icons": [
-      "󰂎",
+      "󰂃",
       "󰁺",
       "󰁻",
       "󰁼",
