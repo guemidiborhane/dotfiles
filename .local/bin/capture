@@ -30,7 +30,7 @@ if [[ -z "$mode" ]]; then
   fi
 fi
 
-hyprshot --mode $mode "${extra_args[@]}" --freeze --raw | satty --filename - \
+hyprshot --mode $mode "${extra_args[@]}" --raw | satty --filename - \
   --output-filename "$OUTPUT_DIR/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
   --early-exit \
   --actions-on-enter save-to-clipboard \
