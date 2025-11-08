@@ -14,3 +14,5 @@ o.autoread = true
 
 -- Prepend mise shims to PATH
 vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
+
+vim.g.tmux_navigator_disable_when_zoomed = 1
