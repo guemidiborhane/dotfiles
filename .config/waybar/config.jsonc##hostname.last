@@ -13,7 +13,8 @@
       "group/sys-info",
       "group/indicators",
       "battery",
-      "group/tray"
+      "group/tray",
+      "custom/notification"
     ],
   },
   {
@@ -32,7 +33,8 @@
       "custom/ping",
       "group/indicators",
       "battery",
-      "group/tray"
+      "group/tray",
+      "custom/notification"
     ],
   },
 ]

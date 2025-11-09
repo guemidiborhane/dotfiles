@@ -30,4 +30,8 @@
     "format": "{}",
     "interval": 5,
   },
+  "custom/prayers": {
+    "exec": "~/.config/waybar/scripts/prayers.sh",
+    "return-type": "json",
+  }
 }
