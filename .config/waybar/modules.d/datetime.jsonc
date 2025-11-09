@@ -3,4 +3,11 @@
     "tooltip": false,
     "format": "{:%a %d · %I:%M}",
   },
+  "group/clock": {
+    "orientation": "inherit",
+    "modules": [
+      "clock",
+      "custom/prayers"
+    ]
+  }
 }
