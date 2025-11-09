@@ -2,7 +2,7 @@
   "privacy": {
     "icon-spacing": 10,
     "icon-size": 14,
-    "transition-duration": 50,
+    "transition-duration": 50
   },
   "idle_inhibitor": {
     "format": "{icon}",
@@ -17,6 +17,6 @@
   "memory": {
     "interval": 30,
     "format": "  {used}GiB",
-    "tooltip": false,
-  },
+    "tooltip": false
+  }
 }
