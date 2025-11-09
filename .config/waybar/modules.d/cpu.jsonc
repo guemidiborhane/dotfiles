@@ -11,12 +11,12 @@
       "",
       "",
       ""
-    ],
+    ]
   },
   "cpu": {
     "interval": 1,
     "format": "@ {max_frequency:>4}GHz",
-    "tooltip": false,
+    "tooltip": false
   },
   "cpu#usage": {
     "interval": 1,
@@ -40,7 +40,7 @@
     "format": "{}",
     "return-type": "json",
     "interval": 5,
-    "tooltip": true,
+    "tooltip": true
   },
   "group/cpu": {
     "orientation": "inherit",

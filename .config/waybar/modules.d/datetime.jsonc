@@ -1,7 +1,7 @@
 {
   "clock": {
     "tooltip": false,
-    "format": "{:%a %d · %I:%M}",
+    "format": "{:%a %d · %I:%M}"
   },
   "group/clock": {
     "orientation": "inherit",

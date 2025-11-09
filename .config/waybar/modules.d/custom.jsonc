@@ -10,28 +10,28 @@
       "inhibited-notification": "<span foreground='red'><sup></sup></span>",
       "inhibited-none": "",
       "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": "",
+      "dnd-inhibited-none": ""
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
-    "escape": true,
+    "escape": true
   },
   "custom/uptime": {
     "exec": "uptime -p | sed -e 's/up //g'",
     "interval": 30,
-    "format": "󱑆 {}",
+    "format": "󱑆 {}"
   },
   "custom/ping": {
     "exec": "~/.config/waybar/scripts/ping.sh",
     "return-type": "json",
     "format": "{}",
-    "interval": 5,
+    "interval": 5
   },
   "custom/prayers": {
     "exec": "~/.config/waybar/scripts/prayers.sh",
-    "return-type": "json",
+    "return-type": "json"
   }
 }

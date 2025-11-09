@@ -2,7 +2,7 @@
   "include": [
     "~/.config/waybar/modules.d/custom.jsonc",
     "~/.config/waybar/modules.d/network.jsonc",
-    "~/.config/waybar/modules.d/base.jsonc",
+    "~/.config/waybar/modules.d/base.jsonc"
   ],
   "group/indicators": {
     "orientation": "inherit",
@@ -11,16 +11,21 @@
       "custom/vpn",
       "network#ethernet",
       "group/wireless",
-      "idle_inhibitor",
-    ],
+      "idle_inhibitor"
+    ]
   },
   "group/sys-info": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 250,
       "transition-left-to-right": false,
-      "click-to-reveal": true,
+      "click-to-reveal": true
     },
-    "modules": ["temperature", "memory", "cpu#usage", "cpu"],
-  },
+    "modules": [
+      "temperature",
+      "memory",
+      "cpu#usage",
+      "cpu"
+    ]
+  }
 }

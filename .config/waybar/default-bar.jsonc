@@ -16,7 +16,7 @@
     "~/.config/waybar/modules.d/groups.jsonc",
     "~/.config/waybar/modules.d/hyprland.jsonc",
     "~/.config/waybar/modules.d/network.jsonc",
-    "~/.config/waybar/modules.d/tray.jsonc",
+    "~/.config/waybar/modules.d/tray.jsonc"
   ],
   "modules-left": [
     "hyprland/workspaces",
