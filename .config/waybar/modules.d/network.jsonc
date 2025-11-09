@@ -2,7 +2,8 @@
   "network#wifi": {
     "interface": "wlan*",
     "format": "{icon}",
-    "format-disconnected": "󰤭",
+    "format-disconnected": "󰤮",
+    "format-disabled": "󰤭",
     "tooltip-format-wifi": "{essid} ({signalStrength}% on {frequency}GHz)\nIP:\t{ipaddr}/{cidr}\nRates:\t{bandwidthDownBytes}  {bandwidthUpBytes} ",
     "format-icons": [
       "󰤟",
@@ -10,14 +11,14 @@
       "󰤥",
       "󰤨"
     ],
-    "on-click": "terminal-popup impala",
+    "on-click": "terminal-popup impala"
   },
   "network#ethernet": {
     "interface": "enp*",
     "format": "󰈀",
     "format-disconnected": "",
     "tooltip-format-ethernet": "{ifname}\nIP:\t{ipaddr}/{cidr}\nRates:\t{bandwidthDownBytes}  {bandwidthUpBytes} ",
-    "on-click": "networkmanager_dmenu",
+    "on-click": "nm-connection-editor"
   },
   "network#bandwidth": {
     "interface": "enp*",
@@ -25,14 +26,14 @@
     "format-disconnected": "󰈂",
     "tooltip-format": "Connected to {ifname}\nIP: {ipaddr}\nDown: {bandwidthDownBits}\nUp: {bandwidthUpBits}",
     "interval": 3,
-    "on-click": "nm-connection-editor",
+    "on-click": "nm-connection-editor"
   },
   "custom/vpn": {
     "return-type": "json",
     "exec": "~/.config/waybar/scripts/vpn_monitor.py",
     "on-click": "~/.local/bin/vpn connect",
     "on-click-right": "~/.local/bin/vpn disconnect",
-    "on-click-middle": "~/.local/bin/vpn reconnect",
+    "on-click-middle": "~/.local/bin/vpn reconnect"
   },
   "bluetooth": {
     "format-disabled": "󰂲",
@@ -42,13 +43,13 @@
     "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
     "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
-    "on-click": "terminal-popup bluetui",
+    "on-click": "terminal-popup bluetui"
   },
   "group/wireless": {
     "orientation": "inherit",
     "modules": [
       "network#wifi",
       "bluetooth"
-    ],
-  },
+    ]
+  }
 }
