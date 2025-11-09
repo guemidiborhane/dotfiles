@@ -8,6 +8,16 @@
   )
 )
 
+(defvar
+  tap-time 150
+  hold-time 200
+
+  met lmet
+  ctl lctl
+  alt lalt
+  sft lsft
+)
+
 (defsrc
   caps
   a s d f
@@ -22,16 +32,6 @@
   mousebackward mouseforward
 )
 
-(defvar
-  tap-time 150
-  hold-time 200
-
-  met lmet
-  ctl lctl
-  alt lalt
-  sft lsft
-)
-
 (deflayer base
   esc
   @a @s @d @f
@@ -39,15 +39,15 @@
   _ _
   mute voldwn volu
   ✗ ✗
-  _ _
-  M-d ✗
+  ✗ ✗
+  M-7 ✗
   M-g ✗
   @spc
   pp next
 )
 
 (deflayermap secondary
-  a A-1
+  a M-9
   s M-2
   d M-1
   f bspc
