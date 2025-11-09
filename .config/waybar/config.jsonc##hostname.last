@@ -7,7 +7,7 @@
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/submap",
-      "hyprland/window",
+      "hyprland/window"
     ],
     "modules-right": [
       "group/sys-info",
@@ -15,7 +15,7 @@
       "battery",
       "group/tray",
       "custom/notification"
-    ],
+    ]
   },
   {
     "include": [
@@ -25,7 +25,7 @@
     "modules-left": [
       "hyprland/workspaces",
       "hyprland/submap",
-      "hyprland/window",
+      "hyprland/window"
     ],
     "modules-right": [
       "memory",
@@ -35,7 +35,7 @@
       "battery",
       "group/tray",
       "custom/notification"
-    ],
-  },
+    ]
+  }
 ]
 // vim: ft=jsonc
