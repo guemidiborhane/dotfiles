@@ -16,7 +16,8 @@
       "memory",
       "group/cpu",
       "group/indicators",
-      "group/tray"
+      "group/tray",
+      "custom/notification"
     ],
   },
   {
@@ -25,7 +26,7 @@
     ],
     "output": "DP-1",
     "modules-center": [
-      "clock"
+      "group/clock"
     ],
     "modules-right": [
       "group/cpu",
@@ -39,7 +40,7 @@
     ],
     "output": "DP-3",
     "modules-center": [
-      "clock"
+      "group/clock"
     ],
     "modules-right": [
       "custom/uptime"

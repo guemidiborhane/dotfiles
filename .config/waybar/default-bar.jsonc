@@ -23,11 +23,11 @@
     "hyprland/window"
   ],
   "modules-center": [
-    "clock",
-    "custom/notification",
+    "group/clock",
     "privacy"
   ],
   "modules-right": [
-    "group/tray"
+    "group/tray",
+    "custom/notification"
   ]
 }
