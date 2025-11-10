@@ -36,8 +36,12 @@
     "on-click-middle": "~/.local/bin/vpn reconnect"
   },
   "bluetooth": {
-    "format-disabled": "󰂲",
-    "format": "",
+    "format": "{icon}",
+    "format-icons": {
+      "enabled": "",
+      "disabled": "󰂲",
+      "connected": "󰂱"
+    },
     "tooltip-format": "{num_connections} connected",
     "tooltip-format-disabled": "",
     "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
