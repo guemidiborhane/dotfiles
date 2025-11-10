@@ -32,7 +32,7 @@
   "notification-visibility": {
     "control": {
       "state": "transient",
-      "summary": "(?i)(volume|brightness)"
+      "summary": "(?i)(volume|brightness|hypr)"
     }
   },
   "widgets": [
