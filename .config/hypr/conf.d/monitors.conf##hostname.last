@@ -1,7 +1,11 @@
 # vim: ft=hyprlang
 
+# Needed for workspace <-> monitor assignment
+$TV = desc:LG Electronics webOS TV 0x01010101
+$internalMonitor = eDP-1
+
 monitorv2 {
-  output = eDP-1
+  output = $internalMonitor
   mode = 1920x1200@60
   position = 4096x480
   scale = 1.25
@@ -16,7 +20,7 @@ monitorv2 {
 }
 
 monitorv2 {
-  output = desc:LG Electronics webOS TV 0x01010101
+  output = $TV
   mode = 3840x2160@60
   position = 1536x0
   scale = 1.5
