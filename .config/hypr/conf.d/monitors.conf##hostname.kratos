@@ -5,9 +5,14 @@ source = ~/.config/hypr/conf.d/nvidia.conf
 $resolution = 2560x1440@75
 $scale = auto
 
+# Needed for workspace <-> monitor assignment
+$portraitMonitor = DP-1
+$mainMonitor = DP-2
+$secondaryMonitor = DP-3
+
 # portrait (left)
 monitorv2 {
-  output = DP-1
+  output = $portraitMonitor
   mode = $resolution
   scale = $scale
   position = 0x0
@@ -16,7 +21,7 @@ monitorv2 {
 
 # main monitor (center)
 monitorv2 {
-  output = DP-2
+  output = $mainMonitor
   mode = $resolution
   scale = $scale
   position = auto-center-right
@@ -24,7 +29,7 @@ monitorv2 {
 
 # secondary (right)
 monitorv2 {
-  output = DP-3
+  output = $secondaryMonitor
   mode = $resolution
   scale = $scale
   position = auto-center-right
