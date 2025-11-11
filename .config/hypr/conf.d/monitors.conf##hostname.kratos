@@ -9,6 +9,7 @@ $scale = auto
 $portraitMonitor = DP-1
 $mainMonitor = DP-2
 $secondaryMonitor = DP-3
+cursor:default_monitor = $mainMonitor
 
 # portrait (left)
 monitorv2 {
