@@ -3,6 +3,7 @@
 # Needed for workspace <-> monitor assignment
 $TV = desc:LG Electronics webOS TV 0x01010101
 $internalMonitor = eDP-1
+cursor:default_monitor = $TV
 
 monitorv2 {
   output = $internalMonitor
