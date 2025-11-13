@@ -20,7 +20,8 @@
   ],
   "modules-left": [
     "hyprland/workspaces",
-    "hyprland/window"
+    "hyprland/submap",
+    "hyprland/window",
   ],
   "modules-center": [
     "group/clock",

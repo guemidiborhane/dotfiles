@@ -7,11 +7,6 @@
       "DP-2",
       "HDMI-A-1"
     ],
-    "modules-left": [
-      "hyprland/workspaces",
-      "hyprland/submap",
-      "hyprland/window"
-    ],
     "modules-right": [
       "memory",
       "group/cpu",
