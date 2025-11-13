@@ -36,5 +36,10 @@
     "tooltip": false,
     "on-click": "activate",
     "on-click-middle": "close"
+  },
+  "hyprland/windowcount": {
+    "format": " ",
+    "format-fullscreen": "󰊓",
+    "separate-outputs": true
   }
 }

@@ -74,7 +74,8 @@ tooltip {
   color: @urgent;
 }
 
-#window {
+#window,
+#windowcount {
   color: @button-accent;
 }
 
