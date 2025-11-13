@@ -22,6 +22,7 @@
     "hyprland/workspaces",
     "hyprland/submap",
     "hyprland/window",
+    "hyprland/windowcount"
   ],
   "modules-center": [
     "group/clock",
