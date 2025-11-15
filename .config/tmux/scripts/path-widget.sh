@@ -18,4 +18,4 @@ else
   icon=""
 fi
 
-echo "#[fg=black,bg=#BD93F9] ${icon} ${current_path} "
+echo " ${icon} ${current_path} "
