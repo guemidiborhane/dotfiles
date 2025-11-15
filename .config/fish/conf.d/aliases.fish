@@ -4,7 +4,7 @@ alias wn "tn workshop"
 status is-interactive; or exit
 
 # source: https://denshub.com/en/best-ls-command-alternative/#first-time
-alias ls 'eza --color=always --icons=auto --group-directories-first'
+alias ls 'eza --color=auto --icons=auto --group-directories-first'
 alias ld 'ls -lD'
 alias lf 'ls -lF'
 alias ll 'ls -al'
