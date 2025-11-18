@@ -2,6 +2,7 @@ return {
   {
     "vimpostor/vim-tpipeline",
     event = "VeryLazy",
+    dependencies = { "nvim-lualine/lualine.nvim" },
   },
   {
     "nvim-lualine/lualine.nvim",
