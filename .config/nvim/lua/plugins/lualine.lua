@@ -3,6 +3,12 @@ return {
     "vimpostor/vim-tpipeline",
     event = "VeryLazy",
     dependencies = { "nvim-lualine/lualine.nvim" },
+    init = function()
+      vim.g.tpipeline_clearstl = 1
+      vim.g.tpipeline_preservebg = 1
+      vim.g.tpipeline_restore = 0
+      vim.g.tpipeline_autoembed = 0
+    end,
   },
   {
     "nvim-lualine/lualine.nvim",
