@@ -24,7 +24,6 @@
       "group/clock"
     ],
     "modules-right": [
-      "group/cpu",
       "custom/ping",
       "network#bandwidth"
     ]
