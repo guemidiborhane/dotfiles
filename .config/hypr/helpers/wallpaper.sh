@@ -154,13 +154,8 @@ process_monitor() {
 
 # Interactive mode: select wallpaper with fzf and preview
 interactive_select() {
-  if ! command -v fzf &>/dev/null; then
-    echo "Error: fzf is required for interactive mode"
-    exit 1
-  fi
-
-  if ! command -v chafa &>/dev/null; then
-    echo "Error: chafa is required for interactive mode preview"
+  if ! command -v dmenu &>/dev/null; then
+    echo "Error: dmenu is required for interactive mode"
     exit 1
   fi
 
