@@ -3,7 +3,7 @@
 source = ~/.config/hypr/conf.d/nvidia.conf
 
 $resolution = 2560x1440@75
-$scale = auto
+$scale = 1.07
 
 # Needed for workspace <-> monitor assignment
 $portraitMonitor = DP-1
