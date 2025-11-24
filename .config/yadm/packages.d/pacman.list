@@ -82,6 +82,7 @@ linux-lts-headers
 linux-zen
 linux-zen-headers
 lm_sensors
+lsof
 lvm2
 man-db
 memtest86+-efi
