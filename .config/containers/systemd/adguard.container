@@ -1,0 +1,27 @@
+# vim: set ft=systemd :
+[Unit]
+Description=AdGuard Home DNS server
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/adguard/adguardhome:latest
+ContainerName=adguard
+AutoUpdate=registry
+
+Memory=1G
+
+Volume=%E/adguard:/opt/adguardhome/conf:Z
+Volume=%D/adguard:/opt/adguardhome/work:Z
+
+PublishPort=127.0.0.1:8853:53/tcp
+PublishPort=127.0.0.1:8853:53/udp
+PublishPort=127.0.0.1:8000:8000
+
+[Service]
+Slice=containers.slice
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target default.target
