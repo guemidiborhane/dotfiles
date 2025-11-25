@@ -119,6 +119,8 @@ pkgfile
 playerctl
 plocate
 polkit-gnome
+podman
+podman-compose
 pv
 python-gdal
 python-netaddr
