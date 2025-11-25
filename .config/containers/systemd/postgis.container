@@ -1,0 +1,30 @@
+# vim: set ft=systemd :
+[Unit]
+Description=PostGIS (PostgreSQL) Server
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/postgis/postgis:18-3.6-alpine
+ContainerName=postgis
+AutoUpdate=registry
+
+HealthCmd=pg_isready -U %u
+HealthStartPeriod=15s
+HealthInterval=30s
+HealthTimeout=30s
+HealthRetries=3
+
+Volume=%D/postgis:/var/lib/postgresql/data
+
+Environment=PGDATA=/var/lib/postgresql/data
+Environment=POSTGRES_USER=%u
+EnvironmentFile=%E/postgis/credentials.env
+
+PublishPort=5432:5432
+
+[Service]
+Slice=containers.slice
+Restart=always
+TimeoutStartSec=180
+TimeoutStopSec=30
