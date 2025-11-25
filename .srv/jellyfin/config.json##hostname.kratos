@@ -1,4 +1,0 @@
-{
-  "image": "jellyfin/jellyfin:10.10",
-  "memory_limit": "16G"
-}
