@@ -1,0 +1,21 @@
+# vim: set ft=systemd :
+[Unit]
+Description=100+ offline-first networking tools and utilities
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/lissy93/networking-toolbox:latest
+ContainerName=networking-toolbox
+AutoUpdate=registry
+
+Memory=512M
+
+PublishPort=4000:3000/tcp
+
+[Service]
+Slice=containers.slice
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=180
+TimeoutStopSec=30
