@@ -1,0 +1,40 @@
+# vim: set ft=systemd :
+[Unit]
+Description=Jellyfin Media Server
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/jellyfin/jellyfin:latest
+ContainerName=jellyfin
+AutoUpdate=registry
+
+Memory=8G
+AddDevice=nvidia.com/gpu=all
+
+# Core volumes
+Volume=%E/jellyfin:/config:Z
+Volume=%C/jellyfin:/cache:Z
+
+# Media volumes
+Volume=/run/media/borhane/DATA/:/media/videos
+Volume=/run/media/borhane/LACIE/Series/:/media/videos/Shows_LACIE
+Volume=/run/media/borhane/LACIE/Movies/:/media/videos/Movies_LACIE
+Volume=/mnt/3_5/Videos/Movies/:/media/videos/Movies-3_5
+Volume=/mnt/3_5/Videos/Series/:/media/videos/Shows-3_5
+Volume=/mnt/320/Videos/Shows/:/media/videos/Show_320
+Volume=/mnt/320/Videos/Movies/:/media/videos/Movies_320
+
+PublishPort=8096:8096/tcp
+PublishPort=7359:7359/udp
+UserNS=keep-id
+
+[Service]
+Slice=containers.slice
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=180
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target default.target
