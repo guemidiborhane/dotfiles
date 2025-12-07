@@ -9,6 +9,7 @@ pipewire-pulse.service
 pipewire-pulse.socket
 pipewire.service
 pipewire.socket
+podman-auto-update.timer
 sunsetr.service
 swaync.service
 vicinae.service
