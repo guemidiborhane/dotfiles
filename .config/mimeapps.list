@@ -17,5 +17,11 @@ application/pdf=org.gnome.Evince.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
 x-scheme-handler/discord=vesktop.desktop
 x-scheme-handler/terminal=com.mitchellh.ghostty.desktop
+application/yaml=nvim.desktop
+application/x-zerosize=nvim.desktop
 
 [Added Associations]
+application/x-shellscript=nvim.desktop;
+application/yaml=nvim.desktop;
+text/plain=nvim.desktop;
+application/x-zerosize=nvim.desktop;
