@@ -14,7 +14,7 @@ def update_status():
 def main():
     # Initial state
     update_status()
-    
+
     # Monitor NetworkManager events
     with subprocess.Popen(
         ['nmcli', 'monitor'],
@@ -24,14 +24,14 @@ def main():
     ) as nmcli:
         poll = select.poll()
         poll.register(nmcli.stdout.fileno(), select.POLLIN)
-        
+
         try:
             while True:
                 if poll.poll(1000):  # 1 second timeout
                     line = nmcli.stdout.readline()
                     if not line:
                         break
-                    if any(x in line.lower() for x in ['vpn', 'wireguard', 'connection']):
+                    if any(x in line.lower() for x in ['vpn', 'wireguard', 'connection', 'device']):
                         update_status()
         except KeyboardInterrupt:
             sys.exit(0)

@@ -6,7 +6,7 @@ font-size = 12
 
 gtk-single-instance = true
 gtk-tabs-location = bottom
-gtk-wide-tabs = false
+gtk-wide-tabs = true
 gtk-toolbar-style = flat
 
 cursor-style = block
