@@ -118,9 +118,9 @@ pipewire-pulse
 pkgfile
 playerctl
 plocate
-polkit-gnome
 podman
 podman-compose
+polkit-gnome
 pv
 python-gdal
 python-netaddr
@@ -175,6 +175,7 @@ wget
 wine
 wine-mono
 winetricks
+wireguard-tools
 wireless_tools
 wiremix
 wl-clipboard
