@@ -43,7 +43,7 @@ scrollbar slider {
 .notification,
 .notification-content,
 .control-center {
-  background: alpha(var(--bg-primary), 0.5);
+  background: alpha(var(--bg-primary), 0.75);
   color: var(--text-primary);
 }
 
@@ -91,7 +91,6 @@ notificationwindow {
   background: var(--bg-secondary);
 }
 
-.notification-default-action:hover,
 .notification-action:hover {
   color: var(--accent-color);
   background: var(--bg-primary);
