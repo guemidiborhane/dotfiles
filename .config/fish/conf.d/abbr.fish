@@ -57,3 +57,5 @@ abbr y yay
 abbr s yay -Sy
 abbr ss yay -Ss
 abbr yy "yes | yay -Syyu"
+
+abbr jms "dr --name=jellyfin-mpv -- /usr/bin/jellyfin-mpv-shim --config ~/.config/mpv"
