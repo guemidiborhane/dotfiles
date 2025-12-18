@@ -107,21 +107,27 @@ tooltip {
 #custom-governor.performance {
   color: @orange;
 }
+
 #custom-governor.powersave {
   color: @green;
 }
+
 #custom-governor.conservative {
   color: @comment;
 }
+
 #custom-governor.ondemand {
   color: @purple;
 }
+
 #custom-governor.schedutil {
   color: @yellow;
 }
+
 #custom-governor.userspace {
   color: @selection;
 }
+
 #custom-governor.unknown {
   color: @foreground;
 }
@@ -142,12 +148,15 @@ tooltip {
 #custom-ping.good {
   color: @green;
 }
+
 #custom-ping.warning {
   color: @yellow;
 }
+
 #custom-ping.critical {
   color: @orange;
 }
+
 #custom-ping.offline {
   color: @red;
 }
@@ -155,6 +164,7 @@ tooltip {
 #battery.warning {
   color: @yellow;
 }
+
 #battery.critical {
   color: @red;
 }
