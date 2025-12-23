@@ -27,3 +27,10 @@ monitorv2 {
   scale = 1.5
   bitdepth = 10
 }
+
+monitorv2 {
+  output =
+  mode = highres
+  position = auto
+  scale = 1
+}

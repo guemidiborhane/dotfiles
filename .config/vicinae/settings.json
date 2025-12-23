@@ -1,0 +1,41 @@
+{
+  "close_on_focus_loss": true,
+  "font": {
+    "normal": {
+      "family": "MonaspiceNe Nerd Font Mono",
+      "size": 11
+    }
+  },
+  "theme": {
+    "dark": {
+      "name": "dracula",
+      "icon_theme": "auto"
+    }
+  },
+  "launcher_window": {
+    "opacity": 0.95,
+    "client_side_decorations": {
+      "enabled": true,
+      "rounding": 5
+    }
+  },
+  "favorites": [
+    "applications:com.mitchellh.ghostty",
+    "applications:eu.betterbird.Betterbird",
+    "applications:bitwarden",
+    "applications:zen",
+    "clipboard:history"
+  ],
+  "providers": {
+    "applications": {
+      "preferences": {
+        "launchPrefix": "dr --"
+      }
+    },
+    "clipboard": {
+      "preferences": {
+        "encryption": true
+      }
+    }
+  }
+}
