@@ -4,9 +4,8 @@ run="dr --prefix resume"
 
 $run --workspace 1 --focus -- zen-browser
 $run -- Telegram
-$run -- signal-desktop
+$run -- signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
 $run -- vesktop --wayland
 $run -- betterbird
-$run -- $TERMINAL -e fish -c 'tn monitors'
+$run --workspace 8 -- $TERMINAL -e fish -c 'tn monitors'
 $run --name spotify -- gtk-launch spotify-adblock
-$run --tile --workspace 8 -- $TERMINAL -e fish -c 'wiremix --tab output'
