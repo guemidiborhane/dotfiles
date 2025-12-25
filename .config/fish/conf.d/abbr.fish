@@ -41,6 +41,7 @@ abbr mkf "$mk fish"
 abbr mkd "$mk dev"
 abbr mkdd "$mk down"
 abbr mkr "$mk restart"
+abbr mktt "$mk test"
 
 abbr sc "sudo systemctl"
 abbr scu "systemctl --user"
