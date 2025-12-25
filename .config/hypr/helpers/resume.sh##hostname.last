@@ -8,4 +8,4 @@ $run -- signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayla
 $run -- vesktop --wayland
 $run -- betterbird
 $run --name spotify -- gtk-launch spotify-adblock
-$run --tile --workspace 8 -- $TERMINAL -e fish -c 'wiremix --tab output'
+$run --workspace 3 -- $TERMINAL -e fish -c 'tn monitors'
