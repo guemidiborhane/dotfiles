@@ -27,6 +27,7 @@ docker-buildx
 docker-compose
 dunst
 evince
+exfatprogs
 eza
 fastfetch
 fd
