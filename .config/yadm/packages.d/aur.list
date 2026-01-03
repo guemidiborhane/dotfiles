@@ -1,8 +1,5 @@
 android-sdk
 banana-cursor-bin
-betterbird-bin
-bitwarden-bin
-brave-bin
 docker-credential-pass
 dracula-gtk-theme
 gitflow-cjs
@@ -16,7 +13,6 @@ mpv-thumbfast-git
 netbird-bin
 ngrok
 packet
-qogir-icon-theme
 rancher-k3d-bin
 salatux-git
 sendme-bin
@@ -34,9 +30,4 @@ ttf-wps-fonts
 tufw-bin
 ufw-docker
 vdhcoapp-bin
-ventoy-bin
-vesktop-bin
 vicinae-bin
-wlogout
-yay-bin
-zen-browser-bin
