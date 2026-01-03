@@ -7,6 +7,7 @@ NetworkManager.service
 NetworkManager-wait-online.service
 pacman-filesdb-refresh.timer
 pkgfile-update.timer
+polkit-agent-helper.socket
 reflector.timer
 systemd-resolved-monitor.socket
 systemd-resolved.service
