@@ -9,18 +9,20 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = ["https://hyprland.cachix.org" "https://attic.xuyh0120.win/lantian" ];
     trusted-substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="];
   };
+
+  nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
 
   boot.initrd.luks.devices."luks-d9b5ecb7-4e23-413d-9ba3-0ea4dbeaf1e0".device = "/dev/disk/by-uuid/d9b5ecb7-4e23-413d-9ba3-0ea4dbeaf1e0";
   networking.hostName = "takotsubo"; # Define your hostname.
@@ -140,6 +142,9 @@
      pulseaudio
      brightnessctl
      libnotify
+     bc
+     networkmanagerapplet
+     config.boot.kernelPackages.cpupower
   ];
   fonts.packages = with pkgs; [
      cantarell-fonts
