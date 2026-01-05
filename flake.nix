@@ -2,21 +2,82 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-  };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-  outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations = {
-      takotsubo = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [ ./configuration.nix ];
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    nixos-hardware.url = "github:NixOs/nixos-hardware/master";
+
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
       };
     };
   };
 
+  outputs = { self, nixpkgs, nix-cachyos-kernel, nixos-hardware, home-manager, ... }@ inputs: let 
+    hosts = [
+      {
+        name = "takotsubo";
+        hardware = nixos-hardware.nixosModules.dell-latitude-7490;
+      }
+    ];
+
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    # This is a function that generates an attribute by calling a function you
+    # pass to it, with each system as an argument
+    forAllSystems = fn: nixpkgs.lib.genAttrs systems (system: fn {pkgs = import nixpkgs {inherit system;};});
+  in {
+    formatter = forAllSystems ({pkgs}: pkgs.alejandra);
+    # packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    nixosConfigurations = builtins.listToAttrs (map (host: 
+    let
+        arch = "x86_64-linux";
+        defaultKernel = inputs.nix-cachyos-kernel.legacyPackages.${arch}.linuxPackages-cachyos-latest-lto;
+        user = {
+            alias = "borhane";
+        };
+    in {
+      name = host.name;
+      value = nixpkgs.lib.nixosSystem {
+        system = arch;
+        specialArgs = { 
+          inherit inputs;
+          meta = {
+            hostname = host.name;
+            kernel = host.kernel or defaultKernel;
+          };
+        };
+        modules = [
+          ./hosts/${host.name}/hardware-configuration.nix
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.borhane = import ./home/home.nix;
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              meta = user;
+            };
+          }
+        ] ++ (if host ? hardware then [host.hardware] else []);
+      };
+    })
+    hosts);
+  };
 }

@@ -140,16 +140,15 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "zen-browser",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1767104570,
-        "narHash": "sha256-GKgwu5//R+cLdKysZjGqvUEEOGXXLdt93sNXeb2M/Lk=",
+        "lastModified": 1767556355,
+        "narHash": "sha256-RDTUBDQBi9D4eD9iJQWtUDN/13MDLX+KmE+TwwNUp2s=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e4e78a2cbeaddd07ab7238971b16468cc1d14daf",
+        "rev": "f894bc4ffde179d178d8deb374fcf9855d1a82b7",
         "type": "github"
       },
       "original": {
@@ -500,6 +499,22 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1767185284,
+        "narHash": "sha256-ljDBUDpD1Cg5n3mJI81Hz5qeZAwCGxon4kQW3Ho3+6Q=",
+        "owner": "NixOs",
+        "repo": "nixos-hardware",
+        "rev": "40b1a28dce561bea34858287fbb23052c3ee63fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOs",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1767379071,
@@ -588,8 +603,10 @@
     },
     "root": {
       "inputs": {
+        "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "zen-browser": "zen-browser"
       }
@@ -652,7 +669,9 @@
     },
     "zen-browser": {
       "inputs": {
-        "home-manager": "home-manager",
+        "home-manager": [
+          "home-manager"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]

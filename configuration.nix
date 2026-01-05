@@ -2,18 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, meta, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    substituters = ["https://hyprland.cachix.org" "https://attic.xuyh0120.win/lantian" ];
-    trusted-substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="];
+  nix = {
+    package = pkgs.nixVersions.stable;
+    settings = {
+      warn-dirty = false;
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = ["https://hyprland.cachix.org" "https://attic.xuyh0120.win/lantian" ];
+      trusted-substituters = ["https://hyprland.cachix.org"];
+      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="];
+    };
   };
 
   nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
@@ -22,10 +22,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
+  boot.kernelPackages = meta.kernel;
 
-  boot.initrd.luks.devices."luks-d9b5ecb7-4e23-413d-9ba3-0ea4dbeaf1e0".device = "/dev/disk/by-uuid/d9b5ecb7-4e23-413d-9ba3-0ea4dbeaf1e0";
-  networking.hostName = "takotsubo"; # Define your hostname.
+  networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   boot.kernelModules = [ "uinput" ];
@@ -87,11 +86,11 @@
     description = "Borhaneddine GUEMIDI";
     extraGroups = [ "networkmanager" "wheel" "uinput" "input" ];
     shell = pkgs.fish;
-    packages = with pkgs; [];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal"
+    ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
   programs.fish.enable = true;
 
   # Allow unfree packages
@@ -105,45 +104,25 @@
      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      wget
      curl
-     curl
      kitty
-     tmux
      git
      git-lfs
      fastfetch
      ripgrep
      fd
-     podman
      kanata
-     ghostty
-     waybar
-     bitwarden-desktop
      yadm
      vicinae
      mise
-     zoxide
-     starship
-     atuin
-     bat
-     wlogout
-     dracula-theme
-     kora-icon-theme
-     banana-cursor
-     hyprpaper
-     hypridle
-     hyprlock
      gcc
-     mise
      rustup
-     swaynotificationcenter
      lazygit
-     inputs.zen-browser.packages."${system}".default 
-     wiremix
-     pulseaudio
-     brightnessctl
      libnotify
      bc
-     networkmanagerapplet
+     btop
+     bandwhich
+     lm_sensors
+     jq
      config.boot.kernelPackages.cpupower
   ];
   fonts.packages = with pkgs; [
@@ -151,6 +130,18 @@
      nerd-fonts.monaspace
      nerd-fonts.jetbrains-mono
   ];
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 7d --keep 3";
+    flake = "/etc/nixos";
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -161,10 +152,10 @@
 
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
@@ -176,5 +167,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
