@@ -12,8 +12,8 @@ in {
     stateVersion = "25.11";
 
     enableNixpkgsReleaseCheck = true;
-    homeDirectory = "/home/${meta.alias}";
-    username = "${meta.alias}";
+    homeDirectory = "/home/${meta.username}";
+    username = "${meta.username}";
   };
   programs.home-manager.enable = true;
 

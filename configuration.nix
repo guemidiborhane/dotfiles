@@ -97,7 +97,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.borhane = {
+  users.users.${meta.username} = {
     isNormalUser = true;
     description = "Borhaneddine GUEMIDI";
     extraGroups = [ "networkmanager" "wheel" "uinput" "input" ];
