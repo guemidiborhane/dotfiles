@@ -19,6 +19,7 @@ in {
 
   imports = [
     ./zen-browser.nix
+    ./vicinae.nix
   ];
 
   home.packages = with pkgs; [
