@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 current_shell=${1}
 default_shell="$(basename ${2:-fish})"

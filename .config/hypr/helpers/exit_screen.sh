@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # vim: set ft=sh sw=4 sts=4 et :
 
 if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then

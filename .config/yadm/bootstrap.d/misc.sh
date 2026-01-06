@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # vim: set ft=sh sw=4 et :
 
 . "$HOME/.config/yadm/bootstrap.d/utils.sh"
