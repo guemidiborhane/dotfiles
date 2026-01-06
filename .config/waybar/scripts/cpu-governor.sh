@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Map governors to icons and descriptions
 declare -A governor_icons=(

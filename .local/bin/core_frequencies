@@ -1,2 +1,2 @@
-#/bin/sh
+#/usr/bin/env sh
 awk '/MHz/ {print awk "CPU #" sprintf("%.2d",i++) "\t  " sprintf("%.2f",$4/1000) " GHz"}' < /proc/cpuinfo

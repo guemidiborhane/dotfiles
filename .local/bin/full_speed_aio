@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 systemctl --user stop yoda
 liquidctl --match H115i initialize --pump-mode extreme

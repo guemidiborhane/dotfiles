@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 if ! systemctl --user is-active --quiet vicinae.service; then
   systemctl --user start vicinae.service

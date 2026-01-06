@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # PATH: ~/.local/bin/change_brightness
 
 for cmd in brightnessctl dunstify; do

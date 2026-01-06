@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 killall -9 hyprlock
 hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1'

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Exit if no Makefile present
 [ ! -f Makefile ] && exit 0
 
