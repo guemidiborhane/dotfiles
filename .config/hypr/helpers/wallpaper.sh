@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 WALLPAPER_DIR="$HOME/.wallpaper"
 CACHE_DIR="$HOME/.cache/wallpaper"

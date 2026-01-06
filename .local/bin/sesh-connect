@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 sesh connect "$(
   sesh list -H --icons | fzf-tmux -p 80%,70% \

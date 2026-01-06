@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Package synchronization script for Arch Linux
 # Syncs installed packages with predefined lists for both official and AUR packages

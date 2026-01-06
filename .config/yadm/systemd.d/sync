@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Systemd service synchronization script
 # Syncs enabled systemd services/timers with predefined lists for both user and system

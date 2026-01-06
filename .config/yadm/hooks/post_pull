@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 if [[ -z "$YADM_HOOK_EXIT" ]]; then exit 0; fi
 

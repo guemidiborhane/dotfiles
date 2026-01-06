@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 log() {
   echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
@@ -29,7 +29,7 @@ initialize_shell() {
   */fish)
     source_profiles
     xsess_tmp=$(mktemp /tmp/xsess-env-XXXXXX)
-    $SHELL -c "/bin/sh -c 'export -p' > $xsess_tmp"
+    $SHELL -c "/usr/bin/env sh -c 'export -p' > $xsess_tmp"
     . $xsess_tmp
     rm -f $xsess_tmp
     ;;

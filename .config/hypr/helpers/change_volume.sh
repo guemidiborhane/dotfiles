@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # PATH: ~/.local/bin/change_volume
 
 # ICONS: https://www.flaticon.com/packs/multimedia-356 (volume-up, volume-down, volume-mute), credit: Freepik, SeyfDesigner

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 HOST=1.1.1.1
 log=/tmp/ping.log
