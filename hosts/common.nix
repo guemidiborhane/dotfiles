@@ -10,25 +10,6 @@
     settings = {
       warn-dirty = false;
       experimental-features = [ "nix-command" "flakes" ];
-
-      substituters = [
-        "https://cache.nixos.org"
-      ];
-
-      extra-substituters = [
-        "https://hyprland.cachix.org"
-        "https://attic.xuyh0120.win/lantian"
-        "https://vicinae.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-        "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
-      ];
-      extra-trusted-substituters = [
-        "https://hyprland.cachix.org"
-        "https://vicinae.cachix.org"
-      ];
     };
   };
 
