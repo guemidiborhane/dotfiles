@@ -5,6 +5,10 @@
   meta,
   ...
 }: {
+  imports = [
+    ../modules/hyprland.nix
+  ];
+
   nix = {
     package = pkgs.nixVersions.stable;
     settings = {
@@ -90,7 +94,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  programs.hyprland.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
