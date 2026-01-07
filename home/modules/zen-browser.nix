@@ -120,6 +120,8 @@
         "browser.tabs.hoverPreview.enabled" = true;
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
         "browser.topsites.contile.enabled" = false;
+        "browser.download.panel.shown" = true;
+        "browser.download.useDownloadDir" = false;
 
         "privacy.resistFingerprinting" = true;
         "privacy.resistFingerprinting.randomization.canvas.use_siphash" = true;
