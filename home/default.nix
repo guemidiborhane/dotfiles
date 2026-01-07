@@ -14,4 +14,5 @@ in {
   ];
   home = import ./home.nix { inherit pkgs meta; };
   services = import ./services { inherit pkgs lib enabled; };
+  programs = import ./programs { inherit pkgs config inputs enabled; };
 }
