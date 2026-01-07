@@ -79,8 +79,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.borhane = import ./home/home.nix;
             home-manager.extraSpecialArgs = { inherit inputs meta; };
+            home-manager.users.${meta.username} = import ./home;
+            home-manager.backupFileExtension = "bak";
           }
         ] ++ (if host ? hardware then [host.hardware] else []);
       };
