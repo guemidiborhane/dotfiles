@@ -15,6 +15,7 @@
   };
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
@@ -65,7 +66,9 @@
 
   in {
     formatter = forAllSystems ({pkgs}: pkgs.alejandra);
-    # packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    overlays = import ./overlays {inherit inputs;};
+
     nixosConfigurations = builtins.listToAttrs (map (host:
     let
         arch = "x86_64-linux";
