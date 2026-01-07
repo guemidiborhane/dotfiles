@@ -1,10 +1,10 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, inputs, meta, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  meta,
+  ...
+}: {
   nix = {
     package = pkgs.nixVersions.stable;
     settings = {
@@ -42,6 +42,7 @@
 
   networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  security.rtkit.enable = true;
 
   boot.kernelModules = [ "uinput" ];
   hardware.uinput.enable = true;
@@ -79,7 +80,6 @@
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

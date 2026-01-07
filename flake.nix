@@ -72,9 +72,9 @@
         specialArgs = { inherit inputs meta; };
         modules = [
           disko.nixosModules.disko
-          ./disko-config.nix
+          ./hosts/disko.nix
+          ./hosts/common.nix
           ./hosts/${host.name}/hardware-configuration.nix
-          ./configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
