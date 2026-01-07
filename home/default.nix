@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   meta,
   ...
@@ -12,4 +13,5 @@ in {
     ./desktop
   ];
   home = import ./home.nix { inherit pkgs meta; };
+  services = import ./services { inherit pkgs lib enabled; };
 }
