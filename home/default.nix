@@ -10,6 +10,7 @@
 in {
   imports = [
     ./modules/zen-browser.nix
+    ./modules/git.nix
     ./desktop
   ];
   home = import ./home.nix { inherit pkgs meta; };
