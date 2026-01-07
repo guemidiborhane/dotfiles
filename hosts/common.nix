@@ -13,13 +13,10 @@
     };
   };
 
-  nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
-  boot.kernelPackages = meta.kernel;
 
   networking.hostName = meta.hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

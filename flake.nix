@@ -69,11 +69,10 @@
     nixosConfigurations = builtins.listToAttrs (map (host:
     let
         arch = "x86_64-linux";
-        defaultKernel = inputs.nix-cachyos-kernel.legacyPackages.${arch}.linuxPackages-cachyos-latest-lto;
         meta = {
+          inherit host;
           username = "borhane";
           hostname = host.name;
-          kernel = host.kernel or defaultKernel;
           device = host.disk;
           swapSize = calcSwap (host.ram or 16);
         };
@@ -83,6 +82,10 @@
         system = arch;
         specialArgs = { inherit inputs meta; };
         modules = [
+          ({ pkgs, meta, ... }: {
+            boot.kernelPackages = meta.kernel or pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
+            nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
+          })
           disko.nixosModules.disko
           ./hosts/disko.nix
           ./hosts/common.nix
