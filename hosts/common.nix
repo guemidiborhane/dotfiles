@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   meta,
+  lib,
   ...
 }: {
   imports = [
@@ -144,6 +145,8 @@
      jq
      config.boot.kernelPackages.cpupower
   ];
+
+  environment.shellAliases.ls = lib.mkForce null;
 
   fonts.packages = with pkgs; [
      cantarell-fonts
