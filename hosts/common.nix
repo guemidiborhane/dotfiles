@@ -26,6 +26,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   security.rtkit.enable = true;
+  security.sudo.extraConfig = ''
+    Defaults passwd_timeout=5
+    Defaults insults
+  '';
 
   boot.kernelModules = [ "uinput" ];
   hardware.uinput.enable = true;
