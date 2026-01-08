@@ -75,7 +75,13 @@
   users.users.${meta.username} = {
     isNormalUser = true;
     description = "Borhaneddine GUEMIDI";
-    extraGroups = [ "networkmanager" "wheel" "uinput" "input" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "uinput"
+      "input"
+      "docker"
+    ];
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal"
