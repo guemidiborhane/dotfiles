@@ -21,4 +21,11 @@
       "2606:4700:4700::1111#cloudflare-dns.com"
     ];
   };
+  services.netbird = {
+    enable = true;
+    clients.default.config = {
+      ManagementURL.Host = "bird.netsys.dz:443";
+      AdminURL.Host = "bird.netsys.dz:443";
+    };
+  };
 }
