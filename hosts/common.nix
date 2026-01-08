@@ -143,23 +143,36 @@
      jq
      config.boot.kernelPackages.cpupower
   ];
+
   fonts.packages = with pkgs; [
      cantarell-fonts
      nerd-fonts.monaspace
      nerd-fonts.jetbrains-mono
   ];
+
   programs.nh = {
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 7d --keep 3";
     flake = "/etc/nixos";
   };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
   };
+
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs; [
+      thunar-volman
+      thunar-archive-plugin
+    ];
+  };
+
+  #
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
