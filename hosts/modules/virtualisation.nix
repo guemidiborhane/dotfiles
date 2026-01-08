@@ -6,4 +6,9 @@
     extraPackages = with pkgs; [ docker-compose ];
     # for nvidia support use: hardwayar.nvidia-container-toolkit.enable
   };
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.runAsRoot = false; # TODO test extensively
+  };
+  programs.virt-manager.enable = true;
 }
