@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   xdg = {
@@ -31,6 +32,19 @@
 
   gtk = {
     enable = true;
+    theme = {
+      package = pkgs.dracula-theme;
+      name = "Dracula";
+    };
+    iconTheme = {
+      package = pkgs.kora-icon-theme;
+      name = "kora";
+    };
+    font = {
+      package = pkgs.cantarell-fonts;
+      name = "Cantarell";
+      size = 11;
+    };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };

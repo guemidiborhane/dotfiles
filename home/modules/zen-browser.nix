@@ -4,7 +4,6 @@
   config,
   ...
 }: {
-
   imports = [
     inputs.zen-browser.homeModules.default
   ];
