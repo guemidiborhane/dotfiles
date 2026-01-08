@@ -53,6 +53,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  security.polkit.enable = true;
+  services.udisks2.enable = true;
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   services.pipewire = {
