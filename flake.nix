@@ -38,9 +38,14 @@
     };
 
     vicinae.url = "github:vicinaehq/vicinae";
+
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nix-cachyos-kernel, nixos-hardware, home-manager, disko, ... }@ inputs: let 
+  outputs = { self, nixpkgs, nix-cachyos-kernel, nixos-hardware, home-manager, disko, nur, ... }@ inputs: let 
     calcSwap = ramGB: "${toString (ramGB + 2)}G";
     hosts = [
       {
@@ -89,6 +94,7 @@
             boot.kernelPackages = meta.kernel or pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
             nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
           })
+          nur.modules.nixos.default
           disko.nixosModules.disko
           ./hosts/disko.nix
           ./hosts/common.nix
