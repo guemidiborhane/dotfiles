@@ -121,7 +121,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      wget
      curl
      kitty
@@ -149,17 +148,17 @@
      nerd-fonts.monaspace
      nerd-fonts.jetbrains-mono
   ];
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-    ];
-  };
   programs.nh = {
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 7d --keep 3";
     flake = "/etc/nixos";
+  };
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
   };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
