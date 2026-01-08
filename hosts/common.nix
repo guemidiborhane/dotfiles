@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    ./modules/base-devel.nix
     ./modules/networking.nix
     ./modules/virtualisation.nix
     ./modules/hyprland.nix

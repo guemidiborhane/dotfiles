@@ -16,4 +16,5 @@
   brightnessctl
   networkmanagerapplet
   glib # gsettings
+  gnupg
 ]
