@@ -109,13 +109,15 @@
           ./hosts/common.nix
           ./hosts/${host.name}/hardware-configuration.nix
           home-manager.nixosModules.home-manager
-          {
+          (let
+            enabled = { enable = true; };
+          in {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs meta; };
+            home-manager.extraSpecialArgs = { inherit inputs meta enabled; };
             home-manager.users.${meta.username} = import ./home;
             home-manager.backupFileExtension = "bak";
-          }
+          })
         ] ++ (if host ? hardware then [host.hardware] else []);
       };
     })
