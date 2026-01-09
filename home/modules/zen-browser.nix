@@ -146,6 +146,8 @@
         "zen.welcome-screen.seen" = true;
         "zen.urlbar.behavior" = "float";
         "zen.theme.accent-color" = "#d4bbff";
+        "zen.tabs.newtab-button-top" = false;
+        "zen.tabs.show-newtab-vertical" = false;
       };
 
       spaces = {
