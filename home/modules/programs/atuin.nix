@@ -1,5 +1,8 @@
 { ... }: {
   enable = true;
+  daemon.enable = true;
+  flags = [ "--disable-up-arrow" ];
+  forceOverwriteSettings = true;
   settings = {
     sync_address = "https://atuin.netsys.dz";
     update_check = false;
@@ -10,8 +13,5 @@
       "^mcli alias set"
       "^echo .* base64 -d"
     ];
-  };
-  daemon = {
-    enable = true;
   };
 }

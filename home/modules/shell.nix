@@ -6,20 +6,19 @@
   ...
 }: {
   programs = {
-    mise = enabled;
     tealdeer = enabled;
     fastfetch = enabled;
-    starship = enabled;
-    eza = enabled;
-    zoxide = enabled;
-    fzf = enabled;
-    bat = enabled;
-    wezterm = enabled;
   };
 
+  programs.fish = import ./programs/fish.nix { };
+  programs.starship = import ./programs/starship.nix { };
+  programs.eza = import ./programs/eza.nix { };
+  programs.bat = import ./programs/bat.nix { };
+  programs.fzf = import ./programs/fzf.nix { };
+  programs.zoxide = import ./programs/zoxide.nix { };
+  programs.mise = import ./programs/mise.nix { };
   programs.neovim = import ./programs/neovim.nix { };
   programs.atuin = import ./programs/atuin.nix { };
-  programs.ghostty = import ./programs/ghostty.nix { inherit pkgs; };
   programs.superfile = import ./programs/superfile.nix { inherit pkgs config; };
   programs.sesh = import ./programs/sesh.nix { };
 }
