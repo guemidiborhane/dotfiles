@@ -1,0 +1,31 @@
+[
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": "eDP-1",
+    "modules-right": [
+      "group/sys-info",
+      "group/indicators",
+      "battery",
+      "group/tray",
+      "custom/notification"
+    ]
+  },
+  {
+    "include": [
+      "~/.config/waybar/default-bar.jsonc"
+    ],
+    "output": "!eDP-1",
+    "modules-right": [
+      "memory",
+      "group/cpu",
+      "custom/ping",
+      "group/indicators",
+      "battery",
+      "group/tray",
+      "custom/notification"
+    ]
+  }
+]
+// vim: ft=jsonc
