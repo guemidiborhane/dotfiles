@@ -11,7 +11,7 @@ alias ll 'ls -al'
 alias lt 'ls -al --sort=modified'
 
 alias cat "bat --no-pager"
-alias clear "/usr/bin/clear && fish_greeting"
+alias clear "command clear && fish_greeting"
 alias qbtui "qbittorrentui -c ~/.config/qbtui/config.ini"
 alias ollama "docker exec -it ollama ollama"
 alias zid "eza -D | xargs -I {} zoxide add {}"
