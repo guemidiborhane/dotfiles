@@ -17,6 +17,7 @@
   atuin = import ./atuin.nix { };
   vicinae = import ./vicinae.nix { inherit pkgs inputs; };
   ghostty = import ./ghostty.nix { inherit pkgs; };
+  wlogout = enabled;
   superfile = import ./superfile.nix { inherit pkgs config; };
   yadm = import ./yadm.nix { };
   neovim = import ./neovim.nix { };

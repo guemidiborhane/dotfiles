@@ -6,7 +6,6 @@
   tmux
   waybar
   bitwarden-desktop
-  wlogout
   banana-cursor
   hyprlock
   wiremix
