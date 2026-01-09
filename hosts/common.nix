@@ -62,6 +62,10 @@
   security.polkit.enable = true;
   services.udisks2.enable = true;
 
+  services.fstrim.enable = true;
+
+  services.fwupd.enable = true;
+
   services.tlp = {
     enable = true;
     settings = {
