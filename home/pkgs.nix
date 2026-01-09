@@ -15,4 +15,5 @@
   networkmanagerapplet
   glib # gsettings
   gnupg
+  babelfish
 ]
