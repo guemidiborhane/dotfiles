@@ -21,6 +21,7 @@
   programs.ghostty = import ./modules/programs/ghostty.nix { inherit pkgs; };
   programs.yadm = import ./modules/programs/yadm.nix { };
   programs.vicinae = import ./modules/programs/vicinae.nix { inherit pkgs inputs; };
+  programs.zed-editor = import ./modules/programs/zed.nix { inherit pkgs; };
 
   programs = {
     home-manager = enabled;

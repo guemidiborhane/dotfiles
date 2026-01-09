@@ -16,4 +16,5 @@
   gnupg
   impala
   bluetui
+  vulkan-tools
 ]
