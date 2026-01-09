@@ -18,4 +18,5 @@
   vicinae = import ./vicinae.nix { inherit pkgs inputs; };
   ghostty = import ./ghostty.nix { inherit pkgs; };
   superfile = import ./superfile.nix { inherit pkgs config; };
+  yadm = import ./yadm.nix { };
 }

@@ -136,8 +136,6 @@
      ripgrep
      fd
      kanata
-     yadm
-     mise
      gcc
      rustup
      lazygit
