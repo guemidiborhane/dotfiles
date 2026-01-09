@@ -53,6 +53,7 @@ abbr yu "yadm pull --rebase"
 abbr yp "yadm push"
 abbr yn "yadm enter nvim"
 abbr ys "yadm st"
+abbr yg "tmux_popup -w 90% -h 90% yadm enter lazygit"
 
 abbr y yay
 abbr s yay -Sy
