@@ -11,6 +11,7 @@
     ./modules/networking.nix
     ./modules/virtualisation.nix
     ./modules/hyprland.nix
+    ./modules/kanata.nix
   ];
 
   nix = {
@@ -30,13 +31,6 @@
     Defaults passwd_timeout=5
     Defaults insults
   '';
-
-  boot.kernelModules = [ "uinput" ];
-  hardware.uinput.enable = true;
-  services.udev.extraRules = ''
-    KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
-  '';
-  users.groups.uinput = { };
 
   # Set your time zone.
   time.timeZone = "Africa/Algiers";
@@ -147,7 +141,6 @@
      fastfetch
      ripgrep
      fd
-     kanata
      gcc
      rustup
      lazygit
