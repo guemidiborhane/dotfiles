@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # PATH: ~/.local/bin/change_brightness
 
-for cmd in brightnessctl dunstify; do
+for cmd in brightnessctl notify-send; do
     command -v "$cmd" >/dev/null || {
         echo "$cmd not found"
         exit 1
