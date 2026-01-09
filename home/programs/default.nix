@@ -19,4 +19,5 @@
   ghostty = import ./ghostty.nix { inherit pkgs; };
   superfile = import ./superfile.nix { inherit pkgs config; };
   yadm = import ./yadm.nix { };
+  neovim = import ./neovim.nix { };
 }
