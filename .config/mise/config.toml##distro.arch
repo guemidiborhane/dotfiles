@@ -6,10 +6,11 @@ kubectx = "latest"
 kubens = "latest"
 yarn = "latest"
 php = "latest"
-ruby = "latest"
-node = "lts"
+ruby = "3"
+nodejs = "24"
 bun = "latest"
 usage = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["ruby"]
+experimental = true
