@@ -93,8 +93,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "uinput"
-      "input"
       "docker"
     ];
     shell = pkgs.fish;

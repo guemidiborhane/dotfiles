@@ -14,4 +14,6 @@
   networkmanagerapplet
   glib # gsettings
   gnupg
+  impala
+  bluetui
 ]
