@@ -14,6 +14,10 @@
   zoxide = enabled;
   fzf = enabled;
   bat = enabled;
+  sesh = {
+    enable = true;
+    enableTmuxIntegration = false; # already handled
+  };
   atuin = import ./atuin.nix { };
   vicinae = import ./vicinae.nix { inherit pkgs inputs; };
   ghostty = import ./ghostty.nix { inherit pkgs; };
