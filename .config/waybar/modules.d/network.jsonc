@@ -1,6 +1,6 @@
 {
   "network#wifi": {
-    "interface": "wlan*",
+    "interface": "w*",
     "format": "{icon}",
     "format-disconnected": "󰤮",
     "format-disabled": "󰤭",

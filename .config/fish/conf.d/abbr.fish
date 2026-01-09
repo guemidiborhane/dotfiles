@@ -55,9 +55,9 @@ abbr yn "yadm enter nvim"
 abbr ys "yadm st"
 abbr yg "tmux_popup -w 90% -h 90% yadm enter lazygit"
 
-abbr y yay
-abbr s yay -Sy
-abbr ss yay -Ss
-abbr yy "yes | yay -Syyu"
+abbr s "nix-shell -p"
+abbr ss "nh search"
+abbr nos "nh os switch"
+abbr yy "sudo nix flake update && nos"
 
 abbr jms "dr --unit=jellyfin-mpv -- /usr/bin/jellyfin-mpv-shim --config ~/.config/mpv"
