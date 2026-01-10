@@ -106,7 +106,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
     ];
     shell = pkgs.unstable.fish;
     openssh.authorizedKeys.keys = [
