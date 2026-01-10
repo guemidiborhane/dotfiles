@@ -17,4 +17,5 @@
   impala
   bluetui
   vulkan-tools
+  gum
 ]
