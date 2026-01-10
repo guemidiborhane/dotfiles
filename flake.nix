@@ -1,20 +1,6 @@
 {
   description = "Home";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://vicinae.cachix.org"
-      "https://attic.xuyh0120.win/lantian"
-    ];
-    extra-trusted-substituters = [
-      "https://vicinae.cachix.org"
-      "https://attic.xuyh0120.win/lantian"
-    ];
-    extra-trusted-public-keys = [
-      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-    ];
-  };
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
