@@ -1,4 +1,4 @@
-{ pkgs, meta, ... }: {
+{ pkgs, meta, lib, ... }: {
   networking = {
     hostName = meta.hostname; # Define your hostname.
     nameservers = [
@@ -14,6 +14,9 @@
   networking.networkmanager = {
     enable = true;
     wifi.backend = "iwd";
+    # FIX: netbird connections should be handled separately by `~/.local/bin/vpn`,
+    # instead of relying on nm
+    unmanaged = lib.mkForce [];
     plugins = with pkgs; [
       networkmanager-openvpn
     ];

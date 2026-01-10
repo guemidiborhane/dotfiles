@@ -18,4 +18,5 @@
   bluetui
   vulkan-tools
   gum
+  python3
 ]

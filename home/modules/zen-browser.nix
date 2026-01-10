@@ -208,7 +208,7 @@
         };
         "jellyfin" = {
           id = "a8cf8e7e-98e8-44f1-98ec-9c3e41f26ebe";
-          url = decode "aHR0cHM6Ly8xMC4wLjAuMTA6ODA5Ng==";
+          url = decode "aHR0cDovLzEwLjAuMC4xMDo4MDk2";
           position = 106;
           isEssential = true;
         };
