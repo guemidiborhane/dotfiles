@@ -95,13 +95,16 @@
       "wheel"
       "docker"
     ];
-    shell = pkgs.fish;
+    shell = pkgs.unstable.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal"
     ];
   };
 
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    package = pkgs.unstable.fish;
+  };
 
   nixpkgs = {
     # You can add overlays here
@@ -180,7 +183,7 @@
 
   programs.thunar = {
     enable = true;
-    plugins = with pkgs; [
+    plugins = with pkgs.unstable; [
       thunar-volman
       thunar-archive-plugin
     ];

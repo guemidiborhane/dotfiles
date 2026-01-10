@@ -3,7 +3,10 @@
   enabled,
   ...
 }: {
-    hyprpaper = enabled;
+    hyprpaper = {
+      enable = true;
+      package = pkgs.unstable.hyprpaper;
+    };
     hypridle = enabled;
     swaync = enabled;
     polkit-gnome = enabled;

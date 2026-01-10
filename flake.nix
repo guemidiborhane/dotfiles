@@ -5,16 +5,21 @@
     extra-substituters = [
       "https://hyprland.cachix.org"
       "https://vicinae.cachix.org"
-      "https://cache.garnix.io"
+      "https://attic.xuyh0120.win/lantian"
+    ];
+    extra-trusted-substituters = [
+      "https://hyprland.cachix.org"
+      "https://vicinae.cachix.org"
+      "https://attic.xuyh0120.win/lantian"
     ];
     extra-trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
   };
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
@@ -24,7 +29,7 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "github:hyprwm/Hyprland";
@@ -100,7 +105,7 @@
         specialArgs = { inherit inputs meta; };
         modules = [
           ({ pkgs, meta, ... }: {
-            boot.kernelPackages = meta.kernel or pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
+            boot.kernelPackages = meta.kernel or pkgs.cachyosKernels.linuxPackages-cachyos-latest;
             nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
           })
           nur.modules.nixos.default
