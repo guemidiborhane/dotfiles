@@ -99,15 +99,16 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  users.groups.${meta.username}.gid = 1000;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${meta.username} = {
     isNormalUser = true;
     description = "Borhaneddine GUEMIDI";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
+    uid = 1000;
+    group = meta.username;
+    extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.unstable.fish;
+    homeMode = "0700";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal"
     ];
