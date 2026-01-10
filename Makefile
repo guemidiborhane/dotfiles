@@ -1,4 +1,4 @@
-.PHONY: help install disko mount umount
+.PHONY: help install disko nixos-install update check-builds rebuild-safe
 
 # Default target
 help:
@@ -51,21 +51,31 @@ nixos-install:
 	@echo "Installing NixOS..."
 	sudo nixos-install --verbose --flake $(CONFIG)
 
-# Emergency recovery
-mount:
-	@echo "Mounting encrypted system..."
-	sudo cryptsetup luksOpen $(DISK)2 crypted || true
-	sudo vgchange -ay $(HOST)-vg
-	sudo mount /dev/$(HOST)-vg/root /mnt
-	sudo mount $(DISK)1 /mnt/boot
-	@echo ""
-	@echo "✓ System mounted at /mnt"
-	@echo "Run 'sudo nixos-enter' to chroot"
+update:
+	@echo "Updating flake inputs..."
+	@cp flake.lock flake.lock.bak
+	@nix flake update
+	@echo "✓ Updated. Run 'make check-builds' to verify cache status"
 
-umount:
-	@echo "Unmounting system..."
-	-sudo umount /mnt/boot
-	-sudo umount /mnt
-	sudo vgchange -an $(HOST)-vg
-	sudo cryptsetup luksClose crypted
-	@echo "✓ System unmounted"
+check-builds:
+	@echo "Checking what needs building..."
+	@nix build .#nixosConfigurations.$(HOST).config.system.build.toplevel --dry-run 2>&1 | \
+		awk '/will be built/{flag=1} flag' | \
+		head -20
+
+rebuild-safe:
+	@echo "Rebuilding only if cache hits..."
+	@BUILD_COUNT=$$(nix build .#nixosConfigurations.$(HOST).config.system.build.toplevel --dry-run 2>&1 | grep -c "will be built" || echo 0); \
+	if [ "$$BUILD_COUNT" -gt 10 ]; then \
+		echo "❌ Too many builds needed ($$BUILD_COUNT packages)"; \
+		echo "Restore old lock: mv flake.lock.bak flake.lock"; \
+		exit 1; \
+	else \
+		echo "✓ Proceeding ($$BUILD_COUNT builds needed)"; \
+		nh os switch; \
+		rm -f flake.lock.bak; \
+	fi
+
+rollback-update:
+	@mv flake.lock.bak flake.lock
+	@echo "✓ Rolled back to previous flake.lock"
