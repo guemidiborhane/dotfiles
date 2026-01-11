@@ -12,11 +12,11 @@
     ./modules/git.nix
     ./modules/yadm.nix
     ./modules/shell.nix
-    ./desktop
+    ./modules/desktop
   ];
 
   home = import ./home.nix { inherit pkgs meta; };
-  services = import ./services { inherit pkgs lib enabled; };
+  services = import ./modules/services { inherit pkgs lib enabled; };
 
   programs.ghostty = import ./modules/programs/ghostty.nix { inherit pkgs; };
   programs.yadm = import ./modules/programs/yadm.nix { };
@@ -28,6 +28,5 @@
     wezterm = enabled;
     wlogout = enabled;
     mpv = enabled;
-    vesktop = enabled;
   };
 }

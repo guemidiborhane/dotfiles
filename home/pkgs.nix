@@ -19,4 +19,9 @@
   vulkan-tools
   gum
   python3
+  # Communication
+  vesktop
+  signal-desktop
+  telegram-desktop
+  thunderbird
 ]

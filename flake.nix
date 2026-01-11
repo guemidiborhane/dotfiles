@@ -79,11 +79,12 @@
           device = host.disk;
           swapSize = calcSwap (host.ram or 16);
         };
+        enabled = { enable = true; };
     in {
       name = host.name;
       value = nixpkgs.lib.nixosSystem {
         system = arch;
-        specialArgs = { inherit inputs meta; };
+        specialArgs = { inherit inputs meta enabled; };
         modules = [
           ({ pkgs, meta, ... }: {
             boot.kernelPackages = meta.kernel or pkgs.cachyosKernels.linuxPackages-cachyos-latest;
@@ -95,9 +96,7 @@
           ./hosts/common.nix
           ./hosts/${host.name}/hardware-configuration.nix
           home-manager.nixosModules.home-manager
-          (let
-            enabled = { enable = true; };
-          in {
+          ({
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs meta enabled; };
