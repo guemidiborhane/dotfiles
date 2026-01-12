@@ -9,6 +9,7 @@ pacman-filesdb-refresh.timer
 pkgfile-update.timer
 polkit-agent-helper.socket
 reflector.timer
+sshd.service
 systemd-resolved-monitor.socket
 systemd-resolved.service
 systemd-resolved-varlink.socket

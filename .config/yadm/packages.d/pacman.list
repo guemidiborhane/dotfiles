@@ -131,8 +131,8 @@ plocate
 podman
 podman-compose
 polkit-gnome
-protonup-qt
 pv
+pwgen
 python-gdal
 python-netaddr
 python-owslib
