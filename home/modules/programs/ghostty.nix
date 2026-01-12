@@ -1,6 +1,5 @@
-{ pkgs, ... }: {
-  enable = true;
-  # package = pkgs.unstable.ghostty;
+{
+  enable = false;
   systemd.enable = true;
 
   installVimSyntax = true;
