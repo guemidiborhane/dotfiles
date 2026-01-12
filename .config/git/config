@@ -47,6 +47,9 @@
 [gpg]
   format = ssh
 
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed-signers
+
 [user]
 	name = Borhaneddine GUEMIDI
   signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhxTeNtI20T8uDHETzBIBcDNcM0UbW6pamh3z6zJSIG"
@@ -55,4 +58,4 @@
   gpgsign = true
 
 [include]
-	path = .gitconfig.local
+	path = ~/.config/git/config.local
