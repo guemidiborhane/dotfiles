@@ -11,7 +11,7 @@ show_help() {
   cat <<EOF
 Usage: $(basename "${0}") [OPTIONS] [--] <command> [args...]
 
-Start a program as systemd transient unit (.scope for background, .service for foreground)
+Start a program as systemd transient unit
 for better resource management, with optional Hyprland dispatcher actions.
 OPTIONS:
     -f, --foreground         Run command in foreground (default: background)
@@ -477,7 +477,7 @@ main() {
   if ${foreground}; then
     exec systemd-run --wait "${runargs[@]}" -- bash -c "${wrapper_script}"
   else
-    systemd-run --scope "${runargs[@]}" -- bash -c "${wrapper_script}" &
+    systemd-run "${runargs[@]}" -- bash -c "${wrapper_script}" &
     local bg_pid=$!
     ${verbose} && echo "Started in background (PID: ${bg_pid})" >&2
 
