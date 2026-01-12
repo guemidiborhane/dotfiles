@@ -101,7 +101,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs meta enabled; };
             home-manager.users.${meta.username} = import ./home;
-            home-manager.backupFileExtension = "bak";
+            home-manager.backupCommand = "trash";
           })
         ] ++ (if host ? hardware then [host.hardware] else []);
       };

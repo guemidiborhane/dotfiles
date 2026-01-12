@@ -22,6 +22,7 @@
     lm_sensors
     jq
     config.boot.kernelPackages.cpupower
+    trashy
   ];
 
   fonts.packages = with pkgs; [
