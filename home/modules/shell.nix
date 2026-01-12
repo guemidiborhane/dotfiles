@@ -10,6 +10,10 @@
     fastfetch = enabled;
   };
 
+  home.sessionVariables = {
+    SSH_AUTH_SOCK = "$HOME/.bitwarden-ssh-agent.sock";
+  };
+
   programs.fish = import ./programs/fish.nix { inherit pkgs; };
   programs.starship = import ./programs/starship.nix;
   programs.eza = import ./programs/eza.nix;
