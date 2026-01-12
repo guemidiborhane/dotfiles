@@ -1,4 +1,4 @@
-{ ... }: {
+{
   enable = true;
   defaultOptions = [ "--reverse" ];
   colors = {

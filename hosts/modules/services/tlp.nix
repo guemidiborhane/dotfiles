@@ -1,6 +1,4 @@
 {
-  ...
-}: {
   enable = true;
   settings = {
     CPU_SCALING_GOVERNOR_ON_AC = "performance";

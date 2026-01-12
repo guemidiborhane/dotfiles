@@ -1,4 +1,4 @@
-{ ... }: {
+{
   enable = true;
   icons = "auto";
   colors = "auto";

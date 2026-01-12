@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ config, ... }: {
   enable = true;
   # package = pkgs.unstable.superfile;
   pinnedFolders = [

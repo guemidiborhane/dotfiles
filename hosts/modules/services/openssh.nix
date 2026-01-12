@@ -1,6 +1,4 @@
 {
-  ...
-}: {
   enable = true;
   settings = {
     PermitRootLogin = "no";

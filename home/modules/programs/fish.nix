@@ -1,5 +1,9 @@
-{ ... }: {
+{ 
+  pkgs,
+  ...
+}: {
   enable = true;
+  package = pkgs.unstable.fish;
   shellInit = ''
     fish_add_path ~/.local/bin ~/.krew/bin
   '';
