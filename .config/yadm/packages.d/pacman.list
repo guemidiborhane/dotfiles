@@ -41,6 +41,8 @@ ffmpegthumbnailer
 filezilla
 fish
 fisher
+foot
+foot-terminfo
 fwupd
 fzf
 gd
@@ -104,6 +106,7 @@ networkmanager
 network-manager-applet
 networkmanager-openvpn
 nm-connection-editor
+noto-color-emoji-fontconfig
 noto-fonts
 noto-fonts-emoji
 ntfs-3g
