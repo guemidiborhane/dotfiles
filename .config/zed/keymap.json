@@ -1,0 +1,25 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+	{
+		"context": "Workspace",
+		"bindings": {
+			"space space": "file_finder::Toggle",
+			"space b d": "pane::CloseActiveItem",
+			"space b a": "pane::CloseAllItems",
+			"space e": "workspace::ToggleRightDock",
+		},
+	},
+	{
+		"context": "Editor && vim_mode == insert",
+		"bindings": {
+			"j j": "vim::NormalBefore",
+			"ctrl-s": ["vim::NormalBefore", "workspace::Save"],
+		},
+	},
+]
