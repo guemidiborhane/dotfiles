@@ -1,8 +1,5 @@
+{ pkgs, inputs, ... }:
 {
-    pkgs,
-    inputs,
-    ...
-}: {
   enable = true;
   package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
 

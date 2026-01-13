@@ -1,10 +1,5 @@
+{ pkgs, meta, config, helpers, ... }:
 {
-  pkgs,
-  meta,
-  config,
-  helpers,
-  ...
-}: {
   programs = {
     tealdeer = helpers.enabled;
     fastfetch = helpers.enabled;

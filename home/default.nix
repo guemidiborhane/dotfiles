@@ -1,12 +1,5 @@
+{ cfg, pkgs, lib, inputs, meta, helpers, ...}:
 {
-  cfg,
-  pkgs,
-  lib,
-  inputs,
-  meta,
-  helpers,
-  ...
-}: {
   imports =
     [
       ./modules/git.nix

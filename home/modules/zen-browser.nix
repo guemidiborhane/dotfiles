@@ -1,11 +1,5 @@
+{ inputs, pkgs, config, meta, helpers, ... }:
 {
-  inputs,
-  pkgs,
-  config,
-  meta,
-  helpers,
-  ...
-}: {
   imports = [
     inputs.zen-browser.homeModules.default
   ];

@@ -1,8 +1,5 @@
+{ pkgs, helpers, ... }:
 {
-  pkgs,
-  helpers,
-  ...
-}: {
   services = {
     printing = helpers.enabled;
     udisks2 = helpers.enabled;

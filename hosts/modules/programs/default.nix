@@ -1,7 +1,5 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  ...
-}: {
   programs = {
     nh = import ./nh.nix;
     neovim = import ./neovim.nix;

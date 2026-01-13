@@ -1,7 +1,5 @@
-{
-  pkgs,
-  ...
-}: let 
+{ pkgs, ... }:
+let 
   caches = import ./caches.nix;
 in {
   nix = {

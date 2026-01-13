@@ -9,12 +9,9 @@ let
   power = defaults.power // (host.power or {});
 in
 {
-  # Laptop-specific settings
   hardware.bluetooth.enable = features.bluetooth;
-
   services.blueman.enable = features.bluetooth;
 
-  # TLP power management
   services.tlp = lib.mkIf power.tlp {
     enable = true;
     settings = {

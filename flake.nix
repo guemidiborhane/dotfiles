@@ -1,40 +1,28 @@
 {
-  description = "Home";
+  description = "NixOS Configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
     nixos-hardware.url = "github:NixOs/nixos-hardware/master";
-
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-
-    vicinae.url = "github:vicinaehq/vicinae";
-
-    nur = {
-      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
+    vicinae.url = "github:vicinaehq/vicinae";
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
-    nix-cachyos-kernel,
     nixos-hardware,
     home-manager,
     disko,
@@ -49,9 +37,7 @@
       hostConfig // { inherit name; })
     cfg.hosts);
 
-    calcSwap = ramGB: "${toString (ramGB + 2)}G";
-
-    # Supported systems for your flake packages, shell, etc.
+    # Supported systems
     systems = [
       "aarch64-linux"
       "i686-linux"
@@ -60,12 +46,15 @@
       "x86_64-darwin"
     ];
 
-    # This is a function that generates an attribute by calling a function you
-    # pass to it, with each system as an argument
-    forAllSystems = fn: nixpkgs.lib.genAttrs systems (system: fn {pkgs = import nixpkgs {inherit system;};});
-
+    forAllSystems = fn:
+      nixpkgs.lib.genAttrs systems (system: fn {
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      });
   in {
-    formatter = forAllSystems ({pkgs}: pkgs.alejandra);
+    formatter = forAllSystems ({ pkgs }: pkgs.alejandra);
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays { inherit inputs; };
 
@@ -108,11 +97,11 @@
       in
         default;
       helpers = import ./libs/helpers.nix { inherit pkgs; };
+      specialArgs = { inherit inputs meta helpers cfg; };
     in {
       name = host.name;
       value = nixpkgs.lib.nixosSystem {
-        inherit pkgs system;
-        specialArgs = { inherit inputs meta helpers cfg; };
+        inherit pkgs system specialArgs;
         modules =
           [
             # Kernel configuration
@@ -150,7 +139,7 @@
             ({
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs meta helpers cfg; };
+              home-manager.extraSpecialArgs = specialArgs;
               home-manager.users.${cfg.user.username} = import ./home;
               home-manager.backupCommand = "trash";
             })

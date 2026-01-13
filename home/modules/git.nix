@@ -1,9 +1,5 @@
 { pkgs, lib, cfg, config, ... }:
 {
-  pkgs,
-  lib,
-  ...
-}: {
   programs.git = {
     enable = true;
     package = pkgs.unstable.git;

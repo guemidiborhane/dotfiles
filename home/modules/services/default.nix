@@ -1,8 +1,5 @@
+{ pkgs, helpers, ... }:
 {
-  pkgs,
-  helpers,
-  ...
-}: {
     hyprpaper = {
       enable = true;
       package = pkgs.unstable.hyprpaper;
