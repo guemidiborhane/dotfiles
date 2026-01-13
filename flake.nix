@@ -69,6 +69,11 @@
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs;};
 
+    # Development shell
+    devShells = forAllSystems ({ pkgs }: {
+      default = import ./shell.nix { inherit pkgs; };
+    });
+
     nixosConfigurations = builtins.listToAttrs (map (host: let
       arch = "x86_64-linux";
 
