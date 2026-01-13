@@ -23,6 +23,7 @@
     jq
     config.boot.kernelPackages.cpupower
     trashy
+    just
   ];
 
   fonts.packages = with pkgs; [
