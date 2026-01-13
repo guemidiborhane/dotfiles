@@ -85,6 +85,16 @@
         if host ? hardware && host.hardware != ""
         then [nixos-hardware.nixosModules.${host.hardware}]
         else [];
+
+      # Host type profiles
+      typeModules =
+        if host.type == "headless"
+        then [./hosts/profiles/headless.nix]
+        else if host.type == "laptop"
+        then [./hosts/profiles/laptop.nix]
+        else if host.type == "desktop"
+        then [./hosts/profiles/desktop.nix]
+        else [];
     in {
       name = host.name;
       value = nixpkgs.lib.nixosSystem {

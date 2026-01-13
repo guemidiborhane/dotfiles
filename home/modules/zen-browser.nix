@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  meta,
   ...
 }: {
   imports = [
@@ -38,7 +39,7 @@
   };
 
   programs.zen-browser = {
-    enable = true;
+    enable = (meta.host.type != "headless");
     policies = let
       mkLockedAttrs = builtins.mapAttrs (_: value: {
         Value = value;
