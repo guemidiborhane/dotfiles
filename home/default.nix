@@ -1,5 +1,5 @@
 {
-  config,
+  cfg,
   pkgs,
   lib,
   inputs,
@@ -15,7 +15,7 @@
     ./modules/desktop
   ];
 
-  home = import ./home.nix { inherit pkgs meta; };
+  home = import ./home.nix { inherit pkgs cfg; };
   services = import ./modules/services { inherit pkgs lib enabled; };
 
   programs.ghostty = import ./modules/programs/ghostty.nix;

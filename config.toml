@@ -1,0 +1,77 @@
+# NixOS Configuration
+# Single source of truth for all deployments
+
+[metadata]
+repository = "https://github.com/guemidiborhane/nixos-config"
+stateVersion = "25.11"
+
+[user]
+username = "borhane"
+fullName = "Borhaneddine GUEMIDI"
+email = "guemidiborhane@gmail.com"
+shell = "fish"
+# SSH public keys for authorized_keys
+sshKeys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal",
+]
+
+# Default features for all hosts (can be overridden per-host)
+[defaults.features]
+bluetooth = true
+wifi = true
+touchpad = false
+backlight = false
+
+# Default power settings for laptops (can be overridden per-host)
+[defaults.power]
+tlp = true
+startChargeThreshold = 65
+stopChargeThreshold = 85
+
+# Host Declarations
+# Hosts are processed in the order they appear
+
+[hosts.takotsubo]
+type = "laptop"                    # laptop, desktop, headless, server
+disk = "/dev/sda"
+ram = 16
+cpu = "intel"                      # intel, amd
+gpu = "intel"                      # intel, amd, nvidia, hybrid
+hardware = "dell-latitude-7490"    # Optional: nixos-hardware module path
+description = "Dell Latitude 7490"
+
+# Host-specific feature overrides (optional)
+[hosts.takotsubo.features]
+touchpad = true
+backlight = true
+# kernel = "cachyos-lts"     # Optional: cachyos-latest, cachyos-lts, cachyos-hardened
+
+# Host-specific power overrides (optional)
+# [hosts.takotsubo.power]
+# startChargeThreshold = 70
+# stopChargeThreshold = 90
+
+# Example: Desktop host
+# [hosts.workstation]
+# type = "desktop"
+# disk = "/dev/nvme0n1"
+# ram = 64
+# cpu = "amd"
+# gpu = "nvidia"
+# description = "Main workstation"
+#
+# [hosts.workstation.features]
+# wifi = false
+
+# Example: Headless server
+# [hosts.homeserver]
+# type = "headless"
+# disk = "/dev/sda"
+# ram = 32
+# cpu = "intel"
+# gpu = "none"
+# description = "Home server"
+#
+# [hosts.homeserver.features]
+# bluetooth = false
+# wifi = false

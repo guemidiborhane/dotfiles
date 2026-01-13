@@ -1,11 +1,11 @@
 {
   pkgs,
-  meta,
+  cfg,
   ...
 }: {
   enableNixpkgsReleaseCheck = true;
-  username = "${meta.username}";
-  homeDirectory = "/home/${meta.username}";
+  username = "${cfg.user.username}";
+  homeDirectory = "/home/${cfg.user.username}";
 
   packages = import ./pkgs.nix { inherit pkgs; };
 

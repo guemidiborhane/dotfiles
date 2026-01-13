@@ -1,8 +1,8 @@
 { meta, ... }: {
   disko.devices = let
-    device = meta.device;
+    device = meta.host.disk;
     swapSize = "${toString meta.swapSize}G";
-    vgName = "${meta.hostname}-vg";
+    vgName = "${meta.host.name}-vg";
   in {
     disk.main = {
       inherit device;

@@ -1,3 +1,4 @@
+{ pkgs, lib, cfg, config, ... }:
 {
   pkgs,
   lib,
@@ -7,7 +8,12 @@
     enable = true;
     package = pkgs.unstable.git;
     lfs.enable = true;
+    settings = {
+      user.email = cfg.user.email;
+      user.name = cfg.user.fullName;
+    };
   };
+  xdg.configFile."git/nix".text = lib.generators.toGitINI config.programs.git.iniContent;
   xdg.configFile."git/config".enable = lib.mkForce false;
 
   programs = {

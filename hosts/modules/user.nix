@@ -1,20 +1,19 @@
 {
   pkgs,
   meta,
+  cfg,
   ...
 }: {
-  users.groups.${meta.username}.gid = 1000;
+  users.groups.${cfg.user.username}.gid = 1000;
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${meta.username} = {
+  users.users.${cfg.user.username} = {
     isNormalUser = true;
-    description = "Borhaneddine GUEMIDI";
+    description = cfg.user.fullName;
     uid = 1000;
-    group = meta.username;
+    group = cfg.user.username;
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.unstable.fish;
+    shell = pkgs.unstable.${cfg.user.shell};
     homeMode = "0700";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal"
-    ];
+    openssh.authorizedKeys.keys = cfg.user.sshKeys;
   };
 }

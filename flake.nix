@@ -41,15 +41,15 @@
     nur,
     ...
   } @ inputs: let
+    # Parse configuration
+    cfg = builtins.fromTOML (builtins.readFile ./config.toml);
+
+    # Extract hosts
+    hosts = builtins.attrValues (builtins.mapAttrs (name: hostConfig:
+      hostConfig // { inherit name; })
+    cfg.hosts);
+
     calcSwap = ramGB: "${toString (ramGB + 2)}G";
-    hosts = [
-      {
-        name = "takotsubo";
-        hardware = nixos-hardware.nixosModules.dell-latitude-7490;
-        disk = "/dev/sda";
-        ram = 16;
-      }
-    ];
 
     # Supported systems for your flake packages, shell, etc.
     systems = [
@@ -69,41 +69,75 @@
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs;};
 
-    nixosConfigurations = builtins.listToAttrs (map (host:
-    let
-        arch = "x86_64-linux";
-        meta = {
-          inherit host;
-          username = "borhane";
-          hostname = host.name;
-          device = host.disk;
-          swapSize = calcSwap (host.ram or 16);
-        };
-        enabled = { enable = true; };
+    nixosConfigurations = builtins.listToAttrs (map (host: let
+      arch = "x86_64-linux";
+
+      # Build metadata
+      meta = {
+        inherit host;
+        swapSize = "${toString (host.ram + 2)}G";
+      };
+
+      enabled = { enable = true; };
+
+      # Hardware modules
+      hardwareModules =
+        if host ? hardware && host.hardware != ""
+        then [nixos-hardware.nixosModules.${host.hardware}]
+        else [];
     in {
       name = host.name;
       value = nixpkgs.lib.nixosSystem {
         system = arch;
-        specialArgs = { inherit inputs meta enabled; };
-        modules = [
-          ({ pkgs, meta, ... }: {
-            boot.kernelPackages = meta.kernel or pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-            nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
-          })
-          nur.modules.nixos.default
-          disko.nixosModules.disko
-          ./hosts/disko.nix
-          ./hosts/common.nix
-          ./hosts/${host.name}/hardware-configuration.nix
-          home-manager.nixosModules.home-manager
-          ({
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs meta enabled; };
-            home-manager.users.${meta.username} = import ./home;
-            home-manager.backupCommand = "trash";
-          })
-        ] ++ (if host ? hardware then [host.hardware] else []);
+        specialArgs = { inherit inputs meta enabled cfg; };
+        modules =
+          [
+            # Kernel configuration
+            ({pkgs, ...}: {
+              boot.kernelPackages =
+                if host.features.kernel or null != null
+                then pkgs.cachyosKernels."linuxPackages-${host.features.kernel}"
+                else pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+              nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
+            })
+
+            # Core modules
+            nur.modules.nixos.default
+            disko.nixosModules.disko
+
+            # System configuration
+            ./hosts/disko.nix
+            ./hosts/common.nix
+            ./hosts/${host.name}/hardware-configuration.nix
+
+            # Additional modules
+            ./hosts/modules/nix.nix
+            ./hosts/modules/base-devel.nix
+            ./hosts/modules/networking.nix
+            ./hosts/modules/virtualisation
+            ./hosts/modules/user.nix
+            ./hosts/modules/pkgs.nix
+            ./hosts/modules/services
+            ./hosts/modules/programs
+            ./hosts/modules/hyprland.nix
+            ./hosts/modules/kanata.nix
+
+            # Home manager
+            home-manager.nixosModules.home-manager
+            ({
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs meta enabled cfg; };
+              home-manager.users.${cfg.user.username} = import ./home;
+              home-manager.backupCommand = "trash";
+            })
+
+            # State version
+            ({ cfg, ... }: {
+              system.stateVersion = cfg.metadata.stateVersion;
+            })
+          ]
+          ++ hardwareModules;
       };
     })
     hosts);
