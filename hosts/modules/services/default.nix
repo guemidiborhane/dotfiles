@@ -1,13 +1,13 @@
 {
   pkgs,
-  enabled,
+  helpers,
   ...
 }: {
   services = {
-    printing = enabled;
-    udisks2 = enabled;
-    fstrim = enabled;
-    fwupd = enabled;
+    printing = helpers.enabled;
+    udisks2 = helpers.enabled;
+    fstrim = helpers.enabled;
+    fwupd = helpers.enabled;
     tlp = import ./tlp.nix;
     pipewire = import ./pipewire.nix;
     openssh = import ./openssh.nix;

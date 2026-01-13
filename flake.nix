@@ -67,7 +67,7 @@
   in {
     formatter = forAllSystems ({pkgs}: pkgs.alejandra);
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-    overlays = import ./overlays {inherit inputs;};
+    overlays = import ./overlays { inherit inputs; };
 
     # Development shell
     devShells = forAllSystems ({ pkgs }: {
@@ -75,23 +75,16 @@
     });
 
     nixosConfigurations = builtins.listToAttrs (map (host: let
-      arch = "x86_64-linux";
-
-      # Build metadata
       meta = {
         inherit host;
         swapSize = "${toString (host.ram + 2)}G";
       };
 
-      enabled = { enable = true; };
-
-      # Hardware modules
       hardwareModules =
         if host ? hardware && host.hardware != ""
         then [nixos-hardware.nixosModules.${host.hardware}]
         else [];
 
-      # Host type profiles
       typeModules =
         if host.type == "headless"
         then [./hosts/profiles/headless.nix]
@@ -100,11 +93,26 @@
         else if host.type == "desktop"
         then [./hosts/profiles/desktop.nix]
         else [];
+
+      system = "x86_64-linux";
+      pkgs = let
+        config = {
+          allowBroken = false;
+          allowUnfree = true;
+        };
+
+        default = import nixpkgs { 
+          overlays = builtins.attrValues (import ./overlays { inherit inputs; });
+          inherit config system;
+        };
+      in
+        default;
+      helpers = import ./libs/helpers.nix { inherit pkgs; };
     in {
       name = host.name;
       value = nixpkgs.lib.nixosSystem {
-        system = arch;
-        specialArgs = { inherit inputs meta enabled cfg; };
+        inherit pkgs system;
+        specialArgs = { inherit inputs meta helpers cfg; };
         modules =
           [
             # Kernel configuration
@@ -142,7 +150,7 @@
             ({
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs meta enabled cfg; };
+              home-manager.extraSpecialArgs = { inherit inputs meta helpers cfg; };
               home-manager.users.${cfg.user.username} = import ./home;
               home-manager.backupCommand = "trash";
             })

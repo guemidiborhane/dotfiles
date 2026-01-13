@@ -4,7 +4,7 @@
   lib,
   inputs,
   meta,
-  enabled,
+  helpers,
   ...
 }: {
   imports =
@@ -19,7 +19,7 @@
     ];
 
   home = import ./home.nix { inherit pkgs cfg; };
-  services = import ./modules/services { inherit pkgs lib enabled; };
+  services = import ./modules/services { inherit pkgs helpers; };
 
   programs.ghostty = import ./modules/programs/ghostty.nix;
   programs.foot = import ./modules/programs/foot.nix;
@@ -28,9 +28,9 @@
   programs.zed-editor = import ./modules/programs/zed.nix { inherit pkgs meta; };
 
   programs = {
-    home-manager = enabled;
-    wezterm = enabled;
-    wlogout = enabled;
-    mpv = enabled;
+    home-manager = helpers.enabled;
+    wezterm = helpers.enabled;
+    wlogout = helpers.enabled;
+    mpv = helpers.enabled;
   };
 }

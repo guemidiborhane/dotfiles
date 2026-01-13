@@ -2,12 +2,12 @@
   pkgs,
   meta,
   config,
-  enabled,
+  helpers,
   ...
 }: {
   programs = {
-    tealdeer = enabled;
-    fastfetch = enabled;
+    tealdeer = helpers.enabled;
+    fastfetch = helpers.enabled;
   };
 
   home.sessionVariables = {
