@@ -65,6 +65,3 @@ else
     # Fallback output if ping fails
     printf '{"text": "󰅙", "tooltip": "Failed to get ping", "class": "offline"}\n'
 fi
-
-# Cleanup other instances
-killall -9 $(basename $0) &>/dev/null
