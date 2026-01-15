@@ -1,0 +1,11 @@
+[Unit]
+Description=tmux server daemon
+Documentation=man:tmux(1)
+
+[Service]
+Slice=tmux.slice
+ExecStart=/usr/bin/env fish -c 'exec tmux -D'
+ExecStop=/usr/bin/env fish -c 'tmux kill-server'
+
+[Install]
+WantedBy=default.target

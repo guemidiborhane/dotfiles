@@ -11,6 +11,7 @@ pipewire.service
 pipewire.socket
 podman.socket
 podman-auto-update.timer
+tmux-daemon.service
 sunsetr.service
 swaync.service
 vicinae.service
