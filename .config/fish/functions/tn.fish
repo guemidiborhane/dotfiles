@@ -2,7 +2,7 @@ function tn --argument session_name
     set -q session_name[1]; or set session_name (basename $PWD)
 
     if not tmux has-session -t "$session_name"
-        dr --slice tmux --unit "$session_name-session" -- tmux new-session -ds "$session_name"
+        tmux -N new-session -ds "$session_name"
 
         # Wait for session with timeout
         set -l timeout 50 # 5 seconds (50 * 0.1s)
@@ -19,7 +19,7 @@ function tn --argument session_name
 
     if test -z "$TMUX"
         tmux attach-session -t "$session_name"
-    else 
+    else
         tmux switch-client -t "$session_name"
     end
 end
