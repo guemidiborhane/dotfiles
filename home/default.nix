@@ -3,6 +3,7 @@
   imports =
     [
       ./modules/git.nix
+      ./modules/gnome-keyring.nix
       ./modules/yadm.nix
       ./modules/shell.nix
     ]
