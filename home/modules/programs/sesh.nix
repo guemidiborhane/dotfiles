@@ -1,4 +1,9 @@
+{ lib, ... }:
 {
-  enable = true;
-  enableTmuxIntegration = false; # already handled
+  programs.sesh = {
+    enable = true;
+    enableTmuxIntegration = false; # already handled
+  };
+
+  home.file."sesh/sesh.toml".enable = lib.mkForce false;
 }

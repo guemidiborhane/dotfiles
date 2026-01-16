@@ -6,6 +6,7 @@
       ./modules/gnome-keyring.nix
       ./modules/yadm.nix
       ./modules/shell.nix
+      ./modules/programs/superfile.nix
     ]
     ++ lib.optionals (meta.host.type != "headless") [
       ./modules/zen-browser.nix
