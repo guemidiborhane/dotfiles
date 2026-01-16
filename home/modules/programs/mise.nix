@@ -1,10 +1,10 @@
 {
   enable = true;
-  settings = {
-    idiomatic_version_file_enable_tools = ["ruby"];
-    experimental = true;
-  };
   globalConfig = {
+    settings = {
+      idiomatic_version_file_enable_tools = ["ruby"];
+      experimental = true;
+    };
     plugins = {
       nix = "https://github.com/jbadeau/mise-nix.git";
     };
