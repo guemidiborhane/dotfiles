@@ -27,9 +27,9 @@ show-user:
     @nix eval --json --file - <<< '(builtins.fromTOML (builtins.readFile ./config.toml)).user' | jq
 
 # Show host configuration
-show-host host:
-    @echo "Configuration for {{host}}:"
-    @nix eval --json --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{host}}\"" | jq
+show-host host="":
+    @echo "Configuration for {{ if host == "" { "$(hostname)" } else { host } }}:"
+    @nix eval --json --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{ if host == "" { "$(hostname)" } else { host } }}\"" | jq
 
 # Full system install
 install host disk="": (disko host disk) (nixos-install host)
@@ -147,25 +147,18 @@ update:
     @echo "Run 'just check-builds <host>' to verify"
 
 # Check build requirements
-check-builds host:
-    @nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel --dry-run 2>&1 | \
+check-builds host="":
+    @nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 | \
         awk '/will be built/{flag=1} flag' | head -20
 
 # Rebuild safely
-rebuild-safe host="":
+needs-build host="":
     #!/usr/bin/env bash
     set -euo pipefail
-    BUILD_COUNT=$(nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 \
+    nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 \
         | awk '/will be built:/,/will be fetched/' \
         | sed '1d;$d' | sed 's#.*/##' \
-        | grep -Ei -f build-watch.list | wc -l)
-    if [ "$BUILD_COUNT" -gt 10 ]; then
-        echo "Too many builds: $BUILD_COUNT packages"
-        echo "Run 'just rollback-update' to restore"
-        exit 1
-    fi
-    echo "Proceeding with $BUILD_COUNT builds"
-    nh os switch --ask
+        | grep -Ei -f build-watch.list | wc -l
 
 # Rollback update
 rollback-update:
@@ -182,8 +175,8 @@ clean:
     nh clean all
 
 # Build configuration
-build host:
-    nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
+build host="":
+    nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel
 
 # Format nix files
 fmt:
@@ -194,5 +187,5 @@ _get-username:
     @nix eval --raw --file - <<< '(builtins.fromTOML (builtins.readFile ./config.toml)).user.username'
 
 # Helper: Get host disk
-_get-host-disk host:
-    @nix eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{host}}\".disk"
+_get-host-disk host="":
+    @nix eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{ if host == "" { "$(hostname)" } else { host } }}\".disk"
