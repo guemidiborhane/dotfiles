@@ -1,15 +1,17 @@
 { pkgs, meta, config, helpers, ... }:
 {
+  imports = [
+    ./programs/fish.nix
+  ];
+
   programs = {
     tealdeer = helpers.enabled;
     fastfetch = helpers.enabled;
+    starship = helpers.enabled;
+    eza = helpers.enabled;
+    zoxide = helpers.enabled;
   };
 
-  home.sessionVariables = {
-    SSH_AUTH_SOCK = "$HOME/.bitwarden-ssh-agent.sock";
-  };
-
-  programs.fish = import ./programs/fish.nix { inherit pkgs; };
   programs.starship = import ./programs/starship.nix;
   programs.eza = import ./programs/eza.nix;
   programs.bat = import ./programs/bat.nix;
