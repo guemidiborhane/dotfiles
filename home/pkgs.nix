@@ -15,8 +15,56 @@ with pkgs; [
   impala
   bluetui
   vulkan-tools
-  gum
   python3
+  bind
+  dbeaver-bin
+  evince
+  exfatprogs
+  ffmpegthumbnailer
+  gimp
+  gnome-disk-utility
+  gparted
+  gum
+  helm
+  htop
+  iftop
+  inkscape
+  inxi
+  iperf3
+  jq
+  libreoffice-fresh
+  mission-center
+  net-tools
+  ntfs3g
+  nvtopPackages.intel
+  obs-studio
+  parallel
+  pass
+  pgcli
+  pigz
+  pv
+  rsync
+  solaar
+  squashfsTools
+  stress-ng
+  s-tui
+  traceroute
+  viewnior
+  wol
+  yq
+  zip
+  anydesk
+  teamviewer
+  docker-credential-gcr
+  localsend
+  megasync
+  ngrok
+  k3d
+  sendme
+  sunsetr
+  tidy-viewer
+  tor-browser
+  vdhcoapp
   # Communication
   vesktop
   signal-desktop
