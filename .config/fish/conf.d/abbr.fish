@@ -20,6 +20,7 @@ abbr watch "watch -d -n 10"
 abbr prod 'kubectl --context elhakim'
 abbr stage 'kubectl --context benboulaid'
 
+abbr docker podman
 set dc docker-compose
 abbr dc $dc
 abbr dcb "$dc build"
