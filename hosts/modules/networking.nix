@@ -6,7 +6,7 @@
     ];
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ 22 3000 ];
       # allowedUDPPorts = [  ];
     };
   };
