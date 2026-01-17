@@ -76,15 +76,6 @@
         then [nixos-hardware.nixosModules.${host.hardware}]
         else [];
 
-      typeModules =
-        if host.type == "headless"
-        then [./hosts/profiles/headless.nix]
-        else if host.type == "laptop"
-        then [./hosts/profiles/laptop.nix]
-        else if host.type == "desktop"
-        then [./hosts/profiles/desktop.nix]
-        else [];
-
       system = "x86_64-linux";
       pkgs = let
         config = {
@@ -133,8 +124,8 @@
             ./hosts/modules/pkgs.nix
             ./hosts/modules/services
             ./hosts/modules/programs
-            ./hosts/modules/hyprland.nix
             ./hosts/modules/kanata.nix
+            ./hosts/profiles/${host.type}.nix
 
             # Home manager
             home-manager.nixosModules.home-manager

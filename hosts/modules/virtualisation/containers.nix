@@ -11,6 +11,8 @@
     };
   };
 
+  hardware.nvidia-container-toolkit.enable = lib.mkIf (meta.host.gpu == "nvidia") true;
+
   environment.systemPackages = with pkgs; [
     dive
     docker-compose

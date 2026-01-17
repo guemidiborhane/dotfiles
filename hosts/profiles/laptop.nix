@@ -9,23 +9,18 @@ let
   power = defaults.power // (host.power or {});
 in
 {
-  hardware.bluetooth.enable = features.bluetooth;
-  services.blueman.enable = features.bluetooth;
+  imports = [
+    ./desktop.nix
+  ];
 
-  services.tlp = lib.mkIf power.tlp {
+  powerManagement = {
     enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      START_CHARGE_THRESH_BAT0 = power.startChargeThreshold;
-      STOP_CHARGE_THRESH_BAT0 = power.stopChargeThreshold;
-      RESTORE_THRESHOLDS_ON_BAT = true;
-    };
+    powertop.enable = true;
   };
 
-  # Backlight control
-  programs.light.enable = features.backlight;
-
-  # Touchpad
+  services.tlp = import ../modules/services/tlp.nix { inherit power; };
   services.libinput.enable = features.touchpad;
+  services.logind.lidSwitch = "suspend-then-hibernate";
+
+  programs.light.enable = features.backlight;
 }

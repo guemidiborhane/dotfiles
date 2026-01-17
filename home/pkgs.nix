@@ -1,74 +1,36 @@
 {  pkgs,  ... }:
 with pkgs; [
   fastfetch
-  pkgs.nur.repos.nltch.spotify-adblock
   tmux
-  waybar
-  bitwarden-desktop
-  banana-cursor
-  hyprlock
-  wiremix
-  pulseaudio
-  brightnessctl
-  networkmanagerapplet
   glib # gsettings
   gnupg
-  impala
-  bluetui
-  vulkan-tools
   python3
   bind
-  dbeaver-bin
-  evince
   exfatprogs
-  ffmpegthumbnailer
-  gimp
-  gnome-disk-utility
-  gparted
   gum
   helm
   htop
   iftop
-  inkscape
   inxi
   iperf3
   jq
-  libreoffice-fresh
-  mission-center
+  yq-go
   net-tools
   ntfs3g
-  nvtopPackages.intel
-  obs-studio
+  nvtopPackages.full
   parallel
-  pass
   pgcli
   pigz
   pv
   rsync
-  solaar
   squashfsTools
   stress-ng
   s-tui
   traceroute
-  viewnior
   wol
-  yq
   zip
-  anydesk
-  teamviewer
-  docker-credential-gcr
-  localsend
-  megasync
   ngrok
   k3d
   sendme
-  sunsetr
   tidy-viewer
-  tor-browser
-  vdhcoapp
-  # Communication
-  vesktop
-  signal-desktop
-  telegram-desktop
-  thunderbird
 ]
