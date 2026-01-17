@@ -1,8 +1,13 @@
-{ inputs, lib, ... }:
+{ inputs, lib, pkgs, ... }:
 {
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    systemd-boot = {
+      enable = true;
+      memtest86.enable = builtins.elem pkgs.stdenv.hostPlatform.system pkgs.memtest86plus.meta.platforms;
+    };
+  };
 
   security.rtkit.enable = true;
   security.sudo.extraConfig = ''
