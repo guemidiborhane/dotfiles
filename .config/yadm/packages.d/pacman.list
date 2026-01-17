@@ -28,7 +28,6 @@ cpupower
 cronie
 dbeaver
 dive
-docker
 docker-buildx
 docker-compose
 dunst
@@ -131,6 +130,7 @@ playerctl
 plocate
 podman
 podman-compose
+podman-docker
 polkit-gnome
 pv
 pwgen
