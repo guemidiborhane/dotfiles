@@ -12,4 +12,8 @@
     url = "https://nltch.cachix.org";
     key = "nltch.cachix.org-1:W85YxOt0XRZOP3Yppt+HNz3fXRu6DXgH3Ob9n9A+7Ec=";
   }
+  {
+    url = "https://nix-community.cachix.org";
+    key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+  }
 ]
