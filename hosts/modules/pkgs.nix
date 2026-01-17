@@ -5,13 +5,10 @@
     curl
     kitty
     git
-    git-lfs
-    fastfetch
     ripgrep
     fd
     gcc
     rustup
-    lazygit
     libnotify
     bc
     btop

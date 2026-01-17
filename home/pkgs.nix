@@ -1,5 +1,6 @@
 {  pkgs,  ... }:
 with pkgs; [
+  fastfetch
   pkgs.nur.repos.nltch.spotify-adblock
   tmux
   waybar

@@ -148,17 +148,12 @@ update:
 
 # Check build requirements
 check-builds host="":
-    @nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 | \
-        awk '/will be built/{flag=1} flag' | head -20
-
-# Rebuild safely
-needs-build host="":
-    #!/usr/bin/env bash
-    set -euo pipefail
     nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 \
         | awk '/will be built:/,/will be fetched/' \
-        | sed '1d;$d' | sed 's#.*/##' \
-        | grep -Ei -f build-watch.list | wc -l
+        | sed '1d;$d' | sed 's#.*/##'
+
+rebuild-safe:
+    @echo 'Not my style! Run: "nh os test" for all I care.'
 
 # Rollback update
 rollback-update:

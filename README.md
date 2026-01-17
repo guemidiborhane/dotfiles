@@ -17,7 +17,8 @@ All system parameters are funneled through `config.toml`. It defines the user, t
 I have automated my descent into insanity with `just`.
 
 * **install**: A one-way ticket to data loss using disko.
-* **rebuild-safe**: A command that checks if Nix is about to compile the entire Linux kernel because I changed a font size. If it sees more than 10 packages, it panics and stops.
++ **rebuild-safe**: A sarcastic reminder that you should use `nh os test` instead. It will shame you for seeking safety.
++ **check-builds**: See what packages will be rebuilt. No judgment, just facts.
 * **add-host**: Because I am delusional enough to believe I will one day own more than one functional computer.
 
 ## HARDWARE: PROJECT TAKOTSUBO
