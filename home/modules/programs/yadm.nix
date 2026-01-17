@@ -1,5 +1,6 @@
+{ cfg, ... }:
 {
   enable = true;
-  repository = "https://github.com/guemidiborhane/dotfiles.git";
+  repository = cfg.user.yadmRepo;
   autoClone = true;
 }

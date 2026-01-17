@@ -14,6 +14,7 @@ shell = "fish"
 sshKeys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal",
 ]
+yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
 
 # Default features for all hosts (can be overridden per-host)
 [defaults.features]
