@@ -161,7 +161,6 @@ squashfs-tools
 starship
 stress-ng
 s-tui
-superfile
 swaync
 tealdeer
 telegram-desktop
@@ -198,6 +197,7 @@ xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 yadm
 yay-bin
+yazi
 yq
 zed
 zen-browser-bin

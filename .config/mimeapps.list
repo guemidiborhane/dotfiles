@@ -16,7 +16,7 @@ inode/directory=superfile.desktop
 application/pdf=org.gnome.Evince.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
 x-scheme-handler/discord=vesktop.desktop
-x-scheme-handler/terminal=com.mitchellh.ghostty.desktop
+x-scheme-handler/terminal=footclient.desktop
 application/yaml=nvim.desktop
 application/x-zerosize=nvim.desktop
 
@@ -26,3 +26,4 @@ application/yaml=nvim.desktop;
 text/plain=nvim.desktop;
 application/x-zerosize=nvim.desktop;
 application/vnd.ogc.se_xml=zen.desktop;
+image/svg+xml=org.inkscape.Inkscape.desktop;
