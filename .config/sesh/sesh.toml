@@ -1,5 +1,5 @@
 [default_session]
-startup_command = "nvim"
+startup_command = "ls"
 preview_command = "eza --all --git --icons --color=always {}"
 
 [[session]]
