@@ -52,11 +52,11 @@ disko host disk="":
     echo "Press Ctrl+C within 10 seconds to cancel..."
     sleep 10
     sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- \
-        --mode disko --flake .#{{host}}
+        --mode disko --flake .#{{ host }}
 
 # Install NixOS
 nixos-install host:
-    sudo nixos-install --verbose --flake .#{{host}}
+    sudo nixos-install --verbose --flake .#{{ host }}
 
 # Add new host
 add-host name type="laptop" disk="/dev/sda" ram="16" cpu="intel" gpu="intel" description="" hardware="":
@@ -64,49 +64,49 @@ add-host name type="laptop" disk="/dev/sda" ram="16" cpu="intel" gpu="intel" des
     set -euo pipefail
 
     # Check if host exists
-    if grep -q "^\[hosts\.{{name}}\]" config.toml; then
-        echo "Error: Host '{{name}}' already exists"
+    if grep -q "^\[hosts\.{{ name }}\]" config.toml; then
+        echo "Error: Host '{{ name }}' already exists"
         exit 1
     fi
 
     # Create directory
-    mkdir -p hosts/{{name}}
+    mkdir -p hosts/{{ name }}
 
     # Generate hardware config
     echo "Generating hardware configuration..."
     nixos-generate-config --show-hardware-config --no-filesystems > \
-        hosts/{{name}}/hardware-configuration.nix
+        hosts/{{ name }}/hardware-configuration.nix
 
     # Add to config.toml
     DESC="{{ if description == '' { name } else { description } }}"
     cat >> config.toml <<EOF
 
-    [hosts.{{name}}]
-    type = "{{type}}"
-    disk = "{{disk}}"
-    ram = {{ram}}
-    cpu = "{{cpu}}"
-    gpu = "{{gpu}}"
+    [hosts.{{ name }}]
+    type = "{{ type }}"
+    disk = "{{ disk }}"
+    ram = {{ ram }}
+    cpu = "{{ cpu }}"
+    gpu = "{{ gpu }}"
     description = "$DESC"
     EOF
 
-    if [ -n "{{hardware}}" ]; then
-        echo "hardware = \"{{hardware}}\"" >> config.toml
+    if [ -n "{{ hardware }}" ]; then
+        echo "hardware = \"{{ hardware }}\"" >> config.toml
     fi
 
     cat >> config.toml <<EOF
 
-    [hosts.{{name}}.features]
+    [hosts.{{ name }}.features]
     bluetooth = true
     wifi = true
     EOF
 
-    if [ "{{type}}" = "laptop" ]; then
+    if [ "{{ type }}" = "laptop" ]; then
         cat >> config.toml <<EOF
     touchpad = true
     backlight = true
 
-    [hosts.{{name}}.power]
+    [hosts.{{ name }}.power]
     tlp = true
     startChargeThreshold = 65
     stopChargeThreshold = 85
@@ -114,32 +114,32 @@ add-host name type="laptop" disk="/dev/sda" ram="16" cpu="intel" gpu="intel" des
     fi
 
     echo ""
-    echo "Host '{{name}}' added successfully!"
+    echo "Host '{{ name }}' added successfully!"
     echo "Edit config.toml to customize further"
     echo ""
-    echo "Install with: just install {{name}}"
+    echo "Install with: just install {{ name }}"
 
 # Remove host
 remove-host name:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    if ! grep -q "^\[hosts\.{{name}}\]" config.toml; then
-        echo "Error: Host '{{name}}' not found"
+    if ! grep -q "^\[hosts\.{{ name }}\]" config.toml; then
+        echo "Error: Host '{{ name }}' not found"
         exit 1
     fi
 
-    read -p "Remove host '{{name}}'? (y/N) " -n 1 -r
+    read -p "Remove host '{{ name }}'? (y/N) " -n 1 -r
     echo
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
 
-    rm -rf "hosts/{{name}}"
+    rm -rf "hosts/{{ name }}"
 
     # Remove from config.toml
-    sed -i '/^\[hosts\.{{name}}\]/,/^\[hosts\./{ /^\[hosts\.{{name}}\]/d; /^\[hosts\./!d; }' config.toml
-    sed -i '/^\[hosts\.{{name}}\]/,/^$/d' config.toml
+    sed -i '/^\[hosts\.{{ name }}\]/,/^\[hosts\./{ /^\[hosts\.{{ name }}\]/d; /^\[hosts\./!d; }' config.toml
+    sed -i '/^\[hosts\.{{ name }}\]/,/^$/d' config.toml
 
-    echo "Host '{{name}}' removed"
+    echo "Host '{{ name }}' removed"
 
 # Update flake
 update:
@@ -150,7 +150,7 @@ update:
 check-builds host="":
     nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 \
         | awk '/will be built:/,/will be fetched/' \
-        | sed '1d;$d' | sed 's#.*/##'
+        | sed '1d;$d' | sed 's#.*/##' | rg -v 'completion'
 
 rebuild-safe:
     @echo 'Not my style! Run: "nh os test" for all I care.'
