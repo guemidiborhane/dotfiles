@@ -146,6 +146,12 @@
         "zen.tabs.show-newtab-vertical" = false;
       };
 
+      mods = [
+        "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs
+        "a6335949-4465-4b71-926c-4a52d34bc9c0" # Better Find Bar
+        "79dde383-4fe7-404a-a8e6-9be440022542" # Tidy Popup
+      ];
+
       spaces = {
         "Personal" = {
           id = "ad97a477-95a8-4504-9eef-0d27cf8ce6b4";
