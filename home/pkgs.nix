@@ -17,7 +17,6 @@ with pkgs; [
   yq-go
   net-tools
   ntfs3g
-  nvtopPackages.full
   parallel
   pgcli
   pigz
