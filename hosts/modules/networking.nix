@@ -1,6 +1,6 @@
 { pkgs, meta, lib, ... }: {
   networking = {
-    hostName = meta.host.name; # Define your hostname.
+    hostName = meta.host.hostname or meta.host.name; # Define your hostname.
     nameservers = [
       "127.0.0.1:8853"
     ];

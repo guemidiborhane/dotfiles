@@ -33,6 +33,7 @@ stopChargeThreshold = 85
 # Hosts are processed in the order they appear
 
 [hosts.takotsubo]
+hostname = "tako"
 type = "laptop"                    # laptop, desktop, headless, server
 disk = "/dev/sda"
 ram = 16

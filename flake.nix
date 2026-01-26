@@ -92,7 +92,7 @@
       helpers = import ./libs/helpers.nix { inherit pkgs; };
       specialArgs = { inherit inputs meta helpers cfg; };
     in {
-      name = host.name;
+      name = host.hostname or host.name;
       value = nixpkgs.lib.nixosSystem {
         inherit pkgs system specialArgs;
         modules =
