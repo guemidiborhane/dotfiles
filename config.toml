@@ -78,3 +78,24 @@ backlight = true
 # [hosts.homeserver.features]
 # bluetooth = false
 # wifi = false
+
+[hosts.kamui]
+type = "laptop"
+disk = "/dev/nvme0n1"
+ram = 32
+cpu = "amd"
+gpu = "amd"
+description = "P14s G5 AMD"
+hardware = "lenovo-thinkpad-p14s-amd-gen5"
+
+[hosts.kamui.features]
+bluetooth = true
+wifi = true
+touchpad = true
+backlight = true
+fingerprint = true
+
+[hosts.kamui.power]
+tlp = true
+startChargeThreshold = 65
+stopChargeThreshold = 85
