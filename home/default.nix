@@ -6,10 +6,10 @@ in {
     ./modules/git.nix
     ./modules/yadm.nix
     ./modules/shell.nix
-    ./modules/programs/superfile.nix
   ] ++ lib.optional isGUI ./profiles/desktop.nix;
 
   home = import ./home.nix { inherit pkgs cfg; };
+  programs.yazi = helpers.enabled;
 
   programs.yadm = import ./modules/programs/yadm.nix { inherit cfg; };
   programs.home-manager = helpers.enabled;
