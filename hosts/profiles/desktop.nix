@@ -18,6 +18,7 @@ in
 
   hardware.bluetooth.enable = features.bluetooth;
   services.blueman.enable = features.bluetooth;
+  services.fprintd.enable = features.fingerprint;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 

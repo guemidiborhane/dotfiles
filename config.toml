@@ -22,6 +22,7 @@ bluetooth = true
 wifi = true
 touchpad = false
 backlight = false
+fingerprint = false
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]
