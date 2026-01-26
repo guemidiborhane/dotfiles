@@ -22,8 +22,12 @@
       default = {
         devices = [
           "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-          "/dev/input/by-path/pci-0000:00:14.0-usb-0:9:1.2-event-mouse"
-          "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:9:1.2-event-mouse"
+          "/dev/input/by-path/pci-0000:c4:00.3-usb-0:1:1.2-event-mouse"
+          "/dev/input/by-path/pci-0000:c4:00.3-usb-0:1:1.2-hidraw"
+          "/dev/input/by-path/pci-0000:c4:00.3-usb-0:1:1.2-mouse"
+          "/dev/input/by-path/pci-0000:c4:00.3-usbv2-0:1:1.2-event-mouse"
+          "/dev/input/by-path/pci-0000:c4:00.3-usbv2-0:1:1.2-hidraw"
+          "/dev/input/by-path/pci-0000:c4:00.3-usbv2-0:1:1.2-mouse"
         ];
         extraDefCfg = "process-unmapped-keys yes";
         config = ''
