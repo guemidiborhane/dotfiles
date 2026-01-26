@@ -132,6 +132,7 @@
         "gfx.webrender.all" = true;
         "network.http.http3.enabled" = true;
         "network.socket.ip_addr_any.disabled" = true; # disallow bind to 0.0.0.0
+        "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
       };
     };
 
