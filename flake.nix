@@ -24,6 +24,10 @@
       url = "github:aashish-thapa/wlctl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    solaar = {
+      url = "github:Svenum/Solaar-Flake"; # Uncomment line for latest unstable version
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -113,6 +117,7 @@
             # Core modules
             nur.modules.nixos.default
             disko.nixosModules.disko
+            inputs.solaar.nixosModules.default
 
             # System configuration
             ./hosts/disko.nix

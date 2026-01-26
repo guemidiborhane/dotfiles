@@ -20,16 +20,15 @@
     enable = true;
     keyboards = {
       default = {
-        devices = [
-          "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-          "/dev/input/by-path/pci-0000:c4:00.3-usb-0:1:1.2-event-mouse"
-          "/dev/input/by-path/pci-0000:c4:00.3-usb-0:1:1.2-hidraw"
-          "/dev/input/by-path/pci-0000:c4:00.3-usb-0:1:1.2-mouse"
-          "/dev/input/by-path/pci-0000:c4:00.3-usbv2-0:1:1.2-event-mouse"
-          "/dev/input/by-path/pci-0000:c4:00.3-usbv2-0:1:1.2-hidraw"
-          "/dev/input/by-path/pci-0000:c4:00.3-usbv2-0:1:1.2-mouse"
-        ];
-        extraDefCfg = "process-unmapped-keys yes";
+        extraDefCfg = ''
+          process-unmapped-keys yes
+          linux-dev-names-exclude (
+            "ELAN0676:00 04F3:3195 Touchpad"
+            "ELAN0676:00 04F3:3195 Mouse"
+            "TPPS/2 Elan TrackPoint"
+            "ThinkPad Extra Buttons"
+          )
+        '';
         config = ''
           (defvar
             tap-time 150
@@ -49,7 +48,7 @@
             f10 f11 f12
             lmet rmet
             lsft rsft
-            lctl rctl 
+            lctl rctl
             lalt ralt
             spc
             mousebackward mouseforward

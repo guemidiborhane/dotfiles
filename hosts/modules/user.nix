@@ -7,7 +7,7 @@
     description = cfg.user.fullName;
     uid = 1000;
     group = cfg.user.username;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "uinput" ];
     shell = pkgs.unstable.${cfg.user.shell};
     homeMode = "0700";
     openssh.authorizedKeys.keys = cfg.user.sshKeys;

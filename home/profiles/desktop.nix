@@ -28,7 +28,6 @@
     libreoffice-fresh
     mission-center
     obs-studio
-    solaar
     viewnior
     anydesk
     teamviewer
@@ -37,6 +36,7 @@
     sunsetr
     tor-browser
     vdhcoapp
+    playerctl
     # Communication
     vesktop
     signal-desktop
