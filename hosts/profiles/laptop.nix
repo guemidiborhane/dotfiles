@@ -20,7 +20,7 @@ in
 
   services.tlp = import ../modules/services/tlp.nix { inherit power; };
   services.libinput.enable = features.touchpad;
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 
   programs.light.enable = features.backlight;
 }
