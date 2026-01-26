@@ -20,6 +20,10 @@
     vicinae.url = "github:vicinaehq/vicinae";
     nur.url = "github:nix-community/NUR";
     nur.inputs.nixpkgs.follows = "nixpkgs";
+    wlctl = {
+      url = "github:aashish-thapa/wlctl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

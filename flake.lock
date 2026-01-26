@@ -294,6 +294,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "vicinae": "vicinae",
+        "wlctl": "wlctl",
         "zen-browser": "zen-browser"
       }
     },
@@ -328,6 +329,26 @@
       "original": {
         "owner": "vicinaehq",
         "repo": "vicinae",
+        "type": "github"
+      }
+    },
+    "wlctl": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766888398,
+        "narHash": "sha256-XxLkWLKncv5tGejEQlVnLe8TSdXLe7QLLPKP9y/NhG4=",
+        "owner": "aashish-thapa",
+        "repo": "wlctl",
+        "rev": "7b2c5b014a59e663f4c415427cbcf341f6bccf25",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aashish-thapa",
+        "repo": "wlctl",
         "type": "github"
       }
     },

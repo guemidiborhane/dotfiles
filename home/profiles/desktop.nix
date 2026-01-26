@@ -16,7 +16,7 @@
     pulseaudio
     brightnessctl
     networkmanagerapplet
-    impala
+    inputs.wlctl.packages.${pkgs.stdenv.hostPlatform.system}.default
     bluetui
     dbeaver-bin
     evince
