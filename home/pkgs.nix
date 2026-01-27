@@ -32,4 +32,5 @@ with pkgs; [
   k3d
   sendme
   tidy-viewer
+  wireguard-tools
 ]
