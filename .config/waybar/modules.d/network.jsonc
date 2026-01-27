@@ -30,10 +30,10 @@
   },
   "custom/vpn": {
     "return-type": "json",
-    "exec": "~/.config/waybar/scripts/vpn_monitor.py",
-    "on-click": "~/.local/bin/vpn connect",
-    "on-click-right": "~/.local/bin/vpn disconnect",
-    "on-click-middle": "~/.local/bin/vpn reconnect"
+    "exec": "vpn waybar",
+    "on-click": "vpn connect",
+    "on-click-right": "vpn disconnect",
+    "on-click-middle": "vpn reconnect"
   },
   "bluetooth": {
     "format": "{icon}",
