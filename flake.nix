@@ -147,11 +147,29 @@
             })
 
             # State version
-            ({ cfg, ... }: {
-              system.stateVersion = cfg.metadata.stateVersion;
+            ({ cfg, meta, ... }: let
+              host = meta.host;
+              defaults = cfg.defaults;
+
+              # Merge defaults with host-specific overrides
+              features = defaults.features // (host.features or {});
+            in {
+              system = {
+                stateVersion = cfg.metadata.stateVersion;
+                autoUpgrade = {
+                  enable = features.auto_update;
+                  allowReboot = false;
+                  flake = "github:guemidiborhane/nix-config";
+                  flags = [
+                    "--recreate-lock-file"
+                    "--no-write-lock-file"
+                    "-L" # print build logs
+                  ];
+                  dates = "daily";
+                };
+              };
             })
-          ]
-          ++ hardwareModules;
+          ] ++ hardwareModules;
       };
     })
     hosts);
