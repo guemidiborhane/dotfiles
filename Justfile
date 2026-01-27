@@ -56,7 +56,12 @@ disko host disk="":
 
 # Install NixOS
 nixos-install host:
-    sudo nixos-install --verbose --flake .#{{ host }}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    SUBS="$(nix eval .#nixosConfigurations.{{ host }}.config.nix.settings.extra-substituters --json | jq -r 'join(" ")')"
+    KEYS="$(nix eval .#nixosConfigurations.{{ host }}.config.nix.settings.extra-trusted-public-keys --json | jq -r 'join(" ")')"
+    sudo nixos-install --verbose --flake .#{{ host }} --option extra-substituters "$SUBS" --option extra-trusted-public-keys "$KEYS"
 
 # Add new host
 add-host name type="laptop" disk="/dev/sda" ram="16" cpu="intel" gpu="intel" description="" hardware="":
