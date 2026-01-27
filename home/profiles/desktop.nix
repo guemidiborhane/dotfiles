@@ -8,7 +8,6 @@
 
   home.packages = with pkgs; [
     pkgs.nur.repos.nltch.spotify-adblock
-    bitwarden-desktop
     waybar
     banana-cursor
     hyprlock

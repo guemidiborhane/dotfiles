@@ -23,6 +23,10 @@ in
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
+  environment.systemPackages = with pkgs; [
+    bitwarden-desktop
+  ];
+
   fonts.packages = with pkgs; [
      cantarell-fonts
      nerd-fonts.monaspace
