@@ -1,6 +1,6 @@
 {
   "network#wifi": {
-    "interface": "wlan*",
+    "interface": "wlp*",
     "format": "{icon}",
     "format-disconnected": "󰤮",
     "format-disabled": "󰤭",
@@ -11,7 +11,7 @@
       "󰤥",
       "󰤨"
     ],
-    "on-click": "terminal-popup impala"
+    "on-click": "terminal-popup wlctl"
   },
   "network#ethernet": {
     "interface": "enp*",
