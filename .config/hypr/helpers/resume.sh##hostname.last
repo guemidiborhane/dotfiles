@@ -6,6 +6,6 @@ $run --workspace 1 --focus -- zen-browser
 $run -- Telegram
 $run -- signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
 $run -- vesktop --wayland
-$run -- betterbird
-$run --name spotify -- gtk-launch spotify-adblock
+$run -- thunderbird
+$run --name spotify -- spotify $(cat ~/.config/spotify-flags.conf)
 $run --workspace 3 -- $TERMINAL -e fish -c 'tn monitors'
