@@ -5,5 +5,5 @@
     enableTmuxIntegration = false; # already handled
   };
 
-  home.file."sesh/sesh.toml".enable = lib.mkForce false;
+  home.file.".config/sesh/sesh.toml".enable = lib.mkForce false;
 }
