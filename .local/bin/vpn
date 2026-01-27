@@ -1,87 +1,670 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+# VPN Manager - Enhanced version with better non-root support
+# Supports: WireGuard, OpenVPN, Netbird
 
-function nc() {
-  nmcli connection "$@"
+set -e
+
+# Configuration
+VPN_CONFIG_DIR="${VPN_CONFIG_DIR:-$HOME/.config/vpn}"
+WIREGUARD_DIR="${WIREGUARD_DIR:-/etc/wireguard}"
+WIREGUARD_USER_DIR="${WIREGUARD_USER_DIR:-$HOME/.config/wireguard}"
+OPENVPN_DIR="${OPENVPN_DIR:-/etc/openvpn}"
+OPENVPN_USER_DIR="${OPENVPN_USER_DIR:-$HOME/.config/openvpn}"
+NETBIRD_SOCKET="${NETBIRD_SOCKET:-/var/run/netbird/sock}"
+STATE_DIR="${XDG_RUNTIME_DIR:-/tmp}/vpn-manager"
+
+# Create state directory
+mkdir -p "$STATE_DIR"
+
+# Dmenu wrapper for easy swapping (rofi, wofi, etc.)
+dmenu_cmd() {
+  ${DMENU_CMD:-dmenu} -p "$1"
 }
 
-function dmenu() {
-  command dmenu --placeholder "$1"
-}
-
-function iface_with_ip() {
-  iface=$1
-  ip=$(nmcli -g ip4.address con show "$iface")
-  echo "$iface: $ip"
-}
-
-if [ $# -eq 0 ]; then
-  icon="" # lock
-  class="up"
-  connected=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $1}')
-  if [ -n "$connected" ]; then
-    status=$(echo -e "$connected" | xargs -I % bash -c "$(declare -f iface_with_ip); iface_with_ip %" | tr '\n' ',' | sed 's/,$//' | sed 's/,/\\n/g')
+# Privilege escalation wrapper
+run_privileged() {
+  if [ "$(id -u)" -eq 0 ]; then
+    "$@"
+  elif command -v pkexec >/dev/null 2>&1; then
+    pkexec "$@"
+  elif command -v doas >/dev/null 2>&1; then
+    doas "$@"
+  elif command -v sudo >/dev/null 2>&1; then
+    sudo "$@"
   else
-    status=$(echo -e "$connected" | tr '\n' ', ' | sed 's/,$//')
+    echo "Error: No privilege escalation tool found (pkexec, doas, or sudo). Some operations may fail." >&2
+    "$@" # Try anyway
   fi
-  if [ -z "$status" ]; then
-    icon=""
-    status=""
-    class="down"
+}
+
+# Check if running with privileges
+has_privileges() {
+  [ "$(id -u)" -eq 0 ] || command -v pkexec >/dev/null 2>&1 || command -v doas >/dev/null 2>&1 || command -v sudo >/dev/null 2>&1
+}
+
+# Detect VPN type from config/interface name
+detect_vpn_type() {
+  name="$1"
+
+  # Check WireGuard (system and user configs)
+  for dir in "$WIREGUARD_DIR" "$WIREGUARD_USER_DIR"; do
+    if [ -f "$dir/$name.conf" ]; then
+      echo "wireguard"
+      return 0
+    fi
+  done
+
+  if ip link show "$name" 2>/dev/null | grep -q wireguard; then
+    echo "wireguard"
+    return 0
   fi
-  echo "{\"text\": \"$icon\", \"tooltip\": \"$status\", \"class\": \"$class\"}"
-  exit 0
-fi
 
-CONNECTIONS=$(nc show | grep -iE 'vpn|wireguard' | awk '{print $1}')
-ACTIVE_CONNECTIONS=$(nc show --active | grep -iE 'vpn|wireguard' | awk '{print $1}')
-INACTIVE_CONNECTIONS=$CONNECTIONS
+  # Check OpenVPN (system and user configs)
+  for dir in "$OPENVPN_DIR" "$OPENVPN_DIR/client" "$OPENVPN_USER_DIR"; do
+    if [ -f "$dir/$name.conf" ]; then
+      echo "openvpn"
+      return 0
+    fi
+  done
 
-if [ -n "$ACTIVE_CONNECTIONS" ]; then
-  REGEX=$(echo "$ACTIVE_CONNECTIONS" | tr '\n' '|' | sed 's/|$/\n/')
-  INACTIVE_CONNECTIONS=$(echo "$CONNECTIONS" | grep -v -E "($REGEX)$")
-fi
+  # Check Netbird
+  if echo "$name" | grep -qE '^(netbird|wt)'; then
+    echo "netbird"
+    return 0
+  fi
 
-function _connection() {
-  command=$1 # connect || disconnect || reconnect
-  optional_connections="all\ncancel\n"
+  echo "unknown"
+}
 
-  case $command in
-  connect | c)
-    connections="$INACTIVE_CONNECTIONS"
+# List all available VPN configurations
+list_vpns() {
+  vpns=""
+
+  # WireGuard configs (system and user)
+  for dir in "$WIREGUARD_DIR" "$WIREGUARD_USER_DIR"; do
+    [ -d "$dir" ] || continue
+    for conf in "$dir"/*.conf; do
+      [ -f "$conf" ] || continue
+      name=$(basename "$conf" .conf)
+      # Mark user configs
+      if [ "$dir" = "$WIREGUARD_USER_DIR" ]; then
+        if [ -z "$vpns" ]; then
+          vpns="$name:wireguard:user"
+        else
+          vpns="$vpns
+$name:wireguard:user"
+        fi
+      else
+        if [ -z "$vpns" ]; then
+          vpns="$name:wireguard:system"
+        else
+          vpns="$vpns
+$name:wireguard:system"
+        fi
+      fi
+    done
+  done
+
+  # OpenVPN configs (system and user)
+  for dir in "$OPENVPN_DIR" "$OPENVPN_DIR/client" "$OPENVPN_USER_DIR"; do
+    [ -d "$dir" ] || continue
+    for conf in "$dir"/*.conf; do
+      [ -f "$conf" ] || continue
+      name=$(basename "$conf" .conf)
+      # Mark user configs
+      if [ "$dir" = "$OPENVPN_USER_DIR" ]; then
+        if [ -z "$vpns" ]; then
+          vpns="$name:openvpn:user"
+        else
+          vpns="$vpns
+$name:openvpn:user"
+        fi
+      else
+        if [ -z "$vpns" ]; then
+          vpns="$name:openvpn:system"
+        else
+          vpns="$vpns
+$name:openvpn:system"
+        fi
+      fi
+    done
+  done
+
+  # Netbird
+  if command -v netbird >/dev/null 2>&1 || [ -e "$NETBIRD_SOCKET" ]; then
+    if [ -z "$vpns" ]; then
+      vpns="netbird:netbird:user"
+    else
+      vpns="$vpns
+netbird:netbird:user"
+    fi
+  fi
+
+  echo "$vpns" | sort -u
+}
+
+# Get active VPN connections
+get_active_vpns() {
+  active=""
+
+  # WireGuard interfaces
+  if command -v wg >/dev/null 2>&1; then
+    wg_active=$(wg show interfaces 2>/dev/null || true)
+    for iface in $wg_active; do
+      # Skip netbird interfaces (wt0, wt1, etc.) - they're detected separately
+      case "$iface" in
+      wt[0-9] | wt[0-9][0-9])
+        continue
+        ;;
+      esac
+
+      if [ -z "$active" ]; then
+        active="$iface:wireguard"
+      else
+        active="$active
+$iface:wireguard"
+      fi
+    done
+  fi
+
+  # OpenVPN processes (system)
+  if command -v pgrep >/dev/null 2>&1; then
+    pgrep -f "openvpn.*--config" 2>/dev/null | while read -r pid; do
+      conf=$(ps -p "$pid" -o args= 2>/dev/null | sed -n 's/.*--config[= ]\([^ ]*\).*/\1/p')
+      if [ -n "$conf" ]; then
+        name=$(basename "$conf" .conf)
+        if [ -z "$active" ]; then
+          active="$name:openvpn"
+        else
+          active="$active
+$name:openvpn"
+        fi
+      fi
+    done
+  fi
+
+  # OpenVPN user processes (check state dir)
+  for pidfile in "$STATE_DIR"/openvpn-*.pid; do
+    [ -f "$pidfile" ] || continue
+    if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+      name=$(basename "$pidfile" .pid | sed 's/^openvpn-//')
+      if [ -z "$active" ]; then
+        active="$name:openvpn"
+      else
+        active="$active
+$name:openvpn"
+      fi
+    fi
+  done
+
+  # Netbird status - only add if not already in list as wt* interface
+  if command -v netbird >/dev/null 2>&1; then
+    if netbird status 2>/dev/null | grep -q "Management: Connected"; then
+      # Get the actual interface name (wt0, wt1, etc.)
+      iface=$(ip -br link show | grep -E '^wt[0-9]' | awk '{print $1}' | head -n1)
+      if [ -n "$iface" ]; then
+        # Check if already added as wt* interface
+        if ! echo "$active" | grep -q "^$iface:"; then
+          if [ -z "$active" ]; then
+            active="$iface:netbird"
+          else
+            active="$active
+$iface:netbird"
+          fi
+        fi
+      else
+        # No interface found, use generic netbird name
+        if [ -z "$active" ]; then
+          active="netbird:netbird"
+        else
+          active="$active
+netbird:netbird"
+        fi
+      fi
+    fi
+  fi
+
+  echo "$active" | sort -u
+}
+
+# Get IP address for a VPN interface
+get_vpn_ip() {
+  iface="$1"
+
+  # Try to get IPv4 address
+  ipv4=$(ip -4 addr show "$iface" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1 | head -n1)
+
+  if [ -n "$ipv4" ]; then
+    echo "$ipv4"
+    return 0
+  fi
+
+  # Fallback: try to find interface by partial match (for netbird wt0, wt1, etc.)
+  for if in $(ip -br link show | awk '{print $1}'); do
+    case "$if" in
+    "$iface"* | *"$iface"*)
+      ipv4=$(ip -4 addr show "$if" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1 | head -n1)
+      [ -n "$ipv4" ] && echo "$ipv4" && return 0
+      ;;
+    esac
+  done
+}
+
+# Find config file location
+find_config() {
+  name="$1"
+  type="$2"
+
+  case "$type" in
+  wireguard)
+    for dir in "$WIREGUARD_USER_DIR" "$WIREGUARD_DIR"; do
+      if [ -f "$dir/$name.conf" ]; then
+        echo "$dir/$name.conf"
+        return 0
+      fi
+    done
     ;;
-  disconnect | reconnect | d | r)
-    connections="$optional_connections$ACTIVE_CONNECTIONS"
+  openvpn)
+    for dir in "$OPENVPN_USER_DIR" "$OPENVPN_DIR/client" "$OPENVPN_DIR"; do
+      if [ -f "$dir/$name.conf" ]; then
+        echo "$dir/$name.conf"
+        return 0
+      fi
+    done
     ;;
+  esac
+
+  return 1
+}
+
+# Connect to VPN
+vpn_connect() {
+  name="$1"
+  type="$2"
+
+  case "$type" in
+  wireguard)
+    if ! command -v wg-quick >/dev/null 2>&1; then
+      echo "Error: wg-quick not found" >&2
+      return 1
+    fi
+
+    # Try to find config
+    conf=$(find_config "$name" "wireguard")
+    if [ -z "$conf" ]; then
+      echo "Error: WireGuard config not found: $name" >&2
+      return 1
+    fi
+
+    # Check if it's a user config
+    if echo "$conf" | grep -q "$WIREGUARD_USER_DIR"; then
+      # User config - use full path with wg-quick
+      run_privileged wg-quick up "$conf"
+    else
+      # System config - use just the name (wg-quick looks in /etc/wireguard/)
+      run_privileged wg-quick up "$name"
+    fi
+    ;;
+
+  openvpn)
+    if ! command -v openvpn >/dev/null 2>&1; then
+      echo "Error: openvpn not found" >&2
+      return 1
+    fi
+
+    conf=$(find_config "$name" "openvpn")
+    if [ -z "$conf" ]; then
+      echo "Error: OpenVPN config not found: $name" >&2
+      return 1
+    fi
+
+    # Check if it's a user config
+    if echo "$conf" | grep -q "$OPENVPN_USER_DIR"; then
+      # User config - run in user space
+      pidfile="$STATE_DIR/openvpn-$name.pid"
+      logfile="$STATE_DIR/openvpn-$name.log"
+      openvpn --daemon --config "$conf" \
+        --writepid "$pidfile" \
+        --log "$logfile" \
+        --script-security 2
+    else
+      # System config - need privileges
+      run_privileged openvpn --daemon --config "$conf" \
+        --writepid "/var/run/openvpn-$name.pid"
+    fi
+    ;;
+
+  netbird)
+    if ! command -v netbird >/dev/null 2>&1; then
+      echo "Error: netbird not found" >&2
+      return 1
+    fi
+    netbird up
+    ;;
+
   *)
-    echo $"Usage: $0 {connect|disconnect|reconnect}"
-    exit 1
-    ;;
-  esac
-
-  if [[ -z "$connections" || "$connections" == "$optional_connections" ]]; then exit 1; fi
-
-  connection=$(echo -e "$connections" | dmenu $command)
-  targets=$connection
-  case $connection in
-  all)
-    targets=$(echo -e "$connections" | grep -v -E '(cancel|all)')
-    ;;
-  cancel)
-    exit 1
-    ;;
-  esac
-
-  case $command in
-  connect | c)
-    echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc up %"
-    ;;
-  disconnect | d)
-    echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %"
-    ;;
-  reconnect | r)
-    echo "$targets" | xargs -I % bash -c "$(declare -f nc); nc down %; nc up %"
+    echo "Error: Unknown VPN type: $type" >&2
+    return 1
     ;;
   esac
 }
 
-_connection $@
+# Disconnect from VPN
+vpn_disconnect() {
+  name="$1"
+  type="$2"
+
+  case "$type" in
+  wireguard)
+    if ! command -v wg-quick >/dev/null 2>&1; then
+      return 1
+    fi
+
+    # Check if this is a user config
+    conf=$(find_config "$name" "wireguard")
+    if [ -n "$conf" ] && echo "$conf" | grep -q "$WIREGUARD_USER_DIR"; then
+      # User config - use full path
+      run_privileged wg-quick down "$conf"
+    else
+      # System config - use just the name
+      run_privileged wg-quick down "$name"
+    fi
+    ;;
+
+  openvpn)
+    # Check user pid first
+    pidfile="$STATE_DIR/openvpn-$name.pid"
+    if [ -f "$pidfile" ]; then
+      if kill "$(cat "$pidfile")" 2>/dev/null; then
+        rm -f "$pidfile"
+        return 0
+      fi
+    fi
+
+    # Check system pid
+    pidfile="/var/run/openvpn-$name.pid"
+    if [ -f "$pidfile" ]; then
+      run_privileged kill "$(cat "$pidfile")"
+      run_privileged rm -f "$pidfile"
+    else
+      # Fallback: kill by process name
+      if has_privileges; then
+        run_privileged pkill -f "openvpn.*$name"
+      else
+        pkill -f "openvpn.*$name" 2>/dev/null || true
+      fi
+    fi
+    ;;
+
+  netbird)
+    if command -v netbird >/dev/null 2>&1; then
+      netbird down
+    fi
+    ;;
+
+  *)
+    echo "Error: Unknown VPN type: $type" >&2
+    return 1
+    ;;
+  esac
+}
+
+# Reconnect VPN
+vpn_reconnect() {
+  name="$1"
+  type="$2"
+
+  vpn_disconnect "$name" "$type" 2>/dev/null || true
+  sleep 1
+  vpn_connect "$name" "$type"
+}
+
+# Output JSON for waybar
+output_json() {
+  icon=""
+  class="up"
+  status=""
+
+  active=$(get_active_vpns)
+
+  if [ -z "$active" ]; then
+    icon=""
+    class="down"
+    printf '{"text": "%s", "tooltip": "%s", "class": "%s"}\n' "$icon" "$status" "$class"
+    return 0
+  fi
+
+  # Build status with interface names and IPs
+  # Use a temp file to avoid subshell variable scope issues
+  tmpfile="${TMPDIR:-/tmp}/vpn-status-$$"
+
+  # Process each line - handle both newline-separated and single entries
+  echo "$active" | while IFS=: read -r name type; do
+    [ -z "$name" ] && continue
+    ip=$(get_vpn_ip "$name")
+
+    # For netbird, show friendly name instead of interface
+    display_name="$name"
+    if [ "$type" = "netbird" ]; then
+      display_name="netbird"
+    fi
+
+    if [ -n "$ip" ]; then
+      echo "$display_name: $ip"
+    else
+      echo "$display_name"
+    fi
+  done >"$tmpfile"
+
+  # Read the temp file and build tooltip
+  if [ -f "$tmpfile" ]; then
+    status=$(cat "$tmpfile" | tr '\n' '|' | sed 's/|$//' | sed 's/|/\\n/g')
+    rm -f "$tmpfile"
+  fi
+
+  printf '{"text": "%s", "tooltip": "%s", "class": "%s"}\n' "$icon" "$status" "$class"
+}
+
+# Interactive menu for connection management
+interactive_menu() {
+  action="$1"
+
+  all_vpns=$(list_vpns)
+  active_vpns=$(get_active_vpns)
+
+  case "$action" in
+  connect | c)
+    # Show only inactive VPNs
+    inactive=$(echo "$all_vpns" | while IFS=: read -r name type scope; do
+      # Special handling for netbird - check if any netbird is active
+      if [ "$type" = "netbird" ]; then
+        if echo "$active_vpns" | grep -q ":netbird$"; then
+          # Netbird already active, skip it
+          continue
+        fi
+      else
+        # For other VPNs, check by name
+        if echo "$active_vpns" | grep -q "^$name:"; then
+          continue
+        fi
+      fi
+
+      # This VPN is inactive, add to list
+      if [ "$scope" = "user" ]; then
+        printf "%s:%s [user]\n" "$name" "$type"
+      else
+        printf "%s:%s\n" "$name" "$type"
+      fi
+    done)
+
+    if [ -z "$inactive" ]; then
+      echo "No VPNs available to connect" >&2
+      exit 1
+    fi
+
+    selection=$(echo "$inactive" | sed 's/ \[user\]$//' | cut -d: -f1 | dmenu_cmd "Connect VPN")
+    [ -z "$selection" ] && exit 1
+
+    type=$(echo "$all_vpns" | grep "^$selection:" | cut -d: -f2 | head -n1)
+    vpn_connect "$selection" "$type"
+    ;;
+
+  disconnect | d)
+    if [ -z "$active_vpns" ]; then
+      echo "No active VPNs to disconnect" >&2
+      exit 1
+    fi
+
+    # Build friendly display names
+    display_list=$(echo "$active_vpns" | while IFS=: read -r name type; do
+      # For netbird, show 'netbird' instead of 'wt0'
+      if [ "$type" = "netbird" ]; then
+        echo "netbird:$type"
+      else
+        echo "$name:$type"
+      fi
+    done)
+
+    options="all
+cancel
+$display_list"
+    selection=$(echo "$options" | cut -d: -f1 | dmenu_cmd "Disconnect VPN")
+
+    case "$selection" in
+    cancel | "")
+      exit 1
+      ;;
+    all)
+      echo "$active_vpns" | while IFS=: read -r name type; do
+        vpn_disconnect "$name" "$type"
+      done
+      ;;
+    *)
+      # Find the actual interface name for the selection
+      type=$(echo "$display_list" | grep "^$selection:" | cut -d: -f2)
+      if [ "$selection" = "netbird" ]; then
+        # Get the actual interface (wt0)
+        actual_name=$(echo "$active_vpns" | grep ":netbird$" | cut -d: -f1)
+        vpn_disconnect "$actual_name" "$type"
+      else
+        vpn_disconnect "$selection" "$type"
+      fi
+      ;;
+    esac
+    ;;
+
+  reconnect | r)
+    if [ -z "$active_vpns" ]; then
+      echo "No active VPNs to reconnect" >&2
+      exit 1
+    fi
+
+    # Build friendly display names
+    display_list=$(echo "$active_vpns" | while IFS=: read -r name type; do
+      # For netbird, show 'netbird' instead of 'wt0'
+      if [ "$type" = "netbird" ]; then
+        echo "netbird:$type"
+      else
+        echo "$name:$type"
+      fi
+    done)
+
+    options="all
+cancel
+$display_list"
+    selection=$(echo "$options" | cut -d: -f1 | dmenu_cmd "Reconnect VPN")
+
+    case "$selection" in
+    cancel | "")
+      exit 1
+      ;;
+    all)
+      echo "$active_vpns" | while IFS=: read -r name type; do
+        vpn_reconnect "$name" "$type"
+      done
+      ;;
+    *)
+      # Find the actual interface name for the selection
+      type=$(echo "$display_list" | grep "^$selection:" | cut -d: -f2)
+      if [ "$selection" = "netbird" ]; then
+        # Get the actual interface (wt0)
+        actual_name=$(echo "$active_vpns" | grep ":netbird$" | cut -d: -f1)
+        vpn_reconnect "$actual_name" "$type"
+      else
+        vpn_reconnect "$selection" "$type"
+      fi
+      ;;
+    esac
+    ;;
+
+  *)
+    echo "Usage: $0 {connect|disconnect|reconnect|status|list}" >&2
+    exit 1
+    ;;
+  esac
+}
+
+# Main logic
+case "${1:-status}" in
+status | "")
+  output_json
+  ;;
+list)
+  list_vpns
+  ;;
+active)
+  get_active_vpns
+  ;;
+connect | c)
+  interactive_menu connect
+  ;;
+disconnect | d)
+  interactive_menu disconnect
+  ;;
+reconnect | r)
+  interactive_menu reconnect
+  ;;
+waybar | monitor)
+  # Waybar monitor mode - watch for VPN changes and output JSON
+  output_json
+  last_output=$(output_json)
+
+  # Monitor network link changes
+  ip monitor link 2>/dev/null | while read -r line; do
+    # Check if this is a VPN-related interface
+    case "$line" in
+    *wt[0-9]* | *wg[0-9]* | *tun* | *tap* | *netbird*)
+      # Wait a moment for interface to stabilize
+      sleep 0.5
+
+      # Get new status
+      current_output=$(output_json)
+
+      # Only output if changed
+      if [ "$current_output" != "$last_output" ]; then
+        echo "$current_output"
+        last_output="$current_output"
+      fi
+      ;;
+    esac
+  done &
+  monitor_pid=$!
+
+  # Fallback: also poll every 10 seconds in case ip monitor misses something
+  while true; do
+    sleep 10
+    current_output=$(output_json)
+    if [ "$current_output" != "$last_output" ]; then
+      echo "$current_output"
+      last_output="$current_output"
+    fi
+  done
+
+  # Cleanup on exit
+  trap "kill $monitor_pid 2>/dev/null; exit" INT TERM EXIT
+  ;;
+*)
+  echo "Usage: $0 {status|list|active|connect|disconnect|reconnect|waybar}" >&2
+  exit 1
+  ;;
+esac
