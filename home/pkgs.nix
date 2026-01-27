@@ -14,7 +14,7 @@ with pkgs; [
   inxi
   iperf3
   jq
-  yq-go
+  yq
   net-tools
   ntfs3g
   parallel
