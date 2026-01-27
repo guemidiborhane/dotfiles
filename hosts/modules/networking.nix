@@ -1,4 +1,10 @@
-{ pkgs, meta, ... }: {
+{ pkgs, meta, helpers, ... }:
+let
+  netbirdServer = {
+    Scheme = "https";
+    Host = helpers.base64.decode "YmlyZC5uZXRzeXMuZHo6NDQz";
+  };
+in {
   networking = {
     hostName = meta.host.hostname or meta.host.name; # Define your hostname.
     nameservers = [
@@ -33,9 +39,11 @@
 
   services.netbird = {
     enable = true;
-    clients.default.config = {
-      ManagementURL.Host = "bird.netsys.dz:443";
-      AdminURL.Host = "bird.netsys.dz:443";
+    clients.default = {
+      config = {
+        ManagementURL = netbirdServer;
+        AdminURL = netbirdServer;
+      };
     };
   };
 }
