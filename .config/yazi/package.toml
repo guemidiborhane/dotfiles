@@ -21,4 +21,4 @@ hash = "e519d894e94ded741e06aae4d4775981"
 [[flavor.deps]]
 use = "yazi-rs/flavors:dracula"
 rev = "2d73b79d"
-hash = "fc6944561718351d70cffde75839211f"
+hash = "266f47c20b471e766bad171853b94410"
