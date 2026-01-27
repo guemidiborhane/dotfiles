@@ -94,6 +94,7 @@ wifi = true
 touchpad = true
 backlight = true
 fingerprint = true
+kernel = "cachyos-latest-x86_64-v4"
 
 [hosts.kamui.power]
 tlp = true
