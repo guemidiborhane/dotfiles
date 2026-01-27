@@ -1,14 +1,14 @@
 [Default Applications]
-x-scheme-handler/http=zen.desktop
-x-scheme-handler/https=zen.desktop
-x-scheme-handler/chrome=zen.desktop
-text/html=zen.desktop
-application/x-extension-htm=zen.desktop
-application/x-extension-html=zen.desktop
-application/x-extension-shtml=zen.desktop
-application/xhtml+xml=zen.desktop
-application/x-extension-xhtml=zen.desktop
-application/x-extension-xht=zen.desktop
+x-scheme-handler/http=zen-beta.desktop
+x-scheme-handler/https=zen-beta.desktop
+x-scheme-handler/chrome=zen-beta.desktop
+text/html=zen-beta.desktop
+application/x-extension-htm=zen-beta.desktop
+application/x-extension-html=zen-beta.desktop
+application/x-extension-shtml=zen-beta.desktop
+application/xhtml+xml=zen-beta.desktop
+application/x-extension-xhtml=zen-beta.desktop
+application/x-extension-xht=zen-beta.desktop
 image/jpeg=viewnior.desktop
 image/png=viewnior.desktop
 image/heif=viewnior.desktop
@@ -19,11 +19,20 @@ x-scheme-handler/discord=vesktop.desktop
 x-scheme-handler/terminal=footclient.desktop
 application/yaml=nvim.desktop
 application/x-zerosize=nvim.desktop
+x-scheme-handler/tg=org.telegram.desktop.desktop
+x-scheme-handler/sgnl=signal.desktop
+x-scheme-handler/signalcaptcha=signal.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-2120J3.desktop
+message/rfc822=userapp-Thunderbird-2120J3.desktop
+x-scheme-handler/mid=userapp-Thunderbird-2120J3.desktop
 
 [Added Associations]
 application/x-shellscript=nvim.desktop;
 application/yaml=nvim.desktop;
 text/plain=nvim.desktop;
 application/x-zerosize=nvim.desktop;
-application/vnd.ogc.se_xml=zen.desktop;
+application/vnd.ogc.se_xml=zen-beta.desktop;
 image/svg+xml=org.inkscape.Inkscape.desktop;
+x-scheme-handler/tg=org.telegram.desktop.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-2120J3.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-2120J3.desktop;
