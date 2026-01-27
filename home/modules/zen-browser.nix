@@ -34,7 +34,7 @@
   };
 
   programs.zen-browser = {
-    enable = (meta.host.type != "headless");
+    enable = true;
     policies = let
       mkLockedAttrs = builtins.mapAttrs (_: value: {
         Value = value;
@@ -145,6 +145,9 @@
         "zen.theme.accent-color" = "#d4bbff";
         "zen.tabs.newtab-button-top" = false;
         "zen.tabs.show-newtab-vertical" = false;
+        "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
+        "zen.workspaces.separate-essentials" = false;
+        "zen.workspaces.open-new-tab-if-last-unpinned-tab-is-closed" = true;
       };
 
       mods = [
@@ -167,7 +170,7 @@
               }
             ];
             opacity = 1.0;
-            texture = 0.5;
+            texture = 0.0;
           };
         };
       };
@@ -211,6 +214,21 @@
           isEssential = true;
         };
       };
+      keyboardShortcuts = [
+        {
+          id = "zen-compact-mode-toggle";
+          key = "s";
+          modifiers = {
+            control = false;
+            alt = true;
+          };
+        }
+        # Disable the quit shortcut to prevent accidental closes
+        {
+          id = "key_quitApplication";
+          disabled = true;
+        }
+      ];
     };
   };
 }
