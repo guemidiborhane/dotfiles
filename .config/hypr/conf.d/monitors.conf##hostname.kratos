@@ -7,7 +7,7 @@ $scale = 1.07
 
 # Needed for workspace <-> monitor assignment
 $portraitMonitor = DP-1
-$mainMonitor = DP-2
+$mainMonitor = desc:LG Electronics webOS TV 0x01010101
 $secondaryMonitor = DP-3
 cursor:default_monitor = $mainMonitor
 
@@ -23,8 +23,9 @@ monitorv2 {
 # main monitor (center)
 monitorv2 {
   output = $mainMonitor
-  mode = $resolution
-  scale = $scale
+  mode = 3840x2160@60
+  scale = 1.5
+  bitdepth = 10
   position = auto-center-right
 }
 
@@ -34,13 +35,5 @@ monitorv2 {
   mode = $resolution
   scale = $scale
   position = auto-center-right
-}
-
-# TV
-monitorv2 {
-  output = desc:LG Electronics webOS TV 0x01010101
-  mode = 3840x2160@60
-  position = auto
-  scale = 1.5
-  bitdepth = 10
+  transform = 3
 }
