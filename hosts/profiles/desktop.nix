@@ -13,13 +13,13 @@ in
     printing = helpers.enabled;
     udisks2 = helpers.enabled;
     gvfs = helpers.enabled;
+    solaar = helpers.enabled;
+    fprintd.enable = features.fingerprint;
     pipewire = import ../modules/services/pipewire.nix;
   };
 
   hardware.bluetooth.enable = features.bluetooth;
   services.blueman.enable = features.bluetooth;
-  services.fprintd.enable = features.fingerprint;
-  services.solaar = helpers.enabled;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 

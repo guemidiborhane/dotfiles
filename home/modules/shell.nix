@@ -18,4 +18,5 @@
   programs.mise = import ./programs/mise.nix;
   programs.neovim = import ./programs/neovim.nix;
   programs.atuin = import ./programs/atuin.nix;
+  programs.btop = import ./programs/btop.nix;
 }
