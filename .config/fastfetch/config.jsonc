@@ -55,9 +55,7 @@
     {
       "key": " ",
       "keyColor": "blue",
-      "type": "command",
-      "text": "pacman -Qe | wc -l",
-      "format": "{} (explicit)"
+      "type": "packages",
     }
   ]
 }
