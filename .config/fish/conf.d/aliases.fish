@@ -23,7 +23,6 @@ alias t sesh-connect
 
 alias which "type -a"
 alias gzip pigz
-alias yeet "yay -Rncs"
 alias tv tidy-viewer
 
 set -x INITIAL_COMMIT_MSG "The same thing we do every night, Pinky - try to take over the world!"
