@@ -8,6 +8,7 @@
       memtest86.enable = builtins.elem pkgs.stdenv.hostPlatform.system pkgs.memtest86plus.meta.platforms;
     };
   };
+  boot.kernel.sysctl = { "vm.swappiness" = 10; };
 
   security.rtkit.enable = true;
   security.sudo.extraConfig = ''
