@@ -65,3 +65,17 @@ kernel = "cachyos-latest-x86_64-v4"
 tlp = true
 startChargeThreshold = 65
 stopChargeThreshold = 85
+
+[hosts.kotoamatsukami]
+hostname = "koto"
+type = "desktop"
+disk = "/dev/nvme0n1"
+ram = 64
+cpu = "amd"
+gpu = "nvidia"
+description = "5950X Workstation"
+
+[hosts.kotoamatsukami.features]
+bluetooth = true
+wifi = true
+kernel = "cachyos-latest-x86_64-v3"
