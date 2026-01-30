@@ -1,3 +1,6 @@
+# Nix command with experimental features
+nix := "nix --experimental-features 'nix-command flakes'"
+
 # Show this help message
 [default]
 @help:
@@ -5,15 +8,15 @@
 
 # Enter development shell
 dev:
-    nix develop
+    {{nix}} develop
 
 # Show all configured hosts
 list-hosts:
     @echo "Configured hosts:"
-    @nix eval --json --file - <<< 'builtins.attrNames (builtins.fromTOML (builtins.readFile ./config.toml)).hosts' | \
+    @{{nix}} eval --json --file - <<< 'builtins.attrNames (builtins.fromTOML (builtins.readFile ./config.toml)).hosts' | \
         jq -r '.[]' | while read host; do \
-            type=$(nix eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"$host\".type"); \
-            desc=$(nix eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"$host\".description"); \
+            type=$({{nix}} eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"$host\".type"); \
+            desc=$({{nix}} eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"$host\".description"); \
             echo "  • $host ($type) - $desc"; \
         done
 
@@ -24,12 +27,12 @@ show-config:
 # Show user configuration
 show-user:
     @echo "User Configuration:"
-    @nix eval --json --file - <<< '(builtins.fromTOML (builtins.readFile ./config.toml)).user' | jq
+    @{{nix}} eval --json --file - <<< '(builtins.fromTOML (builtins.readFile ./config.toml)).user' | jq
 
 # Show host configuration
 show-host host="":
     @echo "Configuration for {{ if host == "" { "$(hostname)" } else { host } }}:"
-    @nix eval --json --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{ if host == "" { "$(hostname)" } else { host } }}\"" | jq
+    @{{nix}} eval --json --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{ if host == "" { "$(hostname)" } else { host } }}\"" | jq
 
 # Full system install
 install host disk="": (disko host disk) (nixos-install host)
@@ -51,7 +54,7 @@ disko host disk="":
     echo "WARNING: This will DESTROY all data on $DISK"
     echo "Press Ctrl+C within 10 seconds to cancel..."
     sleep 10
-    sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- \
+    sudo {{nix}} run github:nix-community/disko -- \
         --mode disko --flake .#{{ host }}
 
 # Install NixOS
@@ -59,8 +62,8 @@ nixos-install host:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    SUBS="$(nix eval .#nixosConfigurations.{{ host }}.config.nix.settings.extra-substituters --json | jq -r 'join(" ")')"
-    KEYS="$(nix eval .#nixosConfigurations.{{ host }}.config.nix.settings.extra-trusted-public-keys --json | jq -r 'join(" ")')"
+    SUBS="$({{nix}} eval .#nixosConfigurations.{{ host }}.config.nix.settings.extra-substituters --json | jq -r 'join(" ")')"
+    KEYS="$({{nix}} eval .#nixosConfigurations.{{ host }}.config.nix.settings.extra-trusted-public-keys --json | jq -r 'join(" ")')"
     sudo nixos-install --verbose --flake .#{{ host }} --option extra-substituters "$SUBS" --option extra-trusted-public-keys "$KEYS"
 
 # Add new host
@@ -148,12 +151,12 @@ remove-host name:
 
 # Update flake
 update:
-    nix flake update
+    {{nix}} flake update
     @echo "Run 'just check-builds <host>' to verify"
 
 # Check build requirements
 check-builds host="":
-    nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 \
+    {{nix}} build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel --dry-run 2>&1 \
         | awk '/will be built:/,/will be fetched/' \
         | sed '1d;$d' | sed 's#.*/##' | rg -v 'completion'
 
@@ -167,7 +170,7 @@ rollback-update:
 
 # Validate config.toml
 validate:
-    @nix eval --json --file - <<< 'builtins.fromTOML (builtins.readFile ./config.toml)' > /dev/null && \
+    @{{nix}} eval --json --file - <<< 'builtins.fromTOML (builtins.readFile ./config.toml)' > /dev/null && \
         echo "config.toml is valid" || echo "config.toml has errors"
 
 # Clean system
@@ -176,16 +179,16 @@ clean:
 
 # Build configuration
 build host="":
-    nix build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel
+    {{nix}} build .#nixosConfigurations.{{ if host == "" { "$(hostname)" } else { host } }}.config.system.build.toplevel
 
 # Format nix files
 fmt:
-    nix fmt
+    {{nix}} fmt
 
 # Helper: Get username from config
 _get-username:
-    @nix eval --raw --file - <<< '(builtins.fromTOML (builtins.readFile ./config.toml)).user.username'
+    @{{nix}} eval --raw --file - <<< '(builtins.fromTOML (builtins.readFile ./config.toml)).user.username'
 
 # Helper: Get host disk
 _get-host-disk host="":
-    @nix eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{ if host == "" { "$(hostname)" } else { host } }}\".disk"
+    @{{nix}} eval --raw --file - <<< "(builtins.fromTOML (builtins.readFile ./config.toml)).hosts.\"{{ if host == "" { "$(hostname)" } else { host } }}\".disk"
