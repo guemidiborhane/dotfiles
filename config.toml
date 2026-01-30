@@ -22,8 +22,8 @@ wifi = true
 touchpad = false
 backlight = false
 fingerprint = false
-auto_update = false
-auto_reboot = false
+autoUpdate = false
+autoReboot = false
 zramSwap = true
 
 # Default power settings for laptops (can be overridden per-host)
@@ -81,3 +81,4 @@ description = "5950X Workstation"
 bluetooth = true
 wifi = true
 kernel = "cachyos-latest-x86_64-v3"
+autoUpdate = true
