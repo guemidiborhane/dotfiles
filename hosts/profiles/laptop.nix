@@ -1,13 +1,4 @@
-{ cfg, lib, pkgs, meta, ... }:
-
-let
-  host = meta.host;
-  defaults = cfg.defaults;
-
-  # Merge defaults with host-specific overrides
-  features = defaults.features // (host.features or {});
-  power = defaults.power // (host.power or {});
-in
+{ cfg, ... }:
 {
   imports = [
     ./desktop.nix
@@ -18,9 +9,9 @@ in
     powertop.enable = true;
   };
 
-  services.tlp = import ../modules/services/tlp.nix { inherit power; };
-  services.libinput.enable = features.touchpad;
+  services.tlp = import ../modules/services/tlp.nix { inherit cfg; };
+  services.libinput.enable = cfg.features.touchpad;
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 
-  programs.light.enable = features.backlight;
+  programs.light.enable = cfg.features.backlight;
 }

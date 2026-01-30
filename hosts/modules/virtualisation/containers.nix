@@ -1,4 +1,4 @@
-{ config, lib, pkgs, meta, ... }:
+{ pkgs, helpers, ... }:
 {
   virtualisation = {
     containers.enable = true;
@@ -11,7 +11,7 @@
     };
   };
 
-  hardware.nvidia-container-toolkit.enable = lib.mkIf (meta.host.gpu == "nvidia") true;
+  hardware.nvidia-container-toolkit.enable = helpers.hasNvidia;
 
   environment.systemPackages = with pkgs; [
     dive

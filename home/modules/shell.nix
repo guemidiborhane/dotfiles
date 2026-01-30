@@ -1,4 +1,4 @@
-{ pkgs, meta, config, helpers, ... }:
+{ helpers, ... }:
 {
   imports = [
     ./programs/fish.nix

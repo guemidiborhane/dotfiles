@@ -1,9 +1,4 @@
-{ cfg, lib, pkgs, meta, helpers, ... }:
-let
-  host = meta.host;
-  defaults = cfg.defaults;
-  features = defaults.features // (host.features or {});
-in
+{ cfg, lib, pkgs, helpers, ... }:
 {
   imports = [
     ../modules/hyprland.nix
@@ -14,12 +9,12 @@ in
     udisks2 = helpers.enabled;
     gvfs = helpers.enabled;
     solaar = helpers.enabled;
-    fprintd.enable = features.fingerprint;
+    fprintd.enable = cfg.features.fingerprint;
     pipewire = import ../modules/services/pipewire.nix;
   };
 
-  hardware.bluetooth.enable = features.bluetooth;
-  services.blueman.enable = features.bluetooth;
+  hardware.bluetooth.enable = cfg.features.bluetooth;
+  services.blueman.enable = cfg.features.bluetooth;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 

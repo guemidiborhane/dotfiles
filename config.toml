@@ -23,6 +23,7 @@ touchpad = false
 backlight = false
 fingerprint = false
 auto_update = false
+auto_reboot = false
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]

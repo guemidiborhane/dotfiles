@@ -1,4 +1,4 @@
-{ pkgs, meta, helpers, ... }:
+{ pkgs, cfg, helpers, ... }:
 let
   netbirdServer = {
     Scheme = "https";
@@ -6,7 +6,7 @@ let
   };
 in {
   networking = {
-    hostName = meta.host.hostname or meta.host.name; # Define your hostname.
+    hostName = cfg.host.hostname; # Define your hostname.
     nameservers = [
       "127.0.0.1:8853"
     ];

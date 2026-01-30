@@ -1,4 +1,4 @@
-{ pkgs, inputs, meta, helpers, ... }:
+{ pkgs, inputs, helpers, ... }:
 {
   imports = [
     ../modules/gnome-keyring.nix
@@ -45,7 +45,7 @@
   programs.ghostty = import ../modules/programs/ghostty.nix;
   programs.foot = import ../modules/programs/foot.nix;
   programs.vicinae = import ../modules/programs/vicinae.nix { inherit pkgs inputs; };
-  programs.zed-editor = import ../modules/programs/zed.nix { inherit pkgs meta; };
+  programs.zed-editor = import ../modules/programs/zed.nix { inherit pkgs; };
 
   services = import ../modules/services { inherit pkgs helpers; };
 

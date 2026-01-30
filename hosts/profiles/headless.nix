@@ -1,4 +1,4 @@
-{ config, lib, pkgs, meta, ... }:
+{ lib, ... }:
 {
   services.xserver.enable = lib.mkForce false;
   programs.hyprland.enable = lib.mkForce false;

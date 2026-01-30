@@ -5,47 +5,34 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     nixos-hardware.url = "github:NixOs/nixos-hardware/master";
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-    vicinae.url = "github:vicinaehq/vicinae";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     nur.inputs.nixpkgs.follows = "nixpkgs";
-    wlctl = {
-      url = "github:aashish-thapa/wlctl";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    solaar = {
-      url = "github:Svenum/Solaar-Flake"; # Uncomment line for latest unstable version
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser.inputs.home-manager.follows = "home-manager";
+    vicinae.url = "github:vicinaehq/vicinae";
+    wlctl.url = "github:aashish-thapa/wlctl";
+    wlctl.inputs.nixpkgs.follows = "nixpkgs";
+    solaar.url = "github:Svenum/Solaar-Flake";
+    solaar.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixos-hardware,
-    home-manager,
-    disko,
-    nur,
-    ...
-  } @ inputs: let
+  outputs = { self, nixpkgs, ... } @ inputs: let
     # Parse configuration
-    cfg = builtins.fromTOML (builtins.readFile ./config.toml);
+    tomlConfig = builtins.fromTOML (builtins.readFile ./config.toml);
 
     # Extract hosts
     hosts = builtins.attrValues (builtins.mapAttrs (name: hostConfig:
       hostConfig // { inherit name; })
-    cfg.hosts);
+    tomlConfig.hosts);
 
     # Supported systems
     systems = [
@@ -68,20 +55,14 @@
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays { inherit inputs; };
 
-    # Development shell
     devShells = forAllSystems ({ pkgs }: {
       default = import ./shell.nix { inherit pkgs; };
     });
 
     nixosConfigurations = builtins.listToAttrs (map (host: let
-      meta = {
-        inherit host;
-        swapSize = "${toString (host.ram + 2)}G";
-      };
-
       hardwareModules =
         if host ? hardware && host.hardware != ""
-        then [nixos-hardware.nixosModules.${host.hardware}]
+        then [inputs.nixos-hardware.nixosModules.${host.hardware}]
         else [];
 
       system = "x86_64-linux";
@@ -97,79 +78,58 @@
         };
       in
         default;
-      helpers = import ./libs/helpers.nix { inherit pkgs; };
-      specialArgs = { inherit inputs meta helpers cfg; };
+
+      cfg = import ./libs/config.nix {
+        inherit tomlConfig host pkgs;
+        lib = nixpkgs.lib;
+      };
+
+      helpers = import ./libs/helpers.nix { inherit pkgs cfg; };
+      specialArgs = { inherit inputs helpers cfg; };
     in {
       name = host.hostname or host.name;
       value = nixpkgs.lib.nixosSystem {
         inherit pkgs system specialArgs;
-        modules =
-          [
-            # Kernel configuration
-            ({pkgs, ...}: {
-              boot.kernelPackages =
-                if host.features.kernel or null != null
-                then pkgs.cachyosKernels."linuxPackages-${host.features.kernel}"
-                else pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-              nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
-            })
+        modules = [
+          # Core modules
+          inputs.disko.nixosModules.disko
 
-            # Core modules
-            nur.modules.nixos.default
-            disko.nixosModules.disko
-            inputs.solaar.nixosModules.default
+          # System configuration
+          ./hosts/disko.nix
+          ./hosts/common.nix
+          ./hosts/${host.name}/hardware-configuration.nix
+          ./hosts/modules/kernel.nix
+          ./hosts/modules/nix.nix
 
-            # System configuration
-            ./hosts/disko.nix
-            ./hosts/common.nix
-            ./hosts/${host.name}/hardware-configuration.nix
+          # Additional modules
+          inputs.nur.modules.nixos.default
+          inputs.solaar.nixosModules.default
+          ./hosts/modules/base-devel.nix
+          ./hosts/modules/networking.nix
+          ./hosts/modules/virtualisation
+          ./hosts/modules/user.nix
+          ./hosts/modules/pkgs.nix
+          ./hosts/modules/services
+          ./hosts/modules/programs
+          ./hosts/modules/kanata.nix
+          ./hosts/modules/auto-upgrade.nix
+          ./hosts/profiles/${host.type}.nix
 
-            # Additional modules
-            ./hosts/modules/nix.nix
-            ./hosts/modules/base-devel.nix
-            ./hosts/modules/networking.nix
-            ./hosts/modules/virtualisation
-            ./hosts/modules/user.nix
-            ./hosts/modules/pkgs.nix
-            ./hosts/modules/services
-            ./hosts/modules/programs
-            ./hosts/modules/kanata.nix
-            ./hosts/profiles/${host.type}.nix
+          # Home manager
+          inputs.home-manager.nixosModules.home-manager
+          ({ cfg, ... }: {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = specialArgs;
+            home-manager.users.${cfg.user.username} = import ./home;
+            home-manager.backupCommand = "trash";
+          })
 
-            # Home manager
-            home-manager.nixosModules.home-manager
-            ({
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = specialArgs;
-              home-manager.users.${cfg.user.username} = import ./home;
-              home-manager.backupCommand = "trash";
-            })
-
-            # State version
-            ({ cfg, meta, ... }: let
-              host = meta.host;
-              defaults = cfg.defaults;
-
-              # Merge defaults with host-specific overrides
-              features = defaults.features // (host.features or {});
-            in {
-              system = {
-                stateVersion = cfg.metadata.stateVersion;
-                autoUpgrade = {
-                  enable = features.auto_update;
-                  allowReboot = false;
-                  flake = "github:guemidiborhane/nix-config";
-                  flags = [
-                    "--recreate-lock-file"
-                    "--no-write-lock-file"
-                    "-L" # print build logs
-                  ];
-                  dates = "daily";
-                };
-              };
-            })
-          ] ++ hardwareModules;
+          # State version
+          ({ cfg, ... }: {
+            system.stateVersion = cfg.metadata.stateVersion;
+          })
+        ] ++ hardwareModules;
       };
     })
     hosts);

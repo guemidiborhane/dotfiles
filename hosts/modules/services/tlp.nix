@@ -1,4 +1,4 @@
-{ power, ... }:
+{ cfg, ... }:
 {
   enable = true;
   settings = {
@@ -14,8 +14,8 @@
     CPU_BOOST_ON_BAT = false;
     RADEON_DPM_STATE_ON_BAT = "battery";
 
-    START_CHARGE_THRESH_BAT0 = power.startChargeThreshold;
-    STOP_CHARGE_THRESH_BAT0 = power.stopChargeThreshold;
+    START_CHARGE_THRESH_BAT0 = cfg.power.startChargeThreshold;
+    STOP_CHARGE_THRESH_BAT0 = cfg.power.stopChargeThreshold;
     RESTORE_THRESHOLDS_ON_BAT = true;
   };
 }

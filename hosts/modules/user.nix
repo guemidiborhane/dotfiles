@@ -1,4 +1,4 @@
-{ pkgs, meta, cfg, config, ... }:
+{ pkgs, cfg, config, ... }:
 {
   users.groups.${cfg.user.username}.gid = 1000;
   # Define a user account. Don't forget to set a password with ‘passwd’.

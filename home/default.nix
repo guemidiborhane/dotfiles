@@ -1,6 +1,6 @@
-{ cfg, pkgs, lib, inputs, meta, helpers, ...}:
+{ cfg, pkgs, lib, helpers, ...}:
 let
-  isGUI = lib.elem meta.host.type [ "desktop" "laptop" ];
+  isGUI = !helpers.isHeadless;
 in {
   imports = [
     ./modules/git.nix
@@ -9,8 +9,8 @@ in {
   ] ++ lib.optional isGUI ./profiles/desktop.nix;
 
   home = import ./home.nix { inherit pkgs cfg; };
-  programs.yazi = helpers.enabled;
 
+  programs.yazi = helpers.enabled;
   programs.yadm = import ./modules/programs/yadm.nix { inherit cfg; };
   programs.home-manager = helpers.enabled;
 }

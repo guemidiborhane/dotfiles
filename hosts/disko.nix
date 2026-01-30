@@ -1,8 +1,11 @@
-{ meta, ... }: {
+{ cfg, ... }:
+let
+  host = cfg.host;
+in {
   disko.devices = let
-    device = meta.host.disk;
-    swapSize = "${toString meta.swapSize}G";
-    vgName = "${meta.host.name}-vg";
+    device = host.disk;
+    swapSize = "${toString host.swapSize}G";
+    vgName = "${host.name}-vg";
   in {
     disk.main = {
       inherit device;
@@ -47,7 +50,7 @@
             size = swapSize;
             content = {
               type = "swap";
-              resumeDevice = true; 
+              resumeDevice = true;
             };
           };
           root = {
