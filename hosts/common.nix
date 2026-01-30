@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, cfg, ... }:
 {
   # Bootloader.
   boot.loader = {
@@ -9,6 +9,12 @@
     };
   };
   boot.kernel.sysctl = { "vm.swappiness" = 10; };
+  zramSwap = {
+    enable = cfg.features.zramSwap;
+    priority = 100;
+    algorithm = "lz4";
+    memoryPercent = 30;
+  };
 
   security.rtkit.enable = true;
   security.sudo.extraConfig = ''

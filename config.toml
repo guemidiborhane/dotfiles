@@ -24,6 +24,7 @@ backlight = false
 fingerprint = false
 auto_update = false
 auto_reboot = false
+zramSwap = true
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]
