@@ -34,7 +34,6 @@
     megasync
     sunsetr
     tor-browser
-    vdhcoapp
     playerctl
     # Communication
     vesktop
