@@ -1,27 +1,13 @@
-{ pkgs, cfg, h, ... }:
-let
-  netbirdServer = {
-    Scheme = "https";
-    Host = h.base64.decode "YmlyZC5uZXRzeXMuZHo6NDQz";
-  };
-in {
+{ cfg, h, ... }:
+{
   networking = {
-    hostName = cfg.host.hostname; # Define your hostname.
-    nameservers = [
-      "127.0.0.1:8853"
-    ];
+    hostName = cfg.host.hostname;
+    nameservers = [ "127.0.0.1:8853" ];
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 3000 ];
-      # allowedUDPPorts = [  ];
     };
-  };
-
-  networking.networkmanager = {
-    enable = true;
-    plugins = with pkgs; [
-      networkmanager-openvpn
-    ];
+    networkmanager = h.enabled;
   };
 
   services.resolved = {
@@ -34,13 +20,5 @@ in {
     ];
   };
 
-  services.netbird = {
-    enable = true;
-    clients.default = {
-      config = {
-        ManagementURL = netbirdServer;
-        AdminURL = netbirdServer;
-      };
-    };
-  };
+  services.netbird = import ../modules/services/netbird.nix { inherit h; };
 }
