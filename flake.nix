@@ -107,6 +107,7 @@
           inputs.nur.modules.nixos.default
           inputs.solaar.nixosModules.default
           ./hosts/modules/base-devel.nix
+          ./hosts/modules/disks-mount.nix
           ./hosts/modules/networking.nix
           ./hosts/modules/virtualisation
           ./hosts/modules/user.nix

@@ -86,3 +86,10 @@ kernel = "cachyos-latest-x86_64-v3"
 autoUpdate = true
 wol = "enp6s0"
 remoteUnlock = true
+
+[hosts.kotoamatsukami.disks]
+"34B1213A561574D4" = "/mnt/2_5"
+"75cddeb8-910a-41da-8b8c-269dada60016" = "/mnt/3_5"
+"4d80e49e-7786-4543-aa34-7429908d3c8b" = "/mnt/320"
+"afe8ba39-fada-43da-ba0a-459498b1b062" = "/run/media/borhane/LACIE"
+"4A9DD7D4448B0F0A" = "/run/media/borhane/DATA"
