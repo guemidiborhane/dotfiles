@@ -42,5 +42,6 @@
   environment.shellAliases.ls = lib.mkForce null;
 
   imports = [ ]
-    ++ lib.optional (cfg.features.wol != false && cfg.features.wol != null) ./modules/wol.nix;
+    ++ lib.optional (cfg.features.wol != false && cfg.features.wol != null) ./modules/wol.nix
+    ++ lib.optional cfg.features.remoteUnlock ./modules/remote-unlock.nix;
 }

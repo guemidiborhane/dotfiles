@@ -26,6 +26,7 @@ autoUpdate = false
 autoReboot = false
 zramSwap = true
 wol = false
+remoteUnlock = false
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]
@@ -84,3 +85,4 @@ wifi = true
 kernel = "cachyos-latest-x86_64-v3"
 autoUpdate = true
 wol = "enp6s0"
+remoteUnlock = true
