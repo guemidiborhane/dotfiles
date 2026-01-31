@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let 
+let
   caches = import ./caches.nix;
 in {
   nix = {
@@ -12,5 +12,6 @@ in {
       extra-trusted-substituters = map (c: c.url) caches;
       extra-trusted-public-keys = map (c: c.key) caches;
     };
+    optimise.automatic = true;
   };
 }
