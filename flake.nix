@@ -84,8 +84,10 @@
         inherit (nixpkgs) lib;
       };
 
-      helpers = import ./libs/helpers.nix { inherit pkgs cfg; };
-      specialArgs = { inherit inputs helpers cfg; };
+      specialArgs = {
+        inherit inputs cfg;
+        h = import ./libs/helpers.nix { inherit pkgs cfg; };
+      };
     in {
       name = host.hostname or host.name;
       value = nixpkgs.lib.nixosSystem {

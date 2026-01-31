@@ -1,14 +1,14 @@
-{ cfg, lib, pkgs, helpers, ... }:
+{ cfg, lib, pkgs, h, ... }:
 {
   imports = [
     ../modules/hyprland.nix
   ];
 
   services = {
-    printing = helpers.enabled;
-    udisks2 = helpers.enabled;
-    gvfs = helpers.enabled;
-    solaar = helpers.enabled;
+    printing = h.enabled;
+    udisks2 = h.enabled;
+    gvfs = h.enabled;
+    solaar = h.enabled;
     fprintd.enable = cfg.features.fingerprint;
     pipewire = import ../modules/services/pipewire.nix;
   };

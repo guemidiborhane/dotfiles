@@ -1,8 +1,8 @@
-{ pkgs, cfg, helpers, ... }:
+{ pkgs, cfg, h, ... }:
 let
   netbirdServer = {
     Scheme = "https";
-    Host = helpers.base64.decode "YmlyZC5uZXRzeXMuZHo6NDQz";
+    Host = h.base64.decode "YmlyZC5uZXRzeXMuZHo6NDQz";
   };
 in {
   networking = {

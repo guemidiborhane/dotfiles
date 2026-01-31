@@ -1,4 +1,4 @@
-{ pkgs, helpers, ... }:
+{ pkgs, h, ... }:
 {
   virtualisation = {
     containers.enable = true;
@@ -11,7 +11,7 @@
     };
   };
 
-  hardware.nvidia-container-toolkit.enable = helpers.hasNvidia;
+  hardware.nvidia-container-toolkit.enable = h.hasNvidia;
 
   environment.systemPackages = with pkgs; [
     dive

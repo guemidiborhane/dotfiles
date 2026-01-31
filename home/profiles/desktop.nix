@@ -1,4 +1,4 @@
-{ pkgs, inputs, helpers, ... }:
+{ pkgs, inputs, h, ... }:
 {
   imports = [
     ../modules/gnome-keyring.nix
@@ -47,11 +47,11 @@
   programs.vicinae = import ../modules/programs/vicinae.nix { inherit pkgs inputs; };
   programs.zed-editor = import ../modules/programs/zed.nix { inherit pkgs; };
 
-  services = import ../modules/services { inherit pkgs helpers; };
+  services = import ../modules/services { inherit pkgs h; };
 
   programs = {
-    wezterm = helpers.enabled;
-    wlogout = helpers.enabled;
-    mpv = helpers.enabled;
+    wezterm = h.enabled;
+    wlogout = h.enabled;
+    mpv = h.enabled;
   };
 }

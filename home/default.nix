@@ -1,6 +1,6 @@
-{ cfg, pkgs, lib, helpers, ...}:
+{ cfg, pkgs, lib, h, ...}:
 let
-  isGUI = !helpers.isHeadless;
+  isGUI = !h.isHeadless;
 in {
   imports = [
     ./modules/git.nix
@@ -10,7 +10,7 @@ in {
 
   home = import ./home.nix { inherit pkgs cfg; };
 
-  programs.yazi = helpers.enabled;
+  programs.yazi = h.enabled;
   programs.yadm = import ./modules/programs/yadm.nix { inherit cfg; };
-  programs.home-manager = helpers.enabled;
+  programs.home-manager = h.enabled;
 }

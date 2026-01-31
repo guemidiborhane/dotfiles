@@ -1,8 +1,8 @@
-{ pkgs, helpers, ... }:
+{ pkgs, h, ... }:
 {
   services = {
-    fstrim = helpers.enabled;
-    fwupd = helpers.enabled;
+    fstrim = h.enabled;
+    fwupd = h.enabled;
     openssh = import ./openssh.nix;
   };
 }

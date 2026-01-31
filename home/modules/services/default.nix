@@ -1,11 +1,11 @@
-{ pkgs, helpers, ... }:
+{ pkgs, h, ... }:
 {
     hyprpaper = {
       enable = true;
       package = pkgs.unstable.hyprpaper;
     };
-    hypridle = helpers.enabled;
-    swaync = helpers.enabled;
-    polkit-gnome = helpers.enabled;
+    hypridle = h.enabled;
+    swaync = h.enabled;
+    polkit-gnome = h.enabled;
     udiskie = import ./udiskie.nix { inherit pkgs; };
 }

@@ -1,4 +1,4 @@
-{ helpers, ... }:
+{ h, ... }:
 {
   imports = [
     ./programs/fish.nix
@@ -6,11 +6,11 @@
   ];
 
   programs = {
-    tealdeer = helpers.enabled;
-    fastfetch = helpers.enabled;
-    starship = helpers.enabled;
-    eza = helpers.enabled;
-    zoxide = helpers.enabled;
+    tealdeer = h.enabled;
+    fastfetch = h.enabled;
+    starship = h.enabled;
+    eza = h.enabled;
+    zoxide = h.enabled;
   };
 
   programs.bat = import ./programs/bat.nix;
