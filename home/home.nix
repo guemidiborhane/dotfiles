@@ -6,5 +6,5 @@
 
   packages = import ./pkgs.nix { inherit pkgs; };
 
-  stateVersion = cfg.metadata.stateVersion;
+  inherit (cfg.metadata) stateVersion;
 }

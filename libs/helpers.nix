@@ -1,6 +1,6 @@
 { pkgs, cfg, ... }:
 let
-  host = cfg.host;
+  inherit (cfg) host;
 in {
   base64 = {
     decode = encodedStr: let

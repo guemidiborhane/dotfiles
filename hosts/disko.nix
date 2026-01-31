@@ -1,6 +1,6 @@
 { cfg, ... }:
 let
-  host = cfg.host;
+  inherit (cfg) host;
 in {
   disko.devices = let
     device = host.disk;

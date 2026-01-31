@@ -1,6 +1,6 @@
 { tomlConfig, host, pkgs, lib }:
 let
-  defaults = tomlConfig.defaults;
+  inherit (tomlConfig) defaults;
 in {
   inherit (tomlConfig) user metadata;
   inherit defaults;

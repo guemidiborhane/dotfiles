@@ -81,7 +81,7 @@
 
       cfg = import ./libs/config.nix {
         inherit tomlConfig host pkgs;
-        lib = nixpkgs.lib;
+        inherit (nixpkgs) lib;
       };
 
       helpers = import ./libs/helpers.nix { inherit pkgs cfg; };
