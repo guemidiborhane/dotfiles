@@ -41,8 +41,9 @@ in
         (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
           if [ ! -d "$HOME/.local/share/yadm/repo.git" ]; then
             $DRY_RUN_CMD ${pkgs.yadm}/bin/yadm clone \
-              ${lib.optionalString (!cfg.autoBootstrap) "--no-bootstrap"} \
-              "${cfg.repository}"
+              ${lib.optionalString (!cfg.autoBootstrap) "--no-bootstrap"} "${cfg.repository}"
+            $DRY_RUN_CMD ${pkgs.yadm} restore --staged ${config.home.homeDirectory}
+            $DRY_RUN_CMD ${pkgs.yadm} checkout -- ${config.home.homeDirectory}
           else
             echo "yadm already initialized, skipping clone"
           fi
