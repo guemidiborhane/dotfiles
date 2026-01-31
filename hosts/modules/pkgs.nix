@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, cfg, ... }:
 {
   environment.systemPackages = with pkgs; [
     wget
@@ -18,5 +18,6 @@
     config.boot.kernelPackages.cpupower
     trashy
     just
+    nvtopPackages.${cfg.host.gpu}
   ];
 }
