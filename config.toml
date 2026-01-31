@@ -25,6 +25,7 @@ fingerprint = false
 autoUpdate = false
 autoReboot = false
 zramSwap = true
+wol = false
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]
@@ -82,3 +83,4 @@ bluetooth = true
 wifi = true
 kernel = "cachyos-latest-x86_64-v3"
 autoUpdate = true
+wol = "enp6s0"

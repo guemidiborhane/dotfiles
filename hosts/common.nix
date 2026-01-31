@@ -40,4 +40,7 @@
   security.polkit.enable = true;
 
   environment.shellAliases.ls = lib.mkForce null;
+
+  imports = [ ]
+    ++ lib.optional (cfg.features.wol != false && cfg.features.wol != null) ./modules/wol.nix;
 }
