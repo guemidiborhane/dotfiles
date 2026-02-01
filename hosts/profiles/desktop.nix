@@ -13,6 +13,8 @@
     pipewire = import ../modules/services/pipewire.nix;
   };
 
+  hardware.graphics.enable = true;
+
   hardware.bluetooth.enable = cfg.features.bluetooth;
   services.blueman.enable = cfg.features.bluetooth;
 

@@ -132,7 +132,8 @@
           ({ cfg, ... }: {
             system.stateVersion = cfg.metadata.stateVersion;
           })
-        ] ++ hardwareModules;
+        ] ++ hardwareModules
+          ++ nixpkgs.lib.optional (host.gpu == "nvidia") ./hosts/modules/nvidia.nix;
       };
     })
     hosts);

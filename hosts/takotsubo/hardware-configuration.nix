@@ -14,12 +14,7 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.graphics = {
-    enable = true;
-
-    # enable32Bit = true;
-
     extraPackages = with pkgs; [
-      # nvidia-vaapi-driver
       intel-media-driver
       intel-vaapi-driver
       libvdpau-va-gl
