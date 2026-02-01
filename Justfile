@@ -187,7 +187,7 @@ check-builds host="":
     set -euo pipefail
 
     if [ -z "{{ host }}" ]; then
-        HOST=$(just _pick-host)
+        HOST=$(hostname)
     else
         HOST="{{ host }}"
     fi
