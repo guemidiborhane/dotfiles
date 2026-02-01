@@ -3,6 +3,7 @@
   imports = [
     ./programs/fish.nix
     ./programs/sesh.nix
+    ./services/tmux.nix
   ];
 
   programs = {
