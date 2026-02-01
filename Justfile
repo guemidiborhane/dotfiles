@@ -194,7 +194,7 @@ check-builds host="":
 
     RESOLVED=$(just _resolve-host "$HOST")
     gum style --foreground 212 "Checking build requirements for: $RESOLVED"
-    {{nix}} build .#nixosConfigurations.$RESOLVED.config.system.build.toplevel --dry-run 2>&1 \
+    {{nix}} build .#nixosConfigurations.$HOST.config.system.build.toplevel --dry-run 2>&1 \
         | awk '/will be built:/,/will be fetched/' \
         | sed '1d;$d' | sed 's#.*/##' | rg -v 'completion'
 
