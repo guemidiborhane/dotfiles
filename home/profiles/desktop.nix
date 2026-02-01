@@ -30,7 +30,6 @@
     viewnior
     anydesk
     teamviewer
-    localsend
     megasync
     sunsetr
     tor-browser

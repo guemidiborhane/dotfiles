@@ -20,6 +20,11 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
+  programs = {
+    thunar = import ../modules/programs/thunar.nix { inherit pkgs; };
+    localsend = h.enabled;
+  };
+
   environment.systemPackages = with pkgs; [
     bitwarden-desktop
   ];

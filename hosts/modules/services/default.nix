@@ -1,4 +1,4 @@
-{ pkgs, h, ... }:
+{ h, ... }:
 {
   services = {
     fstrim = h.enabled;
