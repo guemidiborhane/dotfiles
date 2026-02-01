@@ -20,5 +20,6 @@
     just
     nvtopPackages.${cfg.host.gpu}
     wol
+    statix
   ];
 }

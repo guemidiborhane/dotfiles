@@ -26,10 +26,8 @@
   };
 
   outputs = { self, nixpkgs, ... } @ inputs: let
-    # Parse configuration
     tomlConfig = builtins.fromTOML (builtins.readFile ./config.toml);
 
-    # Extract hosts
     hosts = builtins.attrValues (builtins.mapAttrs (name: hostConfig:
       hostConfig // { inherit name; })
     tomlConfig.hosts);
@@ -84,10 +82,8 @@
         inherit (nixpkgs) lib;
       };
 
-      specialArgs = {
-        inherit inputs cfg;
-        h = import ./libs/helpers.nix { inherit pkgs cfg; };
-      };
+      h = import ./libs/helpers.nix { inherit pkgs cfg; };
+      specialArgs = { inherit inputs cfg h; };
     in {
       name = host.hostname or host.name;
       value = nixpkgs.lib.nixosSystem {
@@ -133,7 +129,7 @@
             system.stateVersion = cfg.metadata.stateVersion;
           })
         ] ++ hardwareModules
-          ++ nixpkgs.lib.optional (host.gpu == "nvidia") ./hosts/modules/nvidia.nix;
+          ++ nixpkgs.lib.optional h.hasNvidia ./hosts/modules/nvidia.nix;
       };
     })
     hosts);
