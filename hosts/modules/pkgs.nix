@@ -22,5 +22,6 @@
     wol
     statix
     nix-index
+    wireguard-tools
   ];
 }

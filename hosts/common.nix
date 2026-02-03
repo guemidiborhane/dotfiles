@@ -16,11 +16,28 @@
     memoryPercent = 30;
   };
 
-  security.rtkit.enable = true;
-  security.sudo.extraConfig = ''
-    Defaults passwd_timeout=5
-    Defaults insults
-  '';
+  security = {
+    rtkit.enable = true;
+    sudo = {
+      extraConfig = ''
+        Defaults passwd_timeout=5
+        Defaults insults
+      '';
+      extraRules = [{
+        users = [ cfg.user.username ];
+        commands = [
+          {
+            command = "/run/current-system/sw/bin/wg-quick";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "/run/current-system/sw/bin/wg";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }];
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Africa/Algiers";
