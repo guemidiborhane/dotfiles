@@ -29,7 +29,6 @@ with pkgs; [
   wol
   zip
   ngrok
-  k3d
   sendme
   tidy-viewer
 ]
