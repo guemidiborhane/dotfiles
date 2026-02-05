@@ -13,6 +13,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     nur.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
@@ -114,14 +116,19 @@
           ./hosts/modules/auto-upgrade.nix
           ./hosts/profiles/${host.type}.nix
 
+          inputs.nix-index-database.nixosModules.default
+          { programs.nix-index-database.comma.enable = true; }
+
           # Home manager
           inputs.home-manager.nixosModules.home-manager
           ({ cfg, ... }: {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users.${cfg.user.username} = import ./home;
-            home-manager.backupCommand = "trash";
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.${cfg.user.username} = import ./home;
+              backupCommand = "trash";
+            };
           })
 
           # State version
