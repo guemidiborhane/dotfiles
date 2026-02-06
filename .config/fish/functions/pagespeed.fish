@@ -1,4 +1,5 @@
 function pagespeed --argument url
+    set -lx LC_NUMERIC C
     # Parse arguments
     set -l json_output false
     set -l target_url ""
