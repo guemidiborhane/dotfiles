@@ -1,4 +1,4 @@
-{ pkgs, h, inputs, ... }:
+{ pkgs, lib, ... }:
 let
   enabled_languages = [
     "nix"
@@ -31,6 +31,8 @@ in {
         splitbelow = true;
         splitright = true;
         wrap = false;
+        swapfile = false;
+        autoread = true;
       };
 
       visuals = {
@@ -83,8 +85,8 @@ in {
       };
 
       binds.whichKey = import ./neovim.d/which-key.nix { inherit lib; };
-      telescope = h.enabled;
-      autocomplete.nvim-cmp = h.enabled;
+      telescope.enable = true;
+      autocomplete.nvim-cmp.enable = true;
       filetree.neo-tree = {
         enable = true;
         setupOpts.window.position = "right";
@@ -106,6 +108,7 @@ in {
         colorizer.enable = true;
       };
 
+      globals.snacks_animate = false;
       utility.snacks-nvim = import ./neovim.d/snacks.nix;
 
       git = {
