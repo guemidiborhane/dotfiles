@@ -42,43 +42,37 @@ in {
 
       keymaps = import ./neovim.d/keymaps.nix;
 
-      startPlugins = [ "dracula" ];
-      luaConfigRC.pluginConfigs = inputs.nvf.lib.nvim.dag.entryBefore ["statusline"] /* lua */''
-        local dracula = require("dracula");
-        local colors = dracula.colors();
-
-        dracula.setup({
-          lualine_bg_color = colors.bg,
-          overrides = {
-            StatusLine = { bg = colors.bg, fg = colors.fg },
-          },
-        });
-
-        dracula.load();
-      '';
       statusline.lualine = import ./neovim.d/lualine.nix;
 
-      extraPlugins = {
-        tpipeline = {
-          package = pkgs.vimPlugins.vim-tpipeline;
-          setup = /* lua */ ''
-            vim.g.tpipeline_clearstl = 1
-            vim.g.tpipeline_preservebg = 1
-            vim.g.tpipeline_restore = 0
-            vim.g.tpipeline_autoembed = 0
+      extraPlugins.tpipeline.package = pkgs.vimPlugins.vim-tpipeline;
+      globals.tpipeline_clearstl = 1;
+      globals.tpipeline_preservebg = 1;
+      globals.tpipeline_restore = 0;
+      globals.tpipeline_autoembed = 0;
+
+      lazy.plugins = {
+        "dracula.nvim" = {
+          package = pkgs.vimPlugins.dracula-nvim;
+          after = /* lua */''
+            local dracula = require("dracula");
+            local colors = dracula.colors();
+
+            dracula.setup({
+                lualine_bg_color = colors.bg,
+                overrides = {
+                  StatusLine = { bg = colors.bg, fg = colors.fg }
+                }
+            })
+            dracula.load()
           '';
         };
-        persistence = {
+        "persistence.nvim" = {
           package = pkgs.vimPlugins.persistence-nvim;
-          setup = /* lua */''
-            require('persistence').setup {}
-          '';
+          setupModule = "persistence";
         };
-        hardtime = {
+        "hardtime.nvim" = {
           package = pkgs.vimPlugins.hardtime-nvim;
-          setup = /* lua */''
-            require('hardtime').setup {}
-          '';
+          setupModule = "hardtime";
         };
       };
       clipboard = {
