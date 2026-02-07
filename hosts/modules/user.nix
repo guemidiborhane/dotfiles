@@ -6,7 +6,7 @@
     isNormalUser = true;
     description = cfg.user.fullName;
     group = cfg.user.username;
-    extraGroups = [ "networkmanager" "wheel" "uinput" ];
+    extraGroups = [ "networkmanager" "wheel" "uinput" "libvirtd" ];
     shell = pkgs.unstable.${cfg.user.shell};
     homeMode = "0700";
     openssh.authorizedKeys.keys = cfg.user.sshKeys;
