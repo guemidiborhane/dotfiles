@@ -31,4 +31,8 @@ with pkgs; [
   ngrok
   sendme
   tidy-viewer
+  openssl_3
+  hyprshot
+  satty
+  brave
 ]
