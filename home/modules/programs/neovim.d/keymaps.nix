@@ -12,6 +12,7 @@
   {
     key = "<leader><leader>";
     mode = "n";
+    desc = "Find Files (git-files if in Git repo)";
     lua = true;
     action = /* lua */ ''
       function()

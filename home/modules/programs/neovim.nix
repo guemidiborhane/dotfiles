@@ -81,7 +81,15 @@ in {
         enable = true;
         setupOpts.window.position = "right";
       };
-      utility.smart-splits.enable = true;
+      utility.smart-splits = {
+        enable = true;
+        keymaps = {
+          swap_buf_left = null;
+          swap_buf_down = null;
+          swap_buf_up = null;
+          swap_buf_right = null;
+        };
+      };
       comments.comment-nvim.enable = true;
       mini.tabline.enable = true;
 
