@@ -30,6 +30,7 @@ in {
         confirm = true;
         splitbelow = true;
         splitright = true;
+        wrap = false;
       };
 
       visuals = {
@@ -67,6 +68,18 @@ in {
             vim.g.tpipeline_autoembed = 0
           '';
         };
+        persistence = {
+          package = pkgs.vimPlugins.persistence-nvim;
+          setup = /* lua */''
+            require('persistence').setup {}
+          '';
+        };
+        hardtime = {
+          package = pkgs.vimPlugins.hardtime-nvim;
+          setup = /* lua */''
+            require('hardtime').setup {}
+          '';
+        };
       };
       clipboard = {
         enable = true;
@@ -94,15 +107,11 @@ in {
       mini.tabline.enable = true;
 
       ui = {
-        noice.enable = true;
-        illuminate.enable = true;
+        noice = import ./neovim.d/noice.nix;
         colorizer.enable = true;
       };
 
-      dashboard.alpha = {
-        enable = true;
-        theme = "startify";
-      };
+      utility.snacks-nvim = import ./neovim.d/snacks.nix;
 
       git = {
         enable = true;

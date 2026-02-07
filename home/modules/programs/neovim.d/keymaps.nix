@@ -1,5 +1,5 @@
 [
-  {
+ {
     key = "jj";
     mode = "i";
     action = "<Esc>";
@@ -74,55 +74,55 @@
   {
     key = "<S-h>";
     mode = "n";
-    action = "<cmd>bprevious<cr>";
+    action = "<cmd>bprevious<CR>";
     desc = "Prev Buffer";
   }
   {
     key = "<S-l>";
     mode = "n";
-    action = "<cmd>bnext<cr>";
+    action = "<cmd>bnext<CR>";
     desc = "Next Buffer";
   }
   {
     key = "<leader>bb";
     mode = "n";
-    action = "<cmd>e #<cr>";
+    action = "<cmd>e #<CR>";
     desc = "Switch to Other Buffer";
   }
   {
     key = "<leader>`";
     mode = "n";
-    action = "<cmd>e #<cr>";
+    action = "<cmd>e #<CR>";
     desc = "Switch to Other Buffer";
   }
   {
     key = "<leader>bd";
     mode = "n";
-    action = "<cmd>bd<cr>";
+    action = "<cmd>bd<CR>";
     desc = "Delete Buffer";
   }
   {
     key = "<C-s>";
     mode = ["i" "x" "n" "s"];
-    action = "<cmd>w<cr><esc>";
+    action = "<cmd>w<CR><esc>";
     desc = "Save File";
   }
   {
     key = "<leader>fn";
     mode = "n";
-    action = "<cmd>enew<cr>";
+    action = "<cmd>enew<CR>";
     desc = "New File";
   }
   {
     key = "<leader>cd";
     mode = "n";
-    action = "<cmd>lua vim.diagnostic.open_float()<cr>";
+    action = "<cmd>lua vim.diagnostic.open_float()<CR>";
     desc = "Line Diagnostics";
   }
   {
     key = "<esc>";
     mode = ["i" "n" "s"];
-    action = "<cmd>noh<cr><esc>";
+    action = "<cmd>noh<CR><esc>";
     desc = "Escape and Clear hlsearch";
   }
   {
@@ -130,5 +130,35 @@
     mode = "n";
     action = "<cmd>Neotree toggle<CR>";
     desc = "Toggle Neotree";
+  }
+  {
+    key = "<leader>uw";
+    mode = "n";
+    action = "<cmd>set wrap!<CR>";
+    desc = "Toggle line wrap";
+  }
+  {
+    key = "<leader>n";
+    mode = "n";
+    lua = true;
+    action = /* lua */''
+      function()
+        if Snacks.config.picker and Snacks.config.picker.enabled then
+          Snacks.picker.notifications()
+        else
+          Snacks.notifier.show_history()
+        end
+      end
+    '';
+    desc = "Notification history";
+  }
+  {
+    key = "<leader>un";
+    mode = "n";
+    lua = true;
+    action = /* lua */''
+      function() Snacks.notifier.hide() end
+    '';
+    desc = "Dismiss all notifications";
   }
 ]

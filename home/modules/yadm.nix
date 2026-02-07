@@ -38,7 +38,7 @@ in
 
     home.activation.yadmClone =
       lib.mkIf (cfg.autoClone && cfg.repository != "")
-        (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        (lib.hm.dag.entryAfter [ "writeBoundary" ] /* bash */''
           if [ ! -d "$HOME/.local/share/yadm/repo.git" ]; then
             $DRY_RUN_CMD ${pkgs.yadm}/bin/yadm clone \
               ${lib.optionalString (!cfg.autoBootstrap) "--no-bootstrap"} "${cfg.repository}"
