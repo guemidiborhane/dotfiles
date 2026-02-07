@@ -173,9 +173,9 @@ remove-host name="":
     ./scripts/remove-host.sh "{{ name }}"
 
 # Update flake
-update:
+update flake="":
     #!/usr/bin/env bash
-    gum spin --show-stderr --spinner dot --title "Updating flake inputs..." -- {{nix}} flake update
+    gum spin --show-stderr --spinner dot --title "Updating flake inputs..." -- {{nix}} flake update {{ flake }}
     echo
     gum style --foreground 212 "✓ Flake updated successfully"
     echo
