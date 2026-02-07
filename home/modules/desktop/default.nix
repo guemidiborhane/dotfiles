@@ -12,7 +12,7 @@
       pictures = "${config.home.homeDirectory}/Pictures";
       videos = "${config.home.homeDirectory}/Videos";
       extraConfig = {
-        XDG_CODE_DIR = "${config.home.homeDirectory}/Code";
+        CODE = "${config.home.homeDirectory}/Code";
       };
     };
     configFile = {
