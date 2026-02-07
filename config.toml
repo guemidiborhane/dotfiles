@@ -86,6 +86,7 @@ kernel = "cachyos-latest-x86_64-v3"
 autoUpdate = true
 wol = "enp6s0"
 remoteUnlock = true
+netbirdPort = 51281
 
 [hosts.kotoamatsukami.disks]
 "34B1213A561574D4" = "/mnt/2_5"

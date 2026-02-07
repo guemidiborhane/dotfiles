@@ -20,5 +20,5 @@
     ];
   };
 
-  services.netbird = import ../modules/services/netbird.nix { inherit h; };
+  services.netbird = import ../modules/services/netbird.nix { inherit h cfg; };
 }
