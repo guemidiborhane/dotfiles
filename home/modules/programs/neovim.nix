@@ -40,6 +40,12 @@ in {
         tiny-devicons-auto-colors.enable = true;
       };
 
+      clipboard = {
+        enable = true;
+        registers = "unnamedplus";
+        providers.wl-copy.enable = true;
+      };
+
       keymaps = import ./neovim.d/keymaps.nix;
 
       statusline.lualine = import ./neovim.d/lualine.nix;
@@ -75,13 +81,8 @@ in {
           setupModule = "hardtime";
         };
       };
-      clipboard = {
-        enable = true;
-        registers = "unnamedplus";
-        providers.wl-copy.enable = true;
-      };
 
-      binds.whichKey.enable = true;
+      binds.whichKey = import ./neovim.d/which-key.nix { inherit lib; };
       telescope = h.enabled;
       autocomplete.nvim-cmp = h.enabled;
       filetree.neo-tree = {
