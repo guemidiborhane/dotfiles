@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 with pkgs; [
   fastfetch
   tmux
@@ -35,4 +35,5 @@ with pkgs; [
   hyprshot
   satty
   brave
+  inputs.salatux.packages.${pkgs.system}.default
 ]

@@ -9,7 +9,7 @@ in {
     inputs.nvf.homeManagerModules.default
   ] ++ lib.optional isGUI ./profiles/desktop.nix;
 
-  home = import ./home.nix { inherit pkgs cfg; };
+  home = import ./home.nix { inherit pkgs cfg inputs; };
 
   programs.yazi = h.enabled;
   programs.yadm = import ./modules/programs/yadm.nix { inherit cfg; };

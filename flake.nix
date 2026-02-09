@@ -27,6 +27,7 @@
     solaar.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:NotAShelf/nvf";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
+    salatux.url = "github:guemidiborhane/salatux";
   };
 
   outputs = { self, nixpkgs, ... } @ inputs: let
