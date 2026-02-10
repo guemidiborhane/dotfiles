@@ -90,15 +90,36 @@
     desc = "Switch to Other Buffer";
   }
   {
-    key = "<leader>`";
-    mode = "n";
-    action = "<cmd>e #<CR>";
-    desc = "Switch to Other Buffer";
-  }
-  {
     key = "<leader>bd";
     mode = "n";
-    action = "<cmd>bd<CR>";
+    lua = true;
+    action = /* lua */''
+      function()
+        Snacks.bufdelete()
+      end
+    '';
+    desc = "Delete Buffer";
+  }
+  {
+    key = "<leader>bo";
+    mode = "n";
+    lua = true;
+    action = /* lua */''
+      function()
+        Snacks.bufdelete.other()
+      end
+    '';
+    desc = "Delete Buffer";
+  }
+  {
+    key = "<leader>ba";
+    mode = "n";
+    lua = true;
+    action = /* lua */''
+      function()
+        Snacks.bufdelete.all()
+      end
+    '';
     desc = "Delete Buffer";
   }
   {
