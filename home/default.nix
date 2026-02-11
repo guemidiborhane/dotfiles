@@ -6,7 +6,6 @@ in {
     ./modules/git.nix
     ./modules/yadm.nix
     ./modules/shell.nix
-    inputs.nvf.homeManagerModules.default
   ] ++ lib.optional isGUI ./profiles/desktop.nix;
 
   home = import ./home.nix { inherit pkgs cfg inputs; };

@@ -25,8 +25,6 @@
     wlctl.inputs.nixpkgs.follows = "nixpkgs";
     solaar.url = "github:Svenum/Solaar-Flake";
     solaar.inputs.nixpkgs.follows = "nixpkgs";
-    nvf.url = "github:NotAShelf/nvf";
-    nvf.inputs.nixpkgs.follows = "nixpkgs";
     salatux.url = "github:guemidiborhane/salatux";
   };
 

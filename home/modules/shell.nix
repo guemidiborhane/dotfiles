@@ -17,7 +17,7 @@
   programs.bat = import ./programs/bat.nix;
   programs.fzf = import ./programs/fzf.nix;
   programs.mise = import ./programs/mise.nix;
-  programs.nvf = import ./programs/neovim.nix { inherit pkgs h inputs lib; };
+  programs.neovim.enable = true;
   programs.atuin = import ./programs/atuin.nix;
   programs.btop = import ./programs/btop.nix;
 }
