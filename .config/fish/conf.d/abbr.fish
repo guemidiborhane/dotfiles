@@ -10,7 +10,6 @@ abbr n xdg-open
 abbr n. "xdg-open ."
 abbr p1 "ping 1.1.1.1"
 abbr p8 "ping 8.8.8.8"
-abbr --position anywhere vim nvim
 abbr uu update_all
 abbr pp fish -P
 abbr hr hyprctl reload
@@ -68,8 +67,11 @@ abbr yg "tmux_popup -w 90% -h 90% yadm enter lazygit"
 abbr s "nix-env -i"
 alias yeet "nix-env -e"
 abbr ss "nh search"
+
 set nos "nh os switch"
 set nosa "$nos --ask"
+
+abbr not "nh os test"
 abbr nos "$nos"
 abbr nosa "$nosa"
 abbr nor "nh os repl"
