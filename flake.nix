@@ -17,9 +17,11 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-    zen-browser.inputs.home-manager.follows = "home-manager";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     vicinae.url = "github:vicinaehq/vicinae";
     wlctl.url = "github:aashish-thapa/wlctl";
     wlctl.inputs.nixpkgs.follows = "nixpkgs";
