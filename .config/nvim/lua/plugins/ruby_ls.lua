@@ -5,11 +5,11 @@ return {
       servers = {
         ruby_lsp = {
           mason = false,
-          cmd = { vim.fn.expand("~/.local/share/mise/shims/ruby-lsp") },
+          cmd = { "bundle", "exec", "ruby-lsp" },
         },
         rubocop = {
           mason = false,
-          cmd = { vim.fn.expand("~/.local/share/mise/shims/rubocop"), "--lsp" },
+          cmd = { "bundle", "exec", "rubocop", "--lsp" },
         },
       },
     },
@@ -19,7 +19,7 @@ return {
     opts = {
       formatters = {
         rubocop = {
-          command = "~/.local/share/mise/shims/rubocop",
+          command = { "bundle", "exec", "rubocop" },
         },
       },
     },
