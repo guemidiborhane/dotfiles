@@ -1,4 +1,6 @@
 {
-  enable = true;
-  config.theme = "Dracula";
+  programs.bat = {
+    enable = true;
+    config.theme = "Dracula";
+  };
 }

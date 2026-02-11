@@ -1,25 +1,18 @@
-{
-  cfg,
-  pkgs,
-  lib,
-  h,
-  inputs,
-  ...
-}:
+{ lib, h, ... }:
 let
   isGUI = !h.isHeadless;
 in
 {
   imports = [
+    ./home.nix
+    ./pkgs.nix
     ./modules/git.nix
     ./modules/yadm.nix
     ./modules/shell.nix
+    ./modules/programs/yadm.nix
   ]
   ++ lib.optional isGUI ./profiles/desktop.nix;
 
-  home = import ./home.nix { inherit pkgs cfg inputs; };
-
   programs.yazi.enable = true;
-  programs.yadm = import ./modules/programs/yadm.nix { inherit cfg; };
   programs.home-manager.enable = true;
 }

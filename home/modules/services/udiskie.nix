@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  enable = true;
-  # package = pkgs.unstable.udiskie;
-  automount = true;
-  notify = true;
-  tray = "always";
+  services.udiskie = {
+    enable = true;
+    # package = pkgs.unstable.udiskie;
+    automount = true;
+    notify = true;
+    tray = "always";
+  };
 }

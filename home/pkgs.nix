@@ -1,41 +1,42 @@
 { pkgs, inputs, ... }:
-with pkgs;
-[
-  fastfetch
-  tmux
-  glib # gsettings
-  gnupg
-  python3
-  bind
-  exfatprogs
-  gum
-  helm
-  htop
-  iftop
-  inxi
-  iperf3
-  jq
-  yq
-  net-tools
-  ntfs3g
-  parallel
-  pgcli
-  pigz
-  pv
-  rsync
-  squashfsTools
-  stress-ng
-  s-tui
-  traceroute
-  wol
-  zip
-  ngrok
-  sendme
-  tidy-viewer
-  openssl_3
-  hyprshot
-  satty
-  brave
-  inputs.salatux.packages.${pkgs.system}.default
-  nixfmt
-]
+{
+  home.packages = with pkgs; [
+    fastfetch
+    tmux
+    glib # gsettings
+    gnupg
+    python3
+    bind
+    exfatprogs
+    gum
+    helm
+    htop
+    iftop
+    inxi
+    iperf3
+    jq
+    yq
+    net-tools
+    ntfs3g
+    parallel
+    pgcli
+    pigz
+    pv
+    rsync
+    squashfsTools
+    stress-ng
+    s-tui
+    traceroute
+    wol
+    zip
+    ngrok
+    sendme
+    tidy-viewer
+    openssl_3
+    hyprshot
+    satty
+    brave
+    inputs.salatux.packages.${pkgs.system}.default
+    nixfmt
+  ];
+}

@@ -1,7 +1,9 @@
 {
-  enable = false;
-  systemd.enable = true;
+  programs.ghostty = {
+    enable = false;
+    systemd.enable = true;
 
-  installVimSyntax = true;
-  installBatSyntax = true;
+    installVimSyntax = true;
+    installBatSyntax = true;
+  };
 }

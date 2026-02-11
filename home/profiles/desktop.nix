@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  h,
   ...
 }:
 {
@@ -9,6 +8,11 @@
     ../modules/gnome-keyring.nix
     ../modules/zen-browser.nix
     ../modules/desktop
+    ../modules/services
+    ../modules/programs/ghostty.nix
+    ../modules/programs/foot.nix
+    ../modules/programs/vicinae.nix
+    ../modules/programs/zed-editor.nix
   ];
 
   home.packages = with pkgs; [
@@ -45,13 +49,6 @@
     telegram-desktop
     thunderbird
   ];
-
-  programs.ghostty = import ../modules/programs/ghostty.nix;
-  programs.foot = import ../modules/programs/foot.nix;
-  programs.vicinae = import ../modules/programs/vicinae.nix { inherit pkgs inputs; };
-  programs.zed-editor = import ../modules/programs/zed.nix { inherit pkgs; };
-
-  services = import ../modules/services { inherit pkgs h; };
 
   programs = {
     wezterm.enable = true;

@@ -6,12 +6,14 @@ let
   };
 in
 {
-  enable = true;
-  clients.default = {
-    port = cfg.features.netbirdPort or 51820;
-    config = {
-      ManagementURL = netbirdServer;
-      AdminURL = netbirdServer;
+  services.netbird = {
+    enable = true;
+    clients.default = {
+      port = cfg.features.netbirdPort or 51820;
+      config = {
+        ManagementURL = netbirdServer;
+        AdminURL = netbirdServer;
+      };
     };
   };
 }

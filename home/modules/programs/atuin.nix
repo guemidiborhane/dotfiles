@@ -1,17 +1,19 @@
 {
-  enable = true;
-  daemon.enable = true;
-  flags = [ "--disable-up-arrow" ];
-  forceOverwriteSettings = true;
-  settings = {
-    sync_address = "https://atuin.netsys.dz";
-    update_check = false;
-    enter_accept = true;
-    style = "compact";
-    inline_height = 20;
-    history_filter = [
-      "^mcli alias set"
-      "^echo .* base64 -d"
-    ];
+  programs.atuin = {
+    enable = true;
+    daemon.enable = true;
+    flags = [ "--disable-up-arrow" ];
+    forceOverwriteSettings = true;
+    settings = {
+      sync_address = "https://atuin.netsys.dz";
+      update_check = false;
+      enter_accept = true;
+      style = "compact";
+      inline_height = 20;
+      history_filter = [
+        "^mcli alias set"
+        "^echo .* base64 -d"
+      ];
+    };
   };
 }

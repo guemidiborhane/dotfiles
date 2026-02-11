@@ -2,6 +2,7 @@
 {
   imports = [
     ./desktop.nix
+    ../modules/services/tlp.nix
   ];
 
   powerManagement = {
@@ -9,7 +10,6 @@
     powertop.enable = true;
   };
 
-  services.tlp = import ../modules/services/tlp.nix { inherit cfg; };
   services.libinput.enable = cfg.features.touchpad;
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 

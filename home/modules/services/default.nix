@@ -1,11 +1,16 @@
-{ pkgs, h, ... }:
+{ pkgs, ... }:
 {
-  hyprpaper = {
-    enable = true;
-    package = pkgs.unstable.hyprpaper;
+  imports = [
+    ./udiskie.nix
+  ];
+
+  services = {
+    hyprpaper = {
+      enable = true;
+      package = pkgs.unstable.hyprpaper;
+    };
+    hypridle.enable = true;
+    swaync.enable = true;
+    polkit-gnome.enable = true;
   };
-  hypridle.enable = true;
-  swaync.enable = true;
-  polkit-gnome.enable = true;
-  udiskie = import ./udiskie.nix { inherit pkgs; };
 }

@@ -2,12 +2,13 @@
   cfg,
   lib,
   pkgs,
-  h,
   ...
 }:
 {
   imports = [
     ../modules/hyprland.nix
+    ../modules/services/pipewire.nix
+    ../modules/programs/thunar.nix
   ];
 
   services = {
@@ -16,7 +17,6 @@
     gvfs.enable = true;
     solaar.enable = true;
     fprintd.enable = cfg.features.fingerprint;
-    pipewire = import ../modules/services/pipewire.nix;
   };
 
   hardware.graphics.enable = true;
@@ -27,7 +27,6 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
   programs = {
-    thunar = import ../modules/programs/thunar.nix { inherit pkgs; };
     localsend.enable = true;
   };
 

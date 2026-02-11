@@ -1,5 +1,9 @@
-{ cfg, h, ... }:
+{ cfg, ... }:
 {
+  imports = [
+    ../modules/services/netbird.nix
+  ];
+
   networking = {
     hostName = cfg.host.hostname;
     nameservers = [ "127.0.0.1:8853" ];
@@ -22,6 +26,4 @@
       "2606:4700:4700::1111#cloudflare-dns.com"
     ];
   };
-
-  services.netbird = import ../modules/services/netbird.nix { inherit h cfg; };
 }
