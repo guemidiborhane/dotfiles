@@ -10,7 +10,7 @@ in {
 
   home = import ./home.nix { inherit pkgs cfg inputs; };
 
-  programs.yazi = h.enabled;
+  programs.yazi.enable = true;
   programs.yadm = import ./modules/programs/yadm.nix { inherit cfg; };
-  programs.home-manager = h.enabled;
+  programs.home-manager.enable = true;
 }

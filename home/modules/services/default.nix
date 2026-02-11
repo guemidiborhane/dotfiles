@@ -4,8 +4,8 @@
       enable = true;
       package = pkgs.unstable.hyprpaper;
     };
-    hypridle = h.enabled;
-    swaync = h.enabled;
-    polkit-gnome = h.enabled;
+    hypridle.enable = true;
+    swaync.enable = true;
+    polkit-gnome.enable = true;
     udiskie = import ./udiskie.nix { inherit pkgs; };
 }

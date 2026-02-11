@@ -5,10 +5,10 @@
   ];
 
   services = {
-    printing = h.enabled;
-    udisks2 = h.enabled;
-    gvfs = h.enabled;
-    solaar = h.enabled;
+    printing.enable = true;
+    udisks2.enable = true;
+    gvfs.enable = true;
+    solaar.enable = true;
     fprintd.enable = cfg.features.fingerprint;
     pipewire = import ../modules/services/pipewire.nix;
   };
@@ -22,7 +22,7 @@
 
   programs = {
     thunar = import ../modules/programs/thunar.nix { inherit pkgs; };
-    localsend = h.enabled;
+    localsend.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

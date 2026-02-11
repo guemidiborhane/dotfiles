@@ -1,8 +1,8 @@
 { h, ... }:
 {
   services = {
-    fstrim = h.enabled;
-    fwupd = h.enabled;
+    fstrim.enable = true;
+    fwupd.enable = true;
     openssh = import ./openssh.nix;
   };
 }

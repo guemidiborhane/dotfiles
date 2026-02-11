@@ -1,4 +1,4 @@
-{ pkgs, h, inputs, lib, ... }:
+{ ... }:
 {
   imports = [
     ./programs/fish.nix
@@ -7,11 +7,11 @@
   ];
 
   programs = {
-    tealdeer = h.enabled;
-    fastfetch = h.enabled;
-    starship = h.enabled;
-    eza = h.enabled;
-    zoxide = h.enabled;
+    tealdeer.enable = true;
+    fastfetch.enable = true;
+    starship.enable = true;
+    eza.enable = true;
+    zoxide.enable = true;
   };
 
   programs.bat = import ./programs/bat.nix;

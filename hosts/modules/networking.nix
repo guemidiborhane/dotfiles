@@ -7,7 +7,7 @@
       enable = true;
       allowedTCPPorts = [ 22 3000 ];
     };
-    networkmanager = h.enabled;
+    networkmanager.enable = true;
   };
 
   services.resolved = {

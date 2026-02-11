@@ -49,8 +49,8 @@
   services = import ../modules/services { inherit pkgs h; };
 
   programs = {
-    wezterm = h.enabled;
-    wlogout = h.enabled;
-    mpv = h.enabled;
+    wezterm.enable = true;
+    wlogout.enable = true;
+    mpv.enable = true;
   };
 }

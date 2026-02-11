@@ -14,8 +14,6 @@ in {
       builtins.readFile outFile;
   };
 
-  enabled = { enable = true; };
-
   isLaptop = host.type == "laptop";
   isDesktop = host.type == "desktop";
   isHeadless = host.type == "headless";
