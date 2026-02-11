@@ -36,4 +36,5 @@ with pkgs; [
   satty
   brave
   inputs.salatux.packages.${pkgs.system}.default
+  nixfmt
 ]

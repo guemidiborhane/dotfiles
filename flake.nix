@@ -50,7 +50,7 @@
         };
       });
   in {
-    formatter = forAllSystems ({ pkgs }: pkgs.alejandra);
+    formatter = forAllSystems ({ pkgs }: pkgs.nixfmt);
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays { inherit inputs; };
 
