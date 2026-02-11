@@ -1,4 +1,9 @@
-{ lib, pkgs, cfg, ... }:
+{
+  lib,
+  pkgs,
+  cfg,
+  ...
+}:
 {
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -7,7 +12,9 @@
       memtest86.enable = builtins.elem pkgs.stdenv.hostPlatform.system pkgs.memtest86plus.meta.platforms;
     };
   };
-  boot.kernel.sysctl = { "vm.swappiness" = 10; };
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+  };
   zramSwap = {
     enable = cfg.features.zramSwap;
     priority = 100;
@@ -22,19 +29,21 @@
         Defaults passwd_timeout=5
         Defaults insults
       '';
-      extraRules = [{
-        users = [ cfg.user.username ];
-        commands = [
-          {
-            command = "/run/current-system/sw/bin/wg-quick";
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = "/run/current-system/sw/bin/wg";
-            options = [ "NOPASSWD" ];
-          }
-        ];
-      }];
+      extraRules = [
+        {
+          users = [ cfg.user.username ];
+          commands = [
+            {
+              command = "/run/current-system/sw/bin/wg-quick";
+              options = [ "NOPASSWD" ];
+            }
+            {
+              command = "/run/current-system/sw/bin/wg";
+              options = [ "NOPASSWD" ];
+            }
+          ];
+        }
+      ];
     };
   };
 
@@ -57,6 +66,7 @@
 
   environment.shellAliases.ls = lib.mkForce null;
 
-  imports = lib.optional (cfg.features.wol != false && cfg.features.wol != null) ./modules/wol.nix
+  imports =
+    lib.optional (cfg.features.wol != false && cfg.features.wol != null) ./modules/wol.nix
     ++ lib.optional cfg.features.remoteUnlock ./modules/remote-unlock.nix;
 }

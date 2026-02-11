@@ -5,7 +5,10 @@
     nameservers = [ "127.0.0.1:8853" ];
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 3000 ];
+      allowedTCPPorts = [
+        22
+        3000
+      ];
     };
     networkmanager.enable = true;
   };

@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   enable = true;
   # package = pkgs.unstable.udiskie;
   automount = true;

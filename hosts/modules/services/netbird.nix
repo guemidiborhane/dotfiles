@@ -1,9 +1,11 @@
-{ h, cfg, ... }: let
+{ h, cfg, ... }:
+let
   netbirdServer = {
     Scheme = "https";
     Host = h.base64.decode "YmlyZC5uZXRzeXMuZHo6NDQz";
   };
-in {
+in
+{
   enable = true;
   clients.default = {
     port = cfg.features.netbirdPort or 51820;

@@ -1,7 +1,13 @@
-{ tomlConfig, host, pkgs, lib }:
+{
+  tomlConfig,
+  host,
+  pkgs,
+  lib,
+}:
 let
   inherit (tomlConfig) defaults;
-in {
+in
+{
   inherit (tomlConfig) user metadata;
   inherit defaults;
 

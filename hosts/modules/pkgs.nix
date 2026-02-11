@@ -1,4 +1,9 @@
-{ pkgs, config, cfg, ... }:
+{
+  pkgs,
+  config,
+  cfg,
+  ...
+}:
 {
   environment.systemPackages = with pkgs; [
     wget

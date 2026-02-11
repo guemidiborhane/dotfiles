@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.programs.yadm;
@@ -36,17 +41,17 @@ in
       cfg.package
     ];
 
-    home.activation.yadmClone =
-      lib.mkIf (cfg.autoClone && cfg.repository != "")
-        (lib.hm.dag.entryAfter [ "writeBoundary" ] /* bash */''
-          if [ ! -d "$HOME/.local/share/yadm/repo.git" ]; then
-            $DRY_RUN_CMD ${pkgs.yadm}/bin/yadm clone \
-              ${lib.optionalString (!cfg.autoBootstrap) "--no-bootstrap"} "${cfg.repository}"
-            $DRY_RUN_CMD ${pkgs.yadm} restore --staged ${config.home.homeDirectory}
-            $DRY_RUN_CMD ${pkgs.yadm} checkout -- ${config.home.homeDirectory}
-          else
-            echo "yadm already initialized, skipping clone"
-          fi
-        '');
+    home.activation.yadmClone = lib.mkIf (cfg.autoClone && cfg.repository != "") (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] /* bash */ ''
+        if [ ! -d "$HOME/.local/share/yadm/repo.git" ]; then
+          $DRY_RUN_CMD ${pkgs.yadm}/bin/yadm clone \
+            ${lib.optionalString (!cfg.autoBootstrap) "--no-bootstrap"} "${cfg.repository}"
+          $DRY_RUN_CMD ${pkgs.yadm} restore --staged ${config.home.homeDirectory}
+          $DRY_RUN_CMD ${pkgs.yadm} checkout -- ${config.home.homeDirectory}
+        else
+          echo "yadm already initialized, skipping clone"
+        fi
+      ''
+    );
   };
 }

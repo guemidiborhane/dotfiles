@@ -1,4 +1,9 @@
-{ pkgs, inputs, h, ... }:
+{
+  pkgs,
+  inputs,
+  h,
+  ...
+}:
 {
   imports = [
     ../modules/gnome-keyring.nix

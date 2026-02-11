@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.gnome-keyring = {
     enable = true;
     # package = pkgs.unstable.gnome-keyring;

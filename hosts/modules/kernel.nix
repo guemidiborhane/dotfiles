@@ -1,4 +1,10 @@
-{ pkgs, inputs, cfg, ... }: let
+{
+  pkgs,
+  inputs,
+  cfg,
+  ...
+}:
+let
   kernelName = cfg.features.kernel or "";
   kernels = {
     linux-latest = pkgs.linuxPackages_latest;
@@ -9,11 +15,9 @@
     cachyos-latest-v4 = pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v4;
     cachyos-latest-zen4 = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
   };
-in {
-  boot.kernelPackages =
-    if kernelName != ""
-    then kernels.${kernelName}
-    else kernels.cachyos-latest;
+in
+{
+  boot.kernelPackages = if kernelName != "" then kernels.${kernelName} else kernels.cachyos-latest;
 
   nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
 }

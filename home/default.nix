@@ -1,12 +1,21 @@
-{ cfg, pkgs, lib, h, inputs, ...}:
+{
+  cfg,
+  pkgs,
+  lib,
+  h,
+  inputs,
+  ...
+}:
 let
   isGUI = !h.isHeadless;
-in {
+in
+{
   imports = [
     ./modules/git.nix
     ./modules/yadm.nix
     ./modules/shell.nix
-  ] ++ lib.optional isGUI ./profiles/desktop.nix;
+  ]
+  ++ lib.optional isGUI ./profiles/desktop.nix;
 
   home = import ./home.nix { inherit pkgs cfg inputs; };
 

@@ -4,7 +4,7 @@
   package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   useLayerShell = true;
-  extensions = [];
+  extensions = [ ];
 
   systemd = {
     enable = true;

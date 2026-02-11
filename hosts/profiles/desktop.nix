@@ -1,4 +1,10 @@
-{ cfg, lib, pkgs, h, ... }:
+{
+  cfg,
+  lib,
+  pkgs,
+  h,
+  ...
+}:
 {
   imports = [
     ../modules/hyprland.nix

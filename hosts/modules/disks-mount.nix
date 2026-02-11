@@ -1,6 +1,7 @@
 { cfg, lib, ... }:
 {
-  fileSystems = lib.mapAttrs' (diskId: mountPath:
+  fileSystems = lib.mapAttrs' (
+    diskId: mountPath:
     lib.nameValuePair mountPath {
       device = "/dev/disk/by-uuid/${diskId}";
       fsType = "auto";
@@ -11,5 +12,5 @@
         "x-gvfs-show"
       ];
     }
-  ) (cfg.host.disks or {});
+  ) (cfg.host.disks or { });
 }

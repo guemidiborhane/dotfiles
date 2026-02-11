@@ -1,5 +1,6 @@
 { pkgs, inputs, ... }:
-with pkgs; [
+with pkgs;
+[
   fastfetch
   tmux
   glib # gsettings

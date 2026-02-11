@@ -7,7 +7,12 @@
       {
         type = "tpacpi";
         query = "/proc/acpi/ibm/thermal";
-        indices = [ 1 2 3 4 ];
+        indices = [
+          1
+          2
+          3
+          4
+        ];
       }
       {
         type = "hwmon";
@@ -25,7 +30,12 @@
         type = "hwmon";
         query = "/sys/class/hwmon";
         name = "thinkpad";
-        indices = [ 1 3 6 7 ];
+        indices = [
+          1
+          3
+          6
+          7
+        ];
         max_errors = 10;
       }
       {
@@ -43,22 +53,60 @@
     ];
 
     # Fan configuration
-    fans = [{
-      type = "tpacpi";
-      query = "/proc/acpi/ibm/fan";
-    }];
+    fans = [
+      {
+        type = "tpacpi";
+        query = "/proc/acpi/ibm/fan";
+      }
+    ];
 
     # Fan speed levels [LEVEL, LOW, HIGH]
     levels = [
-      [ 0 0 60 ]
-      [ 1 58 63 ]
-      [ 2 61 66 ]
-      [ 3 64 69 ]
-      [ 4 67 72 ]
-      [ 5 70 75 ]
-      [ 6 73 78 ]
-      [ 7 76 81 ]
-      [ "level full-speed" 79 32767 ]
+      [
+        0
+        0
+        60
+      ]
+      [
+        1
+        58
+        63
+      ]
+      [
+        2
+        61
+        66
+      ]
+      [
+        3
+        64
+        69
+      ]
+      [
+        4
+        67
+        72
+      ]
+      [
+        5
+        70
+        75
+      ]
+      [
+        6
+        73
+        78
+      ]
+      [
+        7
+        76
+        81
+      ]
+      [
+        "level full-speed"
+        79
+        32767
+      ]
     ];
   };
 }

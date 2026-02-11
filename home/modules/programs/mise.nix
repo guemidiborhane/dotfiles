@@ -2,7 +2,7 @@
   enable = true;
   globalConfig = {
     settings = {
-      idiomatic_version_file_enable_tools = ["ruby"];
+      idiomatic_version_file_enable_tools = [ "ruby" ];
       experimental = true;
     };
     plugins = {

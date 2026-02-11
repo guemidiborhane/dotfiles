@@ -1,4 +1,9 @@
-{ pkgs, cfg, config, ... }:
+{
+  pkgs,
+  cfg,
+  config,
+  ...
+}:
 {
   users.groups.${cfg.user.username}.gid = 1000;
   users.users.${cfg.user.username} = {
@@ -6,7 +11,12 @@
     isNormalUser = true;
     description = cfg.user.fullName;
     group = cfg.user.username;
-    extraGroups = [ "networkmanager" "wheel" "uinput" "libvirtd" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "uinput"
+      "libvirtd"
+    ];
     shell = pkgs.unstable.${cfg.user.shell};
     homeMode = "0700";
     openssh.authorizedKeys.keys = cfg.user.sshKeys;

@@ -30,116 +30,140 @@
     salatux.url = "github:guemidiborhane/salatux";
   };
 
-  outputs = { self, nixpkgs, ... } @ inputs: let
-    tomlConfig = builtins.fromTOML (builtins.readFile ./config.toml);
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      tomlConfig = builtins.fromTOML (builtins.readFile ./config.toml);
 
-    hosts = builtins.attrValues (builtins.mapAttrs (name: hostConfig:
-      hostConfig // { inherit name; })
-    tomlConfig.hosts);
+      hosts = builtins.attrValues (
+        builtins.mapAttrs (name: hostConfig: hostConfig // { inherit name; }) tomlConfig.hosts
+      );
 
-    # Supported systems
-    systems = [
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-linux"
-    ];
+      # Supported systems
+      systems = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+      ];
 
-    forAllSystems = fn:
-      nixpkgs.lib.genAttrs systems (system: fn {
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      });
-  in {
-    formatter = forAllSystems ({ pkgs }: pkgs.nixfmt);
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-    overlays = import ./overlays { inherit inputs; };
-
-    devShells = forAllSystems ({ pkgs }: {
-      default = import ./shell.nix { inherit pkgs; };
-    });
-
-    nixosConfigurations = builtins.listToAttrs (map (host: let
-      hardwareModules =
-        if host ? hardware && host.hardware != ""
-        then [inputs.nixos-hardware.nixosModules.${host.hardware}]
-        else [];
-
-      system = "x86_64-linux";
-      pkgs = let
-        config = {
-          allowBroken = false;
-          allowUnfree = true;
-        };
-
-        default = import nixpkgs {
-          overlays = builtins.attrValues (import ./overlays { inherit inputs; });
-          inherit config system;
-        };
-      in
-        default;
-
-      cfg = import ./libs/config.nix {
-        inherit tomlConfig host pkgs;
-        inherit (nixpkgs) lib;
-      };
-
-      h = import ./libs/helpers.nix { inherit pkgs cfg; };
-      specialArgs = { inherit inputs cfg h; };
-    in {
-      name = host.hostname or host.name;
-      value = nixpkgs.lib.nixosSystem {
-        inherit pkgs system specialArgs;
-        modules = [
-          # Core modules
-          inputs.disko.nixosModules.disko
-
-          # System configuration
-          ./hosts/disko.nix
-          ./hosts/common.nix
-          ./hosts/${host.name}/hardware-configuration.nix
-          ./hosts/modules/kernel.nix
-          ./hosts/modules/nix.nix
-
-          # Additional modules
-          inputs.nur.modules.nixos.default
-          inputs.solaar.nixosModules.default
-          ./hosts/modules/base-devel.nix
-          ./hosts/modules/disks-mount.nix
-          ./hosts/modules/networking.nix
-          ./hosts/modules/virtualisation
-          ./hosts/modules/user.nix
-          ./hosts/modules/pkgs.nix
-          ./hosts/modules/services
-          ./hosts/modules/programs
-          ./hosts/modules/kanata.nix
-          ./hosts/modules/auto-upgrade.nix
-          ./hosts/profiles/${host.type}.nix
-
-          inputs.nix-index-database.nixosModules.default
-          { programs.nix-index-database.comma.enable = true; }
-
-          # Home manager
-          inputs.home-manager.nixosModules.home-manager
-          ({ cfg, ... }: {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = specialArgs;
-              users.${cfg.user.username} = import ./home;
-              backupCommand = "trash";
+      forAllSystems =
+        fn:
+        nixpkgs.lib.genAttrs systems (
+          system:
+          fn {
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
             };
-          })
+          }
+        );
+    in
+    {
+      formatter = forAllSystems ({ pkgs }: pkgs.nixfmt);
+      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      overlays = import ./overlays { inherit inputs; };
 
-          # State version
-          ({ cfg, ... }: {
-            system.stateVersion = cfg.metadata.stateVersion;
-          })
-        ] ++ hardwareModules
-          ++ nixpkgs.lib.optional h.hasNvidia ./hosts/modules/nvidia.nix;
-      };
-    })
-    hosts);
-  };
+      devShells = forAllSystems (
+        { pkgs }:
+        {
+          default = import ./shell.nix { inherit pkgs; };
+        }
+      );
+
+      nixosConfigurations = builtins.listToAttrs (
+        map (
+          host:
+          let
+            hardwareModules =
+              if host ? hardware && host.hardware != "" then
+                [ inputs.nixos-hardware.nixosModules.${host.hardware} ]
+              else
+                [ ];
+
+            system = "x86_64-linux";
+            pkgs =
+              let
+                config = {
+                  allowBroken = false;
+                  allowUnfree = true;
+                };
+
+                default = import nixpkgs {
+                  overlays = builtins.attrValues (import ./overlays { inherit inputs; });
+                  inherit config system;
+                };
+              in
+              default;
+
+            cfg = import ./libs/config.nix {
+              inherit tomlConfig host pkgs;
+              inherit (nixpkgs) lib;
+            };
+
+            h = import ./libs/helpers.nix { inherit pkgs cfg; };
+            specialArgs = { inherit inputs cfg h; };
+          in
+          {
+            name = host.hostname or host.name;
+            value = nixpkgs.lib.nixosSystem {
+              inherit pkgs system specialArgs;
+              modules = [
+                # Core modules
+                inputs.disko.nixosModules.disko
+
+                # System configuration
+                ./hosts/disko.nix
+                ./hosts/common.nix
+                ./hosts/${host.name}/hardware-configuration.nix
+                ./hosts/modules/kernel.nix
+                ./hosts/modules/nix.nix
+
+                # Additional modules
+                inputs.nur.modules.nixos.default
+                inputs.solaar.nixosModules.default
+                ./hosts/modules/base-devel.nix
+                ./hosts/modules/disks-mount.nix
+                ./hosts/modules/networking.nix
+                ./hosts/modules/virtualisation
+                ./hosts/modules/user.nix
+                ./hosts/modules/pkgs.nix
+                ./hosts/modules/services
+                ./hosts/modules/programs
+                ./hosts/modules/kanata.nix
+                ./hosts/modules/auto-upgrade.nix
+                ./hosts/profiles/${host.type}.nix
+
+                inputs.nix-index-database.nixosModules.default
+                { programs.nix-index-database.comma.enable = true; }
+
+                # Home manager
+                inputs.home-manager.nixosModules.home-manager
+                (
+                  { cfg, ... }:
+                  {
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      extraSpecialArgs = specialArgs;
+                      users.${cfg.user.username} = import ./home;
+                      backupCommand = "trash";
+                    };
+                  }
+                )
+
+                # State version
+                (
+                  { cfg, ... }:
+                  {
+                    system.stateVersion = cfg.metadata.stateVersion;
+                  }
+                )
+              ]
+              ++ hardwareModules
+              ++ nixpkgs.lib.optional h.hasNvidia ./hosts/modules/nvidia.nix;
+            };
+          }
+        ) hosts
+      );
+    };
 }

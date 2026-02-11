@@ -1,4 +1,9 @@
-{ pkgs, cfg, inputs, ... }:
+{
+  pkgs,
+  cfg,
+  inputs,
+  ...
+}:
 {
   enableNixpkgsReleaseCheck = true;
   username = "${cfg.user.username}";

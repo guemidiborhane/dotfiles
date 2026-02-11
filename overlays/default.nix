@@ -1,5 +1,6 @@
 # This file defines overlays
-{inputs, ...}: {
+{ inputs, ... }:
+{
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: import ../pkgs final.pkgs;
 
@@ -14,13 +15,16 @@
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
-  nixpkgs = final: _prev: let
-    config = {
-      inherit (final) system;
-      config.allowUnfree = true;
+  nixpkgs =
+    final: _prev:
+    let
+      config = {
+        inherit (final) system;
+        config.allowUnfree = true;
+      };
+    in
+    {
+      unstable = import inputs.nixpkgs-unstable config;
+      stable = import inputs.nixpkgs-stable config;
     };
-  in {
-    unstable = import inputs.nixpkgs-unstable config;
-    stable = import inputs.nixpkgs-stable config;
-  };
 }
