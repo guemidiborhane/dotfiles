@@ -27,6 +27,7 @@ autoReboot = false
 zramSwap = true
 wol = false
 remoteUnlock = false
+qbittorrent = false
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]
