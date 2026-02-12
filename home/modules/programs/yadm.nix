@@ -1,8 +1,8 @@
-{ cfg, ... }:
+{ user, ... }:
 {
   programs.yadm = {
     enable = true;
-    repository = cfg.user.yadmRepo;
+    repository = user.yadmRepo;
     autoClone = true;
   };
 }

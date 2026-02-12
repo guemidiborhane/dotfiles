@@ -2,30 +2,45 @@
   pkgs,
   cfg,
   config,
+  lib,
   ...
 }:
+let
+  inherit (cfg) users host;
+in
 {
-  users.groups.${cfg.user.username}.gid = 1000;
-  users.users.${cfg.user.username} = {
-    uid = 1000;
+  users.groups = builtins.mapAttrs (username: user: {
+    gid = user.id;
+    members = [ username ];
+  }) users;
+
+  users.users = builtins.mapAttrs (username: user: {
+    uid = user.id;
+    name = username;
+    group = username;
     isNormalUser = true;
-    description = cfg.user.fullName;
-    group = cfg.user.username;
+    description = user.fullName;
     extraGroups = [
       "networkmanager"
       "wheel"
       "uinput"
       "libvirtd"
     ];
-    shell = pkgs.unstable.${cfg.user.shell};
+    shell = lib.mkIf (user.shell or null != null) pkgs.unstable.${user.shell};
     homeMode = "0700";
-    openssh.authorizedKeys.keys = cfg.user.sshKeys;
-  };
-  systemd.services."getty@tty1" = {
-    overrideStrategy = "asDropin";
-    serviceConfig.ExecStart = [
-      "" # override upstream default with an empty ExecStart
-      "@${pkgs.util-linux}/sbin/agetty agetty --login-program ${config.services.getty.loginProgram} -no ${cfg.user.username} --noclear %I $TERM"
-    ];
-  };
+    openssh.authorizedKeys.keys = user.sshKeys or [ ];
+  }) users;
+
+  systemd.services."getty@tty1" =
+    let
+      userName = host.defaultUser;
+      userExists = builtins.hasAttr userName users;
+    in
+    lib.mkIf (userName != null && userExists) {
+      overrideStrategy = "asDropin";
+      serviceConfig.ExecStart = [
+        "" # override upstream default with an empty ExecStart
+        "@${pkgs.util-linux}/sbin/agetty agetty --login-program ${config.services.getty.loginProgram} -no ${host.defaultUser} --noclear %I $TERM"
+      ];
+    };
 }

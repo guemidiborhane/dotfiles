@@ -8,7 +8,7 @@ let
   inherit (tomlConfig) defaults;
 in
 {
-  inherit (tomlConfig) user metadata;
+  inherit (tomlConfig) users metadata;
   inherit defaults;
 
   host =

@@ -51,7 +51,6 @@ pkgs.mkShell {
       echo "║     NixOS Configuration Environment    ║"
       echo "╚════════════════════════════════════════╝"
       echo ""
-      echo "User: ${config.user.fullName} (${config.user.username})"
       echo "Repository: ${config.metadata.repository}"
       echo ""
       echo "Configured hosts:"

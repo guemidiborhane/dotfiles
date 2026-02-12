@@ -139,13 +139,18 @@
                 # Home manager
                 inputs.home-manager.nixosModules.home-manager
                 (
-                  { cfg, ... }:
+                  { cfg, lib, ... }:
                   {
                     home-manager = {
                       useGlobalPkgs = true;
                       useUserPackages = true;
                       extraSpecialArgs = specialArgs;
-                      users.${cfg.user.username} = import ./home;
+                      users = builtins.mapAttrs (username: user: {
+                        imports = [ ./home ];
+                        _module.args.user = user // {
+                          inherit username;
+                        };
+                      }) cfg.users;
                       backupCommand = "trash";
                     };
                   }

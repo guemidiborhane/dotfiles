@@ -5,8 +5,8 @@
 repository = "https://github.com/guemidiborhane/nixos-config"
 stateVersion = "25.11"
 
-[user]
-username = "borhane"
+[users.borhane]
+id = 1000
 fullName = "Borhaneddine GUEMIDI"
 email = "guemidiborhane@gmail.com"
 shell = "fish"
@@ -17,6 +17,7 @@ yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
 
 [defaults.host]
 kernel = "cachyos-latest"
+defaultUser = "borhane"
 
 [defaults.features]
 bluetooth = false

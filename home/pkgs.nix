@@ -36,7 +36,7 @@
     hyprshot
     satty
     brave
-    inputs.salatux.packages.${pkgs.system}.default
+    inputs.salatux.packages.${stdenv.hostPlatform.system}.default
     nixfmt
   ];
 }

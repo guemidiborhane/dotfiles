@@ -1,14 +1,9 @@
-{
-  pkgs,
-  cfg,
-  inputs,
-  ...
-}:
+{ cfg, user, ... }:
 {
   home = {
     enableNixpkgsReleaseCheck = true;
-    username = "${cfg.user.username}";
-    homeDirectory = "/home/${cfg.user.username}";
+    username = "${user.username}";
+    homeDirectory = "/home/${user.username}";
     inherit (cfg.metadata) stateVersion;
   };
 }
