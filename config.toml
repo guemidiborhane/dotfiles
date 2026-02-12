@@ -17,17 +17,28 @@ yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
 
 # Default features for all hosts (can be overridden per-host)
 [defaults.features]
-bluetooth = true
-wifi = true
+bluetooth = false
+wifi = false
 touchpad = false
 backlight = false
 fingerprint = false
 autoUpdate = false
 autoReboot = false
-zramSwap = true
+zramSwap = false
 wol = false
 remoteUnlock = false
 qbittorrent = false
+
+[defaults.features.desktop]
+zramSwap = true
+qbittorrent = true
+
+[defaults.features.laptop]
+bluetooth = true
+wifi = true
+touchpad = true
+backlight = true
+zramSwap = true
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]
@@ -45,10 +56,6 @@ gpu = "intel"                      # intel, amd, nvidia, hybrid
 hardware = "dell-latitude-7490"    # Optional: nixos-hardware module path
 description = "Dell Latitude 7490"
 
-[hosts.takotsubo.features]
-touchpad = true
-backlight = true
-
 [hosts.kamui]
 type = "laptop"
 disk = "/dev/nvme0n1"
@@ -59,10 +66,6 @@ description = "P14s G5 AMD"
 hardware = "lenovo-thinkpad-p14s-amd-gen5"
 
 [hosts.kamui.features]
-bluetooth = true
-wifi = true
-touchpad = true
-backlight = true
 fingerprint = true
 kernel = "cachyos-latest-zen4"
 

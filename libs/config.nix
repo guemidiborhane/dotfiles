@@ -16,6 +16,6 @@ in
     swapSize = "${toString (host.ram + 2)}G";
   };
 
-  features = defaults.features // (host.features or { });
+  features = defaults.features // (defaults.features.${host.type} or { }) // (host.features or { });
   power = defaults.power // (host.power or { });
 }
