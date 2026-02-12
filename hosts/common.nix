@@ -29,21 +29,6 @@
         Defaults passwd_timeout=5
         Defaults insults
       '';
-      extraRules = [
-        {
-          users = [ cfg.user.username ];
-          commands = [
-            {
-              command = "/run/current-system/sw/bin/wg-quick";
-              options = [ "NOPASSWD" ];
-            }
-            {
-              command = "/run/current-system/sw/bin/wg";
-              options = [ "NOPASSWD" ];
-            }
-          ];
-        }
-      ];
     };
   };
 
