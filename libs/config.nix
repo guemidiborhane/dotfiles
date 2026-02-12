@@ -11,10 +11,13 @@ in
   inherit (tomlConfig) user metadata;
   inherit defaults;
 
-  host = host // {
-    hostname = host.hostname or host.name;
-    swapSize = "${toString (host.ram + 2)}G";
-  };
+  host =
+    (defaults.host or { })
+    // host
+    // {
+      hostname = host.hostname or host.name;
+      swapSize = "${toString (host.ram + 2)}G";
+    };
 
   features = defaults.features // (defaults.features.${host.type} or { }) // (host.features or { });
   power = defaults.power // (host.power or { });

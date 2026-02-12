@@ -5,7 +5,7 @@
   ...
 }:
 let
-  kernelName = cfg.features.kernel or "";
+  kernelName = cfg.host.kernel or "";
   kernels = {
     linux-latest = pkgs.linuxPackages_latest;
     linux-zen = pkgs.linuxPackages_zen;

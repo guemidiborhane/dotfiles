@@ -15,7 +15,9 @@ sshKeys = [
 ]
 yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
 
-# Default features for all hosts (can be overridden per-host)
+[defaults.host]
+kernel = "cachyos-latest"
+
 [defaults.features]
 bluetooth = false
 wifi = false
@@ -64,10 +66,10 @@ cpu = "amd"
 gpu = "amd"
 description = "P14s G5 AMD"
 hardware = "lenovo-thinkpad-p14s-amd-gen5"
+kernel = "cachyos-latest-zen4"
 
 [hosts.kamui.features]
 fingerprint = true
-kernel = "cachyos-latest-zen4"
 
 [hosts.kamui.power]
 tlp = true
@@ -82,11 +84,11 @@ ram = 64
 cpu = "amd"
 gpu = "nvidia"
 description = "5950X Workstation"
+kernel = "cachyos-latest-v3"
 
 [hosts.kotoamatsukami.features]
 bluetooth = true
 wifi = true
-kernel = "cachyos-latest-v3"
 autoUpdate = true
 wol = "enp6s0"
 remoteUnlock = true
