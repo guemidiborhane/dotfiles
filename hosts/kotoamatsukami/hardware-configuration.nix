@@ -33,7 +33,7 @@
       "memmap=8K$0x00000007ba118430"
       "memmap=8K$0x00000007bbb697b0"
 
-      "memtest=4"
+      "memtest=1"
       "amd_pstate=active"
     ];
   };
