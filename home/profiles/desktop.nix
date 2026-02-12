@@ -43,6 +43,7 @@
     sunsetr
     tor-browser
     playerctl
+    jellyfin-mpv-shim
     # Communication
     vesktop
     signal-desktop
