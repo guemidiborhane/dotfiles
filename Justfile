@@ -249,7 +249,7 @@ build host="":
 
 # Format nix files
 fmt:
-    {{nix}} fmt
+    fd -e nix | xargs {{nix}} fmt
 
 # Helper: Get username from config
 _get-username:
