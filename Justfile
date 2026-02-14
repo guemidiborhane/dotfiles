@@ -251,6 +251,14 @@ build host="":
 fmt:
     fd -e nix | xargs {{nix}} fmt
 
+# Validate flake
+check:
+    nix flake check
+
+# Enter mise nix-shell
+mise:
+    {{nix}} develop .#mise
+
 # Helper: Get username from config
 _get-username:
     @tomlq -r '.user.username' config.toml

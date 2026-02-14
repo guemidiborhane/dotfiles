@@ -66,7 +66,11 @@
       devShells = forAllSystems (
         { pkgs }:
         {
-          default = import ./shell.nix { inherit pkgs; };
+          default = import ./shells {
+            inherit pkgs hosts;
+            config = tomlConfig;
+          };
+          mise = import ./shells/mise.nix { inherit pkgs; };
         }
       );
 
