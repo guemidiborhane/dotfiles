@@ -9,7 +9,6 @@
     bind
     exfatprogs
     gum
-    helm
     htop
     iftop
     inxi
