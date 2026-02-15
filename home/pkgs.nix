@@ -37,5 +37,6 @@
     brave
     inputs.salatux.packages.${stdenv.hostPlatform.system}.default
     nixfmt
+    speedtest-cli
   ];
 }
