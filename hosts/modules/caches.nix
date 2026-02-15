@@ -1,5 +1,5 @@
-# TODO: Before using the cache you should rebuild to add it to the config
-{ ... }:
+# NOTE: Before using the cache you should rebuild to add it to the config
+{ h, ... }:
 let
   caches = [
     {
@@ -19,11 +19,13 @@ let
       key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
     }
   ];
+  urls = h.pluck "url" caches;
+  keys = h.pluck "key" caches;
 in
 {
   nix.settings = {
-    extra-substituters = map (c: c.url) caches;
-    extra-trusted-substituters = map (c: c.url) caches;
-    extra-trusted-public-keys = map (c: c.key) caches;
+    extra-substituters = urls;
+    extra-trusted-substituters = urls;
+    extra-trusted-public-keys = keys;
   };
 }

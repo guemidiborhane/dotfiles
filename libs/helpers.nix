@@ -19,6 +19,8 @@ in
       builtins.readFile outFile;
   };
 
+  pluck = builtins.catAttrs;
+
   isLaptop = host.type == "laptop";
   isDesktop = host.type == "desktop";
   isHeadless = host.type == "headless";
