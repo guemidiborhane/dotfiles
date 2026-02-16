@@ -123,7 +123,7 @@ disko host="" disk="":
     gum style --foreground 220 "Starting in 5 seconds... (Ctrl+C to abort)"
     sleep 5
 
-    gum spin --show-stderr --spinner dot --title "Running disko on $DISK..." -- \
+    gum spin --show-output --spinner dot --title "Running disko on $DISK..." -- \
         sudo {{nix}} run github:nix-community/disko -- \
             --mode disko --flake .#$RESOLVED
 
@@ -175,7 +175,7 @@ remove-host name="":
 # Update flake
 update flake="":
     #!/usr/bin/env bash
-    gum spin --show-stderr --spinner dot --title "Updating flake inputs..." -- {{nix}} flake update {{ flake }}
+    gum spin --show-output --spinner dot --title "Updating flake inputs..." -- {{nix}} flake update {{ flake }}
     echo
     gum style --foreground 212 "✓ Flake updated successfully"
     echo
@@ -226,7 +226,7 @@ clean:
     #!/usr/bin/env bash
     gum style --foreground 220 "This will clean old generations and garbage collect"
     if gum confirm "Continue?"; then
-        gum spin --show-stderr --spinner dot --title "Cleaning system..." -- nh clean all
+        gum spin --show-output --spinner dot --title "Cleaning system..." -- nh clean all
         gum style --foreground 212 "✓ System cleaned successfully"
     else
         gum style --foreground 242 "Cancelled"
