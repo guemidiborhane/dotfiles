@@ -10,6 +10,9 @@ ruby = "latest"
 node = "lts"
 bun = "latest"
 usage = "latest"
+doggo = "latest"
+helm = "latest"
 
 [settings]
+experimental = true
 idiomatic_version_file_enable_tools = ["ruby"]
