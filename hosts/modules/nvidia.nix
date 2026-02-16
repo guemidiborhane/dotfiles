@@ -1,10 +1,12 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-    modesetting.enable = true;
     open = true;
     nvidiaSettings = true;
+    powerManagement.enable = true;
+
+    modesetting.enable = true;
     package =
       let
         base = config.boot.kernelPackages.nvidiaPackages.latest;
