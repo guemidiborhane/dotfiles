@@ -1,4 +1,5 @@
 # Nix command with experimental features
+
 nix := "nix --experimental-features 'nix-command flakes'"
 
 # Interactive menu
@@ -12,7 +13,7 @@ help:
 
 # Enter development shell
 dev:
-    {{nix}} develop
+    {{ nix }} develop
 
 # Show all configured hosts
 list-hosts:
@@ -124,7 +125,7 @@ disko host="" disk="":
     sleep 5
 
     gum spin --show-output --spinner dot --title "Running disko on $DISK..." -- \
-        sudo {{nix}} run github:nix-community/disko -- \
+        sudo {{ nix }} run github:nix-community/disko -- \
             --mode disko --flake .#$RESOLVED
 
 # Install NixOS
@@ -142,8 +143,8 @@ nixos-install host="":
 
     gum style --foreground 212 "Installing NixOS for: $RESOLVED"
 
-    SUBS="$({{nix}} eval .#nixosConfigurations.$RESOLVED.config.nix.settings.extra-substituters --json | jq -r 'join(" ")')"
-    KEYS="$({{nix}} eval .#nixosConfigurations.$RESOLVED.config.nix.settings.extra-trusted-public-keys --json | jq -r 'join(" ")')"
+    SUBS="$({{ nix }} eval .#nixosConfigurations.$RESOLVED.config.nix.settings.extra-substituters --json | jq -r 'join(" ")')"
+    KEYS="$({{ nix }} eval .#nixosConfigurations.$RESOLVED.config.nix.settings.extra-trusted-public-keys --json | jq -r 'join(" ")')"
 
     sudo nixos-install --verbose --flake .#$RESOLVED \
         --option extra-substituters "$SUBS" \
@@ -175,7 +176,7 @@ remove-host name="":
 # Update flake
 update flake="":
     #!/usr/bin/env bash
-    gum spin --show-output --spinner dot --title "Updating flake inputs..." -- {{nix}} flake update {{ flake }}
+    gum spin --show-output --spinner dot --title "Updating flake inputs..." -- {{ nix }} flake update {{ flake }}
     echo
     gum style --foreground 212 "✓ Flake updated successfully"
     echo
@@ -194,7 +195,7 @@ check-builds host="":
 
     RESOLVED=$(just _resolve-host "$HOST")
     gum style --foreground 212 "Checking build requirements for: $RESOLVED"
-    {{nix}} build .#nixosConfigurations.$HOST.config.system.build.toplevel --dry-run 2>&1 \
+    {{ nix }} build .#nixosConfigurations.$HOST.config.system.build.toplevel --dry-run 2>&1 \
         | awk '/will be built:/,/will be fetched/' \
         | sed '1d;$d' | sed 's#.*/##' | rg -v 'completion'
 
@@ -245,11 +246,11 @@ build host="":
 
     RESOLVED=$(just _resolve-host "$HOST")
     gum style --foreground 212 "Building configuration for: $RESOLVED"
-    {{nix}} build .#nixosConfigurations.$RESOLVED.config.system.build.toplevel
+    {{ nix }} build .#nixosConfigurations.$RESOLVED.config.system.build.toplevel
 
 # Format nix files
 fmt:
-    fd -e nix | xargs {{nix}} fmt
+    fd -e nix | xargs {{ nix }} fmt
 
 # Validate flake
 check:
@@ -257,7 +258,7 @@ check:
 
 # Enter mise nix-shell
 mise:
-    {{nix}} develop .#mise
+    {{ nix }} develop .#mise
 
 # Helper: Get username from config
 _get-username:
