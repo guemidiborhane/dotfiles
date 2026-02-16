@@ -28,5 +28,9 @@
     statix
     nix-index
     wireguard-tools
+    ntfs3g
+    exfatprogs
+    squashfsTools
+    openssl_3
   ];
 }

@@ -7,7 +7,6 @@
     gnupg
     python3
     bind
-    exfatprogs
     gum
     htop
     iftop
@@ -16,13 +15,11 @@
     jq
     yq
     net-tools
-    ntfs3g
     parallel
     pgcli
     pigz
     pv
     rsync
-    squashfsTools
     stress-ng
     s-tui
     traceroute
@@ -31,7 +28,6 @@
     ngrok
     sendme
     tidy-viewer
-    openssl_3
     hyprshot
     satty
     brave
