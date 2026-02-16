@@ -31,10 +31,12 @@ zramSwap = false
 wol = false
 remoteUnlock = false
 qbittorrent = false
+kanata = false
 
 [defaults.features.desktop]
 zramSwap = true
 qbittorrent = true
+kanata = true
 
 [defaults.features.laptop]
 bluetooth = true
@@ -42,6 +44,7 @@ wifi = true
 touchpad = true
 backlight = true
 zramSwap = true
+kanata = true
 
 # Default power settings for laptops (can be overridden per-host)
 [defaults.power]
@@ -58,6 +61,9 @@ cpu = "intel"                      # intel, amd
 gpu = "intel"                      # intel, amd, nvidia, hybrid
 hardware = "dell-latitude-7490"    # Optional: nixos-hardware module path
 description = "Dell Latitude 7490"
+
+[hosts.takotsubo.features]
+kanata = false
 
 [hosts.kamui]
 type = "laptop"

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ cfg, ... }:
 {
   boot.kernelModules = [ "uinput" ];
 
@@ -18,7 +18,7 @@
   };
 
   services.kanata = {
-    enable = true;
+    enable = cfg.features.kanata or false;
     keyboards = {
       default = {
         extraDefCfg = ''
