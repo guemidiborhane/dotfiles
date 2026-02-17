@@ -173,14 +173,37 @@ remove-host name="":
     # Run the remove-host script
     ./scripts/remove-host.sh "{{ name }}"
 
-# Update flake
-update flake="":
+# Update flake inputs (interactive multi-select with fuzzy filter)
+update:
     #!/usr/bin/env bash
-    gum spin --show-output --spinner dot --title "Updating flake inputs..." -- {{ nix }} flake update {{ flake }}
+    set -euo pipefail
+
+    INPUTS=$({{ nix }} flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[]' 2>/dev/null || echo "")
+
+    if [ -z "$INPUTS" ]; then
+        gum style --foreground 196 "✗ Failed to read flake inputs"
+        exit 1
+    fi
+
+    SELECTION=$(printf "All inputs\n%s" "$INPUTS" | gum filter --no-limit --placeholder "Type to filter... (tab to select, enter to confirm)")
+
+    if [ -z "$SELECTION" ]; then
+        gum style --foreground 242 "No inputs selected"
+        exit 0
+    fi
+
+    if echo "$SELECTION" | grep -q "^All inputs$"; then
+        gum spin --show-output --spinner dot --title "Updating all flake inputs..." -- \
+            {{ nix }} flake update
+    else
+        # Remove "All inputs" if present and convert to space-separated args
+        ARGS=$(echo "$SELECTION" | grep -v "^All inputs$" | tr '\n' ' ')
+        gum spin --show-output --spinner dot --title "Updating: $ARGS" -- \
+            {{ nix }} flake update $ARGS
+    fi
+
     echo
     gum style --foreground 212 "✓ Flake updated successfully"
-    echo
-    gum style --foreground 242 "Run 'just check-builds <host>' to verify"
 
 # Check build requirements
 check-builds host="":
