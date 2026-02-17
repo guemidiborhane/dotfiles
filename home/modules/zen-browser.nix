@@ -47,6 +47,7 @@
 
   programs.zen-browser = {
     enable = true;
+    suppressXdgMigrationWarning = true;
     policies =
       let
         mkLockedAttrs = builtins.mapAttrs (
@@ -213,19 +214,19 @@
         "daily-dev" = {
           id = "46978cc4-ecd3-459c-a490-7c3253a1983a";
           url = "https://app.daily.dev";
-          position = 104;
+          position = 201;
           isEssential = true;
         };
         "subscriptions" = {
           id = "6fce947d-238e-492c-81f8-9c7e53c7e785";
           url = "https://youtube.com/feed/subscriptions";
-          position = 105;
+          position = 202;
           isEssential = true;
         };
         "jellyfin" = {
           id = "a8cf8e7e-98e8-44f1-98ec-9c3e41f26ebe";
           url = h.base64.decode "aHR0cDovLzEwLjAuMC4xMDo4MDk2";
-          position = 106;
+          position = 203;
           isEssential = true;
         };
       };
