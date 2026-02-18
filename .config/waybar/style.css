@@ -12,7 +12,7 @@
 }
 
 #waybar > box {
-  background: alpha(@background, 0.5);
+  background: alpha(@background, 0.7);
   color: @theme_text_color;
   border-radius: 5px;
   margin: 10px 10px 0 10px;
