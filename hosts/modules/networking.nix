@@ -12,6 +12,7 @@
       allowedTCPPorts = [
         22
         3000
+        8096
       ];
     };
     networkmanager.enable = true;
