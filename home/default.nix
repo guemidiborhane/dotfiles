@@ -1,7 +1,4 @@
-{ lib, h, ... }:
-let
-  isGUI = !h.isHeadless;
-in
+{ cfg, ... }:
 {
   imports = [
     ./home.nix
@@ -10,8 +7,8 @@ in
     ./modules/yadm.nix
     ./modules/shell.nix
     ./modules/programs/yadm.nix
-  ]
-  ++ lib.optional isGUI ./profiles/desktop.nix;
+    ./profiles/${cfg.host.type}.nix
+  ];
 
   programs.yazi.enable = true;
   programs.home-manager.enable = true;
