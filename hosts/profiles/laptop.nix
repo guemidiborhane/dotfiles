@@ -3,6 +3,7 @@
   imports = [
     ./desktop.nix
     ../modules/services/tlp.nix
+    ../modules/services/upower.nix
   ];
 
   powerManagement = {
