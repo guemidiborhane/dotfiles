@@ -6,6 +6,8 @@
     libyaml
     libxml2
     libffi
+    pkg-config
+    sqlite
   ];
 
   programs.nix-ld.enable = true;
@@ -13,6 +15,8 @@
     libyaml
     libxml2
     libffi
+    openssl
+    sqlite
   ];
 
   services.locate = {
