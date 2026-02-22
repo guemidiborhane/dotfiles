@@ -5,7 +5,7 @@
   ];
 
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixVersions.latest;
     settings = {
       warn-dirty = false;
       experimental-features = [
