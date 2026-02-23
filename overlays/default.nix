@@ -16,10 +16,10 @@
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
   nixpkgs =
-    final: _prev:
+    final: prev:
     let
       config = {
-        inherit (final) system;
+        inherit (prev.stdenv) system;
         config.allowUnfree = true;
       };
     in
