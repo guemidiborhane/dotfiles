@@ -83,12 +83,6 @@
         map (
           host:
           let
-            hardwareModules =
-              if host ? hardware && host.hardware != "" then
-                [ inputs.nixos-hardware.nixosModules.${host.hardware} ]
-              else
-                [ ];
-
             system = "x86_64-linux";
             pkgs =
               let
@@ -117,35 +111,10 @@
             value = nixpkgs.lib.nixosSystem {
               inherit pkgs system specialArgs;
               modules = [
-                # Core modules
                 inputs.disko.nixosModules.disko
-
-                # System configuration
-                ./hosts/disko.nix
-                ./hosts/common.nix
-                ./hosts/${host.name}/hardware-configuration.nix
-                ./hosts/modules/kernel.nix
-                ./hosts/modules/nix.nix
-
-                # Additional modules
                 inputs.nur.modules.nixos.default
                 inputs.solaar.nixosModules.default
-                ./hosts/modules/base-devel.nix
-                ./hosts/modules/disks-mount.nix
-                ./hosts/modules/networking.nix
-                ./hosts/modules/virtualisation
-                ./hosts/modules/user.nix
-                ./hosts/modules/pkgs.nix
-                ./hosts/modules/services
-                ./hosts/modules/programs
-                ./hosts/modules/kanata.nix
-                ./hosts/modules/auto-upgrade.nix
-                ./hosts/profiles/${host.type}.nix
-
-                inputs.nix-index-database.nixosModules.default
-                { programs.nix-index-database.comma.enable = true; }
-
-                # Home manager
+                ./hosts
                 inputs.home-manager.nixosModules.home-manager
                 (
                   { cfg, lib, ... }:
@@ -164,17 +133,7 @@
                     };
                   }
                 )
-
-                # State version
-                (
-                  { cfg, ... }:
-                  {
-                    system.stateVersion = cfg.metadata.stateVersion;
-                  }
-                )
-              ]
-              ++ hardwareModules
-              ++ nixpkgs.lib.optional h.hasNvidia ./hosts/modules/nvidia.nix;
+              ];
             };
           }
         ) hosts
