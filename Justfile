@@ -174,22 +174,26 @@ remove-host name="":
     ./scripts/remove-host.sh "{{ name }}"
 
 # Update flake inputs (interactive multi-select with fuzzy filter)
-update:
+update flake="":
     #!/usr/bin/env bash
     set -euo pipefail
 
-    INPUTS=$({{ nix }} flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[]' 2>/dev/null || echo "")
+    if [[ -z "{{ flake }}" ]]; then
+        INPUTS=$({{ nix }} flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[]' 2>/dev/null || echo "")
 
-    if [ -z "$INPUTS" ]; then
-        gum style --foreground 196 "✗ Failed to read flake inputs"
-        exit 1
-    fi
+        if [ -z "$INPUTS" ]; then
+            gum style --foreground 196 "✗ Failed to read flake inputs"
+            exit 1
+        fi
 
-    SELECTION=$(printf "All inputs\n%s" "$INPUTS" | gum filter --no-limit --placeholder "Type to filter... (tab to select, enter to confirm)")
+        SELECTION=$(printf "All inputs\n%s" "$INPUTS" | gum filter --no-limit --placeholder "Type to filter... (tab to select, enter to confirm)")
 
-    if [ -z "$SELECTION" ]; then
-        gum style --foreground 242 "No inputs selected"
-        exit 0
+        if [ -z "$SELECTION" ]; then
+            gum style --foreground 242 "No inputs selected"
+            exit 0
+        fi
+    else
+        SELECTION="{{ flake }}"
     fi
 
     if echo "$SELECTION" | grep -q "^All inputs$"; then
