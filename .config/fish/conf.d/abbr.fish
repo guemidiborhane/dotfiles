@@ -69,12 +69,16 @@ alias yeet "nix-env -e"
 abbr ss "nh search"
 
 set nos "nh os switch"
+set nhs "nh home switch"
 set nosa "$nos --ask"
+set nhsa "$nhs --ask"
 
 abbr not "nh os test"
 abbr nos "$nos"
 abbr nosa "$nosa"
+abbr nhs "$nhs"
+abbr nhsa "$nhsa"
 abbr nor "nh os repl"
-abbr yy "nix flake update --flake $NH_FLAKE && $nosa"
+abbr yy "nix flake update --flake $NH_FLAKE && $nosa && $nhsa"
 
 abbr jms "dr --unit=jellyfin-mpv -- /usr/bin/jellyfin-mpv-shim --config ~/.config/mpv"
