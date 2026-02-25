@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  cfg,
+  host,
   ...
 }:
 {
@@ -23,7 +23,7 @@
     config.boot.kernelPackages.cpupower
     trashy
     just
-    nvtopPackages.${cfg.host.gpu}
+    nvtopPackages.${host.gpu}
     wol
     statix
     nix-index

@@ -1,0 +1,14 @@
+{ ctx, ... }:
+let
+  inherit (ctx) host;
+in
+{
+  isLaptop = host.type == "laptop";
+  isDesktop = host.type == "desktop";
+  isHeadless = host.type == "headless";
+
+  hasAMD = host.cpu == "amd";
+  hasIntel = host.cpu == "intel";
+  hasNvidia = host.gpu == "nvidia";
+  hasAMDGPU = host.gpu == "amd";
+}

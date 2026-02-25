@@ -1,7 +1,8 @@
 {
   lib,
   pkgs,
-  cfg,
+  features,
+  metadata,
   ...
 }:
 {
@@ -18,7 +19,7 @@
   };
 
   zramSwap = {
-    enable = cfg.features.zramSwap;
+    enable = features.zramSwap;
     priority = 100;
     algorithm = "lz4";
     memoryPercent = 30;
@@ -36,5 +37,5 @@
   };
 
   environment.shellAliases.ls = lib.mkForce null;
-  system.stateVersion = cfg.metadata.stateVersion;
+  system.stateVersion = metadata.stateVersion;
 }

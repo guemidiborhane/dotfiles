@@ -2,6 +2,8 @@
   pkgs ? import <nixpkgs> { },
 }:
 pkgs.mkShell {
+  name = "mise-install-env";
+
   nativeBuildInputs = with pkgs; [
     pkg-config
     gnumake

@@ -1,4 +1,4 @@
-{ h, cfg, ... }:
+{ h, features, ... }:
 let
   netbirdServer = {
     Scheme = "https";
@@ -9,7 +9,7 @@ in
   services.netbird = {
     enable = true;
     clients.default = {
-      port = cfg.features.netbirdPort or 51820;
+      port = features.netbirdPort or 51820;
       config = {
         ManagementURL = netbirdServer;
         AdminURL = netbirdServer;

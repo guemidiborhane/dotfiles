@@ -1,4 +1,4 @@
-{ cfg, ... }:
+{ features, ... }:
 {
   imports = [
     ./desktop.nix
@@ -11,8 +11,8 @@
     powertop.enable = true;
   };
 
-  services.libinput.enable = cfg.features.touchpad;
+  services.libinput.enable = features.touchpad;
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 
-  programs.light.enable = cfg.features.backlight;
+  programs.light.enable = features.backlight;
 }

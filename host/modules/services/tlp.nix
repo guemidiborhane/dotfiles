@@ -1,4 +1,4 @@
-{ cfg, ... }:
+{ power, ... }:
 {
   services.tlp = {
     enable = true;
@@ -15,8 +15,8 @@
       CPU_BOOST_ON_BAT = 0;
       RADEON_DPM_STATE_ON_BAT = "battery";
 
-      START_CHARGE_THRESH_BAT0 = cfg.power.startChargeThreshold;
-      STOP_CHARGE_THRESH_BAT0 = cfg.power.stopChargeThreshold;
+      START_CHARGE_THRESH_BAT0 = power.startChargeThreshold;
+      STOP_CHARGE_THRESH_BAT0 = power.stopChargeThreshold;
       RESTORE_THRESHOLDS_ON_BAT = true;
     };
   };

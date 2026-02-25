@@ -1,14 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ../modules/thinkfan.nix
+    ../../modules/thinkfan.nix
   ];
 
   boot.initrd.availableKernelModules = [

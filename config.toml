@@ -17,7 +17,9 @@ yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
 
 [defaults.host]
 kernel = "cachyos-latest"
+users = ["borhane"]
 defaultUser = "borhane"
+system = "x86_64-linux"
 
 [defaults.features]
 bluetooth = false

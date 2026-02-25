@@ -1,11 +1,11 @@
 {
   pkgs,
   inputs,
-  cfg,
+  host,
   ...
 }:
 let
-  kernelName = cfg.host.kernel or "";
+  kernelName = host.kernel or "";
   kernels = {
     linux-latest = pkgs.linuxPackages_latest;
     linux-zen = pkgs.linuxPackages_zen;
