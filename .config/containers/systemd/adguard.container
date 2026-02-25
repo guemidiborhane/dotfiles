@@ -12,7 +12,7 @@ AutoUpdate=registry
 Memory=1G
 
 Volume=%E/adguard:/opt/adguardhome/conf:Z
-Volume=%D/adguard:/opt/adguardhome/work:Z
+Volume=%C/adguard:/opt/adguardhome/work:Z
 
 PublishPort=127.0.0.1:8853:53/tcp
 PublishPort=127.0.0.1:8853:53/udp
