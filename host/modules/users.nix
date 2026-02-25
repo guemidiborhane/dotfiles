@@ -1,14 +1,16 @@
 {
   pkgs,
-  cfg,
+  host,
+  users,
   config,
   lib,
   ...
 }:
-let
-  inherit (cfg) users host;
-in
 {
+  imports = [
+    ./home-manager.nix
+  ];
+
   users.groups = builtins.mapAttrs (username: user: {
     gid = user.id;
     members = [ username ];

@@ -1,4 +1,4 @@
-{ cfg, lib, ... }:
+{ host, lib, ... }:
 {
   fileSystems = lib.mapAttrs' (
     diskId: mountPath:
@@ -12,5 +12,5 @@
         "x-gvfs-show"
       ];
     }
-  ) (cfg.host.disks or { });
+  ) (host.disks or { });
 }

@@ -1,11 +1,14 @@
 {
-  cfg,
+  inputs,
+  features,
   lib,
   pkgs,
   ...
 }:
 {
   imports = [
+    inputs.nur.modules.nixos.default
+    inputs.solaar.nixosModules.default
     ../modules/hyprland.nix
     ../modules/services/pipewire.nix
     ../modules/programs/thunar.nix
@@ -16,13 +19,13 @@
     udisks2.enable = true;
     gvfs.enable = true;
     solaar.enable = true;
-    fprintd.enable = cfg.features.fingerprint;
+    fprintd.enable = features.fingerprint;
   };
 
   hardware.graphics.enable = true;
 
-  hardware.bluetooth.enable = cfg.features.bluetooth;
-  services.blueman.enable = cfg.features.bluetooth;
+  hardware.bluetooth.enable = features.bluetooth;
+  services.blueman.enable = features.bluetooth;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 

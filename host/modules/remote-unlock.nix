@@ -1,4 +1,4 @@
-{ cfg, ... }:
+{ features, ... }:
 {
   boot.kernelParams = [ "ip=dhcp" ];
   boot.initrd = {
@@ -6,7 +6,7 @@
     network = {
       enable = true;
       ssh = {
-        enable = cfg.features.remoteUnlock;
+        enable = features.remoteUnlock;
         port = 22;
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAizWh/D3fQY7CT8onqVH4M0BJ7l5fpBsdCPvx3TsUo/ luks@warden"

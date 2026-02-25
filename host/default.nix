@@ -1,22 +1,21 @@
 {
   inputs,
-  cfg,
+  host,
+  features,
   lib,
   h,
   ...
 }:
 let
-  inherit (cfg) host;
-
   hasHardwareModule = host ? hardware && host.hardware != "";
-  wolEnabled = cfg.features.wol != false && cfg.features.wol != null;
+  wolEnabled = features.wol != false && features.wol != null;
 in
 {
   imports = [
     # System configuration
     ./disko.nix
     ./common.nix
-    ./${host.name}/hardware-configuration.nix
+    ./hosts/${host.name}/hardware-configuration.nix
     ./modules/kernel.nix
     ./modules/nix.nix
     ./modules/locales.nix
@@ -26,7 +25,7 @@ in
     ./modules/disks-mount.nix
     ./modules/networking.nix
     ./modules/virtualisation
-    ./modules/user.nix
+    ./modules/users.nix
     ./modules/pkgs.nix
     ./modules/services
     ./modules/programs
@@ -37,5 +36,5 @@ in
   ++ lib.optional hasHardwareModule inputs.nixos-hardware.nixosModules.${host.hardware}
   ++ lib.optional h.hasNvidia ./modules/nvidia.nix
   ++ lib.optional wolEnabled ./modules/wol.nix
-  ++ lib.optional cfg.features.remoteUnlock ./modules/remote-unlock.nix;
+  ++ lib.optional features.remoteUnlock ./modules/remote-unlock.nix;
 }

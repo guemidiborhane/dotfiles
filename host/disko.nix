@@ -1,8 +1,6 @@
-{ cfg, ... }:
-let
-  inherit (cfg) host;
-in
+{ inputs, host, ... }:
 {
+  imports = [ inputs.disko.nixosModules.disko ];
   disko.devices =
     let
       device = host.disk;
