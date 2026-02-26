@@ -101,9 +101,17 @@ gum spin --spinner dot --title "Creating host directory..." -- mkdir -p "hosts/$
 
 # Generate hardware config
 if gum confirm "Generate hardware configuration now? (requires root)"; then
+    output_file="modules/system/hardware/hosts/$NAME.nix"
     gum spin --spinner dot --title "Generating hardware configuration..." -- \
-        nixos-generate-config --show-hardware-config --no-filesystems > \
-        "hosts/$NAME/hardware-configuration.nix"
+		cat > "$output_file" <<EOF
+{ _, ...}:
+{
+  flake.nixosModules.hardware-$NAME =
+$(nixos-generate-config --show-hardware-config --no-filesystems);
+}
+EOF
+  nix fmt "$output_file"
+
 else
     gum style --foreground 220 "⚠ Remember to generate hardware-configuration.nix later"
 fi

@@ -1,6 +1,6 @@
 { ctx, ... }:
 let
-  inherit (ctx) host;
+  inherit (ctx) host users;
 in
 {
   isLaptop = host.type == "laptop";
@@ -11,4 +11,6 @@ in
   hasIntel = host.cpu == "intel";
   hasNvidia = host.gpu == "nvidia";
   hasAMDGPU = host.gpu == "amd";
+
+  forEachUser = fn: builtins.mapAttrs fn users;
 }
