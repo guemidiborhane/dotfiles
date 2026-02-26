@@ -1,7 +1,7 @@
 { inputs, ... }:
 let
   lib = inputs.nixpkgs.lib // inputs.home-manager.lib;
-  config = import ./config.nix;
+  config = import ./config.nix { inherit inputs; };
   overlays = import ./overlays { inherit inputs; };
 
   inherit (config) toml defaultSystem systems;
@@ -22,6 +22,7 @@ let
   mkContext = hostOrContext: {
     inherit (toml) metadata;
     inherit (hostOrContext) features power users;
+    inherit (hostOrContext) networking;
     host =
       if (hostOrContext ? host) then
         hostOrContext.host # When called from mkHomeContext

@@ -14,6 +14,11 @@ sshKeys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal",
 ]
 yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
+extraGroups = ["uinput", "libvirtd"]
+
+[defaults.networking]
+allowTCP = []
+allowUDP = []
 
 [defaults.host]
 kernel = "cachyos-latest"
@@ -30,10 +35,13 @@ fingerprint = false
 autoUpdate = false
 autoReboot = false
 zramSwap = false
-wol = false
 remoteUnlock = false
 qbittorrent = false
 kanata = false
+
+[defaults.features.wol]
+enable = false
+iface = ""
 
 [defaults.features.desktop]
 zramSwap = true
@@ -99,8 +107,13 @@ kernel = "cachyos-latest-v3"
 bluetooth = true
 wifi = true
 autoUpdate = true
-wol = "enp6s0"
 remoteUnlock = true
+
+[hosts.kotoamatsukami.features.wol]
+enable = true
+iface = "enp6s0"
+
+[hosts.kotoamatsukami.networking]
 netbirdPort = 51281
 
 [hosts.kotoamatsukami.disks]

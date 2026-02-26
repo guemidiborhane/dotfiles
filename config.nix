@@ -1,3 +1,4 @@
+{ inputs }:
 let
   toml = builtins.fromTOML (builtins.readFile ./config.toml);
   inherit (toml) metadata defaults;
@@ -24,8 +25,10 @@ let
           hostname = host.hostname or name;
           swapSize = "${toString (host.ram + 2)}G";
         };
-      features = defaults.features // (defaults.features.${host.type} or { }) // host.features;
+      features = defaults.features // (defaults.features.${host.type} or { }) // (host.features or { });
       power = defaults.power // host.power;
+      networking =
+        defaults.networking // (defaults.networking.${host.type} or { }) // (host.networking or { });
 
       users = builtins.listToAttrs (
         map (username: {
@@ -42,6 +45,7 @@ let
         features
         power
         users
+        networking
         ;
     };
 in
@@ -56,6 +60,6 @@ in
   ];
   defaultSystem = defaults.host.system;
 
-  hostModules = [ ./host ];
-  homeModules = [ ./home ];
+  hostModules = [ inputs.self.nixosModules.entrypoint-host ];
+  homeModules = [ inputs.self.homeModules.entrypoint-home ];
 }

@@ -15,6 +15,10 @@ help:
 dev:
     {{ nix }} develop
 
+# Generate flake.nix using flake-file
+flake:
+    {{ nix }} run .#write-flake
+
 # Show all configured hosts
 list-hosts:
     #!/usr/bin/env bash
