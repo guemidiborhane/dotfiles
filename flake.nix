@@ -27,7 +27,7 @@
       url = "github:nix-community/nix-index-database";
     };
     nixos-hardware.url = "github:NixOs/nixos-hardware/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-lib.follows = "nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";

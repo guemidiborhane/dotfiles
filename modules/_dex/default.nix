@@ -4,7 +4,7 @@ let
   config = import ./config.nix { inherit inputs; };
   overlays = import ./overlays { inherit inputs; };
 
-  inherit (config) toml defaultSystem systems;
+  inherit (config) metadata defaultSystem;
   inherit (config) hostModules homeModules;
 
   mkPkgs =
@@ -20,14 +20,14 @@ let
     };
 
   mkContext = hostOrContext: {
-    inherit (toml) metadata;
+    inherit metadata;
     inherit (hostOrContext) features power users;
     inherit (hostOrContext) networking;
     host =
       if (hostOrContext ? host) then
         hostOrContext.host # When called from mkHomeContext
       else
-        hostOrContext.config; # When called from mkArgs
+        hostOrContext.self; # When called from mkArgs
   };
 
   mkArgs =
@@ -86,7 +86,7 @@ let
   mkHostConfigs =
     host:
     let
-      inherit (host.config) hostname;
+      inherit (host.self) hostname;
     in
     {
       nixos = {
@@ -102,18 +102,16 @@ let
 
   allConfigs = map mkHostConfigs config.hosts;
 in
-rec {
+{
   inherit lib config overlays;
-  inherit mkPkgs;
 
-  forAllSystems =
-    fn:
-    lib.genAttrs systems (
-      system:
-      fn {
-        pkgs = mkPkgs system;
-      }
-    );
+  perSystem =
+    { pkgs, system, ... }:
+    {
+      formatter = pkgs.nixfmt;
+      packages = import ./pkgs pkgs;
+      devShells = import ./shells { inherit pkgs config; };
+    };
 
   nixosConfigurations = lib.listToAttrs (map (c: c.nixos) allConfigs);
   homeConfigurations = lib.listToAttrs (lib.flatten (map (c: c.homes) allConfigs));
