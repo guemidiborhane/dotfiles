@@ -1,0 +1,44 @@
+[networking]
+allowTCP = []
+allowUDP = []
+
+[host]
+kernel = "cachyos-latest"
+users = ["borhane"]
+defaultUser = "borhane"
+system = "x86_64-linux"
+
+[features]
+bluetooth = false
+wifi = false
+touchpad = false
+backlight = false
+fingerprint = false
+autoUpdate = false
+autoReboot = false
+zramSwap = false
+remoteUnlock = false
+qbittorrent = false
+kanata = false
+
+[features.wol]
+enable = false
+iface = ""
+
+[features.desktop]
+zramSwap = true
+qbittorrent = true
+kanata = true
+
+[features.laptop]
+bluetooth = true
+wifi = true
+touchpad = true
+backlight = true
+zramSwap = true
+kanata = true
+
+[power]
+tlp = true
+startChargeThreshold = 65
+stopChargeThreshold = 85

@@ -96,9 +96,6 @@ echo
 
 gum confirm "Create this host?" || exit 0
 
-# Create directory
-gum spin --spinner dot --title "Creating host directory..." -- mkdir -p "hosts/$NAME"
-
 # Generate hardware config
 if gum confirm "Generate hardware configuration now? (requires root)"; then
     output_file="modules/system/hardware/hosts/$NAME.nix"

@@ -1,5 +1,8 @@
 { _, ... }:
 {
+  flake-file.inputs = {
+    salatux.url = "github:guemidiborhane/salatux";
+  };
   flake.homeModules.default-pkgs =
     { pkgs, inputs, ... }:
     {

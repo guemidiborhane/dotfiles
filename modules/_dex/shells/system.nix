@@ -1,5 +1,5 @@
 {
-  toml,
+  metadata,
   hosts,
   pkgs ? import <nixpkgs> { },
 }:
@@ -46,13 +46,11 @@ pkgs.mkShell {
     echo "║     NixOS Configuration Environment    ║"
     echo "╚════════════════════════════════════════╝"
     echo ""
-    echo "Repository: ${toml.metadata.repository}"
+    echo "Repository: ${metadata.repository}"
     echo ""
     echo "Configured hosts:"
     ${builtins.concatStringsSep "\n" (
-      map (
-        host: ''echo "  • ${host.config.name} (${host.config.type}) - ${host.config.description}"''
-      ) hosts
+      map (host: ''echo "  • ${host.self.name} (${host.self.type}) - ${host.self.description}"'') hosts
     )}
     echo ""
     echo "Quick commands:"
