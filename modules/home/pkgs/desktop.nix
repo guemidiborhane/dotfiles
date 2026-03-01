@@ -37,7 +37,7 @@
         tor-browser
         playerctl
         jellyfin-mpv-shim
-        qgis
+        stable.qgis
         # Communication
         vesktop
         signal-desktop
