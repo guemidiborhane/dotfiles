@@ -33,7 +33,7 @@
           close_on_focus_loss = true;
           font = {
             normal = {
-              family = "MonaspiceNe Nerd Font Mono";
+              family = "MonaspiceNe Nerd Font Propo";
               size = 11;
             };
           };
