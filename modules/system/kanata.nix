@@ -31,6 +31,7 @@
                 "ELAN0676:00 04F3:3195 Mouse"
                 "TPPS/2 Elan TrackPoint"
                 "ThinkPad Extra Buttons"
+                "Lid Switch"
               )
             '';
             config = ''

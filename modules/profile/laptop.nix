@@ -15,7 +15,10 @@
       };
 
       services.libinput.enable = features.touchpad;
-      services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+      services.logind.settings.Login = {
+        HandleLidSwitch = "suspend-then-hibernate";
+        HibernateDelaySec = "30min";
+      };
 
       programs.light.enable = features.backlight;
     };
