@@ -1,7 +1,5 @@
+{ defaults, users }:
 let
-  loader = import ./configs;
-  inherit (loader) defaults users;
-
   getUser =
     username: users.${username} or (throw "Unknown user '${username}' referenced in host.users");
 in
@@ -39,11 +37,9 @@ let
   );
 in
 {
-  inherit
-    self
-    features
-    power
-    users
-    networking
-    ;
+  inherit self;
+  inherit features;
+  inherit power;
+  inherit users;
+  inherit networking;
 }

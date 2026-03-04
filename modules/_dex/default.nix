@@ -1,17 +1,16 @@
 { inputs, ... }:
 let
   lib = inputs.nixpkgs.lib // inputs.home-manager.lib;
-  config = import ./config.nix { inherit inputs; };
-  overlays = import ./overlays { inherit inputs; };
+  inherit (inputs.self) dex;
 
-  inherit (config) metadata defaultSystem;
-  inherit (config) hostModules homeModules;
+  inherit (dex) metadata defaultSystem;
+  inherit (dex) hostModules homeModules;
 
   mkPkgs =
     system:
     import inputs.nixpkgs {
       inherit system;
-      overlays = builtins.attrValues overlays;
+      overlays = builtins.attrValues inputs.self.overlays;
 
       config = {
         allowBroken = false;
@@ -100,19 +99,9 @@ let
       }) host.users;
     };
 
-  allConfigs = map mkHostConfigs config.hosts;
+  allConfigs = map mkHostConfigs dex.hosts;
 in
 {
-  inherit lib config overlays;
-
-  perSystem =
-    { pkgs, system, ... }:
-    {
-      formatter = pkgs.nixfmt;
-      packages = import ./pkgs pkgs;
-      devShells = import ./shells { inherit pkgs config; };
-    };
-
   nixosConfigurations = lib.listToAttrs (map (c: c.nixos) allConfigs);
   homeConfigurations = lib.listToAttrs (lib.flatten (map (c: c.homes) allConfigs));
 }
