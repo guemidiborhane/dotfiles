@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
 
   flake.nixosModules.kernel =
     {
