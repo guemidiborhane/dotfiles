@@ -190,7 +190,7 @@ update flake="":
             exit 1
         fi
 
-        SELECTION=$(printf "All inputs\n%s" "$INPUTS" | gum filter --no-limit --placeholder "Type to filter... (tab to select, enter to confirm)")
+        SELECTION=$(echo -n "$INPUTS" | gum filter --no-limit --placeholder "Type to filter... (tab to select, enter to confirm)")
 
         if [ -z "$SELECTION" ]; then
             gum style --foreground 242 "No inputs selected"
@@ -200,15 +200,9 @@ update flake="":
         SELECTION="{{ flake }}"
     fi
 
-    if echo "$SELECTION" | grep -q "^All inputs$"; then
-        gum spin --show-output --spinner dot --title "Updating all flake inputs..." -- \
-            {{ nix }} flake update
-    else
-        # Remove "All inputs" if present and convert to space-separated args
-        ARGS=$(echo "$SELECTION" | grep -v "^All inputs$" | tr '\n' ' ')
-        gum spin --show-output --spinner dot --title "Updating: $ARGS" -- \
-            {{ nix }} flake update $ARGS
-    fi
+    ARGS=$(echo "$SELECTION" | tr '\n' ' ')
+    gum spin --show-output --spinner dot --title "Updating: $ARGS" -- \
+        {{ nix }} flake update $ARGS
 
     echo
     gum style --foreground 212 "✓ Flake updated successfully"
