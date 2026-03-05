@@ -10,6 +10,7 @@
         locales
         common-host-configs
         zram-swap
+        zswap
         users
         hardware-host
         mount-disks
