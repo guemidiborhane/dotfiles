@@ -9,6 +9,7 @@
         kernel
         locales
         common-host-configs
+        zram-swap
         users
         hardware-host
         mount-disks

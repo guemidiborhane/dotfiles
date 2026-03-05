@@ -6,6 +6,7 @@
     {
       inputs,
       host,
+      features,
       lib,
       h,
       ...
@@ -16,8 +17,10 @@
     {
       imports = [
         inputs.self.nixosModules."hardware-${host.name}"
+        inputs.self.nixosModules.hardware-bluetooth
+        inputs.self.nixosModules.hardware-nvidia
+        { services.fprintd.enable = features.fingerprint; }
       ]
-      ++ lib.optional hasHardwareModule inputs.nixos-hardware.nixosModules.${host.hardware}
-      ++ lib.optional h.hasNvidia inputs.self.nixosModules.hardware-nvidia;
+      ++ lib.optional hasHardwareModule inputs.nixos-hardware.nixosModules.${host.hardware};
     };
 }

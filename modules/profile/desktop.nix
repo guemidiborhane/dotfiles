@@ -21,13 +21,9 @@
         udisks2.enable = true;
         gvfs.enable = true;
         solaar.enable = true;
-        fprintd.enable = features.fingerprint;
       };
 
       hardware.graphics.enable = true;
-
-      hardware.bluetooth.enable = features.bluetooth;
-      services.blueman.enable = features.bluetooth;
 
       powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 

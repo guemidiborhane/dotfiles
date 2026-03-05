@@ -1,7 +1,12 @@
 { _, ... }:
 {
   flake.nixosModules.nix-config =
-    { inputs, pkgs, ... }:
+    {
+      inputs,
+      pkgs,
+      metadata,
+      ...
+    }:
     {
 
       imports = with inputs.self.nixosModules; [
@@ -9,6 +14,9 @@
         nix-auto-upgrade
         nix-index-database
       ];
+
+      system.stateVersion = metadata.stateVersion;
+
       nix = {
         package = pkgs.nixVersions.latest;
         settings = {
