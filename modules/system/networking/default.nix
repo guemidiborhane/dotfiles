@@ -5,7 +5,6 @@
       inputs,
       host,
       networking,
-      features,
       ...
     }:
     {

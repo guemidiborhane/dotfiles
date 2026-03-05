@@ -1,8 +1,8 @@
 { _, ... }:
 {
   flake.nixosModules.kanata =
-    { features, ... }:
-    {
+    { lib, features, ... }:
+    lib.mkIf (features.kanata or false) {
       boot.kernelModules = [ "uinput" ];
 
       hardware.uinput.enable = true;
@@ -21,7 +21,7 @@
       };
 
       services.kanata = {
-        enable = features.kanata or false;
+        enable = true;
         keyboards = {
           default = {
             extraDefCfg = ''

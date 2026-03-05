@@ -1,13 +1,7 @@
 { _, ... }:
 {
   flake.nixosModules.common-host-configs =
-    {
-      lib,
-      pkgs,
-      features,
-      metadata,
-      ...
-    }:
+    { lib, pkgs, ... }:
     {
       boot.loader = {
         efi.canTouchEfiVariables = true;
@@ -21,13 +15,6 @@
         "vm.swappiness" = 10;
       };
 
-      zramSwap = {
-        enable = features.zramSwap;
-        priority = 100;
-        algorithm = "lz4";
-        memoryPercent = 30;
-      };
-
       security = {
         polkit.enable = true;
         sudo = {
@@ -39,6 +26,5 @@
       };
 
       environment.shellAliases.ls = lib.mkForce null;
-      system.stateVersion = metadata.stateVersion;
     };
 }

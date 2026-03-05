@@ -2,14 +2,12 @@
 {
   flake.nixosModules.nix-auto-upgrade =
     { features, lib, ... }:
-    {
-      system.autoUpgrade = lib.mkIf (features.autoUpdate or false) {
-        enable = features.autoUpdate or false;
+    lib.mkIf (features.autoUpdate or false) {
+      system.autoUpgrade = {
+        enable = true;
         allowReboot = features.autoReboot or false;
         flake = "github:guemidiborhane/nix-config";
-        flags = [
-          "-L"
-        ];
+        flags = [ "-L" ];
         dates = "daily";
         randomizedDelaySec = "45min";
       };

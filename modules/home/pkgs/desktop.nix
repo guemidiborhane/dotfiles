@@ -18,7 +18,6 @@
         brightnessctl
         networkmanagerapplet
         inputs.wlctl.packages.${pkgs.stdenv.hostPlatform.system}.default
-        bluetui
         dbeaver-bin
         evince
         ffmpegthumbnailer
