@@ -4,11 +4,6 @@ nix := "nix --experimental-features 'nix-command flakes'"
 hosts_config := "modules/config/hosts.toml"
 users_config := "modules/config/users.toml"
 
-# Interactive menu
-[default]
-menu:
-    ./scripts/menu.sh
-
 # Show this help message
 help:
     @just --list --unsorted
@@ -189,15 +184,24 @@ add-host name="":
     fi
 
     # Run the add-host script
-    ./scripts/add-host.sh "$NAME"
+    ./scripts/add-host.sh "{{ hosts_config }}" "$NAME"
 
 # Remove host (interactive)
 remove-host name="":
     #!/usr/bin/env bash
     set -euo pipefail
 
+    # Get host name
+    if [ -z "{{ name }}" ]; then
+        NAME=$(just _pick-host)
+    else
+        NAME="{{ name }}"
+    fi
+
+    RESOLVED=$(just _resolve-host "$NAME")
+
     # Run the remove-host script
-    ./scripts/remove-host.sh "{{ name }}"
+    ./scripts/remove-host.sh "{{ hosts_config }}" "$RESOLVED"
 
 # Update flake inputs (interactive multi-select with fuzzy filter)
 update flake="":
