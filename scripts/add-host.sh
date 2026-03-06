@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_FILE="modules/config/hosts.toml"
-NAME="$1"
+CONFIG_FILE="$1"
+NAME="$2"
+SCRIPTS_DIR="$(dirname "$0")"
+REPO_ROOT="$(cd "$SCRIPTS_DIR/.." && pwd)"
+
+cd "$REPO_ROOT"
 
 # Check if host exists
 if tomlq -e ".hosts.\"$NAME\"" "$CONFIG_FILE" >/dev/null 2>&1; then
-    gum style --foreground 196 "Error: Host '$NAME' already exists"
-    exit 1
+	gum style --foreground 196 "Error: Host '$NAME' already exists"
+	exit 1
 fi
 
 # Interactive inputs
@@ -36,8 +40,8 @@ WIFI=$(gum choose --header "WiFi:" "true" "false")
 TOUCHPAD="false"
 BACKLIGHT="false"
 if [ "$TYPE" = "laptop" ]; then
-    TOUCHPAD=$(gum choose --header "Touchpad:" "true" "false")
-    BACKLIGHT=$(gum choose --header "Backlight control:" "true" "false")
+	TOUCHPAD=$(gum choose --header "Touchpad:" "true" "false")
+	BACKLIGHT=$(gum choose --header "Backlight control:" "true" "false")
 fi
 echo
 
@@ -46,13 +50,13 @@ TLP="false"
 START_THRESHOLD="65"
 STOP_THRESHOLD="85"
 if [ "$TYPE" = "laptop" ]; then
-    gum style --foreground 212 "Power Management"
-    TLP=$(gum choose --header "Enable TLP:" "true" "false")
-    if [ "$TLP" = "true" ]; then
-        START_THRESHOLD=$(gum input --placeholder "Start charge threshold %" --value "65")
-        STOP_THRESHOLD=$(gum input --placeholder "Stop charge threshold %" --value "85")
-    fi
-    echo
+	gum style --foreground 212 "Power Management"
+	TLP=$(gum choose --header "Enable TLP:" "true" "false")
+	if [ "$TLP" = "true" ]; then
+		START_THRESHOLD=$(gum input --placeholder "Start charge threshold %" --value "65")
+		STOP_THRESHOLD=$(gum input --placeholder "Stop charge threshold %" --value "85")
+	fi
+	echo
 fi
 
 # Build summary for display
@@ -82,7 +86,7 @@ SUMMARY="$SUMMARY
 - Backlight: $BACKLIGHT"
 
 if [ "$TYPE" = "laptop" ] && [ "$TLP" = "true" ]; then
-    SUMMARY="$SUMMARY
+	SUMMARY="$SUMMARY
 
 ### Power Management
 - TLP: $TLP
@@ -98,30 +102,30 @@ gum confirm "Create this host?" || exit 0
 
 # Generate hardware config
 if gum confirm "Generate hardware configuration now? (requires root)"; then
-    output_file="modules/system/hardware/hosts/$NAME.nix"
-    gum spin --spinner dot --title "Generating hardware configuration..." -- \
-		cat > "$output_file" <<EOF
+	output_file="modules/system/hardware/hosts/$NAME.nix"
+	gum spin --spinner dot --title "Generating hardware configuration..." -- \
+		cat >"$output_file" <<EOF
 { _, ...}:
 {
   flake.nixosModules.hardware-$NAME =
 $(nixos-generate-config --show-hardware-config --no-filesystems);
 }
 EOF
-  nix fmt "$output_file"
+	nix fmt "$output_file"
 
 else
-    gum style --foreground 220 "⚠ Remember to generate hardware-configuration.nix later"
+	gum style --foreground 220 "⚠ Remember to generate hardware-configuration.nix later"
 fi
 
 # Build JSON configuration
 HOST_CONFIG=$(jq -n \
-    --arg type "$TYPE" \
-    --arg disk "$DISK" \
-    --argjson ram "$RAM" \
-    --arg cpu "$CPU" \
-    --arg gpu "$GPU" \
-    --arg desc "$DESCRIPTION" \
-    '{
+	--arg type "$TYPE" \
+	--arg disk "$DISK" \
+	--argjson ram "$RAM" \
+	--arg cpu "$CPU" \
+	--arg gpu "$GPU" \
+	--arg desc "$DESCRIPTION" \
+	'{
         type: $type,
         disk: $disk,
         ram: $ram,
@@ -136,11 +140,11 @@ HOST_CONFIG=$(jq -n \
 
 # Add features
 FEATURES=$(jq -n \
-    --argjson bt "$BLUETOOTH" \
-    --argjson wifi "$WIFI" \
-    --argjson tp "$TOUCHPAD" \
-    --argjson bl "$BACKLIGHT" \
-    '{
+	--argjson bt "$BLUETOOTH" \
+	--argjson wifi "$WIFI" \
+	--argjson tp "$TOUCHPAD" \
+	--argjson bl "$BACKLIGHT" \
+	'{
         bluetooth: $bt,
         wifi: $wifi,
         touchpad: $tp,
@@ -151,29 +155,29 @@ HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson f "$FEATURES" '. + {features: $
 
 # Add power settings for laptops
 if [ "$TYPE" = "laptop" ] && [ "$TLP" = "true" ]; then
-    POWER=$(jq -n \
-        --argjson tlp "$TLP" \
-        --argjson start "$START_THRESHOLD" \
-        --argjson stop "$STOP_THRESHOLD" \
-        '{
+	POWER=$(jq -n \
+		--argjson tlp "$TLP" \
+		--argjson start "$START_THRESHOLD" \
+		--argjson stop "$STOP_THRESHOLD" \
+		'{
             tlp: $tlp,
             startChargeThreshold: $start,
             stopChargeThreshold: $stop
         }')
-    HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson p "$POWER" '. + {power: $p}')
+	HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson p "$POWER" '. + {power: $p}')
 fi
 
 # Update modules/config/hosts.toml
 gum spin --spinner dot --title "Updating $CONFIG_FILE..." -- \
-    bash -c "tomlq -t --arg name '$NAME' --argjson config '$HOST_CONFIG' \
+	bash -c "tomlq -t --arg name '$NAME' --argjson config '$HOST_CONFIG' \
         '.[\$name] = \$config' '$CONFIG_FILE' > '$CONFIG_FILE.tmp' && \
         mv '$CONFIG_FILE.tmp' '$CONFIG_FILE'"
 
 echo
 gum style \
-    --foreground 212 --border-foreground 212 --border double \
-    --align center --width 50 --margin "1 2" --padding "1 4" \
-    "✓ Host '$NAME' added successfully!"
+	--foreground 212 --border-foreground 212 --border double \
+	--align center --width 50 --margin "1 2" --padding "1 4" \
+	"✓ Host '$NAME' added successfully!"
 
 echo
 gum style --foreground 242 "Next steps:"
