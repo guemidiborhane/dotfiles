@@ -20,7 +20,7 @@
         HibernateDelaySec = "30min";
       };
 
-      programs.light.enable = features.backlight;
+      hardware.acpilight.enable = features.backlight;
     };
 
   flake.homeModules.profiles-laptop =
