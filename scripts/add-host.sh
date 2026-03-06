@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_FILE="config.toml"
+CONFIG_FILE="modules/config/hosts.toml"
 NAME="$1"
 
 # Check if host exists
@@ -163,10 +163,10 @@ if [ "$TYPE" = "laptop" ] && [ "$TLP" = "true" ]; then
     HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson p "$POWER" '. + {power: $p}')
 fi
 
-# Update config.toml
-gum spin --spinner dot --title "Updating config.toml..." -- \
+# Update modules/config/hosts.toml
+gum spin --spinner dot --title "Updating $CONFIG_FILE..." -- \
     bash -c "tomlq -t --arg name '$NAME' --argjson config '$HOST_CONFIG' \
-        '.hosts[\$name] = \$config' '$CONFIG_FILE' > '$CONFIG_FILE.tmp' && \
+        '.[\$name] = \$config' '$CONFIG_FILE' > '$CONFIG_FILE.tmp' && \
         mv '$CONFIG_FILE.tmp' '$CONFIG_FILE'"
 
 echo
@@ -177,5 +177,5 @@ gum style \
 
 echo
 gum style --foreground 242 "Next steps:"
-echo "  • Edit config.toml to customize further"
+echo "  • Edit $CONFIG_FILE to customize further"
 echo "  • Install with: just install $NAME"

@@ -1,6 +1,8 @@
 # Nix command with experimental features
 
 nix := "nix --experimental-features 'nix-command flakes'"
+hosts_config := "modules/config/hosts.toml"
+users_config := "modules/config/users.toml"
 
 # Interactive menu
 [default]
@@ -22,7 +24,7 @@ flake:
 # Show all configured hosts
 list-hosts:
     #!/usr/bin/env bash
-    tomlq -r '.hosts | to_entries[] |
+    tomlq -r '. | to_entries[] |
         {
             key: .key,
             hostname: (.value.hostname // ""),
@@ -32,13 +34,22 @@ list-hosts:
             gpu: .value.gpu
         } |
         "\(.key)\(if .hostname != "" then " (\(.hostname))" else "" end),\(.type),\(.description),\(.cpu),\(.gpu)"
-    ' config.toml | \
+    ' {{ hosts_config }} | \
     gum table --columns "Name,Type,Description,CPU,GPU" --separator "," --border rounded --border.foreground 212 --print
 
-# Show user configuration
-show-user:
+# List all configure users
+list-users:
     #!/usr/bin/env bash
-    tomlq '.user' config.toml
+    tomlq -r '. | to_entries[] |
+        {
+            key: .key,
+            name: .value.fullName,
+            email: .value.email,
+            yadm: .value.yadmRepo,
+        } |
+        "\(.key),\(.name),\(.email),\(.yadm)"
+    ' {{ users_config }} | \
+    gum table --columns "Username,Name,Email,YADM" --separator "," --border rounded --border.foreground 212 --print
 
 # Show host configuration
 show-host host="":
@@ -52,9 +63,22 @@ show-host host="":
     fi
 
     RESOLVED=$(just _resolve-host "$HOST")
-    DISPLAY_NAME=$(tomlq -r ".hosts.\"$RESOLVED\".hostname // \"$RESOLVED\"" config.toml)
+    DISPLAY_NAME=$(tomlq -r ".\"$RESOLVED\".hostname // \"$RESOLVED\"" {{ hosts_config }})
 
-    tomlq ".hosts.\"$RESOLVED\"" config.toml
+    tomlq ".\"$RESOLVED\"" {{ hosts_config }}
+
+# Show user configuration
+show-user user="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if [ -z "{{ user }}" ]; then
+        USER=$(just _pick-user)
+    else
+        USER="{{ user }}"
+    fi
+
+    tomlq ".\"$USER\"" {{ users_config }}
 
 # Full system install
 install host="" disk="":
@@ -74,7 +98,7 @@ install host="" disk="":
     echo
 
     # Show configuration summary
-    tomlq ".hosts.\"$RESOLVED\" | {type, disk, ram, cpu, gpu}" config.toml
+    tomlq ".\"$RESOLVED\" | {type, disk, ram, cpu, gpu}" {{ hosts_config }}
     echo
 
     gum confirm "Proceed with installation?" || exit 0
@@ -93,9 +117,7 @@ install host="" disk="":
 
     echo
     gum style --foreground 242 "Next steps:"
-    USERNAME=$(just _get-username)
     echo "  cd /mnt && nixos-enter"
-    echo "  passwd $USERNAME"
     echo "  exit && reboot"
 
 # Partition and format disks
@@ -237,13 +259,13 @@ rollback-update:
         gum style --foreground 242 "Cancelled"
     fi
 
-# Validate config.toml
+# Validate toml config files
 validate:
     #!/usr/bin/env bash
-    if tomlq '.' config.toml > /dev/null 2>&1; then
-        gum style --foreground 212 "✓ config.toml is valid"
+    if fd -e toml | xargs tomlq '.' > /dev/null 2>&1; then
+        gum style --foreground 212 "✓ All toml files are valid"
     else
-        gum style --foreground 196 "✗ config.toml has errors"
+        gum style --foreground 196 "✗ At least one toml file has an error (good luck finding which one)"
         exit 1
     fi
 
@@ -285,19 +307,27 @@ check:
 mise:
     {{ nix }} develop .#mise
 
-# Helper: Get username from config
-_get-username:
-    @tomlq -r '.user.username' config.toml
-
 # Helper: Pick a host interactively
 _pick-host:
     #!/usr/bin/env bash
-    HOSTS=$(tomlq -r '.hosts | to_entries[] | "\(.key)\(if .value.hostname then " (\(.value.hostname))" else "" end)"' config.toml)
+    HOSTS=$(tomlq -r '. | to_entries[] | "\(.key)\(if .value.hostname then " (\(.value.hostname))" else "" end)"' {{ hosts_config }})
     if [ -z "$HOSTS" ]; then
-        gum style --foreground 196 "No hosts found in config.toml"
+        gum style --foreground 196 "No hosts found in {{ hosts_config }}"
         exit 1
     fi
     SELECTED=$(echo "$HOSTS" | gum choose --header "Select host:")
+    # Extract just the host key (before any parentheses)
+    echo "$SELECTED" | awk '{print $1}'
+
+# Helper: Pick a host interactively
+_pick-user:
+    #!/usr/bin/env bash
+    USERS=$(tomlq -r '. | to_entries[] | "\(.key) (\(.value.fullName))"' {{ users_config }})
+    if [ -z "$USERS" ]; then
+        gum style --foreground 196 "No users found in {{ users_config }}"
+        exit 1
+    fi
+    SELECTED=$(echo "$USERS" | gum choose --header "Select user:")
     # Extract just the host key (before any parentheses)
     echo "$SELECTED" | awk '{print $1}'
 
@@ -306,12 +336,12 @@ _resolve-host host:
     #!/usr/bin/env bash
     set -euo pipefail
     # First check if it's a direct host key
-    if tomlq -e ".hosts.\"{{ host }}\"" config.toml >/dev/null 2>&1; then
+    if tomlq -e ".\"{{ host }}\"" {{ hosts_config }} >/dev/null 2>&1; then
         echo "{{ host }}"
         exit 0
     fi
     # Check if it matches a hostname
-    RESOLVED=$(tomlq -r '.hosts | to_entries[] | select(.value.hostname == "{{ host }}") | .key' config.toml | head -n1)
+    RESOLVED=$(tomlq -r '. | to_entries[] | select(.value.hostname == "{{ host }}") | .key' {{ hosts_config }} | head -n1)
     if [ -n "$RESOLVED" ]; then
         echo "$RESOLVED"
         exit 0
@@ -323,13 +353,13 @@ _resolve-host host:
 _get-hostname host:
     #!/usr/bin/env bash
     RESOLVED=$(just _resolve-host {{ host }})
-    tomlq -r ".hosts.\"$RESOLVED\".hostname // \"$RESOLVED\"" config.toml
+    tomlq -r ".\"$RESOLVED\".hostname // \"$RESOLVED\"" {{ hosts_config }}
 
 # Helper: Get host disk
 _get-host-disk host:
     #!/usr/bin/env bash
     RESOLVED=$(just _resolve-host {{ host }})
-    tomlq -r ".hosts.\"$RESOLVED\".disk" config.toml
+    tomlq -r ".\"$RESOLVED\".disk" {{ hosts_config }}
 
 # Helper: Check if host exists
 _host-exists host:
