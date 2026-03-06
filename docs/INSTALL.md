@@ -32,7 +32,7 @@ If one bricked machine isn't enough for you, follow these steps to spread the pl
 
 ## 1. Registration
 
-You must inform the `config.toml` file of its new victim.
+You must inform the `modules/config/hosts.toml` file of its new victim.
 
 ```bash
 just add-host <hostname> <type>
@@ -42,7 +42,7 @@ The `<type>` must be one of: `workstation`, `laptop`, or `homeserver`.
 
 ## 2. The Partitioning Ritual
 
-Before installing, ensure the `disk` variable in `config.toml` matches your target drive (e.g., `/dev/nvme0n1`). If you point it at the wrong drive, `disko` will wipe your family photos with clinical efficiency and zero remorse.
+Before installing, ensure the `disk` variable in `modules/config/hosts.toml` matches your target drive (e.g., `/dev/nvme0n1`). If you point it at the wrong drive, `disko` will wipe your family photos with clinical efficiency and zero remorse.
 
 # INSTALLATION: THE DEATH WISH
 
@@ -57,7 +57,7 @@ Because we've abstracted the abstraction, you must explicitly generate the Nix c
 just flake
 ```
 
-3. **Execute the Butcher**:
+1. **Execute the Butcher**:
 
 ```bash
 just install <hostname>
@@ -74,16 +74,16 @@ Shift your consciousness into the newly installed system residing on `/mnt`.
 sudo nixos-enter
 ```
 
-2. **Grant the User a Voice**:
+1. **Grant the User a Voice**:
 The root password was set during the install, but your primary user is currently locked out. Set the user password now. If you have forgotten who you are, the `just` helper can remind you.
 
 ```bash
 # Outside the chroot, you could find the name,
-# but inside you just need to remember your name from config.toml:
+# but inside you just need to remember your name from modules/config/users.toml:
 passwd <your-username>
 ```
 
-3. **Sever the Connection**:
+1. **Sever the Connection**:
 Leave the chroot and initiate the final collapse.
 
 ```bash

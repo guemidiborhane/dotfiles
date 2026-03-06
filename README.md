@@ -12,7 +12,7 @@ Most people use Nix to manage their system. I use a TOML file to manage Nix, whi
 
 ### The Single Source of Truth (The Lie)
 
-All system parameters are funneled through `config.toml`. It defines the user, the theme (Dracula, because I haven't seen sunlight since 2022), and the hosts. It is the steering wheel of a ship that is already halfway underwater.
+All system parameters are funneled through `modules/config/*.toml`. It defines the user, the theme (Dracula, because I haven't seen sunlight since 2022), and the hosts. It is the steering wheel of a ship that is already halfway underwater.
 
 ### The Illusion of Control (`flake.nix`)
 
@@ -29,15 +29,18 @@ I have automated my descent into insanity with `just`.
 * **add-host**: Because I am delusional enough to believe I will one day own more than one functional computer.
 
 ### The Network
+
 All three machines are connected via **Netbird** mesh VPN. Netbird is genuinely excellent software - WireGuard-based, self-hostable, and it just works. The mesh topology means `takotsubo` can reach `koto` from a coffee shop without exposing SSH to the internet, and `kamui` seamlessly integrates whether it's at home or traveling. All traffic stays encrypted, all hosts are accessible by hostname, and I never have to think about it.
 
 The control plane runs on my own infrastructure because trusting cloud providers is for people who don't read privacy policies.
 
 ### Common Suffering
+
 All machines share:
-- **OS:** NixOS (the only acceptable Linux distribution)
-- **Keyboard:** Kanata with home row mods (my wrists will thank me eventually)
-- **Despair:** Uniformly distributed across all hardware
+
+* **OS:** NixOS (the only acceptable Linux distribution)
+* **Keyboard:** Kanata with home row mods (my wrists will thank me eventually)
+* **Despair:** Uniformly distributed across all hardware
 
 Each machine has a hardware configuration file (in `modules/system/hardware/hosts/$name.nix`) that was generated once and will never be touched again unless something catastrophically breaks.
 
