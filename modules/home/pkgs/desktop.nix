@@ -4,6 +4,12 @@
     wlctl.url = "github:aashish-thapa/wlctl";
     wlctl.inputs.nixpkgs.follows = "nixpkgs";
   };
+  flake.substituters.wlctl = [
+    {
+      url = "https://nltch.cachix.org";
+      key = "nltch.cachix.org-1:W85YxOt0XRZOP3Yppt+HNz3fXRu6DXgH3Ob9n9A+7Ec=";
+    }
+  ];
 
   flake.homeModules.pkgs-desktop =
     { inputs, pkgs, ... }:

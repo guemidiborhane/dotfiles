@@ -1,39 +1,42 @@
 # NOTE: Before using the cache you should rebuild to add it to the config
-{ _, ... }:
+{ lib, config, ... }:
 {
-  flake.nixosModules.nix-substituters =
-    { h, ... }:
-    let
-      caches = [
-        {
-          url = "https://vicinae.cachix.org/";
-          key = "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=";
+  options.flake.substituters = lib.mkOption {
+    type = lib.types.attrsOf (
+      lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            url = lib.mkOption {
+              type = lib.types.str;
+              description = "Substituter URL";
+            };
+            key = lib.mkOption {
+              type = lib.types.str;
+              description = "Public key for substituter";
+            };
+          };
         }
-        {
-          url = "https://attic.xuyh0120.win/lantian";
-          key = "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=";
-        }
-        {
-          url = "https://nltch.cachix.org";
-          key = "nltch.cachix.org-1:W85YxOt0XRZOP3Yppt+HNz3fXRu6DXgH3Ob9n9A+7Ec=";
-        }
-        {
-          url = "https://nix-community.cachix.org";
-          key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
-        }
-        {
-          url = "https://hyprland.cachix.org";
-          key = "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=";
-        }
-      ];
-      urls = h.pluck "url" caches;
-      keys = h.pluck "key" caches;
-    in
-    {
-      nix.settings = {
-        extra-substituters = urls;
-        extra-trusted-substituters = urls;
-        extra-trusted-public-keys = keys;
+      )
+    );
+    default = { };
+    description = "Binary cache substituters declared by modules";
+  };
+
+  config = {
+    flake.nixosModules.nix-substituters =
+      { inputs, ... }:
+      let
+        allCaches = lib.flatten (lib.attrValues config.flake.substituters);
+
+        urls = map (s: s.url) allCaches;
+        keys = map (s: s.key) allCaches;
+      in
+      {
+        nix.settings = {
+          extra-substituters = urls;
+          extra-trusted-substituters = urls;
+          extra-trusted-public-keys = keys;
+        };
       };
-    };
+  };
 }
