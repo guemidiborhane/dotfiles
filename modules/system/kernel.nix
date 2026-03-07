@@ -1,6 +1,12 @@
 { _, ... }:
 {
   flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+  flake.substituters.nix-cachyos-kernel = [
+    {
+      url = "https://attic.xuyh0120.win/lantian";
+      key = "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=";
+    }
+  ];
 
   flake.nixosModules.kernel =
     {
