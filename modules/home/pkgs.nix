@@ -41,6 +41,7 @@
         nixfmt
         speedtest-cli
         imagemagick
+        ffmpeg
       ];
     };
 }
