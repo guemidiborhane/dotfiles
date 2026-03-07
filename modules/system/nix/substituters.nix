@@ -1,4 +1,3 @@
-# NOTE: Before using the cache you should rebuild to add it to the config
 { lib, config, ... }:
 {
   options.flake.substituters = lib.mkOption {

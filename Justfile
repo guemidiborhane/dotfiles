@@ -250,8 +250,14 @@ check-builds host="":
         | awk '/will be built:/,/will be fetched/' \
         | sed '1d;$d' | sed 's#.*/##' | rg -v 'completion'
 
+# Joke's on you
 rebuild-safe:
     @echo 'Not my style! Run: "nh os test" for all I care.'
+
+# Rebuild current system with all substituters explicitly passed (god what a stupid name)
+rebuild:
+    #!/usr/bin/env bash
+    ./scripts/rebuild.sh
 
 # Rollback update
 rollback-update:
