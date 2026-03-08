@@ -9,14 +9,17 @@ REPO_ROOT="$(cd "$SCRIPTS_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
 # Check if host exists
-if tomlq -e ".hosts.\"$NAME\"" "$CONFIG_FILE" >/dev/null 2>&1; then
+if tomlq -e ".\"$NAME\"" "$CONFIG_FILE" >/dev/null 2>&1; then
 	gum style --foreground 196 "Error: Host '$NAME' already exists"
 	exit 1
 fi
 
 # Interactive inputs
-gum style --foreground 212 "Host Type"
+gum style --foreground 212 "Host Metadata"
 TYPE=$(gum choose --header "Select type:" "laptop" "desktop" "server" "headless")
+DESCRIPTION=$(gum input --placeholder "Description" --value "$NAME")
+HOSTNAME=$(gum input --placeholder "Short hostname (optional, press enter to skip)")
+KERNEL=$(gum input --placeholder "Kernel (optional, press enter for default)")
 echo
 
 gum style --foreground 212 "Hardware Configuration"
@@ -24,18 +27,14 @@ DISK=$(gum input --placeholder "Disk device (e.g., /dev/sda, /dev/nvme0n1)" --va
 RAM=$(gum input --placeholder "RAM in GB" --value "16")
 CPU=$(gum choose --header "CPU vendor:" "intel" "amd")
 GPU=$(gum choose --header "GPU vendor:" "intel" "amd" "nvidia" "hybrid")
+HARDWARE_MODULE=$(gum input --placeholder "nixos-hardware module (optional, e.g., dell-latitude-7490)")
 echo
 
-gum style --foreground 212 "Optional Settings"
-HOSTNAME=$(gum input --placeholder "Short hostname (optional, press enter to skip)")
-HARDWARE=$(gum input --placeholder "nixos-hardware module (optional, e.g., dell-latitude-7490)")
-DESCRIPTION=$(gum input --placeholder "Description" --value "$NAME")
-echo
-
-# Features
-gum style --foreground 212 "Features"
+# Hardware capabilities
+gum style --foreground 212 "Hardware Capabilities"
 BLUETOOTH=$(gum choose --header "Bluetooth:" "true" "false")
 WIFI=$(gum choose --header "WiFi:" "true" "false")
+FINGERPRINT=$(gum choose --header "Fingerprint reader:" "true" "false")
 
 TOUCHPAD="false"
 BACKLIGHT="false"
@@ -62,24 +61,33 @@ fi
 # Build summary for display
 SUMMARY="## Host Configuration
 
-- **Name**: $NAME
-- **Type**: $TYPE
-- **Disk**: $DISK
-- **RAM**: ${RAM}GB
-- **CPU**: $CPU
-- **GPU**: $GPU"
+**Metadata:**
+- Name: $NAME
+- Type: $TYPE
+- Description: $DESCRIPTION"
 
 [ -n "$HOSTNAME" ] && SUMMARY="$SUMMARY
-- **Hostname**: $HOSTNAME"
-[ -n "$HARDWARE" ] && SUMMARY="$SUMMARY
-- **Hardware Module**: $HARDWARE"
+- Hostname: $HOSTNAME"
+[ -n "$KERNEL" ] && SUMMARY="$SUMMARY
+- Kernel: $KERNEL"
 
 SUMMARY="$SUMMARY
-- **Description**: $DESCRIPTION
 
-### Features
+**Hardware:**
+- Disk: $DISK
+- RAM: ${RAM}GB
+- CPU: $CPU
+- GPU: $GPU"
+
+[ -n "$HARDWARE_MODULE" ] && SUMMARY="$SUMMARY
+- Module: $HARDWARE_MODULE"
+
+SUMMARY="$SUMMARY
+
+**Capabilities:**
 - Bluetooth: $BLUETOOTH
-- WiFi: $WIFI"
+- WiFi: $WIFI
+- Fingerprint: $FINGERPRINT"
 
 [ "$TYPE" = "laptop" ] && SUMMARY="$SUMMARY
 - Touchpad: $TOUCHPAD
@@ -88,7 +96,7 @@ SUMMARY="$SUMMARY
 if [ "$TYPE" = "laptop" ] && [ "$TLP" = "true" ]; then
 	SUMMARY="$SUMMARY
 
-### Power Management
+**Power Management:**
 - TLP: $TLP
 - Charge Thresholds: ${START_THRESHOLD}% - ${STOP_THRESHOLD}%"
 fi
@@ -104,54 +112,65 @@ gum confirm "Create this host?" || exit 0
 if gum confirm "Generate hardware configuration now? (requires root)"; then
 	output_file="modules/system/hardware/hosts/$NAME.nix"
 	gum spin --spinner dot --title "Generating hardware configuration..." -- \
-		cat >"$output_file" <<EOF
-{ _, ...}:
+		sudo nixos-generate-config --show-hardware-config --no-filesystems --root /tmp >"$output_file.tmp"
+
+	# Wrap in module format
+	cat >"$output_file" <<EOF
+{ _, ... }:
 {
   flake.nixosModules.hardware-$NAME =
-$(nixos-generate-config --show-hardware-config --no-filesystems);
+$(cat "$output_file.tmp" | sed 's/^/    /');
 }
 EOF
-	nix fmt "$output_file"
-
+	rm "$output_file.tmp"
+	nix fmt "$output_file" 2>/dev/null || true
 else
-	gum style --foreground 220 "⚠ Remember to generate hardware-configuration.nix later"
+	gum style --foreground 220 "⚠ Remember to generate hardware config later with:"
+	gum style --foreground 242 "   sudo nixos-generate-config --show-hardware-config --no-filesystems > modules/system/hardware/hosts/$NAME.nix"
 fi
 
 # Build JSON configuration
+# Start with metadata
 HOST_CONFIG=$(jq -n \
 	--arg type "$TYPE" \
+	--arg desc "$DESCRIPTION" \
+	'{
+        type: $type,
+        description: $desc
+    }')
+
+# Add optional metadata fields
+[ -n "$HOSTNAME" ] && HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --arg h "$HOSTNAME" '. + {hostname: $h}')
+[ -n "$KERNEL" ] && HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --arg k "$KERNEL" '. + {kernel: $k}')
+
+# Build hardware object
+HARDWARE=$(jq -n \
 	--arg disk "$DISK" \
 	--argjson ram "$RAM" \
 	--arg cpu "$CPU" \
 	--arg gpu "$GPU" \
-	--arg desc "$DESCRIPTION" \
+	--argjson bt "$BLUETOOTH" \
+	--argjson wifi "$WIFI" \
+	--argjson fp "$FINGERPRINT" \
+	--argjson tp "$TOUCHPAD" \
+	--argjson bl "$BACKLIGHT" \
 	'{
-        type: $type,
         disk: $disk,
         ram: $ram,
         cpu: $cpu,
         gpu: $gpu,
-        description: $desc
-    }')
-
-# Add optional fields
-[ -n "$HOSTNAME" ] && HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --arg h "$HOSTNAME" '. + {hostname: $h}')
-[ -n "$HARDWARE" ] && HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --arg hw "$HARDWARE" '. + {hardware: $hw}')
-
-# Add features
-FEATURES=$(jq -n \
-	--argjson bt "$BLUETOOTH" \
-	--argjson wifi "$WIFI" \
-	--argjson tp "$TOUCHPAD" \
-	--argjson bl "$BACKLIGHT" \
-	'{
         bluetooth: $bt,
         wifi: $wifi,
+        fingerprint: $fp,
         touchpad: $tp,
         backlight: $bl
     }')
 
-HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson f "$FEATURES" '. + {features: $f}')
+# Add optional hardware module
+[ -n "$HARDWARE_MODULE" ] && HARDWARE=$(echo "$HARDWARE" | jq --arg m "$HARDWARE_MODULE" '. + {module: $m}')
+
+# Add hardware to host config
+HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson hw "$HARDWARE" '. + {hardware: $hw}')
 
 # Add power settings for laptops
 if [ "$TYPE" = "laptop" ] && [ "$TLP" = "true" ]; then
@@ -182,4 +201,5 @@ gum style \
 echo
 gum style --foreground 242 "Next steps:"
 echo "  • Edit $CONFIG_FILE to customize further"
+echo "  • Generate flake: just flake"
 echo "  • Install with: just install $NAME"

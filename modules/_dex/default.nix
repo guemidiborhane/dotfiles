@@ -21,7 +21,7 @@ let
   mkContext = hostOrContext: {
     inherit metadata;
     inherit (hostOrContext) features power users;
-    inherit (hostOrContext) networking;
+    inherit (hostOrContext) hardware networking;
     host =
       if (hostOrContext ? host) then
         hostOrContext.host # When called from mkHomeContext
