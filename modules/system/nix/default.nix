@@ -11,7 +11,6 @@
 
       imports = with inputs.self.nixosModules; [
         nix-substituters
-        nix-auto-upgrade
         nix-index-database
       ];
 

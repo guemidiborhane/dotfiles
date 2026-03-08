@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.nixosModules.networking-remote-unlock =
+  flake.nixosModules.features-remote-unlock =
     { features, ... }:
     lib.mkIf (features.remoteUnlock or false) {
       boot.kernelParams = [ "ip=dhcp" ];

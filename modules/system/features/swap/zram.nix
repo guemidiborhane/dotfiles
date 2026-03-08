@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.zram-swap =
+  flake.nixosModules.features-zram-swap =
     {
       lib,
       pkgs,

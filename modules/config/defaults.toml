@@ -15,6 +15,7 @@ fingerprint = false
 autoUpdate = false
 autoReboot = false
 zramSwap = false
+zSwap = false
 remoteUnlock = false
 qbittorrent = false
 kanata = false
