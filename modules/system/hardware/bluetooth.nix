@@ -3,11 +3,11 @@
   flake.nixosModules.hardware-bluetooth =
     {
       lib,
-      features,
+      hardware,
       pkgs,
       ...
     }:
-    lib.mkIf (features.bluetooth or false) {
+    lib.mkIf (hardware.bluetooth or false) {
       hardware.bluetooth.enable = true;
       services.blueman.enable = true;
       environment.systemPackages = [ pkgs.bluetui ];

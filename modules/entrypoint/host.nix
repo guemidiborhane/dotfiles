@@ -13,7 +13,6 @@
         zswap
         users
         hardware-host
-        mount-disks
         networking
         virtualisation
         kanata

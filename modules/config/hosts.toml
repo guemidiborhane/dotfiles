@@ -1,27 +1,29 @@
 [takotsubo]
 hostname = "tako"
-type = "laptop"                    # laptop, desktop, headless, server
+type = "laptop"
+description = "Dell Latitude 7490"
+
+[takotsubo.hardware]
 disk = "/dev/sda"
 ram = 16
-cpu = "intel"                      # intel, amd
-gpu = "intel"                      # intel, amd, nvidia, hybrid
-hardware = "dell-latitude-7490"    # Optional: nixos-hardware module path
-description = "Dell Latitude 7490"
+cpu = "intel"
+gpu = "intel"
+module = "dell-latitude-7490"
 
 [takotsubo.features]
 kanata = false
 
 [kamui]
 type = "laptop"
+description = "P14s G5 AMD"
+kernel = "cachyos-latest-zen4"
+
+[kamui.hardware]
 disk = "/dev/nvme0n1"
 ram = 32
 cpu = "amd"
 gpu = "amd"
-description = "P14s G5 AMD"
-hardware = "lenovo-thinkpad-p14s-amd-gen5"
-kernel = "cachyos-latest-zen4"
-
-[kamui.features]
+module = "lenovo-thinkpad-p14s-amd-gen5"
 fingerprint = true
 
 [kamui.power]
@@ -32,16 +34,25 @@ stopChargeThreshold = 85
 [kotoamatsukami]
 hostname = "koto"
 type = "desktop"
+description = "5950X Workstation"
+kernel = "cachyos-latest-v3"
+
+[kotoamatsukami.hardware]
 disk = "/dev/nvme0n1"
 ram = 64
 cpu = "amd"
 gpu = "nvidia"
-description = "5950X Workstation"
-kernel = "cachyos-latest-v3"
-
-[kotoamatsukami.features]
 bluetooth = true
 wifi = true
+
+[kotoamatsukami.hardware.disks]
+34B1213A561574D4 = "/mnt/2_5"
+75cddeb8-910a-41da-8b8c-269dada60016 = "/mnt/3_5"
+4d80e49e-7786-4543-aa34-7429908d3c8b = "/mnt/320"
+afe8ba39-fada-43da-ba0a-459498b1b062 = "/run/media/borhane/LACIE"
+4A9DD7D4448B0F0A = "/run/media/borhane/DATA"
+
+[kotoamatsukami.features]
 autoUpdate = true
 remoteUnlock = true
 
@@ -52,10 +63,3 @@ iface = "enp6s0"
 [kotoamatsukami.networking]
 netbirdPort = 51281
 allowTCP = [8096]
-
-[kotoamatsukami.disks]
-"34B1213A561574D4" = "/mnt/2_5"
-"75cddeb8-910a-41da-8b8c-269dada60016" = "/mnt/3_5"
-"4d80e49e-7786-4543-aa34-7429908d3c8b" = "/mnt/320"
-"afe8ba39-fada-43da-ba0a-459498b1b062" = "/run/media/borhane/LACIE"
-"4A9DD7D4448B0F0A" = "/run/media/borhane/DATA"

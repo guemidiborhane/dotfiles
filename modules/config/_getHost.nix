@@ -22,6 +22,7 @@ let
       swapSize = "${toString (host.ram + 2)}G";
     };
 
+  hardware = defaults.hardware // (defaults.hardware.${host.type} or { }) // (host.hardware or { });
   features = defaults.features // (defaults.features.${host.type} or { }) // (host.features or { });
   power = defaults.power // host.power;
   networking =
@@ -42,4 +43,5 @@ in
   inherit power;
   inherit users;
   inherit networking;
+  inherit hardware;
 }

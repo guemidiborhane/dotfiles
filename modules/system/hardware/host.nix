@@ -6,21 +6,25 @@
     {
       inputs,
       host,
+      hardware,
       features,
       lib,
       h,
       ...
     }:
     let
-      hasHardwareModule = host ? hardware && host.hardware != "";
+      hasHardwareModule = hardware ? module && hardware.module != "";
     in
     {
       imports = [
         inputs.self.nixosModules."hardware-${host.name}"
         inputs.self.nixosModules.hardware-bluetooth
         inputs.self.nixosModules.hardware-nvidia
-        { services.fprintd.enable = features.fingerprint; }
+        inputs.self.nixosModules.hardware-disks
+        inputs.self.nixosModules.hardware-fingerprint
+        inputs.self.nixosModules.hardware-touchpad
+        inputs.self.nixosModules.hardware-backlight
       ]
-      ++ lib.optional hasHardwareModule inputs.nixos-hardware.nixosModules.${host.hardware};
+      ++ lib.optional hasHardwareModule inputs.nixos-hardware.nixosModules.${hardware.module};
     };
 }

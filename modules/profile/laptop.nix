@@ -14,13 +14,10 @@
         powertop.enable = true;
       };
 
-      services.libinput.enable = features.touchpad;
       services.logind.settings.Login = {
         HandleLidSwitch = "suspend-then-hibernate";
         HibernateDelaySec = "30min";
       };
-
-      hardware.acpilight.enable = features.backlight;
     };
 
   flake.homeModules.profiles-laptop =
