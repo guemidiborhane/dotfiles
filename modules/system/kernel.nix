@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   flake.substituters.nix-cachyos-kernel = [
     {
       url = "https://attic.xuyh0120.win/lantian";
