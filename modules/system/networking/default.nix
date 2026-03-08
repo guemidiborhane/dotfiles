@@ -11,8 +11,6 @@
       imports = with inputs.self.nixosModules; [
         networking-netbird
         networking-resolved
-        networking-wol
-        networking-remote-unlock
       ];
 
       networking = {

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.nix-auto-upgrade =
+  flake.nixosModules.features-auto-upgrade =
     { features, lib, ... }:
     lib.mkIf (features.autoUpdate or false) {
       system.autoUpgrade = {

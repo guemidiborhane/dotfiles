@@ -9,19 +9,16 @@
         kernel
         locales
         common-host-configs
-        zram-swap
-        zswap
+        features
         users
         hardware-host
         networking
         virtualisation
-        kanata
         base-devel
         pkgs-defaults
         services-openssh
         services-fstrim
         services-fwupd
-        services-qbittorrent
         host-profile
         default-programs
       ];
