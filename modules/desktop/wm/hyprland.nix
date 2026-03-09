@@ -1,43 +1,45 @@
 { _, ... }:
-let
-  mkConfig = inputs: pkgs: {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
-in
 {
   flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland";
-  flake.substituters.hyprland = [
-    {
-      url = "https://hyprland.cachix.org";
-      key = "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=";
-    }
-  ];
+  flake = {
+    substituters.hyprland = [
+      {
+        url = "https://hyprland.cachix.org";
+        key = "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=";
+      }
+    ];
 
-  flake.nixosModules.desktop-hyprland =
-    { inputs, pkgs, ... }:
-    {
-      imports = [ inputs.hyprland.nixosModules.default ];
-      programs.hyprland = mkConfig inputs pkgs;
+    nixosModules.desktop-hyprland =
+      { inputs, pkgs, ... }:
+      {
+        imports = [ inputs.hyprland.nixosModules.default ];
+        programs.hyprland.enable = true;
 
-      environment.systemPackages = with pkgs; [
-        wl-clipboard
-      ];
-    };
-
-  flake.homeModules.desktop-hyprland =
-    { inputs, pkgs, ... }:
-    {
-      imports = [ inputs.self.homeModules.desktop-common ];
-
-      wayland.windowManager.hyprland = (mkConfig inputs pkgs) // {
-        systemd.enable = false;
+        environment.systemPackages = with pkgs; [
+          wl-clipboard
+        ];
       };
 
-      services.hypridle.enable = true;
-      services.swaync.enable = true;
-      programs.wlogout.enable = true;
-    };
+    homeModules.desktop-hyprland =
+      { inputs, pkgs, ... }:
+      {
+        imports = [
+          inputs.hyprland.homeManagerModules.default
+          inputs.self.homeModules.desktop-common
+          inputs.self.homeModules.services-hyprpower
+        ];
+
+        wayland.windowManager.hyprland = {
+          enable = true;
+          systemd.enable = false;
+        };
+
+        services = {
+          hyprpaper.enable = true;
+          hypridle.enable = true;
+          swaync.enable = true;
+        };
+        programs.wlogout.enable = true;
+      };
+  };
 }

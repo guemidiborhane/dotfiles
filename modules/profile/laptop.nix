@@ -25,8 +25,6 @@
     {
       imports = with inputs.self.homeModules; [
         profiles-desktop
-        services-hyprpaper
-        services-hyprpower
       ];
     };
 }
