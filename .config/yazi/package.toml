@@ -18,6 +18,11 @@ use = "Rolv-Apneseth/starship"
 rev = "eca18617"
 hash = "e519d894e94ded741e06aae4d4775981"
 
+[[plugin.deps]]
+use = "KKV9/compress"
+rev = "cb6e8ec0"
+hash = "424ada4807b20ccd4fc85d1d7c26d1e4"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:dracula"
 rev = "2d73b79d"
