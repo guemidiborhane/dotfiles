@@ -13,7 +13,6 @@ alias lt 'ls -al --sort=modified'
 alias cat "bat --no-pager"
 alias clear "command clear && fish_greeting"
 alias qbtui "qbittorrentui -c ~/.config/qbtui/config.ini"
-alias ollama "docker exec -it ollama ollama"
 alias zid "eza -D | xargs -I {} zoxide add {}"
 alias fast "bunx -- fast-cli --single-line"
 # Credit Elijah Manor : https://youtu.be/K1FxGIG_lcA
