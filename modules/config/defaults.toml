@@ -36,7 +36,7 @@ touchpad = true
 backlight = true
 
 [features.laptop]
-zSwap = true
+zramSwap = true
 kanata = true
 
 [power]
