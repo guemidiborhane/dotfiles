@@ -5,3 +5,4 @@ workspace = 4,  monitor:$TV
 workspace = 7,  monitor:$TV
 workspace = 8,  monitor:$internalMonitor
 workspace = special:$scratch, monitor:$TV
+workspace = m[$internalMonitor], layout:scrolling
