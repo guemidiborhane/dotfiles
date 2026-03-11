@@ -60,4 +60,10 @@ prepend_keymap = [
     # Otherwise it won't show up in the jump list.
     { on = [ "g", "m" ], run = "plugin gvfs -- jump-to-device --automount", desc = "Automount then select device to jump to its mount point" },
     { on = [ "`", "`" ], run = "plugin gvfs -- jump-back-prev-cwd", desc = "Jump back to the position before jumped to device" },
+
+    { on = [ "c", "a", "a" ], run = "plugin compress", desc = "Archive selected files" },
+    { on = [ "c", "a", "p" ], run = "plugin compress -p", desc = "Archive selected files (password)" },
+    { on = [ "c", "a", "h" ], run = "plugin compress -ph", desc = "Archive selected files (password+header)" },
+    { on = [ "c", "a", "l" ], run = "plugin compress -l", desc = "Archive selected files (compression level)" },
+    { on = [ "c", "a", "u" ], run = "plugin compress -phl", desc = "Archive selected files (password+header+level)" },
 ]
