@@ -59,11 +59,9 @@
         inputs.self.homeModules.programs-ghostty
         inputs.self.homeModules.programs-foot
         inputs.self.homeModules.programs-vicinae
+        inputs.self.homeModules.programs-mpv
       ];
 
-      programs = {
-        wezterm.enable = true;
-        mpv.enable = true;
-      };
+      programs.wezterm.enable = true;
     };
 }
