@@ -42,6 +42,7 @@
         speedtest-cli
         imagemagick
         ffmpeg
+        steam-run
       ];
     };
 }
