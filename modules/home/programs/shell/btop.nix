@@ -13,6 +13,8 @@
           rounded_corners = false;
           vim_keys = true;
           shown_boxes = "cpu proc";
+          proc_sorting = "cpu lazy";
+          update_ms = 1000;
         };
       };
     };
