@@ -16,25 +16,38 @@
       };
 
       systemd.services.hibernate-zram-pre = {
-        description = "Disable ZRAM before hibernation to prevent ENOMEM";
-        before = [ "systemd-hibernate.service" ];
-        wantedBy = [ "systemd-hibernate.service" ];
+        description = "Disable ZRAM before hibernation";
+        before = [
+          "systemd-hibernate.service"
+          "systemd-suspend-then-hibernate.service"
+        ];
+        wantedBy = [
+          "systemd-hibernate.service"
+          "systemd-suspend-then-hibernate.service"
+        ];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${pkgs.util-linux}/bin/swapoff /dev/zram0";
+          RemainAfterExit = true;
         };
       };
 
+      # kinda redundant but better safe than sorry, already handled by systemd-zram-setup@zram0.service
       systemd.services.hibernate-zram-post = {
-        description = "Re-enable ZRAM after hibernation";
+        description = "Re-enable ZRAM after resume from hibernation";
         after = [
-          "systemd-hibernate.service"
           "hibernate.target"
+          "suspend-then-hibernate.target"
         ];
-        wantedBy = [ "hibernate.target" ];
+        wantedBy = [
+          "hibernate.target"
+          "suspend-then-hibernate.target"
+        ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${pkgs.util-linux}/bin/swapon /dev/zram0";
+          # Ignore exit code 255 (already active)
+          ExecStart = "${pkgs.util-linux}/bin/swapon --priority 100 /dev/zram0";
+          SuccessExitStatus = "0 255";
         };
       };
     };

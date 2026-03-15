@@ -22,7 +22,14 @@
         "sd_mod"
       ];
       boot.initrd.kernelModules = [ "dm-snapshot" ];
-      boot.kernelModules = [ "kvm-amd" ];
+      boot.kernelParams = [
+        "mem_sleep_default=s2idle"
+        "amdgpu.reset_method=4"
+      ];
+      boot.kernelModules = [
+        "kvm-amd"
+        "amdgpu"
+      ];
       boot.extraModulePackages = [ ];
 
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
