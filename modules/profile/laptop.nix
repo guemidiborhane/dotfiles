@@ -16,7 +16,17 @@
 
       services.logind.settings.Login = {
         HandleLidSwitch = "suspend-then-hibernate";
-        HibernateDelaySec = "30min";
+      };
+      systemd.sleep.settings.Sleep = {
+        AllowSuspend = "yes";
+        AllowHibernation = "yes";
+        AllowSuspendThenHibernate = "yes";
+        AllowHybridSleep = "no";
+        SuspendState = "freeze";
+        HibernateMode = "shutdown";
+        HibernateState = "disk";
+        HybridSleepState = "disk";
+        HibernateDelaySec = "45min";
       };
     };
 
