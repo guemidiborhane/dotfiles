@@ -37,36 +37,39 @@
 
         settings = {
           close_on_focus_loss = true;
+          telemetry.system_info = false;
+
+          theme = {
+            dark = {
+              name = "dracula";
+              icon_theme = "auto";
+            };
+          };
+
           font = {
             normal = {
               family = "MonaspiceNe Nerd Font Propo";
               size = 11;
             };
           };
-          theme = {
-            dark = {
-              name = "dracula";
-              icon_theme = "Kora";
-            };
-          };
-          launcher_window = {
-            opacity = 0.95;
-            client_side_decorations = {
-              enabled = true;
-              rounding = 5;
-            };
-          };
+
           favorites = [
             "applications:bitwarden"
             "applications:zen-beta"
             "applications:footclient"
             "applications:thunderbird"
           ];
+
           providers = {
-            clipboard = {
-              preferences = {
-                encryption = true;
-              };
+            applications.preferences.launchPrefix = "dr --";
+            clipboard.preferences.encryption = true;
+          };
+
+          launcher_window = {
+            opacity = 0.95;
+            client_side_decorations = {
+              enabled = true;
+              rounding = 5;
             };
           };
         };
