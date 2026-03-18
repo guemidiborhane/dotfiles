@@ -7,6 +7,7 @@
         inputs.self.nixosModules.profiles-desktop
         inputs.self.nixosModules.services-tlp
         inputs.self.nixosModules.services-upower
+        inputs.self.nixosModules.system-sleep
       ];
 
       powerManagement = {
@@ -16,17 +17,6 @@
 
       services.logind.settings.Login = {
         HandleLidSwitch = "suspend-then-hibernate";
-      };
-      systemd.sleep.settings.Sleep = {
-        AllowSuspend = "yes";
-        AllowHibernation = "yes";
-        AllowSuspendThenHibernate = "yes";
-        AllowHybridSleep = "no";
-        SuspendState = "freeze";
-        HibernateMode = "shutdown";
-        HibernateState = "disk";
-        HybridSleepState = "disk";
-        HibernateDelaySec = "45min";
       };
     };
 
