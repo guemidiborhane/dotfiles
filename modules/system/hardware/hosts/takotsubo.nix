@@ -13,17 +13,22 @@
         (modulesPath + "/installer/scan/not-detected.nix")
       ];
 
-      boot.initrd.availableKernelModules = [
-        "xhci_pci"
-        "ahci"
-        "usb_storage"
-        "sd_mod"
-        "rtsx_pci_sdmmc"
-      ];
-      boot.initrd.kernelModules = [ "i915" ];
-      boot.kernelModules = [ "kvm-intel" ];
-      boot.extraModulePackages = [ ];
-      boot.kernelParams = [ "intel_pstate=active" ];
+      boot = {
+        kernelModules = [ "kvm-intel" ];
+        extraModulePackages = [ ];
+        kernelParams = [ "intel_pstate=active" ];
+
+        initrd = {
+          availableKernelModules = [
+            "xhci_pci"
+            "ahci"
+            "usb_storage"
+            "sd_mod"
+            "rtsx_pci_sdmmc"
+          ];
+          kernelModules = [ "i915" ];
+        };
+      };
 
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
       hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
