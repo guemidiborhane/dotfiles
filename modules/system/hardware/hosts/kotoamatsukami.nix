@@ -13,16 +13,6 @@
       ];
 
       boot = {
-        initrd.availableKernelModules = [
-          "nvme"
-          "xhci_pci"
-          "ahci"
-          "usbhid"
-          "usb_storage"
-          "uas"
-          "sd_mod"
-        ];
-        initrd.kernelModules = [ ];
         kernelModules = [ "kvm-amd" ];
         extraModulePackages = [ ];
         kernelParams = [
@@ -39,6 +29,19 @@
           "memtest=1"
           "amd_pstate=active"
         ];
+
+        initrd = {
+          availableKernelModules = [
+            "nvme"
+            "xhci_pci"
+            "ahci"
+            "usbhid"
+            "usb_storage"
+            "uas"
+            "sd_mod"
+          ];
+          kernelModules = [ ];
+        };
       };
 
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
