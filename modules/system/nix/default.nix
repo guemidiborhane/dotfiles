@@ -1,4 +1,4 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.nix-config =
     {
@@ -9,7 +9,7 @@
     }:
     {
 
-      imports = with inputs.self.nixosModules; [
+      imports = with self.nixosModules; [
         nix-substituters
         nix-index-database
       ];

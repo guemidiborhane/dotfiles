@@ -1,4 +1,4 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.profiles-desktop =
     {
@@ -10,10 +10,10 @@
     }:
     {
       imports = [
-        inputs.self.nixosModules.inputs-solaar
-        inputs.self.nixosModules.services-pipewire
-        inputs.self.nixosModules.desktop-hyprland
-        inputs.self.nixosModules.programs-thunar
+        self.nixosModules.inputs-solaar
+        self.nixosModules.services-pipewire
+        self.nixosModules.desktop-hyprland
+        self.nixosModules.programs-thunar
       ];
 
       services = {
@@ -48,18 +48,18 @@
     { pkgs, inputs, ... }:
     {
       imports = [
-        inputs.self.homeModules.pkgs-desktop
-        inputs.self.homeModules.desktop-hyprland
+        self.homeModules.pkgs-desktop
+        self.homeModules.desktop-hyprland
 
-        inputs.self.homeModules.services-gnome-keyring
-        inputs.self.homeModules.services-gnome-polkit
-        inputs.self.homeModules.services-udiskie
+        self.homeModules.services-gnome-keyring
+        self.homeModules.services-gnome-polkit
+        self.homeModules.services-udiskie
 
-        inputs.self.homeModules.programs-zen-browser
-        inputs.self.homeModules.programs-ghostty
-        inputs.self.homeModules.programs-foot
-        inputs.self.homeModules.programs-vicinae
-        inputs.self.homeModules.programs-mpv
+        self.homeModules.programs-zen-browser
+        self.homeModules.programs-ghostty
+        self.homeModules.programs-foot
+        self.homeModules.programs-vicinae
+        self.homeModules.programs-mpv
       ];
 
       programs.wezterm.enable = true;

@@ -1,4 +1,4 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.hardware-kamui =
     {
@@ -11,7 +11,7 @@
     {
       imports = [
         (modulesPath + "/installer/scan/not-detected.nix")
-        inputs.self.nixosModules.hardware-thinkfan
+        self.nixosModules.hardware-thinkfan
       ];
       boot = {
         kernelParams = [

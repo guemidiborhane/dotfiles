@@ -1,4 +1,4 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.networking =
     {
@@ -8,7 +8,7 @@
       ...
     }:
     {
-      imports = with inputs.self.nixosModules; [
+      imports = with self.nixosModules; [
         networking-netbird
         networking-resolved
       ];
