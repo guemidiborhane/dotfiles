@@ -1,9 +1,9 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.default-services =
     { inputs, ... }:
     {
-      imports = with inputs.self.nixosModules; [
+      imports = with self.nixosModules; [
         services-openssh
         services-qbittorrent
         services-fstrim

@@ -1,13 +1,13 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.profiles-laptop =
     { inputs, features, ... }:
     {
       imports = [
-        inputs.self.nixosModules.profiles-desktop
-        inputs.self.nixosModules.services-tlp
-        inputs.self.nixosModules.services-upower
-        inputs.self.nixosModules.system-sleep
+        self.nixosModules.profiles-desktop
+        self.nixosModules.services-tlp
+        self.nixosModules.services-upower
+        self.nixosModules.system-sleep
       ];
 
       powerManagement = {
@@ -23,7 +23,7 @@
   flake.homeModules.profiles-laptop =
     { inputs, ... }:
     {
-      imports = with inputs.self.homeModules; [
+      imports = with self.homeModules; [
         profiles-desktop
       ];
     };

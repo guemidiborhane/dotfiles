@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, ... }:
 let
   readToml = file: builtins.fromTOML (builtins.readFile file);
 
@@ -21,7 +21,7 @@ in
 
     defaultSystem = defaults.host.system;
 
-    hostModules = [ inputs.self.nixosModules.entrypoint-host ];
-    homeModules = [ inputs.self.homeModules.entrypoint-home ];
+    hostModules = [ self.nixosModules.entrypoint-host ];
+    homeModules = [ self.homeModules.entrypoint-home ];
   };
 }

@@ -1,9 +1,9 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.virtualisation =
     { inputs, ... }:
     {
-      imports = with inputs.self.nixosModules; [
+      imports = with self.nixosModules; [
         libvirtd
         containers
       ];

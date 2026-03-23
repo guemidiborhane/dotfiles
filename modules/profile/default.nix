@@ -1,10 +1,10 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.nixosModules.host-profile =
     { inputs, host, ... }:
     {
       imports = [
-        inputs.self.nixosModules."profiles-${host.type}"
+        self.nixosModules."profiles-${host.type}"
       ];
     };
 
@@ -12,7 +12,7 @@
     { inputs, host, ... }:
     {
       imports = [
-        inputs.self.homeModules."profiles-${host.type}"
+        self.homeModules."profiles-${host.type}"
       ];
     };
 }

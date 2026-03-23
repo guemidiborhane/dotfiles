@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
 
   flake-file.inputs = {
@@ -19,7 +19,7 @@
     }:
     {
       imports = [
-        inputs.self.nixosModules.inputs-nur
+        self.nixosModules.inputs-nur
         inputs.home-manager.nixosModules.home-manager
       ];
 
