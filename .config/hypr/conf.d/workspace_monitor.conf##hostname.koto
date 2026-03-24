@@ -9,4 +9,3 @@ workspace = 8,  monitor:$portraitMonitor
 workspace = 11, monitor:$secondaryMonitor
 workspace = 12, monitor:$secondaryMonitor
 workspace = 19, monitor:$mainMonitor
-workspace = special:$scratch, monitor:$mainMonitor
