@@ -1,0 +1,14 @@
+{
+  "city": "Algiers",
+  "country": "DZ",
+  "method": 19,
+  "showCountdown": true,
+  "showNotifications": true,
+  "playAzan": false,
+  "azanFile": "azan1.mp3",
+  "school": 0,
+  "hijriDayOffset": 0,
+  "weekStartDay": 0,
+  "_cacheData": null,
+  "tune": "0,0,0,0,1,3,0,0,0"
+}

@@ -1,0 +1,28 @@
+{
+  "mainIcon": "blocks",
+  "expandDirection": "left",
+  "primaryShowPill": false,
+  "primarySymbolColor": "primary",
+  "primaryPillColor": "primary",
+  "primarySize": 1,
+  "secondaryShowPill": false,
+  "secondarySymbolColor": "primary",
+  "secondaryPillColor": "secondary",
+  "secondarySize": 1,
+  "borderRadius": 0.5,
+  "focusBorderColor": "primary",
+  "workspaces": [
+    {
+      "name": "workshop",
+      "icon": "ghost-3"
+    },
+    {
+      "name": "messaging",
+      "icon": "message"
+    },
+    {
+      "name": "music",
+      "icon": "brand-spotify"
+    }
+  ]
+}
