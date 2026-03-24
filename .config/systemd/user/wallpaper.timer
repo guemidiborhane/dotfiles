@@ -1,9 +1,0 @@
-[Unit]
-Description=Update cached wallpapers
-Requires=wallpaper.service
-
-[Timer]
-OnCalendar=0/6:0
-
-[Install]
-WantedBy=timers.target

@@ -421,15 +421,15 @@ vpn_reconnect() {
 
 # Output JSON for waybar
 output_json() {
-  icon=""
-  class="up"
+  icon="cloud-lock"
+  color="tertiary"
   status=""
 
   active=$(get_active_vpns)
 
   if [ -z "$active" ]; then
-    icon=""
-    class="down"
+    icon="cloud-unlock"
+    class="error"
     printf '{"text": "%s", "tooltip": "%s", "class": "%s"}\n' "$icon" "$status" "$class"
     return 0
   fi
@@ -462,7 +462,7 @@ output_json() {
     rm -f "$tmpfile"
   fi
 
-  printf '{"text": "%s", "tooltip": "%s", "class": "%s"}\n' "$icon" "$status" "$class"
+  printf '{"icon": "%s", "tooltip": "%s", "color": "%s"}\n' "$icon" "$status" "$color"
 }
 
 # Interactive menu for connection management
