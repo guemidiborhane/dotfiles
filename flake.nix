@@ -31,11 +31,14 @@
     nixpkgs-lib.follows = "nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur = {
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/NUR";
     };
-    salatux.url = "github:guemidiborhane/salatux";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     solaar = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Svenum/Solaar-Flake";

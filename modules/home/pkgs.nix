@@ -1,8 +1,5 @@
 { _, ... }:
 {
-  flake-file.inputs = {
-    salatux.url = "github:guemidiborhane/salatux";
-  };
   flake.homeModules.default-pkgs =
     { pkgs, inputs, ... }:
     {
@@ -37,10 +34,8 @@
         hyprshot
         satty
         brave
-        inputs.salatux.packages.${stdenv.hostPlatform.system}.default
         nixfmt
         speedtest-cli
-        imagemagick
         ffmpeg
         steam-run
       ];
