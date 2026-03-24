@@ -16,7 +16,6 @@
     {
       home.packages = with pkgs; [
         pkgs.nur.repos.nltch.spotify-adblock
-        waybar
         banana-cursor
         hyprlock
         wiremix
@@ -38,11 +37,10 @@
         anydesk
         teamviewer
         megasync
-        sunsetr
         tor-browser
-        playerctl
         jellyfin-mpv-shim
         stable.qgis
+        xarchiver
         # Communication
         vesktop
         signal-desktop

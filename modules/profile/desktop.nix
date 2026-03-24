@@ -55,6 +55,7 @@
         self.homeModules.services-gnome-polkit
         self.homeModules.services-udiskie
 
+        self.homeModules.programs-noctalia
         self.homeModules.programs-zen-browser
         self.homeModules.programs-ghostty
         self.homeModules.programs-foot

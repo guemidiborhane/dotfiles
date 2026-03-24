@@ -35,11 +35,8 @@
         };
 
         services = {
-          hyprpaper.enable = true;
           hypridle.enable = true;
-          swaync.enable = true;
         };
-        programs.wlogout.enable = true;
       };
   };
 }
