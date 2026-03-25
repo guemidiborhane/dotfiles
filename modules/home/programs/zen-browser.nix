@@ -159,10 +159,11 @@
               "network.http.http3.enabled" = true;
               "network.socket.ip_addr_any.disabled" = true; # disallow bind to 0.0.0.0
               "media.videocontrols.picture-in-picture.enable-when-switching-tabs.enabled" = true;
+              "browser.tabs.insertAfterCurrent " = true;
             };
           };
 
-        profiles.default = rec {
+        profiles.default = {
           settings = {
             "zen.workspaces.continue-where-left-off" = true;
             "zen.workspaces.natural-scroll" = true;
@@ -174,6 +175,7 @@
             "zen.pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
             "zen.workspaces.separate-essentials" = false;
             "zen.workspaces.open-new-tab-if-last-unpinned-tab-is-closed" = true;
+            "zen.folders.owned-tabs-in-folder" = true;
           };
 
           mods = [
