@@ -67,7 +67,7 @@
                 mute voldwn volu
                 ✗ ✗
                 ✗ ✗
-                M-7 ✗
+                M-d ✗
                 M-g ✗
                 @spc
                 pp next
