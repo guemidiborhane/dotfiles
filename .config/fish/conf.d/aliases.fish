@@ -44,3 +44,5 @@ alias p push
 alias gpf "git push -f"
 alias glog "git lg"
 alias amend "env HUSKY=0 git commit --amend"
+
+alias sr steam-run

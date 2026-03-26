@@ -1,5 +1,5 @@
 function pwd
-    set dir (/usr/bin/pwd)
+    set dir (/usr/bin/env pwd)
     echo $dir
     echo -n $dir | clip
 end
