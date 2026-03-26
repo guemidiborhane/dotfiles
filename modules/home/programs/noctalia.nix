@@ -23,5 +23,7 @@
         enable = true;
         systemd.enable = true;
       };
+
+      systemd.user.services.noctalia-shell.Service.Environment = "QT_QPA_PLATFORMTHEME=gtk3";
     };
 }
