@@ -7,24 +7,24 @@
 
   inputs = {
     disko = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
-      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
       url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
     };
     home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
     import-tree.url = "github:vic/import-tree";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     nix-index-database = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOs/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -40,28 +40,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     solaar = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Svenum/Solaar-Flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         vicinae.follows = "vicinae";
       };
-      url = "github:vicinaehq/extensions";
     };
     wlctl = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:aashish-thapa/wlctl";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:0xc000022070/zen-browser-flake";
     };
   };
-
 }

@@ -8,12 +8,15 @@
       ...
     }:
     {
-      gtk = {
+      gtk = rec {
         enable = true;
+
         theme = {
           package = pkgs.dracula-theme;
           name = "Dracula";
         };
+        gtk4.theme = theme;
+
         iconTheme = {
           package = pkgs.kora-icon-theme;
           name = "kora";
@@ -38,6 +41,7 @@
         userDirs = {
           enable = true;
           createDirectories = true;
+          setSessionVariables = false;
           desktop = "${config.home.homeDirectory}/Desktop";
           documents = "${config.home.homeDirectory}/Documents";
           download = "${config.home.homeDirectory}/Downloads";
