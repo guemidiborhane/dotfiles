@@ -41,6 +41,7 @@
         jellyfin-mpv-shim
         stable.qgis
         xarchiver
+        qbittorrent
         # Communication
         vesktop
         signal-desktop

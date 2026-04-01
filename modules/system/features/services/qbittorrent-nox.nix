@@ -1,8 +1,8 @@
 { _, ... }:
 {
-  flake.nixosModules.features-qbittorrent =
+  flake.nixosModules.features-qbittorrent-nox =
     { lib, features, ... }:
-    lib.mkIf (features.qbittorrent or false) {
+    lib.mkIf (features.qbittorrent-nox or false) {
       services.qbittorrent = {
         enable = true;
         openFirewall = false;

@@ -5,7 +5,6 @@
     {
       imports = with self.nixosModules; [
         services-openssh
-        services-qbittorrent
         services-fstrim
         services-fwupd
       ];

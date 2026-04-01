@@ -9,7 +9,7 @@
         features-zswap
         features-wol
         features-remote-unlock
-        features-qbittorrent
+        features-qbittorrent-nox
         features-kanata
       ];
     };
