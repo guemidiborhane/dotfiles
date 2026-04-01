@@ -8,28 +8,34 @@
       ...
     }:
     {
-      gtk = rec {
-        enable = true;
+      gtk =
+        let
+          theme = {
+            package = pkgs.dracula-theme;
+            name = "Dracula";
+          };
+        in
+        {
+          enable = true;
 
-        theme = {
-          package = pkgs.dracula-theme;
-          name = "Dracula";
-        };
-        gtk4.theme = theme;
+          inherit theme;
+          gtk4 = { inherit theme; };
 
-        iconTheme = {
-          package = pkgs.kora-icon-theme;
-          name = "kora";
+          iconTheme = {
+            package = pkgs.kora-icon-theme;
+            name = "kora";
+          };
+
+          font = {
+            package = pkgs.cantarell-fonts;
+            name = "Cantarell";
+            size = 11;
+          };
+
+          gtk3.extraConfig = {
+            gtk-application-prefer-dark-theme = true;
+          };
         };
-        font = {
-          package = pkgs.cantarell-fonts;
-          name = "Cantarell";
-          size = 11;
-        };
-        gtk3.extraConfig = {
-          gtk-application-prefer-dark-theme = true;
-        };
-      };
 
       dconf = {
         enable = true;
