@@ -55,6 +55,7 @@ afe8ba39-fada-43da-ba0a-459498b1b062 = "/run/media/borhane/LACIE"
 [kotoamatsukami.features]
 autoUpdate = true
 remoteUnlock = true
+qbittorrent-nox = true
 
 [kotoamatsukami.features.wol]
 enable = true

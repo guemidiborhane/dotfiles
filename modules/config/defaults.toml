@@ -17,7 +17,7 @@ autoReboot = false
 zramSwap = false
 zSwap = false
 remoteUnlock = false
-qbittorrent = false
+qbittorrent-nox = false
 kanata = false
 
 [features.wol]
@@ -26,7 +26,6 @@ iface = ""
 
 [features.desktop]
 zSwap = true
-qbittorrent = true
 kanata = true
 
 [hardware.laptop]
