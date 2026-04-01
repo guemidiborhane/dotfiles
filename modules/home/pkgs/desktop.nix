@@ -41,6 +41,7 @@
         jellyfin-mpv-shim
         stable.qgis
         xarchiver
+        libsForQt5.qt5ct
         qbittorrent
         # Communication
         vesktop
