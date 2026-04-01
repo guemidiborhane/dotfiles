@@ -15,7 +15,6 @@
             uosc
             autosub
             thumbnail
-            mpv-discord
           ];
         };
 
