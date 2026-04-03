@@ -7,7 +7,7 @@
   "primarySize": 1,
   "secondaryShowPill": false,
   "secondarySymbolColor": "primary",
-  "secondaryPillColor": "secondary",
+  "secondaryPillColor": "primary",
   "secondarySize": 1,
   "borderRadius": 0.5,
   "focusBorderColor": "primary",
@@ -24,5 +24,7 @@
       "name": "music",
       "icon": "brand-spotify"
     }
-  ]
+  ],
+  "drawer": false,
+  "hideEmptyWorkspaces": true
 }

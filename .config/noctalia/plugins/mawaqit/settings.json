@@ -10,5 +10,17 @@
   "hijriDayOffset": 0,
   "weekStartDay": 0,
   "_cacheData": null,
-  "tune": "0,0,0,0,1,3,0,0,0"
+  "showElapsed": true,
+  "hidePrayerName": true,
+  "tuneFajr": 0,
+  "tuneDhuhr": 0,
+  "tuneAsr": 1,
+  "tuneMaghrib": 3,
+  "tuneIsha": 0,
+  "widgetIcon": "moon-stars",
+  "textColor": "none",
+  "iconColor": "none",
+  "activeColor": "primary",
+  "dynamicIcon": true,
+  "tune": true
 }
