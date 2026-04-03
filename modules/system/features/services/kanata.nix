@@ -32,6 +32,7 @@
                 "TPPS/2 Elan TrackPoint"
                 "ThinkPad Extra Buttons"
                 "Lid Switch"
+                "vicinae-snippet-virtual-keyboard"
               )
             '';
             config = ''
