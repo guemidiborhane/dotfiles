@@ -810,8 +810,8 @@
         "overlayLayer": true
     },
     "plugins": {
-        "autoUpdate": false,
-        "notifyUpdates": false
+        "autoUpdate": true,
+        "notifyUpdates": true
     },
     "sessionMenu": {
         "countdownDuration": 10000,
