@@ -13,7 +13,10 @@
       { inputs, pkgs, ... }:
       {
         imports = [ inputs.hyprland.nixosModules.default ];
-        programs.hyprland.enable = true;
+        programs.hyprland = {
+          enable = true;
+          package = pkgs.hyprland;
+        };
 
         environment.systemPackages = with pkgs; [
           wl-clipboard
@@ -32,6 +35,7 @@
         wayland.windowManager.hyprland = {
           enable = true;
           systemd.enable = false;
+          package = pkgs.hyprland;
         };
 
         services = {

@@ -13,7 +13,7 @@
   ];
 
   flake.homeModules.programs-noctalia =
-    { inputs, ... }:
+    { inputs, pkgs, ... }:
     {
       imports = [
         inputs.noctalia.homeModules.default
@@ -21,6 +21,7 @@
 
       programs.noctalia-shell = {
         enable = true;
+        package = pkgs.noctalia-shell;
         systemd.enable = true;
       };
 
