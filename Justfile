@@ -208,6 +208,31 @@ update flake="":
     #!/usr/bin/env bash
     set -euo pipefail
 
+    get_inputs() {
+        {{ nix }} flake metadata --json 2>/dev/null | jq -r '.locks.nodes.root.inputs | keys[]' || true
+    }
+
+    update() {
+        local INPUTS="${1:-$(get_inputs)}"
+        local ARGS=$(echo $INPUTS | xargs)
+
+        if [[ -z "$ARGS" ]]; then
+            gum style --foreground 196 "✗ No inputs found to update"
+            return 1
+        fi
+
+        gum spin --show-output --spinner dot --title "Updating: $ARGS" -- \
+            {{ nix }} flake update $ARGS
+
+        echo
+        gum style --foreground 212 "✓ Flake updated successfully"
+    }
+
+    if [[ "{{ flake }}" == "--all" ]]; then
+        update
+        exit 0
+    fi
+
     if [[ -z "{{ flake }}" ]]; then
         INPUTS=$({{ nix }} flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[]' 2>/dev/null || echo "")
 
@@ -226,12 +251,7 @@ update flake="":
         SELECTION="{{ flake }}"
     fi
 
-    ARGS=$(echo "$SELECTION" | tr '\n' ' ')
-    gum spin --show-output --spinner dot --title "Updating: $ARGS" -- \
-        {{ nix }} flake update $ARGS
-
-    echo
-    gum style --foreground 212 "✓ Flake updated successfully"
+    update "$SELECTION"
 
 # Check build requirements
 check-builds host="":
