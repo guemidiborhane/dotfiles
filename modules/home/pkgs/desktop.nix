@@ -15,7 +15,8 @@
     { inputs, pkgs, ... }:
     {
       home.packages = with pkgs; [
-        pkgs.nur.repos.nltch.spotify-adblock
+        nur.repos.nltch.spotify-adblock
+        nur.repos.trev.helium
         banana-cursor
         hyprlock
         wiremix
