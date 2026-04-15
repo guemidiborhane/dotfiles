@@ -204,7 +204,7 @@ remove-host name="":
     ./scripts/remove-host.sh "{{ hosts_config }}" "$RESOLVED"
 
 # Update flake inputs (interactive multi-select with fuzzy filter)
-update flake="":
+update flake="" operation="":
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -226,9 +226,13 @@ update flake="":
 
         echo
         gum style --foreground 212 "✓ Flake updated successfully"
+
+        if [[ -n "{{ operation }}" ]]; then
+            just rebuild "{{ operation }}" no
+        fi
     }
 
-    if [[ "{{ flake }}" == "--all" ]]; then
+    if [[ "{{ flake }}" == "all" ]]; then
         update
         exit 0
     fi
@@ -275,9 +279,8 @@ rebuild-safe:
     @echo 'Not my style! Run: "nh os test" for all I care.'
 
 # Rebuild current system with all substituters explicitly passed (god what a stupid name)
-rebuild:
-    #!/usr/bin/env bash
-    ./scripts/rebuild.sh
+rebuild operation="switch" confirm="yes":
+    ./scripts/rebuild.sh "{{ operation }}" "{{ confirm }}"
 
 # Rollback update
 rollback-update:
