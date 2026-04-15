@@ -20,7 +20,6 @@
         starship.enable = true;
         eza.enable = true;
         zoxide.enable = true;
-        neovim.enable = true;
       };
     };
 }
