@@ -1,9 +1,9 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.homeModules.shell =
-    { inputs, ... }:
+    { ... }:
     {
-      imports = with inputs.self.homeModules; [
+      imports = with self.homeModules; [
         programs-fish
         programs-sesh
         programs-bat

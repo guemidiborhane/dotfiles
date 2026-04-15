@@ -1,14 +1,9 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake.homeModules.programs-yadm =
+    { user, lib, ... }:
     {
-      inputs,
-      user,
-      lib,
-      ...
-    }:
-    {
-      imports = [ inputs.self.homeModules.yadm ];
+      imports = [ self.homeModules.yadm ];
 
       programs.yadm = lib.mkIf (user ? yadmRepo && user.yadmRepo != "") {
         enable = true;
