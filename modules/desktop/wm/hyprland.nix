@@ -26,10 +26,12 @@
     homeModules.desktop-hyprland =
       { inputs, pkgs, ... }:
       {
-        imports = [
-          inputs.hyprland.homeManagerModules.default
-          inputs.self.homeModules.desktop-common
-          inputs.self.homeModules.services-hyprpower
+        imports = with inputs; [
+          hyprland.homeManagerModules.default
+
+          self.homeModules.desktop-common
+          self.homeModules.services-hyprpower
+          self.homeModules.programs-noctalia
         ];
 
         wayland.windowManager.hyprland = {
