@@ -1,27 +1,19 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
 [default_session]
 startup_command = "ls"
 preview_command = "eza --all --git --icons --color=always {}"
 
 [[session]]
-name = "tmux"
-path = "~/.config/tmux"
+name = "system"
+disable_startup_command = true
+windows = ["dotfiles", "nixos"]
 
-[[session]]
-name = "nvim"
-path = "~/.config/nvim"
+[[window]]
+name = "dotfiles"
+startup_script = "exec yadm enter $EDITOR"
 
-[[session]]
-name = "hypr"
-path = "~/.config/hypr"
-
-[[session]]
-name = "waybar"
-path = "~/.config/waybar"
-
-[[session]]
-name = "yadm"
-path = "~/.config/yadm"
-
-[[session]]
-name = "user systemd"
-path = "~/.config/systemd/user"
+[[window]]
+name = "nixos"
+path = "~/.config/nixos/"
+startup_script = "exec $EDITOR"
