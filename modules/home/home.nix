@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.home-config =
+  flake.modules.homeManager.home-config =
     { metadata, user, ... }:
     {
       home = {

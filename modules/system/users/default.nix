@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.nixosModules.users =
+  flake.modules.nixos.users =
     {
       inputs,
       pkgs,
@@ -9,7 +9,7 @@
       ...
     }:
     {
-      imports = with self.nixosModules; [
+      imports = with self.modules.nixos; [
         users-home-manager
         users-tty-login
       ];

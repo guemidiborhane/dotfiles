@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.like-nix =
+  flake.modules.nixos.like-nix =
     { pkgs, ... }:
     let
       version = "latest";

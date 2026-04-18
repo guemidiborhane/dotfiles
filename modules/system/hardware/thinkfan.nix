@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.hardware-thinkfan =
+  flake.modules.nixos.hardware-thinkfan =
     { _, ... }:
     {
       services.thinkfan = {

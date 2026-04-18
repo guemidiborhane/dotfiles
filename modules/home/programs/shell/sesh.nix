@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-sesh =
+  flake.modules.homeManager.programs-sesh =
     { lib, ... }:
     {
       programs.sesh = {

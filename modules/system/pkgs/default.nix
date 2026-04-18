@@ -1,9 +1,9 @@
 { self, ... }:
 {
-  flake.nixosModules.default-pkgs =
+  flake.modules.nixos.default-pkgs =
     { inputs, ... }:
     {
-      imports = with self.nixosModules; [
+      imports = with self.modules.nixos; [
         inputs-nur
       ];
     };

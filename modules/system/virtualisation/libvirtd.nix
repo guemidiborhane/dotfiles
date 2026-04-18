@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.libvirtd =
+  flake.modules.nixos.libvirtd =
     { _, ... }:
     {
 

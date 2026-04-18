@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-fzf =
+  flake.modules.homeManager.programs-fzf =
     { _, ... }:
     {
       programs.fzf = {

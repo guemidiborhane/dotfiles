@@ -1,9 +1,9 @@
 { self, ... }:
 {
-  flake.homeModules.shell =
+  flake.modules.homeManager.shell =
     { pkgs, ... }:
     {
-      imports = with self.homeModules; [
+      imports = with self.modules.homeManager; [
         programs-fish
         programs-sesh
         programs-bat

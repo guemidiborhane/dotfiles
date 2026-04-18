@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.users-tty-login =
+  flake.modules.nixos.users-tty-login =
     {
       config,
       pkgs,
@@ -10,7 +10,6 @@
       ...
     }:
     {
-
       systemd.services."getty@tty1" =
         let
           username = host.defaultUser;

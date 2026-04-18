@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.pkgs-defaults =
+  flake.modules.nixos.pkgs-defaults =
     {
       inputs,
       pkgs,

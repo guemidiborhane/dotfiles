@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.services-tmux =
+  flake.modules.homeManager.services-tmux =
     { pkgs, ... }:
     {
       systemd.user.services.tmux = {

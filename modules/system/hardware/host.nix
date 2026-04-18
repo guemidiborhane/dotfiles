@@ -2,7 +2,7 @@
 {
   flake-file.inputs.nixos-hardware.url = "github:NixOs/nixos-hardware/master";
 
-  flake.nixosModules.hardware-host =
+  flake.modules.nixos.hardware-host =
     {
       inputs,
       host,
@@ -16,15 +16,17 @@
       hasHardwareModule = hardware ? module && hardware.module != "";
     in
     {
-      imports = [
-        self.nixosModules."hardware-${host.name}"
-        self.nixosModules.hardware-bluetooth
-        self.nixosModules.hardware-nvidia
-        self.nixosModules.hardware-disks
-        self.nixosModules.hardware-fingerprint
-        self.nixosModules.hardware-touchpad
-        self.nixosModules.hardware-backlight
-      ]
-      ++ lib.optional hasHardwareModule inputs.nixos-hardware.nixosModules.${hardware.module};
+      imports =
+        with self.modules.nixos;
+        [
+          self.modules.nixos."hardware-${host.name}"
+          hardware-bluetooth
+          hardware-nvidia
+          hardware-disks
+          hardware-fingerprint
+          hardware-touchpad
+          hardware-backlight
+        ]
+        ++ lib.optional hasHardwareModule inputs.nixos-hardware.nixosModules.${hardware.module};
     };
 }

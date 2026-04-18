@@ -11,7 +11,7 @@
     }
   ];
 
-  flake.homeModules.pkgs-desktop =
+  flake.modules.homeManager.pkgs-desktop =
     { inputs, pkgs, ... }:
     {
       home.packages = with pkgs; [

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-btop =
+  flake.modules.homeManager.programs-btop =
     { _, ... }:
     {
       programs.btop = {

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.default-pkgs =
+  flake.modules.homeManager.default-pkgs =
     { pkgs, inputs, ... }:
     {
       home.packages = with pkgs; [

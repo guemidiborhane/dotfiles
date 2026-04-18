@@ -1,18 +1,18 @@
 { self, ... }:
 {
-  flake.nixosModules.host-profile =
+  flake.modules.nixos.host-profile =
     { inputs, host, ... }:
     {
       imports = [
-        self.nixosModules."profiles-${host.type}"
+        self.modules.nixos."profiles-${host.type}"
       ];
     };
 
-  flake.homeModules.host-profile =
+  flake.modules.homeManager.host-profile =
     { inputs, host, ... }:
     {
       imports = [
-        self.homeModules."profiles-${host.type}"
+        self.modules.homeManager."profiles-${host.type}"
       ];
     };
 }

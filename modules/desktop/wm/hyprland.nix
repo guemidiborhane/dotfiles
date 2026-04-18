@@ -1,4 +1,4 @@
-{ _, ... }:
+{ self, ... }:
 {
   flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland";
   flake = {
@@ -9,7 +9,7 @@
       }
     ];
 
-    nixosModules.desktop-hyprland =
+    modules.nixos.desktop-hyprland =
       { inputs, pkgs, ... }:
       {
         imports = [ inputs.hyprland.nixosModules.default ];
@@ -23,15 +23,15 @@
         ];
       };
 
-    homeModules.desktop-hyprland =
+    modules.homeManager.desktop-hyprland =
       { inputs, pkgs, ... }:
       {
-        imports = with inputs; [
-          hyprland.homeManagerModules.default
+        imports = with self.modules.homeManager; [
+          inputs.hyprland.homeManagerModules.default
 
-          self.homeModules.desktop-common
-          self.homeModules.services-hyprpower
-          self.homeModules.programs-noctalia
+          desktop-common
+          services-hyprpower
+          programs-noctalia
         ];
 
         wayland.windowManager.hyprland = {

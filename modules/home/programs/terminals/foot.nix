@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-foot =
+  flake.modules.homeManager.programs-foot =
     { _, ... }:
     {
       programs.foot = {

@@ -118,7 +118,7 @@ if gum confirm "Generate hardware configuration now? (requires root)"; then
 	cat >"$output_file" <<EOF
 { _, ... }:
 {
-  flake.nixosModules.hardware-$NAME =
+  flake.modules.nixos.hardware-$NAME =
 $(cat "$output_file.tmp" | sed 's/^/    /');
 }
 EOF

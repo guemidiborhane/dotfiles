@@ -1,9 +1,9 @@
 { self, ... }:
 {
-  flake.nixosModules.features =
+  flake.modules.nixos.features =
     { inputs, ... }:
     {
-      imports = with self.nixosModules; [
+      imports = with self.modules.nixos; [
         features-auto-upgrade
         features-zram-swap
         features-zswap

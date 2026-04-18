@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.networking-netbird =
+  flake.modules.nixos.networking-netbird =
     { h, networking, ... }:
     let
       netbirdServer = {
