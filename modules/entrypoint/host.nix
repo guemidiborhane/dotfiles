@@ -1,9 +1,9 @@
 { self, ... }:
 {
-  flake.nixosModules.entrypoint-host =
+  flake.modules.nixos.entrypoint =
     { inputs, ... }:
     {
-      imports = with self.nixosModules; [
+      imports = with self.modules.nixos; [
         nix-config
         disko-config
         kernel

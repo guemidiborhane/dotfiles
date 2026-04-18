@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.desktop-common =
+  flake.modules.homeManager.desktop-common =
     {
       config,
       lib,

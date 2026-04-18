@@ -5,7 +5,7 @@
     solaar.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.nixosModules.inputs-solaar =
+  flake.modules.nixos.inputs-solaar =
     { inputs, ... }:
     {
       imports = [

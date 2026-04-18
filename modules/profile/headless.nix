@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.profiles-headless =
+  flake.modules.nixos.profiles-headless =
     { lib, ... }:
     {
       services.xserver.enable = lib.mkForce false;
@@ -14,5 +14,5 @@
       services.blueman.enable = lib.mkForce false;
     };
 
-  flake.homeModules.profiles-headless = { _, ... }: { };
+  flake.modules.homeManager.profiles-headless = { _, ... }: { };
 }

@@ -1,9 +1,9 @@
 { self, ... }:
 {
-  flake.homeModules.entrypoint-home =
+  flake.modules.homeManager.entrypoint =
     { user, ... }:
     {
-      imports = with self.homeModules; [
+      imports = with self.modules.homeManager; [
         inputs-nur
         home-config
         default-pkgs

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-mpv =
+  flake.modules.homeManager.programs-mpv =
     { pkgs, ... }:
     {
 

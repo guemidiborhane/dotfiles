@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.services-hyprpower =
+  flake.modules.homeManager.services-hyprpower =
     { pkgs, ... }:
     let
       hyprPower = pkgs.writeShellScriptBin "hyprpower" ''

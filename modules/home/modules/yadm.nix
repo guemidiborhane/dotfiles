@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.yadm =
+  flake.modules.homeManager.yadm =
     {
       pkgs,
       lib,

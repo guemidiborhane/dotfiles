@@ -5,7 +5,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.nixosModules.disko-config =
+  flake.modules.nixos.disko-config =
     {
       inputs,
       config,

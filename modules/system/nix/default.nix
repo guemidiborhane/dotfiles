@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.nixosModules.nix-config =
+  flake.modules.nixos.nix-config =
     {
       inputs,
       pkgs,
@@ -10,7 +10,7 @@
     }:
     {
 
-      imports = with self.nixosModules; [
+      imports = with self.modules.nixos; [
         nix-substituters
         nix-index-database
         like-nix

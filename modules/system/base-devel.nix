@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.base-devel =
+  flake.modules.nixos.base-devel =
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [

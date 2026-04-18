@@ -12,7 +12,7 @@
     }
   ];
 
-  flake.homeModules.programs-noctalia =
+  flake.modules.homeManager.programs-noctalia =
     { inputs, pkgs, ... }:
     {
       imports = [

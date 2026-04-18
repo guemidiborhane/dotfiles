@@ -16,7 +16,7 @@
     }
   ];
 
-  flake.homeModules.programs-vicinae =
+  flake.modules.homeManager.programs-vicinae =
     { inputs, pkgs, ... }:
     {
       imports = [

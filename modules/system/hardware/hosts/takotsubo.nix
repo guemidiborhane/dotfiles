@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.hardware-takotsubo =
+  flake.modules.nixos.hardware-takotsubo =
     {
       config,
       lib,

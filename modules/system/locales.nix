@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.locales =
+  flake.modules.nixos.locales =
     { _, ... }:
     {
       time.timeZone = "Africa/Algiers";

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-mise =
+  flake.modules.homeManager.programs-mise =
     { _, ... }:
     {
       programs.mise = {

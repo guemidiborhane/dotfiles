@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.common-host-configs =
+  flake.modules.nixos.common-host-configs =
     { lib, pkgs, ... }:
     {
       boot.loader = {

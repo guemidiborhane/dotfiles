@@ -21,7 +21,7 @@ in
 
     defaultSystem = defaults.host.system;
 
-    hostModules = [ self.nixosModules.entrypoint-host ];
-    homeModules = [ self.homeModules.entrypoint-home ];
+    hostModules = [ self.modules.nixos.entrypoint ];
+    homeModules = [ self.modules.homeManager.entrypoint ];
   };
 }

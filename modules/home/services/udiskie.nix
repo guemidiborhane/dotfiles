@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.services-udiskie =
+  flake.modules.homeManager.services-udiskie =
     { _, ... }:
     {
       services.udiskie = {

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.services-tlp =
+  flake.modules.nixos.services-tlp =
     { power, ... }:
     {
       services.tlp = {

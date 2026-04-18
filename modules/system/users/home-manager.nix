@@ -10,7 +10,7 @@
     inputs.home-manager.flakeModules.home-manager
   ];
 
-  flake.nixosModules.users-home-manager =
+  flake.modules.nixos.users-home-manager =
     ctx@{
       inputs,
       pkgs,
@@ -19,8 +19,8 @@
     }:
     {
       imports = [
-        self.nixosModules.inputs-nur
         inputs.home-manager.nixosModules.home-manager
+        self.modules.nixos.inputs-nur
       ];
 
       home-manager = {

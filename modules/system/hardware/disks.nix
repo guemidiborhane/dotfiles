@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.hardware-disks =
+  flake.modules.nixos.hardware-disks =
     { hardware, lib, ... }:
     lib.mkIf (hardware ? disks && hardware.disks != [ ]) {
       fileSystems = lib.mapAttrs' (

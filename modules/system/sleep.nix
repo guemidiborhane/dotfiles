@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.system-sleep =
+  flake.modules.nixos.system-sleep =
     { _, ... }:
     {
 

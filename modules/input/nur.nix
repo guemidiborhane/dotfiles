@@ -11,7 +11,7 @@
     }
   ];
 
-  flake.nixosModules.inputs-nur =
+  flake.modules.nixos.inputs-nur =
     { inputs, ... }:
     {
       imports = [
@@ -19,7 +19,7 @@
       ];
     };
 
-  flake.homeModules.inputs-nur =
+  flake.modules.homeManager.inputs-nur =
     { inputs, ... }:
     {
       imports = [

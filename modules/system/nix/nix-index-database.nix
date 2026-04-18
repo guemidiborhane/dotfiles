@@ -5,7 +5,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.nixosModules.nix-index-database =
+  flake.modules.nixos.nix-index-database =
     { inputs, ... }:
     {
       imports = [ inputs.nix-index-database.nixosModules.default ];

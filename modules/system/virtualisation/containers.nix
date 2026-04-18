@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.nixosModules.containers =
+  flake.modules.nixos.containers =
     {
       inputs,
       pkgs,
@@ -10,7 +10,7 @@
     {
 
       imports = [
-        self.nixosModules.podman
+        self.modules.nixos.podman
       ];
       virtualisation.containers.enable = true;
       hardware.nvidia-container-toolkit.enable = h.hasNvidia;

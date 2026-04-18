@@ -1,9 +1,9 @@
 { self, ... }:
 {
-  flake.nixosModules.default-services =
+  flake.modules.nixos.default-services =
     { inputs, ... }:
     {
-      imports = with self.nixosModules; [
+      imports = with self.modules.nixos; [
         services-openssh
         services-fstrim
         services-fwupd

@@ -1,9 +1,9 @@
 { self, ... }:
 {
-  flake.nixosModules.default-programs =
+  flake.modules.nixos.default-programs =
     { inputs, ... }:
     {
-      imports = with self.nixosModules; [
+      imports = with self.modules.nixos; [
         programs-nh
         programs-neovim
         programs-fish

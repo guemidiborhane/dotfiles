@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.services-gnome-keyring =
+  flake.modules.homeManager.services-gnome-keyring =
     { pkgs, ... }:
     {
       services.gnome-keyring = {

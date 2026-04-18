@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-ghostty =
+  flake.modules.homeManager.programs-ghostty =
     { _, ... }:
     {
       programs.ghostty = {

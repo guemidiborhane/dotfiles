@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.homeModules.programs-fish =
+  flake.modules.homeManager.programs-fish =
     { pkgs, lib, ... }:
     {
       programs.fish = {

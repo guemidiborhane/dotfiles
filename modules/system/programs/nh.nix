@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.nixosModules.programs-nh = {
+  flake.modules.nixos.programs-nh = {
     programs.nh = {
       enable = true;
       clean = {

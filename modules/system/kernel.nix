@@ -8,7 +8,7 @@
     }
   ];
 
-  flake.nixosModules.kernel =
+  flake.modules.nixos.kernel =
     {
       inputs,
       host,

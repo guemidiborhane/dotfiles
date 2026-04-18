@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.nixosModules.profiles-desktop =
+  flake.modules.nixos.profiles-desktop =
     {
       inputs,
       features,
@@ -9,11 +9,11 @@
       ...
     }:
     {
-      imports = [
-        self.nixosModules.inputs-solaar
-        self.nixosModules.services-pipewire
-        self.nixosModules.desktop-hyprland
-        self.nixosModules.programs-thunar
+      imports = with self.modules.nixos; [
+        inputs-solaar
+        services-pipewire
+        desktop-hyprland
+        programs-thunar
       ];
 
       services = {
@@ -44,22 +44,22 @@
       ];
     };
 
-  flake.homeModules.profiles-desktop =
+  flake.modules.homeManager.profiles-desktop =
     { pkgs, inputs, ... }:
     {
-      imports = [
-        self.homeModules.pkgs-desktop
-        self.homeModules.desktop-hyprland
+      imports = with self.modules.homeManager; [
+        pkgs-desktop
+        desktop-hyprland
 
-        self.homeModules.services-gnome-keyring
-        self.homeModules.services-gnome-polkit
-        self.homeModules.services-udiskie
+        services-gnome-keyring
+        services-gnome-polkit
+        services-udiskie
 
-        self.homeModules.programs-zen-browser
-        self.homeModules.programs-ghostty
-        self.homeModules.programs-foot
-        self.homeModules.programs-vicinae
-        self.homeModules.programs-mpv
+        programs-zen-browser
+        programs-ghostty
+        programs-foot
+        programs-vicinae
+        programs-mpv
       ];
 
       programs.wezterm.enable = true;

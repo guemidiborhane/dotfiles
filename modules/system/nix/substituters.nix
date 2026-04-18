@@ -22,7 +22,7 @@
   };
 
   config = {
-    flake.nixosModules.nix-substituters =
+    flake.modules.nixos.nix-substituters =
       { inputs, ... }:
       let
         allCaches = lib.flatten (lib.attrValues config.flake.substituters);
