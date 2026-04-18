@@ -1,7 +1,7 @@
 { self, ... }:
 {
   flake.homeModules.shell =
-    { ... }:
+    { pkgs, ... }:
     {
       imports = with self.homeModules; [
         programs-fish
@@ -11,6 +11,7 @@
         programs-mise
         programs-atuin
         programs-btop
+        programs-direnv
         services-tmux
       ];
 
@@ -21,5 +22,7 @@
         eza.enable = true;
         zoxide.enable = true;
       };
+
+      home.packages = with pkgs; [ devenv ];
     };
 }
