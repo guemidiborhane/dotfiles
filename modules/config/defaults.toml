@@ -21,8 +21,8 @@ qbittorrent-nox = false
 kanata = false
 
 [features.kernel]
-cpu = "x86_64-v3"
-scheduler = "bore"
+opti = "x86_64-v3"
+sched = "bore"
 lto = "thin"
 
 [features.wol]

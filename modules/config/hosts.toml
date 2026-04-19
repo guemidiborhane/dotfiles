@@ -19,7 +19,7 @@ description = "P14s G5 AMD"
 kernel = "cachyos-latest"
 
 [kamui.features.kernel]
-cpu = "zen4"
+opti = "zen4"
 
 [kamui.hardware]
 disk = "/dev/nvme0n1"
@@ -41,7 +41,7 @@ description = "5950X Workstation"
 kernel = "cachyos-custom"
 
 [kotoamatsukami.features.kernel]
-cpu = "x86_64-v3"
+opti = "x86_64-v3"
 
 [kotoamatsukami.hardware]
 disk = "/dev/nvme0n1"
