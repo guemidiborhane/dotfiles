@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, lib, ... }:
 let
   readToml = file: builtins.fromTOML (builtins.readFile file);
 
@@ -6,7 +6,7 @@ let
   users = readToml ./users.toml;
   hosts = readToml ./hosts.toml;
 
-  getHost = import ./_getHost.nix { inherit defaults users; };
+  getHost = import ./_getHost.nix { inherit lib defaults users; };
 in
 {
   flake.dex = {
