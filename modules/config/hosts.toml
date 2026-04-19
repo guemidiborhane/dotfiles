@@ -16,7 +16,10 @@ kanata = false
 [kamui]
 type = "laptop"
 description = "P14s G5 AMD"
-kernel = "cachyos-latest-zen4"
+kernel = "cachyos-latest"
+
+[kamui.features.kernel]
+cpu = "zen4"
 
 [kamui.hardware]
 disk = "/dev/nvme0n1"
@@ -35,7 +38,10 @@ stopChargeThreshold = 85
 hostname = "koto"
 type = "desktop"
 description = "5950X Workstation"
-kernel = "cachyos-latest-v3"
+kernel = "cachyos-custom"
+
+[kotoamatsukami.features.kernel]
+cpu = "x86_64-v3"
 
 [kotoamatsukami.hardware]
 disk = "/dev/nvme0n1"
