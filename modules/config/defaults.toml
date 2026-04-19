@@ -20,6 +20,11 @@ remoteUnlock = false
 qbittorrent-nox = false
 kanata = false
 
+[features.kernel]
+cpu = "x86_64-v3"
+scheduler = "bore"
+lto = "thin"
+
 [features.wol]
 enable = false
 iface = ""
