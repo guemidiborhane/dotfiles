@@ -1,16 +1,14 @@
-{ defaults, users }:
+{
+  lib,
+  defaults,
+  users,
+}:
 let
   getUser =
     username: users.${username} or (throw "Unknown user '${username}' referenced in host.users");
 in
-name: h:
+name: host:
 let
-  host = {
-    features = { };
-    power = { };
-  }
-  // h;
-
   self =
     defaults.host
     // {
@@ -22,11 +20,17 @@ let
       swapSize = "${toString (host.ram + 2)}G";
     };
 
-  hardware = defaults.hardware // (defaults.hardware.${host.type} or { }) // (host.hardware or { });
-  features = defaults.features // (defaults.features.${host.type} or { }) // (host.features or { });
-  power = defaults.power // host.power;
-  networking =
-    defaults.networking // (defaults.networking.${host.type} or { }) // (host.networking or { });
+  cascade =
+    key:
+    lib.foldl lib.recursiveUpdate { } [
+      (defaults.${key} or { })
+      (defaults.${key}.${host.type} or { })
+      (host.${key} or { })
+    ];
+  hardware = cascade "hardware";
+  features = cascade "features";
+  power = cascade "power";
+  networking = cascade "networking";
 
   users = builtins.listToAttrs (
     map (username: {
