@@ -22,5 +22,6 @@
             "@${pkgs.util-linux}/sbin/agetty agetty --login-program ${config.services.getty.loginProgram} -no ${username} --noclear %I $TERM"
           ];
         };
+      security.pam.services."getty@tty1".enableGnomeKeyring = true;
     };
 }
