@@ -3,37 +3,43 @@
 source = ~/.config/hypr/conf.d/nvidia.conf
 
 $resolution = 2560x1440@75
-$scale = 1.07
+$scale = 1.25
 
 # Needed for workspace <-> monitor assignment
-$portraitMonitor = DP-1
-$mainMonitor = desc:LG Electronics webOS TV 0x01010101
-$secondaryMonitor = DP-3
+$leftMonitor = DP-1
+$mainMonitor = DP-2
+$rightMonitor = DP-3
 cursor:default_monitor = $mainMonitor
 
 # portrait (left)
 monitorv2 {
-  output = $portraitMonitor
+  output = $leftMonitor
   mode = $resolution
   scale = $scale
   position = 0x0
-  transform = 1 # 90deg
 }
 
 # main monitor (center)
 monitorv2 {
   output = $mainMonitor
-  mode = 3840x2160@60
-  scale = 1.5
-  bitdepth = 10
+  mode = $resolution
+  scale = $scale
   position = auto-center-right
 }
 
 # secondary (right)
 monitorv2 {
-  output = $secondaryMonitor
+  output = $rightMonitor
   mode = $resolution
   scale = $scale
   position = auto-center-right
-  transform = 3
+}
+
+# TV
+monitorv2 {
+  output = desc:LG Electronics webOS TV 0x01010101
+  mode = 3840x2160@60
+  position = auto
+  scale = 1.5
+  bitdepth = 10
 }
