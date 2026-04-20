@@ -59,7 +59,7 @@ afe8ba39-fada-43da-ba0a-459498b1b062 = "/run/media/borhane/LACIE"
 4A9DD7D4448B0F0A = "/run/media/borhane/DATA"
 
 [kotoamatsukami.features]
-autoUpdate = true
+autoUpdate = false
 remoteUnlock = true
 qbittorrent-nox = true
 
