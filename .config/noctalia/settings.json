@@ -61,7 +61,10 @@
         "middleClickFollowMouse": false,
         "monitors": [
             "eDP-1",
-            "HDMI-A-1"
+            "HDMI-A-1",
+            "DP-1",
+            "DP-2",
+            "DP-3"
         ],
         "mouseWheelAction": "none",
         "mouseWheelWrap": true,
@@ -285,6 +288,242 @@
                             "icon": "user-circle",
                             "id": "ControlCenter",
                             "useDistroLogo": false
+                        }
+                    ]
+                }
+            },
+            {
+                "enabled": true,
+                "name": "DP-3",
+                "widgets": {
+                    "center": [
+                        {
+                            "clockColor": "none",
+                            "customFont": "",
+                            "formatHorizontal": "ddd dd · h:mm AP",
+                            "formatVertical": "ddd dd · hh mm",
+                            "id": "Clock",
+                            "tooltipFormat": "",
+                            "useCustomFont": false
+                        },
+                        {
+                            "defaultSettings": {
+                                "azanFile": "azan1.mp3",
+                                "city": "London",
+                                "country": "UK",
+                                "hijriDayOffset": 0,
+                                "method": 3,
+                                "playAzan": false,
+                                "school": 0,
+                                "showCountdown": true,
+                                "showNotifications": true
+                            },
+                            "id": "plugin:mawaqit"
+                        },
+                        {
+                            "defaultSettings": {
+                                "activeColor": "primary",
+                                "enableToast": true,
+                                "hideInactive": false,
+                                "iconSpacing": 4,
+                                "inactiveColor": "none",
+                                "micFilterRegex": "",
+                                "removeMargins": false
+                            },
+                            "id": "plugin:privacy-indicator"
+                        }
+                    ],
+                    "left": [
+                        {
+                            "characterCount": 2,
+                            "colorizeIcons": false,
+                            "emptyColor": "tertiary",
+                            "enableScrollWheel": true,
+                            "focusedColor": "primary",
+                            "followFocusedScreen": false,
+                            "fontWeight": "semibold",
+                            "groupedBorderOpacity": 1,
+                            "hideUnoccupied": false,
+                            "iconScale": 0.8,
+                            "id": "Workspace",
+                            "labelMode": "index",
+                            "occupiedColor": "secondary",
+                            "pillSize": 0.75,
+                            "showApplications": true,
+                            "showApplicationsHover": false,
+                            "showBadge": true,
+                            "showLabelsOnlyWhenOccupied": true,
+                            "unfocusedIconsOpacity": 0.5
+                        },
+                        {
+                            "id": "Spacer",
+                            "width": 5
+                        },
+                        {
+                            "defaultSettings": {
+                                "borderRadius": 1,
+                                "expandDirection": "down",
+                                "focusBorderColor": "primary",
+                                "mainIcon": "layout-grid",
+                                "primaryPillColor": "none",
+                                "primaryShowPill": false,
+                                "primarySize": 0.9,
+                                "primarySymbolColor": "none",
+                                "secondaryPillColor": "primary",
+                                "secondaryShowPill": true,
+                                "secondarySize": 0.9,
+                                "secondarySymbolColor": "none",
+                                "workspaces": [
+                                    {
+                                        "icon": "message",
+                                        "name": "communication"
+                                    }
+                                ]
+                            },
+                            "id": "plugin:special-workspaces"
+                        }
+                    ],
+                    "right": [
+                    ]
+                }
+            },
+            {
+                "enabled": true,
+                "name": "DP-1",
+                "widgets": {
+                    "center": [
+                        {
+                            "clockColor": "none",
+                            "customFont": "",
+                            "formatHorizontal": "ddd dd · h:mm AP",
+                            "formatVertical": "ddd dd · hh mm",
+                            "id": "Clock",
+                            "tooltipFormat": "",
+                            "useCustomFont": false
+                        },
+                        {
+                            "defaultSettings": {
+                                "azanFile": "azan1.mp3",
+                                "city": "London",
+                                "country": "UK",
+                                "hijriDayOffset": 0,
+                                "method": 3,
+                                "playAzan": false,
+                                "school": 0,
+                                "showCountdown": true,
+                                "showNotifications": true
+                            },
+                            "id": "plugin:mawaqit"
+                        },
+                        {
+                            "defaultSettings": {
+                                "activeColor": "primary",
+                                "enableToast": true,
+                                "hideInactive": false,
+                                "iconSpacing": 4,
+                                "inactiveColor": "none",
+                                "micFilterRegex": "",
+                                "removeMargins": false
+                            },
+                            "id": "plugin:privacy-indicator"
+                        }
+                    ],
+                    "left": [
+                        {
+                            "characterCount": 2,
+                            "colorizeIcons": false,
+                            "emptyColor": "tertiary",
+                            "enableScrollWheel": true,
+                            "focusedColor": "primary",
+                            "followFocusedScreen": false,
+                            "fontWeight": "semibold",
+                            "groupedBorderOpacity": 1,
+                            "hideUnoccupied": false,
+                            "iconScale": 0.8,
+                            "id": "Workspace",
+                            "labelMode": "index",
+                            "occupiedColor": "secondary",
+                            "pillSize": 0.75,
+                            "showApplications": true,
+                            "showApplicationsHover": false,
+                            "showBadge": true,
+                            "showLabelsOnlyWhenOccupied": true,
+                            "unfocusedIconsOpacity": 0.5
+                        },
+                        {
+                            "id": "Spacer",
+                            "width": 5
+                        },
+                        {
+                            "defaultSettings": {
+                                "borderRadius": 1,
+                                "expandDirection": "down",
+                                "focusBorderColor": "primary",
+                                "mainIcon": "layout-grid",
+                                "primaryPillColor": "none",
+                                "primaryShowPill": false,
+                                "primarySize": 0.9,
+                                "primarySymbolColor": "none",
+                                "secondaryPillColor": "primary",
+                                "secondaryShowPill": true,
+                                "secondarySize": 0.9,
+                                "secondarySymbolColor": "none",
+                                "workspaces": [
+                                    {
+                                        "icon": "message",
+                                        "name": "communication"
+                                    }
+                                ]
+                            },
+                            "id": "plugin:special-workspaces"
+                        }
+                    ],
+                    "right": [
+                        {
+                            "compactMode": false,
+                            "diskPath": "/",
+                            "iconColor": "secondary",
+                            "id": "SystemMonitor",
+                            "showCpuCores": false,
+                            "showCpuFreq": false,
+                            "showCpuTemp": false,
+                            "showCpuUsage": false,
+                            "showDiskAvailable": false,
+                            "showDiskUsage": false,
+                            "showDiskUsageAsPercent": false,
+                            "showGpuTemp": false,
+                            "showLoadAverage": false,
+                            "showMemoryAsPercent": false,
+                            "showMemoryUsage": false,
+                            "showNetworkStats": true,
+                            "showSwapUsage": false,
+                            "textColor": "secondary",
+                            "useMonospaceFont": true,
+                            "usePadding": false
+                        },
+                        {
+                            "defaultSettings": {
+                                "animations": true,
+                                "barHost": "worst",
+                                "colorCritical": "#ff5555",
+                                "colorGood": "#00ff7f",
+                                "colorWarning": "#f1fa8c",
+                                "hosts": [
+                                    {
+                                        "address": "1.1.1.1",
+                                        "name": "Cloudflare DNS"
+                                    },
+                                    {
+                                        "address": "8.8.8.8",
+                                        "name": "Google DNS"
+                                    }
+                                ],
+                                "intervalSeconds": 5,
+                                "showHostName": true,
+                                "thresholdGood": 20,
+                                "thresholdWarning": 70
+                            },
+                            "id": "plugin:latency-monitor"
                         }
                     ]
                 }
