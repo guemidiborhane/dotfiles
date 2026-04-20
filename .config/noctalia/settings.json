@@ -188,6 +188,9 @@
                             "usePadding": true
                         },
                         {
+                            "id": "plugin:latency-monitor"
+                        },
+                        {
                             "displayMode": "onhover",
                             "iconColor": "none",
                             "id": "Volume",
@@ -387,6 +390,28 @@
                     "iconColor": "secondary",
                     "id": "SystemMonitor",
                     "showCpuCores": false,
+                    "showCpuFreq": false,
+                    "showCpuTemp": false,
+                    "showCpuUsage": false,
+                    "showDiskAvailable": false,
+                    "showDiskUsage": false,
+                    "showDiskUsageAsPercent": false,
+                    "showGpuTemp": false,
+                    "showLoadAverage": false,
+                    "showMemoryAsPercent": false,
+                    "showMemoryUsage": true,
+                    "showNetworkStats": false,
+                    "showSwapUsage": false,
+                    "textColor": "secondary",
+                    "useMonospaceFont": true,
+                    "usePadding": false
+                },
+                {
+                    "compactMode": false,
+                    "diskPath": "/",
+                    "iconColor": "secondary",
+                    "id": "SystemMonitor",
+                    "showCpuCores": false,
                     "showCpuFreq": true,
                     "showCpuTemp": true,
                     "showCpuUsage": true,
@@ -396,12 +421,36 @@
                     "showGpuTemp": false,
                     "showLoadAverage": false,
                     "showMemoryAsPercent": false,
-                    "showMemoryUsage": true,
+                    "showMemoryUsage": false,
                     "showNetworkStats": false,
                     "showSwapUsage": false,
                     "textColor": "secondary",
                     "useMonospaceFont": true,
                     "usePadding": true
+                },
+                {
+                    "defaultSettings": {
+                        "animations": true,
+                        "barHost": "worst",
+                        "colorCritical": "#ff5555",
+                        "colorGood": "#00ff7f",
+                        "colorWarning": "#f1fa8c",
+                        "hosts": [
+                            {
+                                "address": "1.1.1.1",
+                                "name": "Cloudflare DNS"
+                            },
+                            {
+                                "address": "8.8.8.8",
+                                "name": "Google DNS"
+                            }
+                        ],
+                        "intervalSeconds": 5,
+                        "showHostName": true,
+                        "thresholdGood": 20,
+                        "thresholdWarning": 70
+                    },
+                    "id": "plugin:latency-monitor"
                 },
                 {
                     "displayMode": "onhover",
@@ -728,6 +777,7 @@
     },
     "location": {
         "analogClockInCalendar": false,
+        "autoLocate": false,
         "firstDayOfWeek": 0,
         "hideWeatherCityName": true,
         "hideWeatherTimezone": false,
@@ -738,7 +788,8 @@
         "use12hourFormat": true,
         "useFahrenheit": false,
         "weatherEnabled": true,
-        "weatherShowEffects": true
+        "weatherShowEffects": true,
+        "weatherTaliaMascotAlways": false
     },
     "network": {
         "bluetoothAutoConnect": true,
