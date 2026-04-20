@@ -1,11 +1,11 @@
 # vim: ft=hyprlang
 workspace = 1,  monitor:$mainMonitor
-workspace = 2,  monitor:$mainMonitor
-workspace = 3,  monitor:$secondaryMonitor
+workspace = 2,  monitor:$leftMonitor
+workspace = 3,  monitor:$rightMonitor
 workspace = 4,  monitor:$mainMonitor
-workspace = 6,  monitor:$portraitMonitor
+workspace = 6,  monitor:$leftMonitor
 workspace = 7,  monitor:$mainMonitor
-workspace = 8,  monitor:$portraitMonitor
-workspace = 11, monitor:$secondaryMonitor
-workspace = 12, monitor:$secondaryMonitor
+workspace = 8,  monitor:$leftMonitor
+workspace = 11, monitor:$rightMonitor
+workspace = 12, monitor:$rightMonitor
 workspace = 19, monitor:$mainMonitor
