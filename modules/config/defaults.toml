@@ -3,6 +3,7 @@ kernel = "cachyos-latest"
 users = ["borhane"]
 defaultUser = "borhane"
 system = "x86_64-linux"
+additionalKernels = ["cachyos-lts"]
 
 [hardware]
 bluetooth = false
