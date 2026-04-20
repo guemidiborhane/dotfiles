@@ -56,15 +56,31 @@
           linux-latest = pkgs.linuxPackages_latest;
           linux-zen = pkgs.linuxPackages_zen;
 
-          cachyos-latest = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
-          cachyos-latest-v3 = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
-          cachyos-latest-v4 = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4;
-          cachyos-latest-zen4 = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
+          cachyos-lts = pkgs.cachyosKernels."linuxPackages-cachyos-lts-lto-${opti}";
+          cachyos-latest = pkgs.cachyosKernels."linuxPackages-cachyos-latest-lto-${opti}";
           cachyos-custom = pkgs.customKernels."linux-cachyos-latest-${sched}-lto-${opti}";
         };
         overlay = kernelName: if kernelName == "cachyos-custom" then "default" else "pinned";
       in
       {
+        specialisation = builtins.listToAttrs (
+          map (kernelName: {
+            name = kernelName;
+            value = {
+              configuration = {
+                nixpkgs.overlays = [
+                  inputs.nix-cachyos-kernel.overlays.${overlay kernelName}
+                  self.overlays.cachyos-kernels
+                ];
+                boot.kernelPackages = lib.mkForce availableKernels.${kernelName};
+              };
+            };
+          }) (host.additionalKernels or [ ])
+        );
+
+        boot.kernelPackages = lib.mkDefault (
+          if kernelName != "" then availableKernels.${kernelName} else availableKernels.cachyos-latest
+        );
         nixpkgs.overlays = [
           inputs.nix-cachyos-kernel.overlays.${overlay kernelName}
           self.overlays.cachyos-kernels
