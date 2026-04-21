@@ -15,40 +15,40 @@
     { inputs, pkgs, ... }:
     {
       home.packages = with pkgs; [
-        nur.repos.nltch.spotify-adblock
-        nur.repos.trev.helium
+        anydesk
         banana-cursor
-        hyprlock
-        wiremix
-        pulseaudio
         brightnessctl
-        networkmanagerapplet
-        inputs.wlctl.packages.${pkgs.stdenv.hostPlatform.system}.default
         dbeaver-bin
         evince
         ffmpegthumbnailer
         gimp
         gnome-disk-utility
         gparted
+        hyprlock
         inkscape
-        libreoffice-fresh
-        mission-center
-        obs-studio
-        viewnior
-        anydesk
-        teamviewer
-        megasync
-        tor-browser
+        inputs.wlctl.packages.${pkgs.stdenv.hostPlatform.system}.default
         jellyfin-mpv-shim
-        stable.qgis
-        xarchiver
+        libreoffice-fresh
         libsForQt5.qt5ct
+        megasync
+        mission-center
+        networkmanagerapplet
+        nur.repos.nltch.spotify-adblock
+        nur.repos.trev.helium
+        obs-studio
+        pulseaudio
         qbittorrent
-        # Communication
-        vesktop
         signal-desktop
+        stable.qgis
+        teamviewer
         telegram-desktop
         thunderbird
+        tor-browser
+        vesktop
+        viewnior
+        wiremix
+        xarchiver
+        yaak
       ];
     };
 }
