@@ -1,7 +1,7 @@
 { _, ... }:
 {
   flake.modules.homeManager.services-hyprpower =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     let
       hyprPower = pkgs.writeShellScriptBin "hyprpower" ''
         set -euo pipefail
@@ -72,7 +72,7 @@
           Restart = "on-failure";
           RestartSec = "3s";
         };
-        Install.WantedBy = [ "hypr-session.target" ];
+        Install.WantedBy = [ config.wayland.systemd.target ];
       };
     };
 }

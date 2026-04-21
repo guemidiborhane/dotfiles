@@ -13,7 +13,13 @@
   ];
 
   flake.modules.homeManager.programs-noctalia =
-    { inputs, pkgs, ... }:
+    {
+      inputs,
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
     {
       imports = [
         inputs.noctalia.homeModules.default
@@ -22,9 +28,22 @@
       programs.noctalia-shell = {
         enable = true;
         package = pkgs.noctalia-shell;
-        systemd.enable = true;
       };
 
-      systemd.user.services.noctalia-shell.Service.Environment = "QT_QPA_PLATFORMTHEME=gtk3";
+      systemd.user.services.noctalia-shell = {
+        Unit = {
+          Description = "Noctalia Shell - Wayland desktop shell";
+          Documentation = "https://docs.noctalia.dev";
+          PartOf = [ config.wayland.systemd.target ];
+          After = [ config.wayland.systemd.target ];
+
+        Service = {
+          Environment = "QT_QPA_PLATFORMTHEME=gtk3";
+          ExecStart = lib.getExe config.programs.noctalia-shell.package;
+          Restart = "on-failure";
+        };
+
+        Install.WantedBy = [ config.wayland.systemd.target ];
+      };
     };
 }
