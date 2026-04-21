@@ -34,6 +34,7 @@
           programs-noctalia
         ];
 
+        wayland.systemd.target = "hypr-session.target";
         wayland.windowManager.hyprland = {
           enable = true;
           systemd.enable = false;
