@@ -20,6 +20,7 @@ zSwap = false
 remoteUnlock = false
 qbittorrent-nox = false
 kanata = false
+gaming = false
 
 [features.kernel]
 opti = "x86_64-v3"

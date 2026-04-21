@@ -60,6 +60,8 @@
         programs-foot
         programs-vicinae
         programs-mpv
+
+        features-gaming
       ];
 
       programs.wezterm.enable = true;
