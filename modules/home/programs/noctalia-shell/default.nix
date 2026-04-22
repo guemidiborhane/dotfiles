@@ -41,13 +41,6 @@
             Documentation = "https://docs.noctalia.dev";
             PartOf = [ config.wayland.systemd.target ];
             After = [ config.wayland.systemd.target ];
-            X-Restart-Triggers =
-              lib.optional (cfg.settings != { }) "${config.xdg.configFile."noctalia/settings.json".source}"
-              ++ lib.optional (cfg.colors != { }) "${config.xdg.configFile."noctalia/colors.json".source}"
-              ++ lib.optional (cfg.plugins != { }) "${config.xdg.configFile."noctalia/plugins.json".source}"
-              ++ lib.mapAttrsToList (
-                name: _: "${config.xdg.configFile."noctalia/plugins/${name}/settings.json".source}"
-              ) cfg.pluginSettings;
           };
 
           Service = {
