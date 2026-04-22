@@ -34,6 +34,7 @@
           programs-noctalia
         ];
 
+        home.packages = with pkgs; [ hyprpicker ];
         wayland.systemd.target = "hypr-session.target";
         wayland.windowManager.hyprland = {
           enable = true;
