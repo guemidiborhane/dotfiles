@@ -1,4 +1,0 @@
-plugins/*
-!plugins/*/
-plugins/*/*
-!plugins/*/settings.json
