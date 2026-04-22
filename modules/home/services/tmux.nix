@@ -3,27 +3,27 @@
   flake.modules.homeManager.services-tmux =
     { pkgs, ... }:
     {
-      systemd.user.services.tmux = {
-        Unit = {
-          Description = "tmux server daemon";
-          Documentation = "man:tmux(1)";
+      systemd.user = {
+        slices.tmux = {
+          Unit.Description = "tmux slice";
         };
 
-        Service = {
-          Type = "simple";
-          ExecStart = "${pkgs.fish}/bin/fish -c 'exec ${pkgs.tmux}/bin/tmux -D'";
-          ExecStop = "${pkgs.tmux}/bin/tmux kill-server";
-          Slice = "tmux.slice";
-        };
+        services.tmux = {
+          Unit = {
+            Description = "tmux server daemon";
+            Documentation = "man:tmux(1)";
+          };
 
-        Install = {
-          WantedBy = [ "default.target" ];
-        };
-      };
+          Service = {
+            Type = "simple";
+            ExecStart = "${pkgs.fish}/bin/fish -c 'exec ${pkgs.tmux}/bin/tmux -D'";
+            ExecStop = "${pkgs.tmux}/bin/tmux kill-server";
+            Slice = "tmux.slice";
+          };
 
-      systemd.user.slices.tmux = {
-        Unit = {
-          Description = "tmux slice";
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
         };
       };
     };
