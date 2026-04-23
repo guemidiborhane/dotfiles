@@ -25,6 +25,7 @@
         };
       };
 
+      programs.gnupg.agent.enable = true;
       environment.shellAliases.ls = lib.mkForce null;
     };
 }
