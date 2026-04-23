@@ -1,11 +1,11 @@
 { _, ... }:
 {
   flake.modules.nixos.networking-netbird =
-    { h, networking, ... }:
+    { networking, secrets, ... }:
     let
       netbirdServer = {
+        inherit (secrets.netbird) Host;
         Scheme = "https";
-        Host = h.base64.decode "YmlyZC5uZXRzeXMuZHo6NDQz";
       };
     in
     {
