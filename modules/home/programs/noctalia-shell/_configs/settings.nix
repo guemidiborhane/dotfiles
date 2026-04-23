@@ -11,6 +11,7 @@ in
     };
     audio.preferredPlayer = "spotify";
     colorSchemes.darkMode = true;
+    dock.enabled = false;
     brightness = {
       brightnessStep = 5;
       enableDdcSupport = true;

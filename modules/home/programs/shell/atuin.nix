@@ -1,7 +1,7 @@
 { _, ... }:
 {
   flake.modules.homeManager.programs-atuin =
-    { _, ... }:
+    { secrets, ... }:
     {
       programs.atuin = {
         enable = true;
@@ -9,7 +9,7 @@
         flags = [ "--disable-up-arrow" ];
         forceOverwriteSettings = true;
         settings = {
-          sync_address = "https://atuin.netsys.dz";
+          inherit (secrets.atuin) sync_address;
           update_check = false;
           enter_accept = true;
           style = "compact";

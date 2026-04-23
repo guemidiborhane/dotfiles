@@ -1,0 +1,2 @@
+.gitattributes !filter !diff
+modules/_dex/secrets.nix filter=git-crypt diff=git-crypt

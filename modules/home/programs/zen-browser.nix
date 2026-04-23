@@ -12,7 +12,7 @@
     {
       inputs,
       config,
-      h,
+      secrets,
       ...
     }:
     {
@@ -204,44 +204,7 @@
           };
 
           pinsForce = true;
-          pins = {
-            "translate" = {
-              id = "700370e7-7d89-48f3-be0d-20bf81c24959";
-              url = h.base64.decode "aHR0cHM6Ly90cmFuc2xhdGUuZ29vZ2xlLmNvbQ==";
-              position = 101;
-              isEssential = true;
-            };
-            "users" = {
-              id = "0a81badb-b01b-4807-9680-9cebed731b06";
-              url = h.base64.decode "aHR0cHM6Ly9kZ3BjLmFpbmEuZHovdXNlcnM=";
-              position = 102;
-              isEssential = true;
-            };
-            "bird" = {
-              id = "ec689f12-fdc2-49ce-b4dc-ca10966b495f";
-              url = h.base64.decode "aHR0cHM6Ly9iaXJkLm5ldHN5cy5keg==";
-              position = 103;
-              isEssential = true;
-            };
-            "daily-dev" = {
-              id = "46978cc4-ecd3-459c-a490-7c3253a1983a";
-              url = "https://app.daily.dev";
-              position = 201;
-              isEssential = true;
-            };
-            "subscriptions" = {
-              id = "6fce947d-238e-492c-81f8-9c7e53c7e785";
-              url = "https://youtube.com/feed/subscriptions";
-              position = 202;
-              isEssential = true;
-            };
-            "jellyfin" = {
-              id = "a8cf8e7e-98e8-44f1-98ec-9c3e41f26ebe";
-              url = h.base64.decode "aHR0cDovLzEwLjAuMC4xMDo4MDk2";
-              position = 203;
-              isEssential = true;
-            };
-          };
+          pins = secrets.zen-browser_pins;
           keyboardShortcuts = [
             {
               id = "zen-compact-mode-toggle";

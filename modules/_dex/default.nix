@@ -22,6 +22,7 @@ let
     inherit metadata;
     inherit (hostOrContext) features power users;
     inherit (hostOrContext) hardware networking;
+    secrets = import ./secrets.nix;
     host =
       if (hostOrContext ? host) then
         hostOrContext.host # When called from mkHomeContext

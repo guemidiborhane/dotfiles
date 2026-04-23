@@ -1,4 +1,8 @@
-{ config, h, ... }:
+{
+  config,
+  secrets,
+  ...
+}:
 let
   inherit (config.programs.noctalia-shell) colors settings;
 in
@@ -105,7 +109,8 @@ in
             name = "Cloudflare DNS";
             address = "1.1.1.1";
           }
-        ];
+        ]
+        ++ secrets.latency-monitor_hosts;
         intervalSeconds = 5;
         thresholdGood = 20;
         thresholdWarning = 200;
