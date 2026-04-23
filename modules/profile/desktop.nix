@@ -29,6 +29,7 @@
 
       programs = {
         localsend.enable = true;
+        gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
       };
 
       environment.systemPackages = with pkgs; [

@@ -7,7 +7,6 @@
         fastfetch
         tmux
         glib # gsettings
-        gnupg
         python3
         bind
         gum
