@@ -23,4 +23,19 @@
         default-programs
       ];
     };
+
+  flake.modules.homeManager.entrypoint =
+    { user, ... }:
+    {
+      imports = with self.modules.homeManager; [
+        inputs-nur
+        home-config
+        pkgs
+        programs-git
+        programs-yadm
+        programs-yazi
+        shell
+        host-profile
+      ];
+    };
 }

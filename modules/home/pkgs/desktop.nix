@@ -1,10 +1,6 @@
 { _, ... }:
 {
-  flake-file.inputs = {
-    wlctl.url = "github:aashish-thapa/wlctl";
-    wlctl.inputs.nixpkgs.follows = "nixpkgs";
-  };
-  flake.substituters.wlctl = [
+  flake.substituters.nltch-spotify = [
     {
       url = "https://nltch.cachix.org";
       key = "nltch.cachix.org-1:W85YxOt0XRZOP3Yppt+HNz3fXRu6DXgH3Ob9n9A+7Ec=";
@@ -12,21 +8,23 @@
   ];
 
   flake.modules.homeManager.pkgs-desktop =
-    { inputs, pkgs, ... }:
+    { pkgs, ... }:
     {
       home.packages = with pkgs; [
         anydesk
         banana-cursor
+        brave
         brightnessctl
         dbeaver-bin
         evince
         ffmpegthumbnailer
         gimp
+        glib # gsettings
         gnome-disk-utility
         gparted
         hyprlock
+        hyprshot
         inkscape
-        inputs.wlctl.packages.${pkgs.stdenv.hostPlatform.system}.default
         jellyfin-mpv-shim
         libreoffice-fresh
         libsForQt5.qt5ct
@@ -38,6 +36,7 @@
         obs-studio
         pulseaudio
         qbittorrent
+        satty
         signal-desktop
         stable.qgis
         teamviewer

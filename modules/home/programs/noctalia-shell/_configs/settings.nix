@@ -229,7 +229,7 @@ in
     wallpaper = {
       enabled = true;
       automationEnabled = true;
-      directory = "/home/borhane/.wallpaper";
+      directory = "${config.home.homeDirectory}/.wallpaper";
       fillColor = "#000000";
       fillMode = "crop";
       hideWallpaperFilenames = false;
