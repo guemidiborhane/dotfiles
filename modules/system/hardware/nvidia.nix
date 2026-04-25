@@ -1,8 +1,8 @@
 { lib, ... }:
 {
   flake.modules.nixos.hardware-nvidia =
-    { config, h, ... }:
-    lib.mkIf h.hasNvidia {
+    { config, hardware, ... }:
+    lib.mkIf hardware.hasNvidia {
       services.xserver.videoDrivers = [ "nvidia" ];
 
       hardware = {

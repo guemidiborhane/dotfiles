@@ -5,7 +5,7 @@
       inputs,
       pkgs,
       lib,
-      h,
+      users,
       ...
     }:
     {
@@ -14,14 +14,14 @@
         users-tty-login
       ];
 
-      users.groups = h.forEachUser (
+      users.groups = users.forEach (
         username: user: {
           gid = user.id;
           members = [ username ];
         }
       );
 
-      users.users = h.forEachUser (
+      users.users = users.forEach (
         username: user: {
           uid = user.id;
           name = username;

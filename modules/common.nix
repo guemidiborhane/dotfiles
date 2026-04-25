@@ -1,7 +1,4 @@
-{ inputs, ... }:
-let
-  dex = import ./_dex { inherit inputs; };
-in
+{ _, ... }:
 {
   perSystem =
     { pkgs, system, ... }:
@@ -14,8 +11,4 @@ in
     "i686-linux"
     "x86_64-linux"
   ];
-
-  flake = {
-    inherit (dex) nixosConfigurations homeConfigurations;
-  };
 }
