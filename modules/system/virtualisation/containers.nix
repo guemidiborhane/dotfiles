@@ -4,7 +4,7 @@
     {
       inputs,
       pkgs,
-      h,
+      hardware,
       ...
     }:
     {
@@ -13,7 +13,7 @@
         self.modules.nixos.podman
       ];
       virtualisation.containers.enable = true;
-      hardware.nvidia-container-toolkit.enable = h.hasNvidia;
+      hardware.nvidia-container-toolkit.enable = hardware.hasNvidia;
 
       environment.systemPackages = with pkgs.stable; [
         dive

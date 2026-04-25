@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, lib, ... }:
 {
   flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   flake = {
@@ -11,8 +11,8 @@
 
     overlays.cachyos-kernels = final: prev: {
       customKernels = builtins.listToAttrs (
-        map (
-          host:
+        lib.mapAttrsToList (
+          _: host:
           let
             inherit (host.features.kernel) lto sched opti;
 
@@ -35,7 +35,7 @@
               )
             );
           }
-        ) (self.dex.hosts or [ ])
+        ) (self.dex.hosts or { })
       );
     };
 

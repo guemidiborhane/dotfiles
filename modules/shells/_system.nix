@@ -1,4 +1,5 @@
 {
+  lib,
   metadata,
   hosts,
   pkgs ? import <nixpkgs> { },
@@ -50,7 +51,9 @@ pkgs.mkShell {
     echo ""
     echo "Configured hosts:"
     ${builtins.concatStringsSep "\n" (
-      map (host: ''echo "  • ${host.self.name} (${host.self.type}) - ${host.self.description}"'') hosts
+      lib.mapAttrsToList (
+        name: host: ''echo "  • ${name} (${host.config.type}) - ${host.config.description}"''
+      ) hosts
     )}
     echo ""
     echo "Quick commands:"

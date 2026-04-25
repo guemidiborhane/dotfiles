@@ -10,11 +10,12 @@
       inputs,
       config,
       host,
+      hardware,
       ...
     }:
     let
       device = host.disk;
-      swapSize = "${toString host.swapSize}G";
+      swapSize = "${toString (hardware.ram + 2)}G";
       vgName = "${host.name}-vg";
     in
     {

@@ -27,12 +27,14 @@
               hyprctl keyword decoration:shadow:enabled false || true
               hyprctl keyword animations:enabled false || true
               noctalia-shell ipc call powerProfile enableNoctaliaPerformance || true
+              noctalia-shell ipc call idleInhibitor disable || true
               ;;
             ac)
               hyprctl keyword decoration:blur:enabled true || true
               hyprctl keyword decoration:shadow:enabled true || true
               hyprctl keyword animations:enabled true || true
               noctalia-shell ipc call powerProfile disableNoctaliaPerformance || true
+              noctalia-shell ipc call idleInhibitor enable || true
               ;;
           esac
         }
