@@ -8,6 +8,7 @@ in
       telemetryEnabled = false;
       radiusRatio = 0.25;
       animationSpeed = 2;
+      enableShadows = true;
     };
     audio.preferredPlayer = "spotify";
     colorSchemes.darkMode = true;

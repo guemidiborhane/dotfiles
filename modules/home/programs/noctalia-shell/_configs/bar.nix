@@ -53,9 +53,11 @@
       position = "top";
       floating = true;
       density = "default";
+      useSeparateOpacity = true;
       backgroundOpacity = 0.85;
       showCapsule = false;
-      widgetSpacing = 0;
+      capsuleOpacity = 0.5;
+      widgetSpacing = 3;
       contentPadding = 0;
       displayMode = "always_visible";
       marginHorizontal = 10;

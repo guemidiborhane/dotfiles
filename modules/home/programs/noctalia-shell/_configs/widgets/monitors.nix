@@ -31,7 +31,7 @@ let
     // overrides;
 
 in
-rec {
+{
   cpu = {
     temp = mkWidget {
       showCpuTemp = true;
@@ -51,10 +51,10 @@ rec {
   network = mkWidget {
     showNetworkStats = true;
   };
-  system = [
-    memory.usage
-    cpu.usage
-    cpu.freq
-    cpu.temp
-  ];
+  system = mkWidget {
+    showCpuTemp = true;
+    showCpuUsage = true;
+    showCpuFreq = true;
+    showMemoryUsage = true;
+  };
 }
