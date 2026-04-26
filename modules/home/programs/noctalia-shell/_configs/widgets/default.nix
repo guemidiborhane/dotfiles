@@ -13,7 +13,6 @@ cfg: rec {
     ];
     workspaces = [
       workspace
-      spacer
       plugins.special-workspaces
     ];
   };
