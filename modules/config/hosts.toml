@@ -39,6 +39,7 @@ hostname = "koto"
 type = "desktop"
 description = "5950X Workstation"
 kernel = "cachyos-custom"
+additionalKernels = ["cachyos-lts"]
 
 [kotoamatsukami.features.kernel]
 opti = "x86_64-v3"
