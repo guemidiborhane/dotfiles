@@ -36,3 +36,4 @@ image/svg+xml=org.inkscape.Inkscape.desktop;
 x-scheme-handler/tg=org.telegram.desktop.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-2120J3.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-2120J3.desktop;
+application/vnd.squashfs=gnome-disk-image-mounter.desktop;
