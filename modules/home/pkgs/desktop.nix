@@ -25,7 +25,6 @@
         hyprlock
         hyprshot
         inkscape
-        jellyfin-mpv-shim
         libreoffice-fresh
         libsForQt5.qt5ct
         megasync

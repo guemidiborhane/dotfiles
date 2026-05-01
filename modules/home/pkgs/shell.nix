@@ -17,7 +17,6 @@
         ngrok
         nixfmt
         parallel
-        pgcli
         pigz
         pv
         python3

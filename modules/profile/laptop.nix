@@ -12,7 +12,6 @@
 
       powerManagement = {
         enable = true;
-        powertop.enable = true;
       };
 
       services.logind.settings.Login = {
