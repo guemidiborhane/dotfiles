@@ -70,10 +70,6 @@
           systemd.enable = false;
           package = pkgs.hyprland;
         };
-
-        services = {
-          hypridle.enable = true;
-        };
       };
   };
 }

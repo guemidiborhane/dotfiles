@@ -22,7 +22,6 @@
         glib # gsettings
         gnome-disk-utility
         gparted
-        hyprlock
         hyprshot
         inkscape
         libreoffice-fresh
