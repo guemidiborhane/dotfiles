@@ -9,6 +9,16 @@ in
       radiusRatio = 0.25;
       animationSpeed = 2;
       enableShadows = true;
+      shadowDirection = "center";
+
+      autoStartAuth = false;
+      lockOnSuspend = true;
+      lockScreenAnimations = true;
+      lockScreenBlur = 0.5;
+      lockScreenCountdownDuration = 10000;
+      lockScreenMonitors = [ ];
+      lockScreenTint = 0.25;
+      passwordChars = false;
     };
     audio.preferredPlayer = "spotify";
     colorSchemes.darkMode = true;
@@ -143,7 +153,7 @@ in
       powerOptions = [
         {
           action = "lock";
-          command = "loginctl lock-session";
+          command = "";
           countdownEnabled = true;
           enabled = true;
           keybind = "O";
@@ -174,7 +184,7 @@ in
           command = "";
           countdownEnabled = true;
           enabled = true;
-          keybind = "5";
+          keybind = "e";
         }
         {
           action = "shutdown";
@@ -247,6 +257,12 @@ in
       viewMode = "single";
       useWallhaven = true;
       wallpaperChangeMode = "random";
+    };
+    idle = rec {
+      enabled = true;
+      lockTimeout = 600;
+      screenOffTimeout = lockTimeout - 30;
+      suspendTimeou = lockTimeout * 3;
     };
   };
 }
