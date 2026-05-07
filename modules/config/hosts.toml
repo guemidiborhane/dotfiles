@@ -17,6 +17,7 @@ kanata = false
 type = "laptop"
 description = "P14s G5 AMD"
 kernel = "cachyos-latest"
+additionalKernels = ["cachyos-lts"]
 
 [kamui.features.kernel]
 opti = "zen4"
