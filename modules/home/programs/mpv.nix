@@ -8,7 +8,6 @@
         enable = true;
         package = pkgs.mpv.override {
           mpv-unwrapped = pkgs.mpv-unwrapped.override {
-            waylandSupport = true;
             ffmpeg = pkgs.ffmpeg-full;
           };
           scripts = with pkgs.mpvScripts; [
@@ -27,20 +26,8 @@
           fullscreen = true;
           screenshot-format = "png";
           title = "\${filename} - mpv";
+          osc = false;
           osd-bar = false;
-          osd-duration = 1000;
-          osc = "no";
-          osd-on-seek = "no";
-          osd-bar-w = 30;
-          osd-bar-h = "0.2";
-        };
-
-        scriptOpts = {
-          uosc = {
-            osc-title = "\${filename}";
-            osc-visibility = "never";
-            osc-boxvideo = true;
-          };
         };
 
         bindings = {
