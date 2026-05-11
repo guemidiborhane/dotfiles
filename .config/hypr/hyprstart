@@ -40,7 +40,6 @@ initialize_shell() {
 }
 
 initialize_shell
-~/.config/hypr/helpers/import_env.sh system
 
 wait
 

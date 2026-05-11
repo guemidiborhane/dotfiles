@@ -20,8 +20,6 @@ alias v "fd --type f | fzf-tmux -p --reverse --preview 'bat -p --color=always {}
 alias vi $EDITOR
 alias vim $EDITOR
 
-alias t sesh-connect
-
 alias which "type -a"
 alias gzip pigz
 alias tv tidy-viewer
