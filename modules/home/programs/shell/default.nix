@@ -4,6 +4,7 @@
     { pkgs, ... }:
     {
       imports = with self.modules.homeManager; [
+        dex
         programs-fish
         programs-sesh
         programs-bat

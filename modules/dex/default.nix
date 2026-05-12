@@ -85,5 +85,16 @@ in
       hostModules = [ self.modules.nixos.entrypoint ];
       homeModules = [ self.modules.homeManager.entrypoint ];
     };
+
+    flake.modules.homeManager.dex =
+      { config, ... }:
+      {
+        programs.fish.functions.dex = {
+          wraps = "just";
+          body = ''
+            just --working-directory $NH_FLAKE --justfile $NH_FLAKE/Justfile $argv
+          '';
+        };
+      };
   };
 }
