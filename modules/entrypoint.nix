@@ -13,7 +13,6 @@
         users
         hardware-host
         networking
-        virtualisation
         base-devel
         pkgs-defaults
         services-openssh

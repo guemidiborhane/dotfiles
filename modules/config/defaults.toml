@@ -22,6 +22,11 @@ qbittorrent-nox = false
 kanata = false
 gaming = false
 
+[features.virtualisation]
+libvirtd = false
+virtualbox = false
+podman = true
+
 [features.kernel]
 opti = "x86_64-v3"
 sched = "bore"
@@ -35,6 +40,9 @@ iface = ""
 zSwap = true
 kanata = true
 
+[features.desktop.virtualisation]
+libvirtd = true
+
 [hardware.laptop]
 bluetooth = true
 wifi = true
@@ -44,6 +52,9 @@ backlight = true
 [features.laptop]
 zramSwap = true
 kanata = true
+
+[features.laptop.virtualisation]
+libvirtd = true
 
 [power]
 tlp = true

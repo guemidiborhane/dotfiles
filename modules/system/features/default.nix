@@ -5,12 +5,13 @@
     {
       imports = with self.modules.nixos; [
         features-auto-upgrade
+        features-kanata
+        features-qbittorrent-nox
+        features-remote-unlock
+        features-virtualisation
+        features-wol
         features-zram-swap
         features-zswap
-        features-wol
-        features-remote-unlock
-        features-qbittorrent-nox
-        features-kanata
       ];
     };
 }
