@@ -16,7 +16,8 @@ alias qbtui "qbittorrentui -c ~/.config/qbtui/config.ini"
 alias zid "eza -D | xargs -I {} zoxide add {}"
 alias fast "bunx -- fast-cli --single-line"
 # Credit Elijah Manor : https://youtu.be/K1FxGIG_lcA
-alias v "fd --type f | fzf-tmux -p --reverse --preview 'bat -p --color=always {}' | xargs -r nvim"
+alias vf "fd --type f | fzf-tmux -p --reverse --preview 'bat -p --color=always {}' | xargs -r nvim"
+alias v $EDITOR
 alias vi $EDITOR
 alias vim $EDITOR
 

@@ -64,17 +64,10 @@ abbr yn "yadm enter nvim"
 abbr ys "yadm st"
 abbr yg "tmux_popup -w 90% -h 90% yadm enter lazygit"
 
-abbr s "nix-env -i"
-alias yeet "nix-env -e"
 abbr ss "nh search"
 
-set nos "nh os switch $(realpath /etc/nixos)"
-set nosa "$nos --ask"
-
-abbr not "nh os test"
-abbr nos "$nos"
-abbr nosa "$nosa"
-abbr nor "nh os repl"
-abbr yy "nix flake update --flake $NH_FLAKE && $nosa"
+abbr ds "dex switch"
+abbr dt "dex test"
+abbr dy "dex yay"
 
 abbr jms "dr --unit=jellyfin-mpv -- /usr/bin/jellyfin-mpv-shim --config ~/.config/mpv"
