@@ -1,8 +1,8 @@
-{ _, ... }:
+{ lib, ... }:
 {
   flake.modules.nixos.podman =
-    { _, ... }:
-    {
+    { features, ... }:
+    lib.mkIf (features.virtualisation.podman or false) {
       virtualisation.oci-containers.backend = "podman";
       virtualisation.podman = {
         enable = true;
