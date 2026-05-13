@@ -10,5 +10,8 @@
         "en",
         "fr",
         "fr-FR"
-    ]
+    ],
+    "enableSplashScreen": false,
+    "customTitleBar": false,
+    "splashTheming": false
 }
