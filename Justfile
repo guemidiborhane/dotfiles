@@ -282,6 +282,18 @@ rebuild-safe:
 rebuild operation="switch" confirm="yes":
     ./scripts/rebuild.sh "{{ operation }}" "{{ confirm }}"
 
+# alias: `rebuild switch no`
+switch:
+    just rebuild switch no
+
+# alias: `rebuild test no`
+test:
+    just rebuild test no
+
+# alias: `update all`
+yay operation="switch":
+    just update all {{ operation }}
+
 # Rollback update
 rollback-update:
     #!/usr/bin/env bash
