@@ -120,7 +120,6 @@
               "jid1-BoFifL9Vbdl2zQ@jetpack" = "decentraleyes";
               "jid1-ZAdIEUB7XOzOJw@jetpack" = "duckduckgo-for-firefox";
 
-              "languagetool-webextension@languagetool.org" = "languagetool";
               "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = "vimium-ff";
               "addon@darkreader.org" = "darkreader";
 
