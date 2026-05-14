@@ -11,7 +11,9 @@ hl.on("hyprland.start", function()
   tray_run("megasync")
   tray_run("bitwarden")
 
-  hl.exec_cmd("systemctl --user start --wait hypr-session.target")
+  for _, command in ipairs({ "stop", "start" }) do
+    hl.exec_cmd(string.format("systemctl --user %s hyprland-session.target", command))
+  end
 end)
 
 hl.on("config.reloaded", function()
