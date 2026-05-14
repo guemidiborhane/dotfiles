@@ -157,11 +157,12 @@ hl.on("window.title", function(window)
 end)
 
 hl.on("window.urgent", function(window)
+  if not (window.class == "Bitwarden") then return end
+
   local active_special = hl.get_active_special_workspace()
   local active = active_special or hl.get_active_workspace()
 
   if not active then return end
-  if not (window.class == "Bitwarden") then return end
 
   local target = active.name -- Ensure state
   hl.dispatch(hl.dsp.window.move({ window = window, workspace = target }))
