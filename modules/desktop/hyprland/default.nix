@@ -30,6 +30,9 @@
         host,
         ...
       }:
+      let
+        target = "hyprland-session";
+      in
       {
         imports = with self.modules.homeManager; [
           inputs.hyprland.homeManagerModules.default
@@ -64,11 +67,23 @@
         };
 
         home.packages = with pkgs; [ hyprpicker ];
-        wayland.systemd.target = "hypr-session.target";
+        wayland.systemd.target = "${target}.target";
         wayland.windowManager.hyprland = {
           enable = true;
           systemd.enable = false;
           package = pkgs.hyprland;
+        };
+
+        systemd.user.targets.${target} = {
+          Unit = {
+            Description = "Hyprland compositor session";
+            Documentation = [ "man:systemd.special(7)" ];
+            BindsTo = [ "graphical-session.target" ];
+            Wants = [
+              "graphical-session-pre.target"
+            ];
+            After = [ "graphical-session-pre.target" ];
+          };
         };
       };
   };

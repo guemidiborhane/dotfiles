@@ -13,6 +13,7 @@
       home.packages = with pkgs; [
         anydesk
         banana-cursor
+        bibata-cursors
         brave
         brightnessctl
         dbeaver-bin
