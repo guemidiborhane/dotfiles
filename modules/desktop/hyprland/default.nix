@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland";
+  flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland/v0.55.1";
   flake = {
     substituters.hyprland = [
       {
@@ -15,7 +15,7 @@
         imports = [ inputs.hyprland.nixosModules.default ];
         programs.hyprland = {
           enable = true;
-          package = pkgs.hyprland;
+          # package = pkgs.hyprland;
         };
 
         environment.systemPackages = with pkgs; [
@@ -25,6 +25,7 @@
 
     modules.homeManager.desktop-hyprland =
       {
+        config,
         inputs,
         pkgs,
         host,
@@ -71,7 +72,6 @@
         wayland.windowManager.hyprland = {
           enable = true;
           systemd.enable = false;
-          package = pkgs.hyprland;
         };
 
         systemd.user.targets.${target} = {
@@ -84,6 +84,11 @@
             ];
             After = [ "graphical-session-pre.target" ];
           };
+        };
+
+        xdg.configFile."hypr/.luarc.json".text = builtins.toJSON {
+          workspace.library = [ "${config.wayland.windowManager.hyprland.package}/share/hypr/stubs" ];
+          diagnostics.globals = [ "hl" ];
         };
       };
   };
