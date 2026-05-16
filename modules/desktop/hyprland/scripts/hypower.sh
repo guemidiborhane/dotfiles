@@ -12,22 +12,32 @@ fi
 BATTERY_PATH="/sys/class/power_supply/$BATTERY"
 LAST_STATE=""
 
+hyprland_config() {
+	value=$1
+
+	hyprctl eval """
+    hl.config({
+      decoration = {
+        blur = { enabled = $value },
+        shadow = { enabled = $value}
+      },
+      animations = { enabled = $value }
+    })
+  """ || true
+}
+
 apply_profile() {
 	local profile=$1
 	echo "Switching to $profile profile"
 
 	case "$profile" in
 	battery)
-		hyprctl keyword decoration:blur:enabled false || true
-		hyprctl keyword decoration:shadow:enabled false || true
-		hyprctl keyword animations:enabled false || true
+		hyprland_config false
 		noctalia-shell ipc call powerProfile enableNoctaliaPerformance || true
 		noctalia-shell ipc call idleInhibitor disable || true
 		;;
 	ac)
-		hyprctl keyword decoration:blur:enabled true || true
-		hyprctl keyword decoration:shadow:enabled true || true
-		hyprctl keyword animations:enabled true || true
+		hyprland_config true
 		noctalia-shell ipc call powerProfile disableNoctaliaPerformance || true
 		noctalia-shell ipc call idleInhibitor enable || true
 		;;
