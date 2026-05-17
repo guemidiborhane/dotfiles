@@ -15,7 +15,7 @@
         imports = [ inputs.hyprland.nixosModules.default ];
         programs.hyprland = {
           enable = true;
-          # package = pkgs.hyprland;
+          package = pkgs.hyprland;
         };
 
         environment.systemPackages = with pkgs; [
@@ -72,6 +72,8 @@
         wayland.windowManager.hyprland = {
           enable = true;
           systemd.enable = false;
+          configType = "lua";
+          package = pkgs.hyprland;
         };
 
         systemd.user.targets.${target} = {
@@ -84,11 +86,6 @@
             ];
             After = [ "graphical-session-pre.target" ];
           };
-        };
-
-        xdg.configFile."hypr/.luarc.json".text = builtins.toJSON {
-          workspace.library = [ "${config.wayland.windowManager.hyprland.package}/share/hypr/stubs" ];
-          diagnostics.globals = [ "hl" ];
         };
       };
   };
