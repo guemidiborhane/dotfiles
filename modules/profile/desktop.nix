@@ -14,6 +14,7 @@
         services-pipewire
         desktop-hyprland
         programs-thunar
+        inputs.vicinae.nixosModules.default
       ];
 
       services = {
