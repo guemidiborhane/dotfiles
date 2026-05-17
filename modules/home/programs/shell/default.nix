@@ -12,7 +12,7 @@
         programs-mise
         programs-atuin
         programs-btop
-        programs-direnv
+        devenv
         services-tmux
       ];
 
@@ -23,7 +23,5 @@
         eza.enable = true;
         zoxide.enable = true;
       };
-
-      home.packages = with pkgs; [ devenv ];
     };
 }
