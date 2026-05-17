@@ -11,17 +11,6 @@ local rules = {
   },
 
   {
-    name = "pip",
-    match = { title = "Picture(-| )in(-| )[Pp]icture" },
-    keep_aspect_ratio = true,
-    move = { "monitor_w * 0.73", "monitor_h * 0.72" },
-    size = { "monitor_w * 0.25", "monitor_h * 0.25" },
-    float = true,
-    pin = true,
-    no_initial_focus = true,
-  },
-
-  {
     name = "gcr-prompter",
     match = { class = "^gcr-prompter$" },
     workspace = "1",
@@ -70,6 +59,18 @@ local rules = {
     },
 
     no_focus = true,
+  },
+
+  {
+    name = "pip",
+    match = { title = "Picture(-| )in(-| )[Pp]icture" },
+    keep_aspect_ratio = true,
+    move = { "monitor_w * 0.73", "monitor_h * 0.72" },
+    size = { "monitor_w * 0.25", "monitor_h * 0.25" },
+    float = true,
+    pin = true,
+    no_initial_focus = true,
+    focus_on_activate = false,
   },
 
   {
