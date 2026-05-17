@@ -30,7 +30,7 @@ hl.config({
   },
 
   master = {
-    orientation = "center",
+    orientation = "left",
   },
 
   scrolling = {
