@@ -1,4 +1,66 @@
 local h = require("lua.helpers")
+local bind = h.bind
+
+local Meta = h.mods.Meta
+local Shift = h.mods.Shift
+local Control = h.mods.Control
+local Alt = h.mods.Alt
+
+local window = hl.dsp.window
+
+bind("Escape", Meta, window.close())
+bind("Q", { Meta, Shift }, window.kill())
+
+bind("Space", { Meta, Shift }, window.float())
+bind("F", Meta, window.fullscreen({ mode = "maximized" }))
+bind("F", { Meta, Shift }, window.fullscreen({ mode = "fullscreen" }))
+bind("P", Meta, function()
+  local active_window = hl.get_active_window()
+  if not active_window then return end
+
+  if active_window.pinned then
+    hl.dispatch(window.pin())
+    hl.dispatch(window.float({ action = "disable" }))
+  else
+    hl.dispatch(window.float({ action = "enable" }))
+    hl.dispatch(window.center())
+    hl.dispatch(window.pin())
+    hl.dispatch(window.alter_zorder({ mode = "top" }))
+  end
+end)
+
+bind("mouse:272", Meta, window.drag(), { mouse = true })
+bind("mouse:273", Meta, window.resize(), { mouse = true })
+
+local delta = 20
+local directions = {
+  l = { key = "h", x = -delta, y = 0 },
+  d = { key = "j", x = 0, y = delta },
+  u = { key = "k", x = 0, y = -delta },
+  r = { key = "l", x = delta, y = 0 },
+}
+
+-- focus / move / move-to-monitor
+for direction, opts in next, directions do
+  bind(opts.key, Meta, function()
+    local action = hl.dsp.focus({ direction = direction })
+    local active_workspace = h.get_active_or_special_workspace()
+    if active_workspace and active_workspace.tiled_layout == "monocle" then
+      local msg = (direction == "l" or direction == "u") and "cycleprev" or "cyclenext"
+      action = hl.dsp.layout(msg)
+    end
+    hl.dispatch(action)
+  end)
+  bind(opts.key, { Meta, Control }, hl.dsp.window.move({ direction = direction }))
+  bind(opts.key, { Meta, Control, Shift }, hl.dsp.workspace.move({ monitor = direction }))
+end
+bind(directions.d.key, { Meta, Shift }, window.move({ workspace = "emptym", follow = true }))
+
+h.define_submap("R", Meta, "resize", function()
+  for _, opts in next, directions do
+    bind(opts.key, nil, hl.dsp.window.resize({ relative = true, x = opts.x, y = opts.y }), { repeating = true })
+  end
+end)
 
 local rules = {
   {
@@ -148,23 +210,20 @@ for _, rule in ipairs(rules) do
   hl.window_rule(rule)
 end
 
-hl.on("window.title", function(window)
-  if window.title:find("Extension:.*") then
-    hl.dispatch(hl.dsp.window.float({ action = "enable", window = window }))
-    hl.dispatch(hl.dsp.window.center({ window = window }))
-    hl.dispatch(hl.dsp.window.pin({ window = window }))
-    hl.dispatch(hl.dsp.window.alter_zorder({ mode = "top", window = window }))
+hl.on("window.title", function(w)
+  if w.title:find("Extension:.*") then
+    hl.dispatch(window.float({ action = "enable", window = w }))
+    hl.dispatch(window.center({ window = w }))
+    hl.dispatch(window.pin({ window = w }))
+    hl.dispatch(window.alter_zorder({ mode = "top", window = w }))
   end
 end)
 
-hl.on("window.urgent", function(window)
-  if not (window.class == "Bitwarden") then return end
+hl.on("window.urgent", function(w)
+  if not (w.class == "Bitwarden") then return end
 
-  local active_special = hl.get_active_special_workspace()
-  local active = active_special or hl.get_active_workspace()
-
+  local active = h.get_active_or_special_workspace()
   if not active then return end
 
-  local target = active.name -- Ensure state
-  hl.dispatch(hl.dsp.window.move({ window = window, workspace = target }))
+  hl.dispatch(window.move({ window = w, workspace = active.name }))
 end)

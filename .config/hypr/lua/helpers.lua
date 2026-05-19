@@ -93,4 +93,21 @@ function M.bind(key, mod, action, flags)
   hl.bind(mod_part .. parts(key), action, flags or {})
 end
 
+function M.define_submap(key, mod, name, func)
+  M.bind(key, mod, hl.dsp.submap(name))
+
+  hl.define_submap(name, function()
+    func()
+    M.bind("catchall", nil, hl.dsp.submap("reset"))
+    M.bind("Escape", nil, hl.dsp.submap("reset"))
+  end)
+end
+
+function M.get_active_or_special_workspace()
+  local active_special = hl.get_active_special_workspace()
+  local active = active_special or hl.get_active_workspace()
+
+  return active
+end
+
 return M
