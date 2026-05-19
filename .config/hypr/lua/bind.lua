@@ -1,4 +1,15 @@
 local h = require("lua.helpers")
+
+hl.config({
+  binds = {
+    workspace_back_and_forth = true,
+    allow_workspace_cycles = true,
+    movefocus_cycles_fullscreen = false,
+    movefocus_cycles_groupfirst = true,
+    allow_pin_fullscreen = true,
+  },
+})
+
 local bind = h.bind
 
 local Meta = h.mods.Meta
@@ -6,64 +17,7 @@ local Shift = h.mods.Shift
 local Control = h.mods.Control
 local Alt = h.mods.Alt
 
-local function define_submap(key, mod, name, func)
-  h.bind(key, mod, hl.dsp.submap(name))
-
-  hl.define_submap(name, function()
-    func()
-    h.bind("catchall", nil, hl.dsp.submap("reset"))
-    h.bind("Escape", nil, hl.dsp.submap("reset"))
-  end)
-end
-
 local exec_cmd = hl.dsp.exec_cmd
-local window = hl.dsp.window
-
-bind("Escape", Meta, window.close())
-bind("Q", { Meta, Shift }, window.kill())
-
-bind("Space", { Meta, Shift }, window.float())
-bind("F", Meta, window.fullscreen({ mode = "maximized" }))
-bind("F", { Meta, Shift }, window.fullscreen({ mode = "fullscreen" }))
-bind("P", Meta, function()
-  local active_window = hl.get_active_window()
-  if not active_window then return end
-
-  if active_window.pinned then
-    hl.dispatch(window.pin())
-    hl.dispatch(window.float({ action = "disable" }))
-  else
-    hl.dispatch(window.float({ action = "enable" }))
-    hl.dispatch(window.center())
-    hl.dispatch(window.pin())
-    hl.dispatch(window.alter_zorder({ mode = "top" }))
-  end
-end)
-
-bind("mouse:272", Meta, window.drag(), { mouse = true })
-bind("mouse:273", Meta, window.resize(), { mouse = true })
-
-local delta = 20
-local directions = {
-  l = { key = "h", x = -delta, y = 0 },
-  d = { key = "j", x = 0, y = delta },
-  u = { key = "k", x = 0, y = -delta },
-  r = { key = "l", x = delta, y = 0 },
-}
-
--- focus / move / move-to-monitor
-for direction, opts in next, directions do
-  bind(opts.key, Meta, hl.dsp.focus({ direction = direction }))
-  bind(opts.key, { Meta, Control }, hl.dsp.window.move({ direction = direction }))
-  bind(opts.key, { Meta, Control, Shift }, hl.dsp.workspace.move({ monitor = direction }))
-end
-bind(directions.d.key, { Meta, Shift }, window.move({ workspace = "emptym", follow = true }))
-
-define_submap("R", Meta, "resize", function()
-  for _, opts in next, directions do
-    bind(opts.key, nil, hl.dsp.window.resize({ relative = true, x = opts.x, y = opts.y }), { repeating = true })
-  end
-end)
 
 bind("W", Meta, hl.dsp.group.toggle())
 
@@ -133,18 +87,8 @@ for key, entry in next, special_keys do
 end
 bind("XF86AudioNext", Shift, noctalia("media previous"), { locked = true })
 
-define_submap("V", Meta, "vpn", function()
+h.define_submap("V", Meta, "vpn", function()
   bind("c", nil, exec_cmd("vpn connect"))
   bind("d", nil, exec_cmd("vpn disconnect"))
   bind("r", nil, exec_cmd("vpn reconnect"))
 end)
-
-hl.config({
-  binds = {
-    workspace_back_and_forth = true,
-    allow_workspace_cycles = true,
-    movefocus_cycles_fullscreen = false,
-    movefocus_cycles_groupfirst = true,
-    allow_pin_fullscreen = true,
-  },
-})
