@@ -17,7 +17,7 @@
   ];
 
   flake.modules.homeManager.programs-vicinae =
-    { inputs, pkgs, ... }:
+    { inputs, pkgs, config, ... }:
     {
       imports = [
         inputs.vicinae.homeManagerModules.default
@@ -29,7 +29,7 @@
         systemd = {
           enable = true;
           autoStart = true;
-          target = "user-graphical-session.target";
+          target = config.wayland.systemd.target;
           environment = {
             USE_LAYER_SHELL = 1;
           };
