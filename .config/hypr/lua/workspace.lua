@@ -105,14 +105,35 @@ for i = 1, 9 do
 end
 
 for name, _ in next, workspaces do
-  if type(name) == "string" then workspace_rules(special_prefix .. name, Meta) end
+  if type(name) == "string" then
+    local workspace = special_prefix .. name
+
+    workspace_rules(workspace, Meta)
+    hl.workspace_rule({ workspace = workspace, layout = "scrolling" })
+  end
 end
 
-hl.workspace_rule({
-  -- special workspaces
-  workspace = "s[true]",
-  layout = "scrolling",
-})
+h.bind("T", Alt, function()
+  local layouts = { "dwindle", "scrolling", "monocle" }
+
+  local active = h.get_active_or_special_workspace()
+  if not active then return end
+
+  local current = active.tiled_layout
+  local next_layout = layouts[1] -- fallback if current isn't in the list
+
+  for i, name in ipairs(layouts) do
+    if name == current then
+      next_layout = layouts[(i % #layouts) + 1]
+      break
+    end
+  end
+
+  local target = active.name
+
+  hl.workspace_rule({ workspace = target, layout = next_layout })
+  hl.notification.create({ timeout = 2000, text = next_layout })
+end)
 
 h.bind("Tab", Meta, hl.dsp.focus({ workspace = "m+1" }))
 h.bind("Tab", { Meta, Shift }, hl.dsp.focus({ workspace = "m-1" }))
