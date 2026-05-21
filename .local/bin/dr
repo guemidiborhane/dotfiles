@@ -34,8 +34,8 @@ EXAMPLES:
     $(basename "${0}") -- firefox
     $(basename "${0}") --workspace 3 --tile -- firefox
     $(basename "${0}") --float --workspace 2 --focus -- code
-    $(basename "${0}") --batch "keyword general:border_size 2;keyword general:gaps_out 20" -- firefox
-    $(basename "${0}") --workspace 2 --batch "dispatch pin;keyword windowrule 'float,class:firefox'" -- firefox
+    $(basename "${0}") --batch "hl.config({ general = { border_size = 2, gaps_out = 20 }" -- firefox
+    $(basename "${0}") --workspace 2 --batch "hl.pin(); hl.window_rule({ float = true, match = { class = 'firefox' } })" -- firefox
 
 AUTOCOMPLETION:
     Bash - Add to ~/.bashrc:
@@ -332,10 +332,10 @@ build_hyprland_batch() {
   local pid="$1"
   local -a commands=()
 
-  ${tile} && commands+=("dispatch settiled pid:${pid}")
-  ${float} && commands+=("dispatch setfloating pid:${pid}")
-  [ -n "${workspace}" ] && commands+=("dispatch movetoworkspacesilent ${workspace},pid:${pid}")
-  ${focus} && commands+=("dispatch focuswindow pid:${pid}")
+  ${tile} && commands+=("hl.dsp.window.float({ float = 'disable', window = 'pid:${pid}'})")
+  ${float} && commands+=("hl.dsp.window.float({ float = 'enable', window = 'pid:${pid}'})")
+  [ -n "${workspace}" ] && commands+=("hl.dsp.window.move({ workspace = '${workspace}', follow = true, window = 'pid:${pid}'})")
+  ${focus} && commands+=("hl.dsp.focus({ window = 'pid:${pid}' })")
 
   # Parse additional batch commands
   if [ -n "${hypr_batch}" ]; then
@@ -368,7 +368,7 @@ generate_hyprland_dispatcher() {
   done
 
   if [ -n "$target_pid" ]; then
-    hyprctl --batch "BATCH_COMMANDS_PLACEHOLDER" 2>/dev/null
+    hyprctl dispatch "BATCH_COMMANDS_PLACEHOLDER" 2>/dev/null
   fi
 } &
 HYPR_SCRIPT
