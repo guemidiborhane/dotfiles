@@ -54,8 +54,10 @@ def _hyprctl_raw(args: list[str]) -> str:
 def hyprctl_json(args: list[str]) -> dict | list:
     return json.loads(_hyprctl_raw(["-j"] + args))
 
-def hyprctl_dispatch(action: str, *args: str) -> None:
-    cmd = ["hyprctl", "dispatch", action] + list(args)
+def hyprctl_dispatch(dsp: str, *args: str) -> None:
+    args_str = ", ".join(args)
+    payload = f"{dsp}({{ {args_str} }})" if args else f"{dsp}()"
+    cmd = ["hyprctl", "dispatch", payload]
     subprocess.run(cmd, capture_output=True, check=False)
 
 def get_socket2_path() -> Path:
@@ -333,19 +335,20 @@ def _apply_window_placement(addr: str, client: dict) -> None:
     # Special workspaces must be addressed by name (e.g. "special:scratch"),
     # not by their negative integer ID — Hyprland rejects the latter.
     ws_target = ws_name if is_special else str(ws_id)
-    hyprctl_dispatch("movetoworkspacesilent", f"{ws_target},address:{addr}")
+    window = f"window = 'address:{addr}'"
+    hyprctl_dispatch("hl.dsp.window.move", f"workspace = '{ws_target}'", window, "follow = false")
 
     if floating:
-        hyprctl_dispatch("setfloating",       f"address:{addr}")
+        hyprctl_dispatch("hl.dsp.window.float", window, "action = 'set'")
         time.sleep(0.05)
-        hyprctl_dispatch("resizewindowpixel", f"exact {w} {h},address:{addr}")
-        hyprctl_dispatch("movewindowpixel",   f"exact {x} {y},address:{addr}")
+        hyprctl_dispatch("hl.dsp.window.resize", window, f"x = {w}", f"y = {h}")
+        hyprctl_dispatch("hl.dsp.window.move", window, f"x = {x}", f"y = {y}")
 
     if pinned:
-        hyprctl_dispatch("pin", f"address:{addr}")
+        hyprctl_dispatch("hl.dsp.pin", window)
 
     if fullscreen:
-        hyprctl_dispatch("fullscreen", f"address:{addr}", "0")
+        hyprctl_dispatch("hl.dsp.window.fullscreen", window, "mode = 'fullscreen'", "action = 'set'")
 
 def restore_session(dry_run: bool = False, skip_running: bool = True) -> None:
     if not SESSION_FILE.exists():

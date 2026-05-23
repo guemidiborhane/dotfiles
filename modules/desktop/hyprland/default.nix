@@ -61,6 +61,7 @@
               "signal" = "signal-desktop";
               "monitors-session" = tmuxSessionTerminal "monitors";
               "workshop-session" = tmuxSessionTerminal "workshop";
+              "org.qbittorrent.qBittorrent" = "qbittorrent";
             };
           settle = {
             vesktop = 4;
