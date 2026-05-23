@@ -8,7 +8,7 @@
         AllowSuspend = "yes";
         AllowHibernation = "yes";
         AllowSuspendThenHibernate = "yes";
-        AllowHybridSleep = "no";
+        AllowHybridSleep = "yes";
         SuspendState = "freeze";
         HibernateMode = "shutdown";
         HibernateState = "disk";
