@@ -57,7 +57,7 @@
           linux-zen = pkgs.linuxPackages_zen;
 
           cachyos-lts = pkgs.cachyosKernels."linuxPackages-cachyos-lts-lto-${opti}";
-          cachyos-latest = pkgs.cachyosKernels."linuxPackages-cachyos-latest-lto-${opti}";
+          cachyos-latest = pkgs.cachyosKernels."linuxPackages-cachyos-bore-lto-${opti}";
           cachyos-custom = pkgs.customKernels."linux-cachyos-latest-${sched}-lto-${opti}";
         };
         overlay = kernelName: if kernelName == "cachyos-custom" then "default" else "pinned";
