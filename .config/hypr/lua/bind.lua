@@ -19,7 +19,7 @@ local Alt = h.mods.Alt
 
 local exec_cmd = hl.dsp.exec_cmd
 
-bind("W", Meta, hl.dsp.group.toggle())
+bind("W", { Meta, Control }, hl.dsp.group.toggle())
 
 local function drun(command) return h.drun:exec_cmd(command) end
 bind("Return", Meta, h.terminal:exec("s"))
@@ -63,11 +63,14 @@ bind("L", { Alt, Shift }, function()
   hl.dispatch(noctalia("lockScreen lock"))
   hl.timer(function() hl.dispatch(hl.dsp.dpms({ action = "disable" })) end, { timeout = 500, type = "oneshot" })
 end, { release = true })
-bind("W", { Meta, Control }, function()
-  local monitors = hl.get_monitors()
-  for _, monitor in ipairs(monitors) do
-    hl.dispatch(noctalia("wallpaper random " .. monitor.name))
-  end
+h.define_submap("W", Meta, "wallpaper", function()
+  bind("C", nil, noctalia("wallpaper toggle"))
+  bind("R", nil, function()
+    local monitors = hl.get_monitors()
+    for _, monitor in ipairs(monitors) do
+      hl.dispatch(noctalia("wallpaper random " .. monitor.name))
+    end
+  end)
 end)
 
 local special_keys = {
