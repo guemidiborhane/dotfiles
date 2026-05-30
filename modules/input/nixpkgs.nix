@@ -2,7 +2,7 @@
 {
   flake-file.inputs =
     let
-      stable = "github:nixos/nixpkgs/nixos-25.11";
+      stable = "github:nixos/nixpkgs/nixos-26.05";
       unstable = "github:nixos/nixpkgs/nixos-unstable";
     in
     {
