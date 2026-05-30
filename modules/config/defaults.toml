@@ -50,7 +50,6 @@ touchpad = true
 backlight = true
 
 [features.laptop]
-zramSwap = true
 kanata = true
 
 [features.laptop.virtualisation]
