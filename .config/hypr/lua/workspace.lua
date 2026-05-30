@@ -20,7 +20,7 @@ end
 local function drun_cmd(cmd) return h.drun:cmd(cmd) end
 local workspaces = {
   [1] = { on_created_empty = drun_cmd(h.apps.browser.cmd) },
-  [2] = { on_created_empty = h.terminal:cmd("s") },
+  [2] = { on_created_empty = drun_cmd("helium") },
   [3] = {
     on_created_empty = open_tmux_session_cmd("monitors"),
     clients = { { class = "monitors-session" } }
