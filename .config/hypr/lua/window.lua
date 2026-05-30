@@ -96,11 +96,6 @@ local rules = {
     persistent_size = true,
   },
 
-  {
-    match = { class = "Bitwarden" },
-    stay_focused = true,
-  },
-
   -- Ignore maximize requests from all apps. You'll probably like this.
   {
     name = "suppress-maximize-events",
@@ -226,4 +221,5 @@ hl.on("window.urgent", function(w)
   if not active then return end
 
   hl.dispatch(window.move({ window = w, workspace = active.name }))
+  hl.dispatch(hl.dsp.focus({ window = w }))
 end)
