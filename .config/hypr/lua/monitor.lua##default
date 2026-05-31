@@ -1,4 +1,0 @@
--- vim: filetype=lua
-local monitors = {}
-
-require("lua.helpers").monitors(monitors)
