@@ -61,7 +61,7 @@
           ];
 
           providers = {
-            applications.preferences.launchPrefix = "dr --";
+            applications.preferences.launchPrefix = "hydrun --";
             clipboard.preferences.encryption = true;
           };
 

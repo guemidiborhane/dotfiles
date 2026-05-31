@@ -15,5 +15,17 @@
           export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
         fi
       '';
+
+      programs.fish.shellAbbrs = {
+        docker = "podman";
+        dc = "docker-compose";
+        dcb = "docker-compose build";
+        dcup = "docker-compose up";
+        dcupd = "docker-compose up -d";
+        dcdn = "docker-compose down";
+        dce = "docker-compose exec";
+        dclf = "docker-compose logs -f";
+        dcps = "docker-compose ps";
+      };
     };
 }

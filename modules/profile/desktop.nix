@@ -58,14 +58,12 @@
         services-udiskie
 
         programs-zen-browser
-        programs-ghostty
+        kitty
         programs-foot
         programs-vicinae
         programs-mpv
 
         features-gaming
       ];
-
-      programs.wezterm.enable = true;
     };
 }

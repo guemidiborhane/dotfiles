@@ -1,27 +1,33 @@
 { self, ... }:
 {
   flake.modules.homeManager.shell =
-    { pkgs, ... }:
+    { config, ... }:
     {
       imports = with self.modules.homeManager; [
         dex
+        programs-yadm
+        programs-git
         programs-fish
-        programs-sesh
         programs-bat
         programs-fzf
         programs-mise
         programs-atuin
         programs-btop
+        programs-starship
+        programs-fastfetch
+        programs-eza
+        programs-yazi
         devenv
-        services-tmux
+        tmux
+        neovim
+        tealdeer
       ];
 
       programs = {
-        tealdeer.enable = true;
-        fastfetch.enable = true;
-        starship.enable = true;
-        eza.enable = true;
-        zoxide.enable = true;
+        zoxide = {
+          enable = true;
+          options = [ "--cmd cd" ];
+        };
       };
     };
 }

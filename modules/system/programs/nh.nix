@@ -1,27 +1,35 @@
 { lib, ... }:
 {
-  flake.modules.nixos.programs-nh = {
-    programs.nh = {
-      enable = true;
-      clean = {
+  flake.modules.nixos.programs-nh =
+    { metadata, ... }:
+    {
+      programs.nh = {
         enable = true;
-        dates = "monthly";
-        extraArgs = "--keep-since 7d --keep 3";
+        clean = {
+          enable = true;
+          dates = "monthly";
+          extraArgs = "--keep-since 7d --keep 3";
+        };
+        inherit (metadata) flake;
       };
-      flake = "/etc/nixos";
-    };
-    systemd.timers.nh-clean = {
-      timerConfig = {
-        Persistent = lib.mkForce false; # don't catch up on missed runs
+
+      systemd.timers.nh-clean = {
+        timerConfig = {
+          Persistent = lib.mkForce false; # don't catch up on missed runs
+        };
+      };
+
+      systemd.services.nh-clean = {
+        serviceConfig = {
+          IOSchedulingClass = "idle";
+          IOSchedulingPriority = 7;
+          CPUSchedulingPolicy = "idle";
+          Nice = 19;
+        };
+      };
+
+      programs.fish.shellAbbrs = {
+        ss = "nh search";
       };
     };
-    systemd.services.nh-clean = {
-      serviceConfig = {
-        IOSchedulingClass = "idle";
-        IOSchedulingPriority = 7;
-        CPUSchedulingPolicy = "idle";
-        Nice = 19;
-      };
-    };
-  };
 }

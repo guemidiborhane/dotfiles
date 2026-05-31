@@ -1,0 +1,498 @@
+#!/usr/bin/env bash
+# source: https://www.mageta.org/blog/2021/2021.06.04-plasma521-i3.html#starting-child-porcesses-in-app-slice-with-i3
+set -euo pipefail
+
+script_name="${HYDRUN_PROG_NAME:-$(basename "${0}")}"
+
+# Defaults
+declare -g foreground=false custom_name="" custom_description="" verbose=false
+declare -g prefix="drun" slice="desktop-apps.slice" custom_unit=""
+declare -g workspace="" tile=false float=false focus=false hypr_batch=""
+
+show_help() {
+	cat <<EOF
+Usage: $script_name [OPTIONS] [--] <command> [args...]
+
+Start a program as systemd transient unit
+for better resource management, with optional Hyprland dispatcher actions.
+OPTIONS:
+    -f, --foreground         Run command in foreground (default: background)
+    -n, --name <name>        Use custom unit name prefix
+    -r, --prefix <prefix>    Use custom prefix (default: drun)
+    -s, --slice <slice>      Use custom systemd slice (default: desktop-apps.slice)
+    -d, --description <desc> Use custom unit description
+    -u, --unit <unit>        Use custom unit name (bypasses name generation)
+    -v, --verbose            Enable verbose output
+    -h, --help               Show this help message
+
+HYPRLAND OPTIONS:
+    -w, --workspace <n>      Move window to specific workspace (always silent)
+    -t, --tile               Force window to tile
+    -F, --float              Force window to float
+    --focus                  Focus on window after moving to workspace
+    -b, --batch <cmds>       Additional hyprctl commands (semicolon-separated)
+
+EXAMPLES:
+    $script_name -- firefox
+    $script_name --workspace 3 --tile -- firefox
+    $script_name --float --workspace 2 --focus -- code
+    $script_name --batch "hl.config({ general = { border_size = 2, gaps_out = 20 }" -- firefox
+    $script_name --workspace 2 --batch "hl.pin(); hl.window_rule({ float = true, match = { class = 'firefox' } })" -- firefox
+
+AUTOCOMPLETION:
+    Bash - Add to ~/.bashrc:
+    eval "\$(dr --completion)"
+
+    Fish - Add to ~/.config/fish/config.fish:
+    $script_name --completion fish | source
+
+    Or create completion file:
+    $script_name --completion fish > ~/.config/fish/completions/dr.fish
+EOF
+}
+
+# Shell completion functions
+show_completion() {
+	local shell_type
+
+	# Detect shell type
+	if [ -n "${FISH_VERSION:-}" ] || [ "${1:-}" = "fish" ]; then
+		shell_type="fish"
+	else
+		shell_type="bash"
+	fi
+
+	case "$shell_type" in
+	"fish")
+		show_fish_completion "$script_name"
+		;;
+	"bash" | *)
+		show_bash_completion "$script_name"
+		;;
+	esac
+}
+
+show_bash_completion() {
+	local script_name="$1"
+
+	cat <<'EOF'
+_drun_completion() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    # Find if we have -- in the command line
+    local dash_dash_pos=-1
+    local i
+    for ((i=1; i<COMP_CWORD; i++)); do
+        if [[ "${COMP_WORDS[i]}" == "--" ]]; then
+            dash_dash_pos=$i
+            break
+        fi
+    done
+
+    # If we're after --, complete commands and files
+    if [[ $dash_dash_pos -ne -1 && $COMP_CWORD -gt $dash_dash_pos ]]; then
+        # We're completing the command after --
+        if [[ $COMP_CWORD -eq $((dash_dash_pos + 1)) ]]; then
+            # Complete executable commands
+            local commands
+            commands=$(compgen -c -- "$cur" 2>/dev/null)
+            COMPREPLY=($commands)
+        else
+            # Complete files for command arguments
+            COMPREPLY=($(compgen -f -- "$cur"))
+        fi
+        return 0
+    fi
+
+    # Handle option arguments that expect values
+    case "$prev" in
+        -n|--name|-d|--description|-r|--prefix|-s|--slice|-u|--unit|-w|--workspace|-b|--batch)
+            # These options expect a value, don't complete
+            return 0
+            ;;
+    esac
+
+    # Complete script options
+    opts="--foreground --name --description --prefix --slice --unit --workspace --tile --float --focus --batch --help --verbose --completion --"
+    short_opts="-f -n -d -r -s -u -w -t -F -h -v"
+
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=($(compgen -W "$opts $short_opts" -- "$cur"))
+    else
+        # If no -- yet, suggest it
+        COMPREPLY=($(compgen -W "--" -- "$cur"))
+    fi
+}
+
+# Register the completion function
+EOF
+	echo "complete -F _drun_completion ${script_name}"
+}
+
+show_fish_completion() {
+	local script_name="$1"
+
+	cat <<EOF
+# Fish completion for ${script_name}
+
+# Define a function to check if we're after --
+function __${script_name}_after_doubledash
+    set -l cmd (commandline -opc)
+    for i in (seq 2 (count \$cmd))
+        if test "\$cmd[\$i]" = "--"
+            return 0
+        end
+    end
+    return 1
+end
+
+# Define a function to get position after --
+function __${script_name}_doubledash_pos
+    set -l cmd (commandline -opc)
+    for i in (seq 2 (count \$cmd))
+        if test "\$cmd[\$i]" = "--"
+            echo \$i
+            return
+        end
+    end
+    echo 0
+end
+
+# Complete commands after --
+complete -c ${script_name} -n '__${script_name}_after_doubledash' -a '(__fish_complete_command)'
+
+# Complete files for command arguments (when not completing the first command after --)
+complete -c ${script_name} -n '__${script_name}_after_doubledash; and test (math (count (commandline -opc)) - (__${script_name}_doubledash_pos)) -gt 1' -F
+
+# Complete script options (before --)
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s f -l foreground -d 'Run command in foreground'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s n -l name -d 'Use custom unit name prefix' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s d -l description -d 'Use custom unit description' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s r -l prefix -d 'Use custom prefix' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s s -l slice -d 'Use custom systemd slice' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s u -l unit -d 'Use custom unit name' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s w -l workspace -d 'Move window to specific workspace' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s t -l tile -d 'Force window to tile'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s F -l float -d 'Force window to float'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -l focus -d 'Focus on window after moving to workspace'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s b -l batch -d 'Additional hyprctl commands' -r
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s h -l help -d 'Show help message'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -s v -l verbose -d 'Enable verbose output'
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -l completion -d 'Show completion script'
+
+# Complete -- separator
+complete -c ${script_name} -n 'not __${script_name}_after_doubledash' -a '--' -d 'Command separator'
+EOF
+}
+
+# Parse arguments
+[ "${#}" -lt 1 ] && {
+	show_help
+	exit 1
+}
+
+# Check for completion flag first
+if [[ "${1:-}" == "--completion" ]]; then
+	show_completion "${2:-}"
+	exit 0
+fi
+
+opts="$(getopt -o "fn:d:r:s:u:w:tFb:hv" -l "foreground,name:,description:,prefix:,slice:,unit:,workspace:,tile,float,focus,batch:,help,verbose,completion" -n "$(basename "${0}")" -- "${@}")" || {
+	echo "Error: Invalid arguments" >&2
+	exit 1
+}
+eval set -- "${opts}"
+
+while true; do
+	case "${1}" in
+	-f | --foreground) foreground=true ;;
+	-n | --name)
+		custom_name="${2}"
+		shift
+		;;
+	-d | --description)
+		custom_description="${2}"
+		shift
+		;;
+	-r | --prefix)
+		prefix="${2}"
+		shift
+		;;
+	-s | --slice)
+		slice="${2}"
+		shift
+		;;
+	-u | --unit)
+		custom_unit="${2}"
+		shift
+		;;
+	-w | --workspace)
+		workspace="${2}"
+		shift
+		;;
+	-t | --tile) tile=true ;;
+	-F | --float) float=true ;;
+	--focus) focus=true ;;
+	-b | --batch)
+		hypr_batch="${2}"
+		shift
+		;;
+	-v | --verbose) verbose=true ;;
+	--completion)
+		show_completion
+		exit 0
+		;;
+	-h | --help)
+		show_help
+		exit 0
+		;;
+	--)
+		shift
+		break
+		;;
+	esac
+	shift
+done
+
+[ "${#}" -eq 0 ] && {
+	echo "Error: No command specified" >&2
+	show_help
+	exit 1
+}
+
+declare -ga selection=("${@}")
+readonly selection
+
+# Check if stdin is available (not a terminal)
+has_stdin() {
+	[ ! -t 0 ]
+}
+
+# Create temporary file for stdin and populate it
+# Returns the temp file path in stdout
+prepare_stdin_file() {
+	local temp_file
+	temp_file=$(mktemp) || {
+		echo "Error: Failed to create temporary file" >&2
+		return 1
+	}
+
+	cat >"${temp_file}" || {
+		echo "Error: Failed to write to temporary file" >&2
+		rm -f "${temp_file}"
+		return 1
+	}
+
+	echo "${temp_file}"
+}
+
+generate_unit_name() {
+	local name uuid max_name_len
+
+	if [ -n "${custom_unit}" ]; then
+		echo "${custom_unit}"
+		return 0
+	fi
+
+	if [ -n "${custom_name}" ]; then
+		name="${custom_name}"
+	else
+		# Extract and sanitize name from command
+		read -r -d '' -n 192 name < <(
+			basename "${selection[0]}" | tr -c 'a-zA-Z0-9_-' '[_*]' || true
+			echo -e '\0' || true
+		) || true
+		# Trim leading and trailing spaces/underscores
+		name="${name#"${name%%[!_]*}"}"
+		name="${name%"${name##*[!_]}"}"
+	fi
+
+	max_name_len=$((217 - ${#prefix} - 37))
+	if [ "${#name}" -eq 0 ] || [ "${#name}" -gt "${max_name_len}" ]; then
+		echo "Error: Invalid unit name length" >&2
+		return 125
+	fi
+
+	uuid="$(uuidgen)" || {
+		echo "Error: Failed to generate UUID" >&2
+		return 1
+	}
+
+	echo "${prefix}-${name}-${uuid}"
+}
+
+need_hyprland_dispatch() {
+	[[ -n "${workspace}" || "${tile}" == true || "${float}" == true || "${focus}" == true || -n "${hypr_batch}" ]]
+}
+
+# Build hyprctl batch command string for a given PID
+build_hyprland_batch() {
+	local pid="$1"
+	local -a commands=()
+
+	${tile} && commands+=("hl.dsp.window.float({ float = 'disable', window = 'pid:${pid}'})")
+	${float} && commands+=("hl.dsp.window.float({ float = 'enable', window = 'pid:${pid}'})")
+	[ -n "${workspace}" ] && commands+=("hl.dsp.window.move({ workspace = '${workspace}', follow = true, window = 'pid:${pid}'})")
+	${focus} && commands+=("hl.dsp.focus({ window = 'pid:${pid}' })")
+
+	# Parse additional batch commands
+	if [ -n "${hypr_batch}" ]; then
+		IFS=';' read -ra extra <<<"${hypr_batch}"
+		for cmd in "${extra[@]}"; do
+			cmd="$(echo "${cmd}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+			[ -n "$cmd" ] && commands+=("$cmd")
+		done
+	fi
+
+	# Join with semicolons
+	local IFS='; '
+	echo "${commands[*]}"
+}
+
+# Generate the Hyprland dispatch background job as a string
+# We need to track the actual process PID, not bash wrapper PID
+generate_hyprland_dispatcher() {
+	cat <<'HYPR_SCRIPT'
+{
+  target_pid=$$$
+
+  for i in {1..50}; do
+    if [ -n "$target_pid" ]; then
+      if hyprctl clients -j 2> /dev/null | jq --arg pid $target_pid '.[] | select(.pid == ($pid | tonumber))' -jre > /dev/null; then
+        break
+      fi
+    fi
+    sleep 0.1
+  done
+
+  if [ -n "$target_pid" ]; then
+    hyprctl dispatch "BATCH_COMMANDS_PLACEHOLDER" 2>/dev/null
+  fi
+} &
+HYPR_SCRIPT
+}
+
+# Build the logging redirection for background processes
+build_logging_redirect() {
+	local unit_name="$1"
+	cat <<LOGGING
+exec 1> >(systemd-cat -t "${unit_name}")
+exec 2> >(systemd-cat -t "${unit_name}")
+LOGGING
+}
+
+# Build the exec command with optional stdin redirection
+build_exec_command() {
+	local stdin_file="${1:-}"
+	local cmd_line
+
+	# Build the command line with proper quoting
+	cmd_line="exec $(printf '%q ' "${selection[@]}")"
+
+	if [ -n "${stdin_file}" ]; then
+		cmd_line+=" < $(printf '%q' "${stdin_file}")"
+	fi
+
+	echo "${cmd_line}"
+}
+
+# Assemble the complete wrapper script
+build_wrapper_script() {
+	local unit_name="$1"
+	local stdin_file="${2:-}"
+	local script=""
+
+	# Add logging redirection for background processes
+	if ! ${foreground}; then
+		script+="$(build_logging_redirect "${unit_name}")"
+		script+=$'\n'
+	fi
+
+	# Add Hyprland dispatcher if needed
+	if need_hyprland_dispatch; then
+		local dispatcher batch_cmds
+		dispatcher="$(generate_hyprland_dispatcher)"
+		batch_cmds="$(build_hyprland_batch '$target_pid')"
+		# Replace placeholder with actual commands
+		dispatcher="${dispatcher//BATCH_COMMANDS_PLACEHOLDER/${batch_cmds}}"
+		script+="${dispatcher}"
+		script+=$'\n'
+	fi
+
+	# Add the actual command execution
+	script+="$(build_exec_command "${stdin_file}")"
+
+	echo "${script}"
+}
+
+build_systemd_run_args() {
+	local unit_name="$1"
+	local -a args=(--user --collect --slice="${slice}" --unit="${unit_name}")
+
+	${verbose} || args+=(--quiet)
+	args+=(--description="${custom_description:-Command: ${selection[*]@Q}}")
+
+	printf '%s\n' "${args[@]}"
+}
+
+#############################################################################
+# Main execution logic
+#############################################################################
+
+main() {
+	local unit_name stdin_file="" wrapper_script
+	local -a runargs
+
+	# Generate unit name
+	unit_name="$(generate_unit_name)" || exit $?
+
+	# Prepare stdin if available
+	if has_stdin; then
+		stdin_file="$(prepare_stdin_file)" || exit 1
+		trap 'rm -f "${stdin_file}"' EXIT
+	fi
+
+	# Build systemd-run arguments
+	mapfile -t runargs < <(build_systemd_run_args "${unit_name}")
+
+	# Build wrapper script
+	wrapper_script="$(build_wrapper_script "${unit_name}" "${stdin_file}")"
+
+	# Verbose logging
+	if ${verbose}; then
+		echo "Unit name: ${unit_name}" >&2
+		echo "Command: ${selection[*]@Q}" >&2
+		echo "Slice: ${slice}" >&2
+		echo "Foreground: ${foreground}" >&2
+		echo "Stdin available: $(has_stdin && echo true || echo false)" >&2
+		need_hyprland_dispatch && echo "Hyprland batch: $(build_hyprland_batch "<pid>")" >&2
+		echo "=== Wrapper Script ===" >&2
+		echo "${wrapper_script}" >&2
+		echo "======================" >&2
+	fi
+
+	# Execute
+	if ${foreground}; then
+		exec systemd-run --wait "${runargs[@]}" -- bash -c "${wrapper_script}"
+	else
+		systemd-run "${runargs[@]}" -- bash -c "${wrapper_script}" &
+		local bg_pid=$!
+		${verbose} && echo "Started in background (PID: ${bg_pid})" >&2
+
+		# Cleanup stdin file after a delay for background processes
+		if [ -n "${stdin_file}" ]; then
+			(
+				sleep 1
+				rm -f "${stdin_file}"
+			) &
+			trap - EXIT
+		fi
+	fi
+}
+
+# Run main function
+main
+exit 0

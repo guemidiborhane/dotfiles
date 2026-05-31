@@ -1,10 +1,11 @@
 [borhane]
 id = 1000
-fullName = "Borhaneddine GUEMIDI"
+name = "Borhaneddine GUEMIDI"
 email = "guemidiborhane@gmail.com"
 shell = "fish"
-sshKeys = [
-  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal",
+authorizedKeys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal@vault",
 ]
+signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhxTeNtI20T8uDHETzBIBcDNcM0UbW6pamh3z6zJSIG signing@vault"
 yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
 extraGroups = ["uinput", "libvirtd"]

@@ -30,8 +30,6 @@
         megasync
         mission-center
         networkmanagerapplet
-        nur.repos.nltch.spotify-adblock
-        nur.repos.trev.helium
         obs-studio
         pulseaudio
         qbittorrent
