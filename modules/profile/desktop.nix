@@ -10,8 +10,9 @@
     }:
     {
       imports = with self.modules.nixos; [
-        inputs-solaar
+        solaar
         services-pipewire
+        pipewire
         desktop-hyprland
         programs-thunar
         inputs.vicinae.nixosModules.default
@@ -21,7 +22,6 @@
         printing.enable = true;
         udisks2.enable = true;
         gvfs.enable = true;
-        solaar.enable = true;
       };
 
       hardware.graphics.enable = true;
@@ -52,20 +52,19 @@
       imports = with self.modules.homeManager; [
         pkgs-desktop
         desktop-hyprland
+        solaar
 
         services-gnome-keyring
         services-gnome-polkit
         services-udiskie
 
         programs-zen-browser
-        programs-ghostty
+        kitty
         programs-foot
         programs-vicinae
         programs-mpv
 
         features-gaming
       ];
-
-      programs.wezterm.enable = true;
     };
 }

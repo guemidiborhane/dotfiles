@@ -27,7 +27,6 @@
         steam-run
         stress-ng
         tidy-viewer
-        tmux
         traceroute
         wol
         yq

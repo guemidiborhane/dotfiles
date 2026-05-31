@@ -11,7 +11,7 @@
     encode =
       encodedStr:
       let
-        outFile = pkgs.runCommand "decode-base64" { } "echo '${encodedStr}' | base64 > $out";
+        outFile = pkgs.runCommand "encode-base64" { } "echo '${encodedStr}' | base64 > $out";
       in
       builtins.readFile outFile;
   };

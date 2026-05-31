@@ -3,7 +3,6 @@
   flake.modules.nixos.system-sleep =
     { _, ... }:
     {
-
       systemd.sleep.settings.Sleep = {
         AllowSuspend = "yes";
         AllowHibernation = "yes";

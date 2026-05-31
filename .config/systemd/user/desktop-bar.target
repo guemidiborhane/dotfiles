@@ -1,3 +1,0 @@
-[Unit]
-Description=Target to signal that a bar is available
-Wants=waybar.service

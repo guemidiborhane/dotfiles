@@ -1,3 +1,0 @@
-[Unit]
-Description=User Slice for Desktop Environment
-Documentation=man:systemd.special(7)

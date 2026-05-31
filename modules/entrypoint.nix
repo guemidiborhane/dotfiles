@@ -30,9 +30,7 @@
         inputs-nur
         home-config
         pkgs
-        programs-git
-        programs-yadm
-        programs-yazi
+        dotfiles
         shell
         host-profile
       ];

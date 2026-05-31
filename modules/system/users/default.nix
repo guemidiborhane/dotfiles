@@ -27,7 +27,7 @@
           name = username;
           group = username;
           isNormalUser = true;
-          description = user.fullName;
+          description = user.name;
           extraGroups = [
             "networkmanager"
             "wheel"
@@ -35,7 +35,7 @@
           ++ (user.extraGroups or [ ]);
           shell = lib.mkIf (user.shell or null != null) pkgs.unstable.${user.shell};
           homeMode = "0700";
-          openssh.authorizedKeys.keys = user.sshKeys or [ ];
+          openssh.authorizedKeys.keys = user.authorizedKeys or [ ];
         }
       );
     };

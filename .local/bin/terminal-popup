@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-dr -- foot --app-id="terminal.popup" -e "$SHELL" -c "$*"

@@ -15,7 +15,6 @@
         [
           wget
           curl
-          kitty
           git
           ripgrep
           fd

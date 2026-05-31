@@ -240,7 +240,6 @@ in
     wallpaper = {
       enabled = true;
       automationEnabled = true;
-      directory = "${config.home.homeDirectory}/.wallpaper";
       fillColor = "#000000";
       fillMode = "crop";
       hideWallpaperFilenames = false;

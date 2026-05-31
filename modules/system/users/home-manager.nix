@@ -22,7 +22,7 @@
       home-manager = {
         useGlobalPkgs = false;
         useUserPackages = true;
-        backupCommand = "trash";
+        backupCommand = ctx.lib.getExe pkgs.trashy;
 
         extraSpecialArgs = h.mkHomeContext ctx pkgs;
 

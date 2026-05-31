@@ -38,7 +38,7 @@ list-users:
     tomlq -r '. | to_entries[] |
         {
             key: .key,
-            name: .value.fullName,
+            name: .value.name,
             email: .value.email,
             yadm: .value.yadmRepo,
         } |
@@ -319,7 +319,8 @@ clean:
     #!/usr/bin/env bash
     gum style --foreground 220 "This will clean old generations and garbage collect"
     if gum confirm "Continue?"; then
-        gum spin --show-output --spinner dot --title "Cleaning system..." -- nh clean all
+        nh clean all
+        nix-collect-garbage -d
         gum style --foreground 212 "✓ System cleaned successfully"
     else
         gum style --foreground 242 "Cancelled"
@@ -367,7 +368,7 @@ _pick-host:
 # Helper: Pick a host interactively
 _pick-user:
     #!/usr/bin/env bash
-    USERS=$(tomlq -r '. | to_entries[] | "\(.key) (\(.value.fullName))"' {{ users_config }})
+    USERS=$(tomlq -r '. | to_entries[] | "\(.key) (\(.value.name))"' {{ users_config }})
     if [ -z "$USERS" ]; then
         gum style --foreground 196 "No users found in {{ users_config }}"
         exit 1

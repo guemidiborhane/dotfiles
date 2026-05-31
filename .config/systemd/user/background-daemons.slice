@@ -1,3 +1,0 @@
-[Unit]
-Description=User Slice for daemons
-Documentation=man:systemd.special(7)

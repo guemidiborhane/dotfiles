@@ -1,0 +1,8 @@
+[tools]
+doggo = "latest"
+helm = "latest"
+krew = "latest"
+kubectl = "latest"
+kubectx = "latest"
+kubens = "latest"
+usage = "latest"

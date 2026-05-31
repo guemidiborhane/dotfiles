@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+hydrun -- foot --app-id="terminal.popup" -e "$SHELL" -c "$*"
