@@ -5,8 +5,8 @@
     {
       imports = with self.modules.nixos; [
         profiles-desktop
-        services-tlp
-        services-upower
+        tlp
+        upower
         system-sleep
       ];
 

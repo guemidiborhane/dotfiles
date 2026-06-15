@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.nixos.features-virtualisation =
+  flake.modules.nixos.virtualisation =
     { inputs, ... }:
     {
       imports = with self.modules.nixos; [

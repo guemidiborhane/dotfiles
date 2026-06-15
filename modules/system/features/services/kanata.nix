@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.nixos.features-kanata =
+  flake.modules.nixos.kanata =
     { lib, features, ... }:
     lib.mkIf (features.kanata or false) {
       boot.kernelModules = [ "uinput" ];

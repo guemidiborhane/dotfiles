@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.programs-hypres =
+  flake.modules.homeManager.hypres =
     {
       config,
       lib,

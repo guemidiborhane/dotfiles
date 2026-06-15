@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.nixos.features-qbittorrent-nox =
+  flake.modules.nixos.qbittorrent-nox =
     { lib, features, ... }:
     lib.mkIf (features.qbittorrent-nox or false) {
       services.qbittorrent = {

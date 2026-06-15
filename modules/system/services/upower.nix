@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.nixos.services-upower =
+  flake.modules.nixos.upower =
     { _, ... }:
     {
       services.upower = {

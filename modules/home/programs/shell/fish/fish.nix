@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.programs-fish =
+  flake.modules.homeManager.fish =
     { pkgs, lib, ... }:
     let
       functionsDir = ./functions;

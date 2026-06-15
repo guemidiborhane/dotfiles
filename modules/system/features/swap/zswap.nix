@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.nixos.features-zswap =
+  flake.modules.nixos.zswap =
     {
       lib,
       pkgs,

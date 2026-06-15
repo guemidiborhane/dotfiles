@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.programs-sesh =
+  flake.modules.homeManager.sesh =
     { lib, pkgs, ... }:
     let
       pkg = pkgs.stable.sesh;

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.services-hypower =
+  flake.modules.homeManager.hypower =
     {
       lib,
       pkgs,

@@ -11,9 +11,9 @@
     {
       imports = with self.modules.nixos; [
         inputs-solaar
-        services-pipewire
+        pipewire
         desktop-hyprland
-        programs-thunar
+        thunar
         inputs.vicinae.nixosModules.default
       ];
 
@@ -53,17 +53,17 @@
         pkgs-desktop
         desktop-hyprland
 
-        services-gnome-keyring
-        services-gnome-polkit
-        services-udiskie
+        gnome-keyring
+        gnome-polkit
+        udiskie
 
-        programs-zen-browser
+        zen-browser
         kitty
-        programs-foot
-        programs-vicinae
-        programs-mpv
+        foot
+        vicinae
+        mpv
 
-        features-gaming
+        gaming
       ];
     };
 }

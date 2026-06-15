@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.modules.nixos.features-wol =
+  flake.modules.nixos.wol =
     { features, ... }:
     let
       inherit (features.wol) enable iface;

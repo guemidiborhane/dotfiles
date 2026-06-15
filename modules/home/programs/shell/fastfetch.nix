@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.programs-fastfetch =
+  flake.modules.homeManager.fastfetch =
     { config, lib, ... }:
     let
       cfg = config.programs.fastfetch;

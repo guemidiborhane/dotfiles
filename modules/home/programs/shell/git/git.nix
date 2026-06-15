@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.homeManager.programs-git =
+  flake.modules.homeManager.git =
     { pkgs, user, ... }:
     {
       imports = with self.modules.homeManager; [

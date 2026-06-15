@@ -3,7 +3,7 @@
   flake.modules.homeManager.tmux =
     { pkgs, ... }:
     {
-      imports = with self.modules.homeManager; [ programs-sesh ];
+      imports = with self.modules.homeManager; [ sesh ];
       home.packages = with pkgs; [ tmux ];
       dex.dotfiles.".config/tmux" = ./.;
 

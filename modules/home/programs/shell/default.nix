@@ -6,17 +6,17 @@
       imports = with self.modules.homeManager; [
         dex
         programs-yadm
-        programs-git
-        programs-fish
-        programs-bat
-        programs-fzf
-        programs-mise
-        programs-atuin
-        programs-btop
-        programs-starship
-        programs-fastfetch
-        programs-eza
-        programs-yazi
+        git
+        fish
+        bat
+        fzf
+        mise
+        atuin
+        btop
+        starship
+        fastfetch
+        eza
+        yazi
         devenv
         tmux
         neovim
