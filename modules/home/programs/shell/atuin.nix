@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.programs-atuin =
+  flake.modules.homeManager.atuin =
     { secrets, ... }:
     {
       programs.atuin = {

@@ -15,9 +15,9 @@
         networking
         base-devel
         pkgs-defaults
-        services-openssh
-        services-fstrim
-        services-fwupd
+        openssh
+        fstrim
+        fwupd
         host-profile
         default-programs
       ];

@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.modules.nixos.programs-nh =
+  flake.modules.nixos.nh =
     { metadata, ... }:
     {
       programs.nh = {

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.programs-bat =
+  flake.modules.homeManager.bat =
     { _, ... }:
     {
       programs.bat = {

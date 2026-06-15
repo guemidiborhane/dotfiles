@@ -8,7 +8,7 @@
     };
   };
 
-  flake.modules.homeManager.programs-zen-browser =
+  flake.modules.homeManager.zen-browser =
     {
       inputs,
       config,

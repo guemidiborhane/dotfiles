@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.nixos.programs-fish =
+  flake.modules.nixos.fish =
     { pkgs, ... }:
     {
       programs.fish = {

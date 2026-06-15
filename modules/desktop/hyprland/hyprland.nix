@@ -41,10 +41,10 @@
           inputs.hyprland.homeManagerModules.default
 
           desktop-common
-          programs-noctalia
+          noctalia
 
-          services-hypower
-          programs-hypres
+          hypower
+          hypres
           hydrun
         ];
 

@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.features-gaming =
+  flake.modules.homeManager.gaming =
     {
       lib,
       features,

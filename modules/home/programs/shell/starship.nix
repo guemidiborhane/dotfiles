@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.programs-starship =
+  flake.modules.homeManager.starship =
     { lib, config, ... }:
     let
       cfg = config.programs.starship;

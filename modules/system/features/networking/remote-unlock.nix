@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  flake.modules.nixos.features-remote-unlock =
+  flake.modules.nixos.remote-unlock =
     { features, ... }:
     lib.mkIf (features.remoteUnlock or false) {
       boot.initrd = {

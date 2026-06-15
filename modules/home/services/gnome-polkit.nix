@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.services-gnome-polkit =
+  flake.modules.homeManager.gnome-polkit =
     { _, ... }:
     {
       services.polkit-gnome.enable = true;
