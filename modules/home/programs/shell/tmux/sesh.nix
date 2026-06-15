@@ -18,10 +18,6 @@
           };
           window = [
             {
-              name = "dotfiles";
-              startup_script = "exec yadm enter $EDITOR";
-            }
-            {
               name = "nixos";
               path = "~/.config/nixos";
               startup_script = "exec $EDITOR";

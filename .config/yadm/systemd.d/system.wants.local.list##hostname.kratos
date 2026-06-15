@@ -1,5 +1,0 @@
-cockpit.socket
-nvidia-hibernate.service
-nvidia-resume.service
-nvidia-suspend.service
-pmlogger.service

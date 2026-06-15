@@ -53,7 +53,7 @@
             body = /* fish */ ''
               if test (count $argv) -eq 0
                 echo "Usage: tmux_popup <command> [args...]" >&2
-                echo "Example: tmux_popup yadm enter lazygit" >&2
+                echo "Example: tmux_popup btop" >&2
                 return 1
               end
 

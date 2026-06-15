@@ -5,7 +5,6 @@
     {
       imports = with self.modules.homeManager; [
         dex
-        programs-yadm
         git
         fish
         bat

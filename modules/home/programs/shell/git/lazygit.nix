@@ -41,5 +41,6 @@
           };
         };
       };
+      programs.fish.shellAliases.gg = "tmux_popup -w 90% -h 90% lazygit";
     };
 }
