@@ -207,6 +207,7 @@ remove-host name="":
 update flake="" operation="":
     #!/usr/bin/env bash
     set -euo pipefail
+    just flake
 
     get_inputs() {
         {{ nix }} flake metadata --json 2>/dev/null | jq -r '.locks.nodes.root.inputs | keys[]' || true

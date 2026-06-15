@@ -14,6 +14,10 @@ let
       config = {
         allowBroken = false;
         allowUnfree = true;
+        # FIX: after https://github.com/NixOS/nixpkgs/issues/526914 is fixed
+        permittedInsecurePackages = [
+          "electron-39.8.10"
+        ];
       };
     };
 
