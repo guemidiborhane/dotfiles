@@ -7,5 +7,4 @@ authorizedKeys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal@vault",
 ]
 signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhxTeNtI20T8uDHETzBIBcDNcM0UbW6pamh3z6zJSIG signing@vault"
-yadmRepo = "https://github.com/guemidiborhane/dotfiles.git"
 extraGroups = ["uinput", "libvirtd"]

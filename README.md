@@ -50,7 +50,6 @@ Each machine has a hardware configuration file (in `modules/system/hardware/host
 * **Theme:** Dracula (because I haven't seen sunlight since 2022)
 * **Shell**: Fish. I gave up on POSIX compliance years ago. I prefer the shiny colors.
 * **Browser**: Zen Browser. I chose it because the name implies a calm I will never actually achieve.
-* **Dotfiles:** Managed via YADM, auto-cloned on first boot
 * **The Tools**: A collection of CLI utilities (atuin, zoxide, fzf) designed to make me feel fast while I spend four hours debugging why my wallpaper didn't load.
 
 ## [HARDWARE: THE FLEET](./docs/HARDWARE.md)

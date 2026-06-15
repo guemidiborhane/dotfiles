@@ -40,11 +40,10 @@ list-users:
             key: .key,
             name: .value.name,
             email: .value.email,
-            yadm: .value.yadmRepo,
         } |
-        "\(.key),\(.name),\(.email),\(.yadm)"
+        "\(.key),\(.name),\(.email)"
     ' {{ users_config }} | \
-    gum table --columns "Username,Name,Email,YADM" --separator "," --border rounded --border.foreground 212 --print
+    gum table --columns "Username,Name,Email" --separator "," --border rounded --border.foreground 212 --print
 
 # Show host configuration
 show-host host="":
