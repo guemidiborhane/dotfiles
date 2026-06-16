@@ -11,10 +11,17 @@ M.apps = {
   browser = {
     key = "B",
     cmd = "zen-beta",
+    alt = "helium",
   },
   terminal = {
     key = "T",
     cmd = "footclient",
+    alt = "kitty",
+  },
+  file_manager = {
+    key = "E",
+    cmd = "$terminal-popup yazi ~",
+    alt = "thunar",
   }
 }
 
