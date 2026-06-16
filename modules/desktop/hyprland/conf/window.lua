@@ -180,6 +180,7 @@ local floating_windows = {
   { class = "udiskie" },
   { class = "xdg-desktop-portal-gtk" },
   { class = "thunderbird",                   initial_title = "Write: %(no subject%)" },
+  { class = "terminal.popup" }
 }
 
 for _, match in ipairs(floating_windows) do

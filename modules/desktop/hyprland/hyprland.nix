@@ -48,6 +48,24 @@
           hydrun
         ];
 
+        wayland.systemd.target = "${target}.target";
+        wayland.windowManager.hyprland = {
+          enable = true;
+          systemd.enable = false;
+          configType = "lua";
+          package = pkgs.hyprland;
+          extraConfig = /* lua */ ''
+            require("lua")
+          '';
+        };
+
+        dex.dotfiles = {
+          ".config/hypr" = {
+            "lua" = ./conf;
+            "xdph.conf" = ./xdph.conf;
+          };
+        };
+
         services.hypower.enabled = host.type == "laptop";
 
         programs.hypres = {
@@ -72,16 +90,6 @@
         };
 
         home.packages = with pkgs; [ hyprpicker ];
-        wayland.systemd.target = "${target}.target";
-        wayland.windowManager.hyprland = {
-          enable = true;
-          systemd.enable = false;
-          configType = "lua";
-          package = pkgs.hyprland;
-          extraConfig = /* lua */ ''
-            require("lua")
-          '';
-        };
 
         systemd.user.targets.${target} = {
           Unit = {
@@ -100,13 +108,6 @@
               exec ${cfg.finalPackage}/bin/start-hyprland
           end
         '';
-
-        dex.dotfiles = {
-          ".config/hypr" = {
-            "lua" = ./conf;
-            "xdph.conf" = ./xdph.conf;
-          };
-        };
       };
   };
 }

@@ -27,8 +27,14 @@ bind("E", { Meta, Control }, drun("thunar"))
 bind("Escape", Control, drun("missioncenter"))
 bind("A", Meta, h.shell:exec("sshkey"))
 
+local function exec(cmd)
+  if cmd:find("^%$") ~= nil then return exec_cmd(cmd:sub(2)) end
+  return drun(cmd)
+end
+
 for _, app in next, h.apps do
-  bind(app.key, Meta, drun(app.cmd))
+  bind(app.key, Meta, exec(app.cmd))
+  if app.alt then bind(app.key, { Meta, Alt }, exec(app.alt)) end
 end
 
 bind("C", Meta, exec_cmd("hyprpicker -a"))
@@ -40,10 +46,7 @@ bind("X", { Meta, Control }, exec_cmd("hyprctl kill"))
 bind("R", { Meta, Control, Shift }, exec_cmd("hypres restore"))
 bind("R", { Meta, Shift }, exec_cmd("hyprctl reload"))
 
-local terminal_class = "terminal.popup"
-hl.window_rule({ match = { class = terminal_class }, tag = "+floatingw" })
-local function popup_terminal(cmd) return h.terminal:exec(cmd, terminal_class) end
-bind("E", Meta, popup_terminal("yazi ~"))
+local function popup_terminal(cmd) return exec_cmd("terminal-popup " .. cmd) end
 bind("M", Meta, popup_terminal("wiremix --tab output"))
 bind("B", { Meta, Shift }, popup_terminal("bluetui"))
 bind("W", { Meta, Shift }, popup_terminal("wlctl"))
