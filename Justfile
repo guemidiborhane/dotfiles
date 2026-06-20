@@ -19,8 +19,7 @@ flake:
 # Show all configured hosts
 list-hosts:
     #!/usr/bin/env bash
-    tomlq -r '. | to_entries[] |
-        {
+    tomlq -r '. | to_entries[] | {
             key: .key,
             hostname: (.value.hostname // ""),
             type: .value.type,
@@ -35,8 +34,7 @@ list-hosts:
 # List all configure users
 list-users:
     #!/usr/bin/env bash
-    tomlq -r '. | to_entries[] |
-        {
+    tomlq -r '. | to_entries[] | {
             key: .key,
             name: .value.name,
             email: .value.email,
@@ -289,6 +287,10 @@ switch:
 # alias: `rebuild test no`
 test:
     just rebuild test no
+
+# alias: `rebuild boot no`
+boot:
+    just rebuild boot no
 
 # alias: `update all`
 yay operation="switch":
