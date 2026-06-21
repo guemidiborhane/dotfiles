@@ -1,40 +1,31 @@
 local h = require("lua.helpers")
+local v = require("lua.vars")
+local d = require("lua.dsp")
 
-h.messaging_clients = {
-  { class = "thunderbird" },
-  { class = "org.telegram.desktop" },
-  { class = "signal" },
-  { class = "vesktop" },
-}
+local bind = h.bind
+local Meta, Control, Shift, Alt = v.mods.Meta, v.mods.Control, v.mods.Shift, v.mods.Alt
 
-local Meta = h.mods.Meta
-local Shift = h.mods.Shift
-local Control = h.mods.Control
-local Alt = h.mods.Alt
+d.dispatchers:add("tmux", function(session_name)
+  local cmd = string.format("tmux new-session -As %q", session_name)
+  return d.cmd("term:" .. cmd, session_name .. "-session")
+end)
 
-local function open_tmux_session_cmd(name)
-  local cmd = string.format("tmux new-session -As %q", name)
-  return h.terminal:cmd(cmd, name .. "-session")
-end
-
-local function drun_cmd(cmd) return h.drun:cmd(cmd) end
 local workspaces = {
-  [1] = { on_created_empty = drun_cmd(h.apps.browser.cmd) },
-  [2] = { on_created_empty = drun_cmd("helium") },
+  [1] = { on_created_empty = v.apps.browser.main },
+  [2] = { on_created_empty = "app:helium" },
   [3] = {
-    on_created_empty = open_tmux_session_cmd("monitors"),
-    clients = { { class = "monitors-session" } }
+    on_created_empty = "tmux:monitors",
+    clients = {
+      { class = "monitors-session" }
+    }
   },
 
   -- named/special
-  workshop = { key = "G", on_created_empty = open_tmux_session_cmd("workshop") },
-  messaging = {
-    key = "D",
-    clients = h.messaging_clients,
-  },
+  workshop = { key = "G", on_created_empty = "tmux:workshop" },
+  messaging = { key = "D", clients = v.messaging_clients, },
   music = {
     key = "S",
-    on_created_empty = drun_cmd("env -u DISPLAY spotify"),
+    on_created_empty = "app:env -u DISPLAY spotify",
     clients = {
       { class = "^(spotify)$" },
     },
@@ -66,22 +57,23 @@ local function smart_focus(workspace, close_all)
     hl.dispatch(dispatcher)
   end
 end
+
 local function workspace_rules(name, mod, i)
   local workspace = string.gsub(tostring(name), special_prefix, "")
   local opts = workspaces[tonumber(workspace) or workspace]
   local key = (opts and opts.key) or i or workspace
 
-  h.bind(key, mod, smart_focus(name, true))
-  h.bind(key, { mod, Alt }, smart_focus(name, false))
-  h.bind(key, { mod, Shift }, hl.dsp.window.move({ workspace = name, follow = true }))
-  h.bind(key, { mod, Control }, hl.dsp.window.move({ workspace = name, follow = false }))
+  bind(key, mod, smart_focus(name, true))
+  bind(key, { mod, Alt }, smart_focus(name, false))
+  bind(key, { mod, Shift }, hl.dsp.window.move({ workspace = name, follow = true }))
+  bind(key, { mod, Control }, hl.dsp.window.move({ workspace = name, follow = false }))
 
   if not opts then return end
 
   if opts.on_created_empty then
     hl.workspace_rule({
       workspace = tostring(name),
-      on_created_empty = opts.on_created_empty,
+      on_created_empty = d.cmd(opts.on_created_empty),
     })
   end
 
@@ -113,7 +105,7 @@ for name, _ in next, workspaces do
   end
 end
 
-h.bind("T", { Meta, Shift }, function()
+bind("T", { Meta, Shift }, function()
   local layouts = { "dwindle", "master", "scrolling", "monocle" }
 
   local active = h.get_active_or_special_workspace()
@@ -135,10 +127,10 @@ h.bind("T", { Meta, Shift }, function()
   hl.notification.create({ timeout = 2000, text = next_layout })
 end)
 
-h.bind("Tab", Meta, hl.dsp.focus({ workspace = "m+1" }))
-h.bind("Tab", { Meta, Shift }, hl.dsp.focus({ workspace = "m-1" }))
-h.bind("mouse_up", Meta, hl.dsp.focus({ workspace = "m-1" }))
-h.bind("mouse_down", Meta, hl.dsp.focus({ workspace = "m+1" }))
+bind("Tab", Meta, hl.dsp.focus({ workspace = "m+1" }))
+bind("Tab", { Meta, Shift }, hl.dsp.focus({ workspace = "m-1" }))
+bind("mouse_up", Meta, hl.dsp.focus({ workspace = "m-1" }))
+bind("mouse_down", Meta, hl.dsp.focus({ workspace = "m+1" }))
 
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 hl.gesture({ fingers = 3, direction = "vertical", action = "special", workspace_name = "workshop" })

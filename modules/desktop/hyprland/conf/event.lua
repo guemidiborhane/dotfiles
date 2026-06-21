@@ -1,15 +1,16 @@
+local d = require("lua.dsp")
 local h = require("lua.helpers")
 
-hl.on("hyprland.start", function()
-  local function tray_run(command)
-    hl.timer(
-      function() hl.exec_cmd(h.drun:cmd(command, "desktop-tray.slice")) end,
-      { timeout = 2000, type = "oneshot" }
-    )
-  end
+local function delay_run(command, timeout)
+  hl.timer(
+    function() hl.exec_cmd(d.cmd("app:" .. command, "desktop-tray.slice")) end,
+    { timeout = timeout or 2000, type = "oneshot" }
+  )
+end
 
-  tray_run("megasync")
-  tray_run("bitwarden")
+hl.on("hyprland.start", function()
+  delay_run("megasync")
+  delay_run("bitwarden")
 
   for _, command in ipairs({ "stop", "start" }) do
     hl.exec_cmd(string.format("systemctl --user %s hyprland-session.target", command))
@@ -17,5 +18,5 @@ hl.on("hyprland.start", function()
 end)
 
 hl.on("config.reloaded", function()
-  hl.notification.create({ text = "Hyprland: config reloaded", timeout = 2000, icon = "ok" })
+  h.notify("Hyprland: config reloaded", 2000, "ok")
 end)
