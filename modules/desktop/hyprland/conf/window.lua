@@ -1,10 +1,8 @@
 local h = require("lua.helpers")
-local bind = h.bind
+local v = require("lua.vars")
 
-local Meta = h.mods.Meta
-local Shift = h.mods.Shift
-local Control = h.mods.Control
-local Alt = h.mods.Alt
+local bind = h.bind
+local Meta, Control, Shift, Alt = v.mods.Meta, v.mods.Control, v.mods.Shift, v.mods.Alt
 
 local window = hl.dsp.window
 
@@ -187,7 +185,7 @@ for _, match in ipairs(floating_windows) do
   rules:add({ match = match, tag = "+floatingw" })
 end
 
-for _, match in ipairs(h.messaging_clients) do
+for _, match in ipairs(v.messaging_clients) do
   rules:add({
     match = match,
     scrolling_width = 0.5,
@@ -197,7 +195,7 @@ end
 local no_share_windows = {
   { class = "Bitwarden" }
 }
-for _, match in ipairs(h.messaging_clients) do table.insert(no_share_windows, match) end
+for _, match in ipairs(v.messaging_clients) do table.insert(no_share_windows, match) end
 for _, match in ipairs(no_share_windows) do
   rules:add({ match = match, no_screen_share = true })
 end

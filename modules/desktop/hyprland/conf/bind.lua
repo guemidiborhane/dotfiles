@@ -1,4 +1,6 @@
 local h = require("lua.helpers")
+local v = require("lua.vars")
+local d = require("lua.dsp")
 
 hl.config({
   binds = {
@@ -11,67 +13,54 @@ hl.config({
 })
 
 local bind = h.bind
-
-local Meta = h.mods.Meta
-local Shift = h.mods.Shift
-local Control = h.mods.Control
-local Alt = h.mods.Alt
-
-local exec_cmd = hl.dsp.exec_cmd
+local Meta, Control, Shift, Alt = v.mods.Meta, v.mods.Control, v.mods.Shift, v.mods.Alt
 
 bind("W", { Meta, Control }, hl.dsp.group.toggle())
 
-local function drun(command) return h.drun:exec_cmd(command) end
-bind("Return", Meta, h.terminal:exec("s"))
-bind("E", { Meta, Control }, drun("thunar"))
-bind("Escape", Control, drun("missioncenter"))
-bind("A", Meta, h.shell:exec("sshkey"))
+bind("Return", Meta, "term:s")
+bind("E", { Meta, Control }, "app:thunar")
+bind("Escape", Control, "app:missioncenter")
+bind("A", Meta, "sh:sshkey")
 
-local function exec(cmd)
-  if cmd:find("^%$") ~= nil then return exec_cmd(cmd:sub(2)) end
-  return drun(cmd)
+for _, app in next, v.apps do
+  bind(app.key, Meta, app.main)
+  if app.alt then bind(app.key, { Meta, Alt }, app.alt) end
 end
 
-for _, app in next, h.apps do
-  bind(app.key, Meta, exec(app.cmd))
-  if app.alt then bind(app.key, { Meta, Alt }, exec(app.alt)) end
-end
+bind("C", Meta, "hyprpicker -a")
 
-bind("C", Meta, exec_cmd("hyprpicker -a"))
+bind("Print", nil, "capture -m region")
+bind("Print", Shift, "capture")
 
-bind("Print", nil, exec_cmd("capture -m region"))
-bind("Print", Shift, exec_cmd("capture"))
+bind("X", { Meta, Control }, "hyprctl kill")
+bind("R", { Meta, Control, Shift }, "hypres restore")
+bind("R", { Meta, Shift }, "hyprctl reload")
 
-bind("X", { Meta, Control }, exec_cmd("hyprctl kill"))
-bind("R", { Meta, Control, Shift }, exec_cmd("hypres restore"))
-bind("R", { Meta, Shift }, exec_cmd("hyprctl reload"))
-
-local function popup_terminal(cmd) return exec_cmd("terminal-popup " .. cmd) end
-bind("M", Meta, popup_terminal("wiremix --tab output"))
-bind("B", { Meta, Shift }, popup_terminal("bluetui"))
-bind("W", { Meta, Shift }, popup_terminal("wlctl"))
+bind("M", Meta, "popup:wiremix --tab output")
+bind("B", { Meta, Shift }, "popup:bluetui")
+bind("W", { Meta, Shift }, "popup:wlctl")
 
 hl.layer_rule({ match = { namespace = "vicinae" }, blur = true, ignore_alpha = 0 })
-local function vicinae(deep_link) return exec_cmd("vicinae vicinae://" .. deep_link) end
-bind("Space", Meta, vicinae("toggle"))
-bind("Grave", Meta, vicinae("launch/wm/switch-windows"))
-bind("Space", { Control, Shift }, vicinae("launch/core/search-emojis"))
-bind("H", { Control, Alt }, vicinae("launch/clipboard/history?toggle=true"))
+d.dispatchers:add('vic', function(cmd) return "vicinae vicinae://" .. cmd end)
+bind("Space", Meta, "vic:toggle")
+bind("Grave", Meta, "vic:launch/wm/switch-windows")
+bind("Space", { Control, Shift }, "vic:launch/core/search-emojis")
+bind("H", { Control, Alt }, "vic:launch/clipboard/history")
 
-local function noctalia(ipc) return exec_cmd("noctalia-shell ipc call " .. ipc) end
-bind(0, Meta, noctalia("sessionMenu toggle"))
-bind("Z", Alt, noctalia("notifications toggleHistory"))
+d.dispatchers:add('noc', function(cmd) return "noctalia-shell ipc call " .. cmd end)
+bind(0, Meta, "noc:sessionMenu toggle")
+bind("Z", Alt, "noc:notifications toggleHistory")
 bind("L", { Alt, Shift }, function()
-  hl.dispatch(noctalia("media pause"))
-  hl.dispatch(noctalia("lockScreen lock"))
+  hl.dispatch(d.exec("noc:media pause"))
+  hl.dispatch(d.exec("noc:lockScreen lock"))
   hl.timer(function() hl.dispatch(hl.dsp.dpms({ action = "disable" })) end, { timeout = 500, type = "oneshot" })
 end, { release = true })
 h.define_submap("W", Meta, "wallpaper", function()
-  bind("C", nil, noctalia("wallpaper toggle"))
+  bind("C", nil, "noc:wallpaper toggle")
   bind("R", nil, function()
     local monitors = hl.get_monitors()
     for _, monitor in ipairs(monitors) do
-      hl.dispatch(noctalia("wallpaper random " .. monitor.name))
+      hl.dispatch(d.exec("noc:wallpaper random " .. monitor.name))
     end
   end)
 end)
@@ -89,12 +78,12 @@ local special_keys = {
   AudioPlay = { ipc = "media playPause" },
 }
 for key, entry in next, special_keys do
-  bind("XF86" .. key, nil, noctalia(entry.ipc), { locked = true, repeating = entry.repeating or false })
+  bind("XF86" .. key, nil, "noc:" .. entry.ipc, { locked = true, repeating = entry.repeating or false })
 end
-bind("XF86AudioNext", Shift, noctalia("media previous"), { locked = true })
+bind("XF86AudioNext", Shift, "noc:media previous", { locked = true })
 
 h.define_submap("V", Meta, "vpn", function()
-  bind("c", nil, exec_cmd("vpn connect"))
-  bind("d", nil, exec_cmd("vpn disconnect"))
-  bind("r", nil, exec_cmd("vpn reconnect"))
+  bind("c", nil, "sh:vpn connect")
+  bind("d", nil, "sh:vpn disconnect")
+  bind("r", nil, "sh:vpn reconnect")
 end)

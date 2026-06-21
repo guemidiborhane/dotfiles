@@ -1,8 +1,10 @@
-local h = require("lua.helpers")
+local d = require("lua.dsp")
+local v = require("lua.vars")
+local apps = v.apps
 
 local variables = {
-  TERMINAL = h.apps.terminal.cmd,
-  BROWSER = h.apps.browser.cmd,
+  TERMINAL = d.cmd(apps.terminal.main),
+  BROWSER = d.cmd(apps.browser.main),
 
   QT_QPA_PLATFORMTHEME = "gtk3",
   QT_WAYLAND_DISABLE_WINDOWDECORATION = "1",
@@ -56,10 +58,10 @@ local function import_env_variables()
   hl.exec_cmd("dbus-update-activation-environment --systemd " .. table.concat(envs, " "))
 
   -- tmux
-  for _, v in ipairs(envs) do
-    local value = os.getenv(v)
+  for _, env in ipairs(envs) do
+    local value = os.getenv(env)
 
-    if value and value ~= "" then hl.exec_cmd(string.format("tmux setenv -g %q %q", v, value)) end
+    if value and value ~= "" then hl.exec_cmd(string.format("tmux setenv -g %q %q", env, value)) end
   end
 end
 
