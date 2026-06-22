@@ -6,7 +6,7 @@
       system.autoUpgrade = {
         enable = true;
         allowReboot = features.autoReboot or false;
-        flake = "github:guemidiborhane/nix-config";
+        flake = "github:guemidiborhane/dotfiles";
         flags = [ "-L" ];
         dates = "daily";
         randomizedDelaySec = "45min";
