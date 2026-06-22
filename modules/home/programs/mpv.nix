@@ -13,6 +13,7 @@
           scripts = with pkgs.mpvScripts; [
             uosc
             autosub
+            webtorrent-mpv-hook
           ];
         };
 
