@@ -1,0 +1,30 @@
+{
+    "label" : "lock",
+    "action" : "~/.config/i3/scripts/i3exit.sh lock",
+    "text" : "Lock",
+    "keybind" : "l"
+}
+{
+    "label" : "reboot",
+    "action" : "~/.config/i3/scripts/i3exit.sh reboot",
+    "text" : "Reboot",
+    "keybind" : "r"
+}
+{
+    "label" : "shutdown",
+    "action" : "~/.config/i3/scripts/i3exit.sh shutdown",
+    "text" : "Shutdown",
+    "keybind" : "shift+s"
+}
+{
+    "label" : "logout",
+    "action" : "~/.config/i3/scripts/i3exit.sh logout",
+    "text" : "Logout",
+    "keybind" : "e"
+}
+{
+    "label" : "suspend",
+    "action" : "~/.config/i3/scripts/i3exit.sh suspend",
+    "text" : "Suspend",
+    "keybind" : "s"
+}
