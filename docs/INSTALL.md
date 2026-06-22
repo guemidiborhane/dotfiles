@@ -3,7 +3,7 @@
 Before you can do anything—even before you realize this was a mistake—you must pull the code onto a machine capable of processing your poor decisions. Usually, this is done from a NixOS Installation Media environment.
 
 ```bash
-git clone https://github.com/guemidiborhane/nix-config.git hysteria
+git clone https://github.com/guemidiborhane/dotfiles.git hysteria
 cd hysteria
 ```
 
