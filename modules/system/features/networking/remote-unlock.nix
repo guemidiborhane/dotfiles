@@ -3,29 +3,21 @@
   flake.modules.nixos.remote-unlock =
     { features, ... }:
     lib.mkIf (features.remoteUnlock or false) {
-      boot.initrd = {
-        availableKernelModules = [ "r8169" ];
-        systemd = {
+      boot = {
+        kernelParams = [ "ip=dhcp" ];
+        initrd = {
+          availableKernelModules = [ "r8169" ];
+          systemd.users.root.shell = "/usr/bin/systemd-tty-ask-password-agent";
           network = {
             enable = true;
-            networks."10-lan" = {
+            ssh = {
               enable = true;
-              matchConfig.Name = "enp*";
-              networkConfig.DHCP = "yes";
+              port = 22;
+              authorizedKeys = [
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAizWh/D3fQY7CT8onqVH4M0BJ7l5fpBsdCPvx3TsUo/ luks@warden"
+              ];
+              hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
             };
-          };
-        };
-        network = {
-          enable = true;
-          flushBeforeStage2 = true;
-          ssh = {
-            enable = true;
-            port = 22;
-            authorizedKeys = [
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAizWh/D3fQY7CT8onqVH4M0BJ7l5fpBsdCPvx3TsUo/ luks@warden"
-            ];
-            hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-            shell = "/usr/bin/systemd-tty-ask-password-agent";
           };
         };
       };
