@@ -6,6 +6,7 @@
       programs.fzf = {
         enable = true;
         defaultOptions = [ "--reverse" ];
+        historyWidget.command = "";
         colors = {
           "fg" = "#f8f8f2";
           "fg+" = "#f8f8f2";

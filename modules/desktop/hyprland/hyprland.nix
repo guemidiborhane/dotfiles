@@ -81,6 +81,7 @@
               "monitors-session" = tmuxSessionTerminal "monitors";
               "workshop-session" = tmuxSessionTerminal "workshop";
               "org.qbittorrent.qBittorrent" = "qbittorrent";
+              "spotify" = "env -u DISPLAY spotify";
             };
           settle = {
             vesktop = 4;

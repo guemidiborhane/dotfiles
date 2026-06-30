@@ -37,7 +37,6 @@
       ];
 
       fonts.packages = with pkgs; [
-        cantarell-fonts
         nerd-fonts.monaspace
         nerd-fonts.jetbrains-mono
         corefonts
