@@ -2,20 +2,18 @@
 {
   options.flake.substituters = lib.mkOption {
     type = lib.types.attrsOf (
-      lib.types.listOf (
-        lib.types.submodule {
-          options = {
-            url = lib.mkOption {
-              type = lib.types.str;
-              description = "Substituter URL";
-            };
-            key = lib.mkOption {
-              type = lib.types.str;
-              description = "Public key for substituter";
-            };
+      lib.types.submodule {
+        options = {
+          url = lib.mkOption {
+            type = lib.types.str;
+            description = "Substituter URL";
           };
-        }
-      )
+          key = lib.mkOption {
+            type = lib.types.str;
+            description = "Public key for substituter";
+          };
+        };
+      }
     );
     default = { };
     description = "Binary cache substituters declared by modules";
@@ -23,9 +21,9 @@
 
   config = {
     flake.modules.nixos.nix-substituters =
-      { inputs, ... }:
+      { _, ... }:
       let
-        allCaches = lib.flatten (lib.attrValues config.flake.substituters);
+        allCaches = lib.attrValues config.flake.substituters;
 
         urls = map (s: s.url) allCaches;
         keys = map (s: s.key) allCaches;
