@@ -27,7 +27,7 @@
           };
 
           font = {
-            package = pkgs.cantarell-fonts;
+            package = pkgs.stable.cantarell-fonts;
             name = "Cantarell";
             size = 11;
           };

@@ -11,6 +11,7 @@
       # example = prev.example.overrideAttrs (oldAttrs: rec {
       # ...
       # });
+      pnpm_10_29_2 = final.pnpm_10;
     };
 
     # When applied, the unstable nixpkgs set (declared in the flake inputs) will
