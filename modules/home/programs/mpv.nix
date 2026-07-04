@@ -42,5 +42,19 @@
           p = "playlist-prev";
         };
       };
+
+      xdg.desktopEntries.mpv-magnet = {
+        name = "mpv (Torrent/Magnet)";
+        genericName = "Torrent Streamer";
+        exec = "mpv %U";
+        terminal = false;
+        type = "Application";
+        mimeType = [ "x-scheme-handler/magnet" ];
+        categories = [
+          "AudioVideo"
+          "Video"
+          "Player"
+        ];
+      };
     };
 }
