@@ -39,7 +39,7 @@ stopChargeThreshold = 85
 hostname = "koto"
 type = "desktop"
 description = "5950X Workstation"
-kernel = "cachyos-custom"
+kernel = "cachyos-latest"
 additionalKernels = ["cachyos-lts"]
 
 [kotoamatsukami.features.kernel]
