@@ -1,38 +1,12 @@
 { self, ... }:
 {
-  flake.modules.nixos.entrypoint =
-    { inputs, ... }:
-    {
-      imports = with self.modules.nixos; [
-        nix-config
-        disko-config
-        kernel
-        locales
-        common-host-configs
-        features
-        users
-        hardware-host
-        networking
-        base-devel
-        pkgs-defaults
-        openssh
-        fstrim
-        fwupd
-        host-profile
-        default-programs
-      ];
-    };
+  flake.modules.nixos.entrypoint = ctx: {
+    imports = map (module: self.modules.nixos."${module}") ctx.host.modules;
+  };
 
-  flake.modules.homeManager.entrypoint =
-    { user, ... }:
-    {
-      imports = with self.modules.homeManager; [
-        inputs-nur
-        home-config
-        pkgs
-        dotfiles
-        shell
-        host-profile
-      ];
-    };
+  flake.modules.homeManager.entrypoint = ctx: {
+    imports =
+      map (module: self.modules.homeManager."${module}")
+        ctx.user.modules or self.dex.defaults.users.modules or [ ];
+  };
 }

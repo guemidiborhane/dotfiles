@@ -1,12 +1,7 @@
 { self, ... }:
 {
   flake.modules.nixos.networking =
-    {
-      inputs,
-      host,
-      networking,
-      ...
-    }:
+    { host, features, ... }:
     {
       imports = with self.modules.nixos; [
         networking-netbird
@@ -18,8 +13,8 @@
         nameservers = [ "127.0.0.1:8853" ];
         firewall = {
           enable = true;
-          allowedTCPPorts = networking.allowTCP;
-          allowedUDPPorts = networking.allowUDP;
+          allowedTCPPorts = features.allowTCP;
+          allowedUDPPorts = features.allowUDP;
         };
         networkmanager.enable = true;
       };

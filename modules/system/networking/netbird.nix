@@ -1,7 +1,7 @@
 { _, ... }:
 {
   flake.modules.nixos.networking-netbird =
-    { networking, secrets, ... }:
+    { features, secrets, ... }:
     let
       netbirdServer = {
         inherit (secrets.netbird) Host;
@@ -12,7 +12,7 @@
       services.netbird = {
         enable = true;
         clients.default = {
-          port = networking.netbirdPort or 51820;
+          port = features.netbirdPort or 51820;
           config = {
             ManagementURL = netbirdServer;
             AdminURL = netbirdServer;

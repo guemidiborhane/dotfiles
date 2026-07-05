@@ -1,12 +1,7 @@
 { self, ... }:
 {
   flake.modules.nixos.containers =
-    {
-      inputs,
-      pkgs,
-      hardware,
-      ...
-    }:
+    { pkgs, hardware, ... }:
     {
 
       imports = [

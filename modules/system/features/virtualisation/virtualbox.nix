@@ -2,7 +2,7 @@
 {
   flake.modules.nixos.virtualbox =
     { features, ... }:
-    lib.mkIf (features.virtualisation.virtualbox or false) {
+    lib.mkIf (features.virtualbox or false) {
 
       virtualisation.virtualbox.host = {
         enable = true;

@@ -40,14 +40,9 @@ let
         hasAMDGPU = hardwareConfig.gpu == "amd";
       };
 
-      users = builtins.listToAttrs (
-        map (username: {
-          name = username;
-          value = getUser username // {
-            inherit username;
-          };
-        }) config.users
-      );
+      users = builtins.mapAttrs (
+        username: overrides: getUser username // overrides // { inherit username; }
+      ) (lib.filterAttrs (username: overrides: overrides.enable or true) config.users);
 
       usersHelpers = {
         forEach = fn: builtins.mapAttrs fn users;
@@ -58,8 +53,6 @@ let
 
       hardware = hardwareConfig // hardwareHelpers;
       features = cascade "features";
-      power = cascade "power";
-      networking = cascade "networking";
       users = users // usersHelpers;
     };
 in

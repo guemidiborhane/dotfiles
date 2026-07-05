@@ -1,3 +1,29 @@
+[defaults]
+kernel = "cachyos-latest"
+defaultUser = "borhane"
+system = "x86_64-linux"
+additionalKernels = []
+modules = [
+  "nix-config",
+  "disko-config",
+  "kernel",
+  "locales",
+  "common-host-configs",
+  "features",
+  "users",
+  "hardware-host",
+  "networking",
+  "base-devel",
+  "pkgs",
+  "openssh",
+  "fstrim",
+  "fwupd",
+  "host-profile",
+  "default-programs",
+]
+
+[defaults.users.borhane]
+
 [takotsubo]
 hostname = "tako"
 type = "laptop"
@@ -30,11 +56,6 @@ gpu = "amd"
 module = "lenovo-thinkpad-p14s-amd-gen5"
 fingerprint = true
 
-[kamui.power]
-tlp = true
-startChargeThreshold = 65
-stopChargeThreshold = 85
-
 [kotoamatsukami]
 hostname = "koto"
 type = "desktop"
@@ -64,11 +85,12 @@ afe8ba39-fada-43da-ba0a-459498b1b062 = "/run/media/borhane/LACIE"
 autoUpdate = false
 remoteUnlock = true
 qbittorrent-nox = true
+netbirdPort = 51281
+allowTCP = [8096]
 
 [kotoamatsukami.features.wol]
 enable = true
 iface = "enp6s0"
 
-[kotoamatsukami.networking]
-netbirdPort = 51281
-allowTCP = [8096]
+[kotoamatsukami.users.borhane]
+email = "guemidiborhane@aina.dz"

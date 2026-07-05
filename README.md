@@ -12,7 +12,7 @@ Most people use Nix to manage their system. I use a TOML file to manage Nix, whi
 
 ### The Single Source of Truth (The Lie)
 
-All system parameters are funneled through `modules/config/*.toml`. It defines the user, the theme (Dracula, because I haven't seen sunlight since 2022), and the hosts. It is the steering wheel of a ship that is already halfway underwater.
+All system parameters are funneled through `modules/config/*.toml`. It defines the user, the theme, and the hosts. It is the steering wheel of a ship that is already halfway underwater.
 
 ### The Illusion of Control (`flake.nix`)
 

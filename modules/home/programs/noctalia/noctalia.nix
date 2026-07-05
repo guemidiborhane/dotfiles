@@ -21,7 +21,7 @@
     {
       imports = [
         inputs.noctalia.homeModules.default
-        ./_configs
+        ./_configs/configs.nix
       ];
 
       programs.noctalia-shell = {

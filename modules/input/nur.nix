@@ -17,7 +17,7 @@
       };
     };
 
-    modules.nixos.inputs-nur =
+    modules.nixos.nur =
       { inputs, ... }:
       {
         imports = [
@@ -25,7 +25,7 @@
         ];
       };
 
-    modules.homeManager.inputs-nur =
+    modules.homeManager.nur =
       { inputs, pkgs, ... }:
       {
         imports = [
