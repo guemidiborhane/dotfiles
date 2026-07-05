@@ -3,7 +3,7 @@
   programs.noctalia-shell.settings.bar =
     let
       cfg = config.programs.noctalia-shell;
-      widgets = import ./widgets {
+      widgets = import ./widgets/widgets.nix {
         inherit (cfg) plugins;
       };
 

@@ -1,8 +1,8 @@
 { _, ... }:
 {
   flake.modules.nixos.tlp =
-    { power, ... }:
-    {
+    { lib, hardware, ... }:
+    lib.mkIf (hardware.tlp or false) {
       services.tlp = {
         enable = true;
         settings = {
@@ -18,8 +18,8 @@
           CPU_BOOST_ON_BAT = 0;
           RADEON_DPM_STATE_ON_BAT = "battery";
 
-          START_CHARGE_THRESH_BAT0 = power.startChargeThreshold;
-          STOP_CHARGE_THRESH_BAT0 = power.stopChargeThreshold;
+          START_CHARGE_THRESH_BAT0 = hardware.startChargeThreshold;
+          STOP_CHARGE_THRESH_BAT0 = hardware.stopChargeThreshold;
           RESTORE_THRESHOLDS_ON_BAT = true;
         };
       };

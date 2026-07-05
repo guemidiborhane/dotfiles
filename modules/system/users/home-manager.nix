@@ -16,7 +16,7 @@
     {
       imports = [
         inputs.home-manager.nixosModules.home-manager
-        self.modules.nixos.inputs-nur
+        self.modules.nixos.nur
       ];
 
       home-manager = {

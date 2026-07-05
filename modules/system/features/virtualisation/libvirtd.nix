@@ -2,7 +2,7 @@
 {
   flake.modules.nixos.libvirtd =
     { features, ... }:
-    lib.mkIf (features.virtualisation.libvirtd or false) {
+    lib.mkIf (features.libvirtd or false) {
 
       virtualisation.libvirtd = {
         enable = true;

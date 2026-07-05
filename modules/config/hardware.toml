@@ -1,0 +1,17 @@
+bluetooth = false
+wifi = false
+touchpad = false
+backlight = false
+fingerprint = false
+tlp = false
+startChargeThreshold = 50
+stopChargeThreshold = 85
+
+[laptop]
+bluetooth = true
+wifi = true
+touchpad = true
+backlight = true
+tlp = true
+startChargeThreshold = 65
+stopChargeThreshold = 85

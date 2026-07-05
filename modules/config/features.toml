@@ -1,0 +1,31 @@
+autoUpdate = false
+autoReboot = false
+zramSwap = false
+zSwap = true
+remoteUnlock = false
+qbittorrent-nox = false
+kanata = false
+gaming = false
+allowTCP = []
+allowUDP = []
+libvirtd = false
+virtualbox = false
+podman = true
+
+[kernel]
+opti = "x86_64-v3"
+sched = "bore"
+lto = "thin"
+
+[wol]
+enable = false
+iface = ""
+
+[desktop]
+zSwap = true
+kanata = true
+libvirtd = true
+
+[laptop]
+kanata = true
+libvirtd = true

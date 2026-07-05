@@ -349,7 +349,7 @@ fmt:
 
 # Validate flake
 check:
-    nix flake check
+    nix flake check --show-trace
 
 # Enter mise nix-shell
 mise:

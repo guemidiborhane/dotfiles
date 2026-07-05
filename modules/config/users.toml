@@ -1,3 +1,6 @@
+[defaults]
+modules = ["nur", "home-config", "pkgs", "dotfiles", "shell", "host-profile"]
+
 [borhane]
 id = 1000
 name = "Borhaneddine GUEMIDI"

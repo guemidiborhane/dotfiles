@@ -2,7 +2,7 @@
 let
   inherit (self) inputs dex;
 
-  inherit (dex) metadata defaultSystem;
+  inherit (dex) defaultSystem;
   inherit (dex) hostModules homeModules;
 
   mkPkgs =
@@ -22,10 +22,8 @@ let
     };
 
   mkContext = hostOrContext: {
-    inherit metadata;
-    inherit (hostOrContext) features power users;
-    inherit (hostOrContext) hardware networking;
-    inherit (dex) secrets;
+    inherit (dex) metadata secrets;
+    inherit (hostOrContext) features hardware users;
 
     host =
       if (hostOrContext ? host) then
