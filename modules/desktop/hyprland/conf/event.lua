@@ -9,12 +9,9 @@ local function delay_run(command, timeout)
 end
 
 hl.on("hyprland.start", function()
+  hl.exec_cmd("systemctl --user start hyprland-session.target")
   delay_run("megasync")
   delay_run("bitwarden")
-
-  for _, command in ipairs({ "stop", "start" }) do
-    hl.exec_cmd(string.format("systemctl --user %s hyprland-session.target", command))
-  end
 end)
 
 hl.on("config.reloaded", function()
