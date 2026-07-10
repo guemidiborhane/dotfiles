@@ -14,6 +14,7 @@
             uosc
             autosub
             webtorrent-mpv-hook
+            thumbfast
           ];
         };
 
