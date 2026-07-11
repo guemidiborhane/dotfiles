@@ -175,7 +175,7 @@ add-host name="":
 
     # Get host name
     if [ -z "{{ name }}" ]; then
-        NAME=$(gum input --placeholder "Host name (e.g., kamui, takotsubo)")
+        NAME=$(gum input --placeholder "Host name (e.g., kamui)")
     else
         NAME="{{ name }}"
     fi

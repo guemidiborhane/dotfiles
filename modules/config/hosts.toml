@@ -24,21 +24,6 @@ modules = [
 
 [defaults.users.borhane]
 
-[takotsubo]
-hostname = "tako"
-type = "laptop"
-description = "Dell Latitude 7490"
-
-[takotsubo.hardware]
-disk = "/dev/sda"
-ram = 16
-cpu = "intel"
-gpu = "intel"
-module = "dell-latitude-7490"
-
-[takotsubo.features]
-kanata = false
-
 [kamui]
 type = "laptop"
 description = "P14s G5 AMD"

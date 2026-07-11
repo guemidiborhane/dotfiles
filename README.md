@@ -30,7 +30,7 @@ I have automated my descent into insanity with `just`.
 
 ### The Network
 
-All three machines are connected via **Netbird** mesh VPN. Netbird is genuinely excellent software - WireGuard-based, self-hostable, and it just works. The mesh topology means `takotsubo` can reach `koto` from a coffee shop without exposing SSH to the internet, and `kamui` seamlessly integrates whether it's at home or traveling. All traffic stays encrypted, all hosts are accessible by hostname, and I never have to think about it.
+All three machines are connected via **Netbird** mesh VPN. Netbird is genuinely excellent software - WireGuard-based, self-hostable, and it just works. The mesh topology means `kamui` can reach `koto` from a coffee shop without exposing SSH to the internet. All traffic stays encrypted, all hosts are accessible by hostname, and I never have to think about it.
 
 The control plane runs on my own infrastructure because trusting cloud providers is for people who don't read privacy policies.
 

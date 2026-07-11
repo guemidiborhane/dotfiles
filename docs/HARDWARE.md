@@ -2,19 +2,6 @@
 
 The current victims of this configuration span multiple machines, each burdened with the weight of my digital neuroses.
 
-## takotsubo - Dell Latitude 7490
-**Status:** Primary mobile unit
-**Codename:** takotsubo (Broken Heart Syndrome)
-
-The original sufferer. A Dell Latitude 7490 that I have burdened with Hyprland and enough Wayland abstractions to make its integrated Intel GPU scream for mercy. This machine has seen things. It knows what I've done.
-
-**Specifications:**
-- **CPU:** Intel Core i7-8650U (Kaby Lake Refresh, 4C/8T)
-- **RAM:** 16GB DDR4
-- **GPU:** Intel UHD Graphics 620 (thermally distressed)
-- **Storage:** SATA SSD
-- **Role:** Daily driver when I pretend to be mobile
-
 ## kamui - Lenovo ThinkPad P14s Gen 5 AMD
 **Status:** Home away from home
 **Codename:** kamui (Dimensional Jutsu - because it warps between locations)
