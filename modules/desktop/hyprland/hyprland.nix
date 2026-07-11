@@ -83,9 +83,6 @@
               "org.qbittorrent.qBittorrent" = "qbittorrent";
               "spotify" = "env -u DISPLAY spotify";
             };
-          settle = {
-            vesktop = 4;
-          };
         };
 
         home.packages = with pkgs; [ hyprpicker ];

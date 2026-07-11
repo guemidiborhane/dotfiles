@@ -28,6 +28,6 @@ return {
     { class = "thunderbird" },
     { class = "org.telegram.desktop" },
     { class = "signal" },
-    { class = "vesktop" },
+    { class = "legcord" },
   }
 }

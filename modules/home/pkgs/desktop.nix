@@ -33,7 +33,7 @@
         telegram-desktop
         thunderbird
         tor-browser
-        vesktop
+        legcord
         viewnior
         wiremix
         xarchiver
