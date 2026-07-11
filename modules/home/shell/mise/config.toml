@@ -1,5 +1,6 @@
 [tools]
 doggo = "latest"
+go = "latest"
 helm = "latest"
 krew = "latest"
 kubectl = "latest"
