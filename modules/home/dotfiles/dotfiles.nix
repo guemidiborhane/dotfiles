@@ -26,7 +26,7 @@
         ".config/easyeffects/irs"
         ".config/easyeffects/output"
         ".config/qt5ct"
-        ".config/vesktop/themes"
+        ".config/legcord/themes"
         scriptsPath
         wallpapersPath
       ];
