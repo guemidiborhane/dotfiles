@@ -46,7 +46,7 @@ Before installing, ensure the `disk` variable in `modules/config/hosts.toml` mat
 
 # INSTALLATION: THE DEATH WISH
 
-If you are installing a host (like `takotsubo`) from the NixOS ISO:
+If you are installing a host (like `kamui`) from the NixOS ISO:
 
 1. **Summon the Environment**:
 Ensure you are inside the `nix-shell` or `nix develop` environment created earlier.
