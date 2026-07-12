@@ -3,24 +3,7 @@ kernel = "cachyos-latest"
 defaultUser = "borhane"
 system = "x86_64-linux"
 additionalKernels = []
-modules = [
-  "nix-config",
-  "disko-config",
-  "kernel",
-  "locales",
-  "common-host-configs",
-  "features",
-  "users",
-  "hardware-host",
-  "networking",
-  "base-devel",
-  "pkgs",
-  "openssh",
-  "fstrim",
-  "fwupd",
-  "host-profile",
-  "default-programs",
-]
+modules = ["openssh", "fstrim", "fwupd"]
 
 [defaults.users.borhane]
 

@@ -2,14 +2,12 @@
 {
   flake-file.inputs.nixos-hardware.url = "github:NixOs/nixos-hardware/master";
 
-  flake.modules.nixos.hardware-host =
+  flake.modules.nixos.host-hardware =
     {
       inputs,
       host,
       hardware,
-      features,
       lib,
-      h,
       ...
     }:
     let

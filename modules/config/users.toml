@@ -1,5 +1,5 @@
 [defaults]
-modules = ["nur", "home-config", "pkgs", "dotfiles", "shell", "host-profile"]
+modules = ["dotfiles", "shell"]
 
 [borhane]
 id = 1000
