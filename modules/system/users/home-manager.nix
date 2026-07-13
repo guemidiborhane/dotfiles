@@ -6,13 +6,7 @@
   };
 
   flake.modules.nixos.users-home-manager =
-    ctx@{
-      inputs,
-      pkgs,
-      h,
-      users,
-      ...
-    }:
+    ctx@{ inputs, pkgs, ... }:
     {
       imports = [
         inputs.home-manager.nixosModules.home-manager
@@ -24,9 +18,9 @@
         useUserPackages = true;
         backupCommand = ctx.lib.getExe pkgs.trashy;
 
-        extraSpecialArgs = h.mkHomeContext ctx pkgs;
+        extraSpecialArgs = ctx.h.mkHomeContext ctx pkgs;
 
-        users = users.forEach (
+        users = ctx.users.forEach (
           username: user: {
             _module.args = { inherit user; };
             imports = ctx.homeModules;

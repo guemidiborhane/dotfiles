@@ -38,15 +38,9 @@
     };
 
     modules.nixos.kernel =
-      {
-        inputs,
-        host,
-        features,
-        pkgs,
-        lib,
-        ...
-      }:
+      ctx@{ pkgs, lib, ... }:
       let
+        inherit (ctx) inputs features host;
         inherit (features.kernel) opti sched;
 
         kernelName = host.kernel or "";

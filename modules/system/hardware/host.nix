@@ -3,14 +3,10 @@
   flake-file.inputs.nixos-hardware.url = "github:NixOs/nixos-hardware/master";
 
   flake.modules.nixos.host-hardware =
-    {
-      inputs,
-      host,
-      hardware,
-      lib,
-      ...
-    }:
+    ctx@{ inputs, lib, ... }:
     let
+      inherit (ctx) host hardware;
+
       hasHardwareModule = hardware ? module && hardware.module != "";
     in
     {

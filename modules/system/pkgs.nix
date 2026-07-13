@@ -5,13 +5,7 @@
   ];
 
   flake.modules.nixos.pkgs =
-    {
-      pkgs,
-      config,
-      host,
-      hardware,
-      ...
-    }:
+    ctx@{ pkgs, config, ... }:
     {
       environment.systemPackages =
         with pkgs;
@@ -31,7 +25,7 @@
           config.boot.kernelPackages.cpupower
           trashy
           just
-          nvtopPackages.${hardware.gpu} # because of this.
+          nvtopPackages.${ctx.hardware.gpu} # because of this.
           wol
           statix
           nix-index
@@ -41,6 +35,6 @@
           squashfsTools
           openssl_3
         ]
-        ++ (host.extraPkgs or [ ]);
+        ++ (ctx.host.extraPkgs or [ ]);
     };
 }

@@ -1,8 +1,4 @@
-{
-  config,
-  secrets,
-  ...
-}:
+{ config, secrets, ... }:
 let
   inherit (config.programs.noctalia-shell) colors settings;
 in

@@ -22,15 +22,10 @@
       };
 
     modules.homeManager.desktop-hyprland =
-      {
-        lib,
-        config,
-        inputs,
-        pkgs,
-        host,
-        ...
-      }:
+      ctx@{ inputs, pkgs, ... }:
       let
+        inherit (ctx) config host;
+
         cfg = config.wayland.windowManager.hyprland;
         target = "hyprland-session";
       in

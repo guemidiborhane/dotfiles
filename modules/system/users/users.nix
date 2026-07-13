@@ -1,27 +1,21 @@
 { self, ... }:
 {
   flake.modules.nixos.users =
-    {
-      inputs,
-      pkgs,
-      lib,
-      users,
-      ...
-    }:
+    ctx@{ pkgs, lib, ... }:
     {
       imports = with self.modules.nixos; [
         users-home-manager
         users-tty-login
       ];
 
-      users.groups = users.forEach (
+      users.groups = ctx.users.forEach (
         username: user: {
           gid = user.id;
           members = [ username ];
         }
       );
 
-      users.users = users.forEach (
+      users.users = ctx.users.forEach (
         username: user: {
           uid = user.id;
           name = username;

@@ -1,19 +1,14 @@
 { _, ... }:
 {
   flake.modules.nixos.users-tty-login =
-    {
-      config,
-      pkgs,
-      host,
-      lib,
-      users,
-      ...
-    }:
+    ctx@{ pkgs, lib, ... }:
     {
       systemd.services."getty@tty1" =
         let
-          username = host.defaultUser;
-          userExists = builtins.hasAttr username users;
+          inherit (ctx) config;
+
+          username = ctx.host.defaultUser;
+          userExists = builtins.hasAttr username ctx.users;
         in
         lib.mkIf (username != null && userExists) {
           overrideStrategy = "asDropin";

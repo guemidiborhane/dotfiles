@@ -1,8 +1,7 @@
-{
+ctx@{
   lib,
-  metadata,
-  hosts,
   pkgs ? import <nixpkgs> { },
+  ...
 }:
 pkgs.mkShell {
   name = "nixos-manager";
@@ -47,13 +46,13 @@ pkgs.mkShell {
     echo "║     NixOS Configuration Environment    ║"
     echo "╚════════════════════════════════════════╝"
     echo ""
-    echo "Repository: ${metadata.repository}"
+    echo "Repository: ${ctx.metadata.repository}"
     echo ""
     echo "Configured hosts:"
     ${builtins.concatStringsSep "\n" (
       lib.mapAttrsToList (
         name: host: ''echo "  • ${name} (${host.config.type}) - ${host.config.description}"''
-      ) hosts
+      ) ctx.hosts
     )}
     echo ""
     echo "Quick commands:"
