@@ -65,8 +65,6 @@
         foot
         vicinae
         mpv
-
-        gaming
       ];
     };
 }
