@@ -1,13 +1,7 @@
 { _, ... }:
 {
   flake.modules.homeManager.dex-dotfiles =
-    {
-      metadata,
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
+    ctx@{ config, lib, ... }:
     let
       # A single dotfile value: a path, false, or a group (attrs of path|false)
       dotfileValue = lib.types.oneOf [
@@ -51,7 +45,7 @@
               parts = lib.splitString "-source/" baseStr;
               relPart = if builtins.length parts > 1 then builtins.elemAt parts 1 else "";
             in
-            config.lib.file.mkOutOfStoreSymlink "${metadata.flake}/${relPart}";
+            config.lib.file.mkOutOfStoreSymlink "${ctx.metadata.flake}/${relPart}";
 
           # Expand one top-level entry into a flat attrs of home.file entries.
           # Returns: attrsOf { source } | attrsOf { enable = false }

@@ -9,12 +9,7 @@
   };
 
   flake.modules.homeManager.zen-browser =
-    {
-      inputs,
-      config,
-      secrets,
-      ...
-    }:
+    ctx@{ inputs, config, ... }:
     {
       imports = [
         inputs.zen-browser.homeModules.default
@@ -203,7 +198,7 @@
           };
 
           pinsForce = true;
-          pins = secrets.zen-browser_pins;
+          pins = ctx.secrets.zen-browser_pins;
           keyboardShortcuts = [
             {
               id = "zen-compact-mode-toggle";

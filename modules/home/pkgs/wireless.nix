@@ -6,14 +6,10 @@
   };
 
   flake.modules.homeManager.pkgs-wireless =
-    {
-      lib,
-      hardware,
-      inputs,
-      pkgs,
-      ...
-    }:
+    ctx@{ lib, pkgs, ... }:
     let
+      inherit (ctx) inputs hardware;
+
       hasWifi = hardware.wifi or false;
       hasBluetooth = hardware.bluetooth or false;
     in

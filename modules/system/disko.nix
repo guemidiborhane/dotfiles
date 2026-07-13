@@ -6,14 +6,10 @@
   };
 
   flake.modules.nixos.disko-config =
-    {
-      inputs,
-      config,
-      host,
-      hardware,
-      ...
-    }:
+    ctx@{ inputs, config, ... }:
     let
+      inherit (ctx) host hardware;
+
       device = host.disk;
       swapSize = "${toString (hardware.ram + 2)}G";
       vgName = "${host.name}-vg";

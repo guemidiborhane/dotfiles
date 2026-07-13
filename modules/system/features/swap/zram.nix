@@ -1,12 +1,7 @@
 { _, ... }:
 {
   flake.modules.nixos.zram-swap =
-    {
-      lib,
-      pkgs,
-      features,
-      ...
-    }:
+    { lib, features, ... }:
     lib.mkIf ((features.zramSwap or false) && !(features.zSwap or false)) {
       zramSwap = {
         enable = true;

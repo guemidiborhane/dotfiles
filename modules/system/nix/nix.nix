@@ -1,13 +1,7 @@
 { self, ... }:
 {
   flake.modules.nixos.nix-config =
-    {
-      inputs,
-      pkgs,
-      metadata,
-      lib,
-      ...
-    }:
+    ctx@{ pkgs, lib, ... }:
     {
 
       imports = with self.modules.nixos; [
@@ -16,7 +10,7 @@
         like-nix
       ];
 
-      system.stateVersion = metadata.stateVersion;
+      system.stateVersion = ctx.metadata.stateVersion;
 
       nix = {
         package = lib.mkDefault pkgs.nixVersions.latest;
