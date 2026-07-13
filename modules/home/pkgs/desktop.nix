@@ -1,5 +1,11 @@
 { _, ... }:
 {
+  flake.unfreePackages = [
+    "anydesk"
+    "megasync"
+    "teamviewer"
+  ];
+
   flake.modules.homeManager.pkgs-desktop =
     { pkgs, ... }:
     {
