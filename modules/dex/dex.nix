@@ -57,6 +57,12 @@ let
     };
 in
 {
+  options.flake.unfreePackages = lib.mkOption {
+    type = lib.types.listOf lib.types.str;
+    default = [ ];
+    description = "Package names allowed through allowUnfreePredicate, merged across all modules.";
+  };
+
   options.flake.dex = lib.mkOption {
     type = lib.types.attrsOf lib.types.raw;
     default = { };

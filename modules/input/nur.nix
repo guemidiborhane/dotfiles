@@ -25,6 +25,7 @@
         ];
       };
 
+    unfreePackages = [ "spotify" ];
     modules.homeManager.nur =
       { inputs, pkgs, ... }:
       {

@@ -1,9 +1,13 @@
 { self, ... }:
 {
+  flake.unfreePackages = [
+    "corefonts"
+    "vista-fonts"
+  ];
+
   flake.modules.nixos.profiles-desktop =
     {
       inputs,
-      features,
       lib,
       pkgs,
       ...
@@ -45,7 +49,7 @@
     };
 
   flake.modules.homeManager.profiles-desktop =
-    { pkgs, inputs, ... }:
+    { pkgs, ... }:
     {
       imports = with self.modules.homeManager; [
         pkgs-desktop

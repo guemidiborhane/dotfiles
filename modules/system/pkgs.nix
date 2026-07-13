@@ -1,8 +1,11 @@
 { _, ... }:
 {
+  flake.unfreePackages = [
+    "cuda_nvml_dev" # we need this.
+  ];
+
   flake.modules.nixos.pkgs =
     {
-      inputs,
       pkgs,
       config,
       host,
@@ -28,7 +31,7 @@
           config.boot.kernelPackages.cpupower
           trashy
           just
-          nvtopPackages.${hardware.gpu}
+          nvtopPackages.${hardware.gpu} # because of this.
           wol
           statix
           nix-index
