@@ -7,9 +7,6 @@
       programs.mpv = {
         enable = true;
         package = pkgs.mpv.override {
-          mpv-unwrapped = pkgs.mpv-unwrapped.override {
-            ffmpeg = pkgs.ffmpeg-full;
-          };
           scripts = with pkgs.mpvScripts; [
             uosc
             autosub
