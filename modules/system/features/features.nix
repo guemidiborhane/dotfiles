@@ -12,6 +12,7 @@
         wol
         zram-swap
         zswap
+        gaming
       ];
     };
 }
