@@ -10,16 +10,14 @@
     headset_per_zone_lighting, headset-signature-startup, headset-signature-shutdown, headset-signature-passive, logivoice-nr-state, logivoice-ng-state,
     logivoice-comp-state, logivoice-deesser-state, logivoice-depopper-state, logivoice-limiter-state, logivoice-hpf-state]
   _battery: 4096
-  _dpi-sliding: 4
   _modelId: B02340820000
-  _sensitive: {change-host: false, divert-keys: false, hires-scroll-mode: false, hires-smooth-invert: false, hires-smooth-resolution: false, reprogrammable-keys: false,
-    scroll-ratchet: false, smart-shift: false, thumb-scroll-mode: false}
+  _sensitive: {hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore}
   _serial: 87044B39
   _unitId: 87044B39
   _wpid: '4082'
   change-host: null
-  divert-keys: {82: 0, 83: 0, 86: 0, 195: 3, 196: 0}
-  dpi: 600
+  divert-keys: {82: 0, 83: 0, 86: 0, 195: 0, 196: 0}
+  dpi: 1000
   hires-scroll-mode: false
   hires-smooth-invert: false
   hires-smooth-resolution: true
@@ -27,7 +25,7 @@
   scroll-ratchet: 2
   smart-shift: 10
   thumb-scroll-invert: false
-  thumb-scroll-mode: true
+  thumb-scroll-mode: false
 - _NAME: MX Keys Keyboard
   _absent: [hi-res-scroll, lowres-scroll-mode, hires-smooth-invert, hires-smooth-resolution, hires-scroll-mode, scroll-ratchet, scroll-ratchet-torque, smart-shift,
     thumb-scroll-invert, thumb-scroll-mode, onboard_profiles, report_rate, report_rate_extended, pointer_speed, dpi, dpi_extended, speed-change, backlight-timed,
@@ -41,8 +39,7 @@
     reprogrammable-keys]
   _battery: 4096
   _modelId: B35B408A0000
-  _sensitive: {backlight: false, change-host: false, divert-keys: false, hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore,
-    multiplatform: false}
+  _sensitive: {hires-scroll-mode: ignore, hires-smooth-invert: ignore, hires-smooth-resolution: ignore}
   _serial: 54B00647
   _unitId: 54B00647
   _wpid: 408A
@@ -53,18 +50,3 @@
     233: 0, 234: 0, 235: 0, 236: 0}
   fn-swap: true
   multiplatform: 0
-- _NAME: MX Master 3S
-  _modelId: B03400000000
-  _sensitive: {dpi: false}
-  _unitId: 583658A8
-  change-host: null
-  divert-keys: {82: 0, 83: 0, 86: 0, 195: 0, 196: 0}
-  dpi: 800
-  hires-scroll-mode: false
-  hires-smooth-invert: false
-  hires-smooth-resolution: true
-  reprogrammable-keys: {80: 80, 81: 81, 82: 82, 83: 83, 86: 86, 195: 195, 196: 196}
-  scroll-ratchet: 2
-  smart-shift: 10
-  thumb-scroll-invert: false
-  thumb-scroll-mode: false
