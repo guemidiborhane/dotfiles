@@ -51,7 +51,7 @@
         "keymap.toml" = ./keymap.toml;
       };
       home.activation.yazi-packages-install = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-        ${pkgs.yazi}/bin/ya pa install 2>/dev/null || true
+        ${pkgs.yazi}/bin/ya pkg install 2>/dev/null || true
       '';
     };
 }

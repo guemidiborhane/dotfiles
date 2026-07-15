@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland/v0.55.1";
+  flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland";
   flake = {
     substituters.hyprland = {
       url = "https://hyprland.cachix.org";
