@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.substituters.devenv = {
+  flake.caches.devenv = {
     url = "https://devenv.cachix.org";
     key = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
   };
