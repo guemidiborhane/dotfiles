@@ -10,7 +10,7 @@ cd "$REPO_ROOT"
 echo "Extracting substituters from flake..."
 
 # Extract all substituters from flake
-SUBSTITUTERS_JSON=$(nix eval .#substituters --json)
+SUBSTITUTERS_JSON=$(nix eval .#caches --json)
 
 # Parse into space-separated lists
 URLS=$(echo "$SUBSTITUTERS_JSON" | jq -r '.[].url' | tr '\n' ' ')

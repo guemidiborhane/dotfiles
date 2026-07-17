@@ -1,6 +1,6 @@
 { lib, config, ... }:
 {
-  options.flake.substituters = lib.mkOption {
+  options.flake.caches = lib.mkOption {
     type = lib.types.attrsOf (
       lib.types.submodule {
         options = {
@@ -23,7 +23,7 @@
     flake.modules.nixos.nix-substituters =
       { _, ... }:
       let
-        allCaches = lib.attrValues config.flake.substituters;
+        allCaches = lib.attrValues config.flake.caches;
 
         urls = map (s: s.url) allCaches;
         keys = map (s: s.key) allCaches;

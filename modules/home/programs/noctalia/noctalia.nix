@@ -5,7 +5,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.substituters.noctalia-shell = {
+  flake.caches.noctalia-shell = {
     url = "https://noctalia.cachix.org";
     key = "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=";
   };

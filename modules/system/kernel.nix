@@ -2,7 +2,7 @@
 {
   flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   flake = {
-    substituters.cachyos-kernel = {
+    caches.cachyos-kernel = {
       url = "https://attic.xuyh0120.win/lantian";
       key = "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=";
     };
