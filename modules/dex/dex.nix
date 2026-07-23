@@ -88,13 +88,15 @@ in
     };
 
     flake.modules.homeManager.dex =
-      { config, ... }:
+      { config, pkgs, ... }:
       {
         programs.fish = {
           shellAbbrs = {
             ds = "dex switch";
             dt = "dex test";
-            dy = "dex yay";
+          };
+          shellAliases = {
+            yay = "${pkgs.kitty}/bin/kitty $SHELL -ic 'dex yay'";
           };
           functions.dex = {
             wraps = "just";
