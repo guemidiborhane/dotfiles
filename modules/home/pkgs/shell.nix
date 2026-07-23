@@ -21,6 +21,7 @@
         pigz
         pv
         python3
+        qbittorrent-nox
         rsync
         s-tui
         sendme

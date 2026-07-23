@@ -6,7 +6,6 @@
       imports = with self.modules.nixos; [
         auto-upgrade
         kanata
-        qbittorrent-nox
         remote-unlock
         virtualisation
         wol

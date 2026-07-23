@@ -34,7 +34,6 @@ additionalKernels = ["cachyos-lts"]
 [kotoamatsukami.features]
 autoUpdate = false
 remoteUnlock = true
-qbittorrent-nox = true
 netbirdPort = 51281
 allowTCP = [8096]
 gaming = true
