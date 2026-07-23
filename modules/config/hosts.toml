@@ -37,6 +37,7 @@ remoteUnlock = true
 qbittorrent-nox = true
 netbirdPort = 51281
 allowTCP = [8096]
+gaming = true
 
 [kotoamatsukami.features.kernel]
 opti = "x86_64-v3"
