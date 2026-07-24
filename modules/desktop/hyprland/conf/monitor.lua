@@ -1,7 +1,7 @@
 -- vim: filetype=lua
 
 local h = require("lua.helpers")
-local monitors = require("lua.monitors." .. h.get_hostname())
+local monitors = h.get_host().monitors
 
 for _, monitor in ipairs(monitors) do
   local config = {}

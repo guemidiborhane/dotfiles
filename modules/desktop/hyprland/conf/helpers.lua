@@ -43,4 +43,13 @@ function M.define_submap(key, mod, name, func)
   end)
 end
 
+function M.get_host()
+  local host = require("lua.hosts." .. M.get_hostname())
+  host.env = host.env or {}
+  host.monitors = host.monitors or {}
+  host.workspace_rules = host.workspace_rules or {}
+  host.workspaces = host.workspaces or {}
+  return host
+end
+
 return M

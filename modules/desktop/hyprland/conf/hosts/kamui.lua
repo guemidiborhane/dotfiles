@@ -1,6 +1,8 @@
 -- vim: filetype=lua
 
-local monitors = {
+local M = {}
+
+M.monitors = {
   {
     output = "eDP-1",
     mode = "1920x1200@60",
@@ -25,9 +27,23 @@ local monitors = {
   },
 }
 
-hl.workspace_rule({
-  workspace = "m[eDP-1]",
-  layout = "scrolling",
-})
+M.workspace_rules = {
+  ["m[eDP-1]"] = { layout = "scrolling", }
+}
 
-return monitors
+local v = require("lua.vars")
+M.workspaces = {
+  [2] = { on_created_empty = "app:helium" },
+  -- named/special
+  workshop = { key = "G", on_created_empty = "tmux:workshop" },
+  messaging = { key = "D", clients = v.messaging_clients, },
+  music = {
+    key = "S",
+    on_created_empty = "app:env -u DISPLAY spotify",
+    clients = {
+      { class = "^(spotify)$" },
+    },
+  },
+}
+
+return M

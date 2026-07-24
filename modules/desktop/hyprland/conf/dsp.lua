@@ -50,6 +50,11 @@ M.dispatchers.handlers = {
 
   ["popup:"] = function(cmd, _)
     return M.dispatchers:get("term:" .. cmd, "terminal.popup")
+  end,
+
+  ["tmux:"] = function(session_name)
+    local cmd = string.format("tmux new-session -As %q", session_name)
+    return M.dispatchers:get("term:" .. cmd, session_name .. "-session")
   end
 }
 

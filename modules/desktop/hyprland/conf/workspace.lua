@@ -5,32 +5,28 @@ local d = require("lua.dsp")
 local bind = h.bind
 local Meta, Control, Shift, Alt = v.mods.Meta, v.mods.Control, v.mods.Shift, v.mods.Alt
 
-d.dispatchers:add("tmux", function(session_name)
-  local cmd = string.format("tmux new-session -As %q", session_name)
-  return d.cmd("term:" .. cmd, session_name .. "-session")
-end)
+local host_rules = h.get_host().workspace_rules
+for selector, rule in next, host_rules do
+  local r = {}
+  for k, vv in next, rule do r[k] = vv end
+  r.workspace = selector
+  hl.workspace_rule(r)
+end
 
 local workspaces = {
   [1] = { on_created_empty = v.apps.browser.main },
-  [2] = { on_created_empty = "app:helium" },
   [3] = {
     on_created_empty = "tmux:monitors",
     clients = {
       { class = "monitors-session" }
     }
   },
-
-  -- named/special
-  workshop = { key = "G", on_created_empty = "tmux:workshop" },
-  messaging = { key = "D", clients = v.messaging_clients, },
-  music = {
-    key = "S",
-    on_created_empty = "app:env -u DISPLAY spotify",
-    clients = {
-      { class = "^(spotify)$" },
-    },
-  },
 }
+
+local host_workspaces = h.get_host().workspaces
+for name, workspace in next, host_workspaces do
+  workspaces[name] = workspace
+end
 
 local special_prefix = "special:"
 local function smart_focus(workspace, close_all)
@@ -84,6 +80,13 @@ local function workspace_rules(name, mod, i)
         workspace = name .. " silent",
       })
     end
+  end
+
+  if opts.monitor then
+    hl.workspace_rule({
+      workspace = tostring(name),
+      monitor = opts.monitor,
+    })
   end
 end
 
