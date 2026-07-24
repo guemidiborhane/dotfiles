@@ -2,6 +2,8 @@ local d = require("lua.dsp")
 local v = require("lua.vars")
 local apps = v.apps
 
+local host_env = require("lua.helpers").get_host().env
+
 local variables = {
   TERMINAL = d.cmd(apps.terminal.main),
   BROWSER = d.cmd(apps.browser.main),
@@ -23,6 +25,10 @@ local variables = {
   ELECTRON_OZONE_PLATFORM_HINT = "wayland",
   OZONE_PLATFORM = "wayland",
 }
+
+for key, value in next, host_env do
+  variables[key] = value
+end
 
 local function import_env_variables()
   local envs = {
