@@ -293,7 +293,7 @@ boot:
     just rebuild boot no
 
 # alias: `update all`
-yay operation="switch":
+yay operation="boot":
     just update all {{ operation }}
 
 # Rollback update
