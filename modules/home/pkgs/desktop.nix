@@ -39,7 +39,6 @@
         telegram-desktop
         thunderbird
         tor-browser
-        legcord
         viewnior
         wiremix
         xarchiver
