@@ -88,6 +88,13 @@ local function workspace_rules(name, mod, i)
       monitor = opts.monitor,
     })
   end
+
+  if opts.layout then
+    hl.workspace_rule({
+      workspace = tostring(name),
+      layout = opts.layout,
+    })
+  end
 end
 
 local function numbered_workspaces(mod, i, offset)
