@@ -65,6 +65,7 @@
         foot
         vicinae
         mpv
+        discord
       ];
     };
 }
