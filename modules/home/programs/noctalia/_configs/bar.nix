@@ -45,7 +45,9 @@
           ];
         };
         DP-3 = {
-          right = [ ];
+          right = with widgets; [
+            monitors.system
+          ];
         };
       };
     in
