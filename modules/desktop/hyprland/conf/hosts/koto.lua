@@ -39,6 +39,7 @@ M.workspaces = {
     key = "D",
     monitor = leftMonitor,
     clients = v.messaging_clients,
+    layout = "scrolling",
   },
   [8] = {
     key = "S",
