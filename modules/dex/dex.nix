@@ -88,7 +88,25 @@ in
     };
 
     flake.modules.homeManager.dex =
-      { config, pkgs, ... }:
+      { pkgs, metadata, ... }:
+      let
+        dexPkg = pkgs.writeScriptBin "dex" /* sh */ ''
+          #!/usr/bin/env sh
+          exec ${pkgs.just}/bin/just \
+            --justfile "${metadata.flake}/Justfile" \
+            --working-directory "${metadata.flake}" \
+            "$@"
+        '';
+        yayPkg = pkgs.writeScriptBin "yay" /* sh */ ''
+          #!/usr/bin/env sh
+          setsid ${pkgs.kitty}/bin/kitty sh -c '
+            "${dexPkg}/bin/dex" yay "$@"
+            printf "\n[Press Enter to exit]"
+            read -r _
+          ' _ "$@" </dev/null >/dev/null 2>&1 &
+          disown
+        '';
+      in
       {
         programs.fish = {
           shellAbbrs = {
@@ -96,16 +114,17 @@ in
             db = "dex boot";
             dt = "dex test";
           };
-          shellAliases = {
-            yay = "${pkgs.kitty}/bin/kitty $SHELL -ic 'dex yay'";
-          };
-          functions.dex = {
-            wraps = "just";
-            body = /* fish */ ''
-              just --working-directory $NH_FLAKE --justfile $NH_FLAKE/Justfile $argv
-            '';
+
+          completions = {
+            dex = "complete -c dex --wraps just";
+            yay = "complete -c yay --wraps dex";
           };
         };
+
+        home.packages = [
+          dexPkg
+          yayPkg
+        ];
       };
   };
 }
