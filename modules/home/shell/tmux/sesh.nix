@@ -16,23 +16,6 @@
             startup_command = "ls";
             preview_command = "${lib.getExe pkgs.eza} --all --git --icons --color=always {}";
           };
-          window = [
-            {
-              name = "nixos";
-              path = "~/.config/nixos";
-              startup_script = "exec $EDITOR";
-            }
-          ];
-          session = [
-            {
-              name = "system";
-              disable_startup_command = true;
-              windows = [
-                "nixos"
-                "dotfiles"
-              ];
-            }
-          ];
         };
       };
 
