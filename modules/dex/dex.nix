@@ -93,6 +93,7 @@ in
         programs.fish = {
           shellAbbrs = {
             ds = "dex switch";
+            db = "dex boot";
             dt = "dex test";
           };
           shellAliases = {
