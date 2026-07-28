@@ -6,6 +6,7 @@
       imports = with self.modules.nixos; [
         auto-upgrade
         gaming
+        jellyfin
         kanata
         remote-unlock
         virtualisation
