@@ -4,6 +4,7 @@
     { inputs, ... }:
     {
       imports = with self.modules.nixos; [
+        adguard
         auto-upgrade
         gaming
         jellyfin
