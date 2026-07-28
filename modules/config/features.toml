@@ -10,6 +10,7 @@ allowUDP = []
 libvirtd = false
 virtualbox = false
 podman = true
+jellyfin = false
 
 [kernel]
 opti = "x86_64-v3"
