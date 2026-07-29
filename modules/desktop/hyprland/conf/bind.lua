@@ -29,9 +29,6 @@ end
 
 bind("C", Meta, "hyprpicker -a")
 
-bind("Print", nil, "capture -m region")
-bind("Print", Shift, "capture")
-
 bind("X", { Meta, Control }, "hyprctl kill")
 bind("R", { Meta, Control, Shift }, "hypres restore")
 bind("R", { Meta, Shift }, "hyprctl reload")
@@ -47,35 +44,32 @@ bind("Grave", Meta, "vic:launch/wm/switch-windows")
 bind("Space", { Control, Shift }, "vic:launch/core/search-emojis")
 bind("H", { Control, Alt }, "vic:launch/clipboard/history")
 
-d:add("noc", function(cmd) return "noctalia-shell ipc call " .. cmd end)
-bind(0, Meta, "noc:sessionMenu toggle")
-bind("Z", Alt, "noc:notifications toggleHistory")
+d:add("noc", function(cmd) return "noctalia msg " .. cmd end)
+bind("Print", nil, "noc:screenshot-region")
+bind("Print", Shift, "noc:screenshot-fullscreen")
+bind(0, Meta, "noc:panel-toggle session")
+bind("Z", Alt, "noc:panel-toggle control-center notifications")
 bind("L", { Alt, Shift }, function()
   hl.dispatch(d.exec("noc:media pause"))
-  hl.dispatch(d.exec("noc:lockScreen lock"))
+  hl.dispatch(d.exec("noc:session lock"))
   hl.timer(function() hl.dispatch(hl.dsp.dpms({ action = "disable" })) end, { timeout = 500, type = "oneshot" })
 end, { release = true })
 h.define_submap("W", Meta, "wallpaper", function()
-  bind("C", nil, "noc:wallpaper toggle")
-  bind("R", nil, function()
-    local monitors = hl.get_monitors()
-    for _, monitor in ipairs(monitors) do
-      hl.dispatch(d.exec("noc:wallpaper random " .. monitor.name))
-    end
-  end)
+  bind("C", nil, "noc:panel-toggle wallpaper")
+  bind("R", nil, "noc:wallpaper-random")
 end)
 
 local special_keys = {
-  MonBrightnessUp = { ipc = "brightness increase", repeating = true },
-  MonBrightnessDown = { ipc = "brightness decrease", repeating = true },
-  AudioRaiseVolume = { ipc = "volume increase", repeating = true },
-  AudioLowerVolume = { ipc = "volume decrease", repeating = true },
-  AudioMute = { ipc = "volume muteOutput", repeating = true },
-  AudioMicMute = { ipc = "volume muteInput", repeating = true },
+  MonBrightnessUp = { ipc = "brightness-up", repeating = true },
+  MonBrightnessDown = { ipc = "brightness-down", repeating = true },
+  AudioRaiseVolume = { ipc = "volume-up", repeating = true },
+  AudioLowerVolume = { ipc = "volume-down", repeating = true },
+  AudioMute = { ipc = "volume-mute", repeating = true },
+  AudioMicMute = { ipc = "mic-mute", repeating = true },
   AudioNext = { ipc = "media next" },
   AudioPrev = { ipc = "media previous" },
-  AudioPause = { ipc = "media playPause" },
-  AudioPlay = { ipc = "media playPause" },
+  AudioPause = { ipc = "media toggle" },
+  AudioPlay = { ipc = "media toggle" },
 }
 for key, entry in next, special_keys do
   bind("XF86" .. key, nil, "noc:" .. entry.ipc, { locked = true, repeating = entry.repeating or false })

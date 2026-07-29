@@ -33,13 +33,11 @@ apply_profile() {
 	case "$profile" in
 	battery)
 		hyprland_config false
-		noctalia-shell ipc call powerProfile enableNoctaliaPerformance || true
-		noctalia-shell ipc call idleInhibitor disable || true
+		noctalia msg caffeine-disable || true
 		;;
 	ac)
 		hyprland_config true
-		noctalia-shell ipc call powerProfile disableNoctaliaPerformance || true
-		noctalia-shell ipc call idleInhibitor enable || true
+		noctalia msg caffeine-enable || true
 		;;
 	esac
 }

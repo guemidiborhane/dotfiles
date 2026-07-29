@@ -58,8 +58,7 @@
         dex.dotfiles = discovered;
 
         home.sessionVariables.PATH = "$PATH:${config.home.homeDirectory}/${scriptsPath}";
-        programs.noctalia-shell.settings.wallpaper.directory =
-          "${config.home.homeDirectory}/${wallpapersPath}";
+        programs.noctalia.settings.wallpaper.directory = "${config.home.homeDirectory}/${wallpapersPath}";
       };
     };
 }
