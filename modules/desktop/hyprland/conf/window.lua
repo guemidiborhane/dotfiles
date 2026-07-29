@@ -138,9 +138,7 @@ local rules = {
   },
 }
 
-function rules:add(rule)
-  table.insert(self, rule)
-end
+function rules:add(rule) table.insert(self, rule) end
 
 local floating_windows = {
   { class = ".*(Networks).*" },
@@ -163,7 +161,7 @@ local floating_windows = {
   { class = "Localsend_app" },
   { class = "nz.co.mega." },
   { class = "TeamViewer" },
-  { class = "dev.noctalia.noctalia-qs" },
+  { class = "dev.noctalia.Noctalia" },
   { class = "io.missioncenter.MissionCenter" },
 
   { title = "Virtual Machine Manager" },
@@ -177,8 +175,8 @@ local floating_windows = {
   { class = "solaar" },
   { class = "udiskie" },
   { class = "xdg-desktop-portal-gtk" },
-  { class = "thunderbird",                   initial_title = "Write: %(no subject%)" },
-  { class = "terminal.popup" }
+  { class = "thunderbird", initial_title = "Write: %(no subject%)" },
+  { class = "terminal.popup" },
 }
 
 for _, match in ipairs(floating_windows) do
@@ -193,9 +191,11 @@ for _, match in ipairs(v.messaging_clients) do
 end
 
 local no_share_windows = {
-  { class = "Bitwarden" }
+  { class = "Bitwarden" },
 }
-for _, match in ipairs(v.messaging_clients) do table.insert(no_share_windows, match) end
+for _, match in ipairs(v.messaging_clients) do
+  table.insert(no_share_windows, match)
+end
 for _, match in ipairs(no_share_windows) do
   rules:add({ match = match, no_screen_share = true })
 end
@@ -222,3 +222,14 @@ hl.on("window.urgent", function(w)
   hl.dispatch(window.move({ window = w, workspace = active.name }))
   hl.dispatch(hl.dsp.focus({ window = w }))
 end)
+
+hl.layer_rule({
+  name = "noctalia",
+  match = {
+    namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+  },
+  no_anim = true,
+  ignore_alpha = 0.5,
+  blur = true,
+  blur_popups = true,
+})

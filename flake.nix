@@ -33,7 +33,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/legacy-v4";
+      url = "github:noctalia-dev/noctalia-shell/cachix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur = {

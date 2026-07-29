@@ -22,7 +22,6 @@
         glib # gsettings
         gnome-disk-utility
         gparted
-        hyprshot
         inkscape
         libreoffice-fresh
         libsForQt5.qt5ct
