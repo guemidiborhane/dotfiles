@@ -61,6 +61,7 @@
           providers = {
             applications.preferences.launchPrefix = "hydrun --";
             clipboard.preferences.encryption = true;
+            files.enabled = false;
           };
 
           launcher_window = {
