@@ -26,6 +26,7 @@ x-scheme-handler/mailto=userapp-Thunderbird-2120J3.desktop
 message/rfc822=userapp-Thunderbird-2120J3.desktop
 x-scheme-handler/mid=userapp-Thunderbird-2120J3.desktop
 x-scheme-handler/net.thunderbird=userapp-Thunderbird-TSAYR3.desktop
+x-scheme-handler/bitwarden=bitwarden.desktop
 
 [Added Associations]
 application/x-shellscript=nvim.desktop;
