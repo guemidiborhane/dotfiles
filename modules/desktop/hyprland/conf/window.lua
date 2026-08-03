@@ -156,7 +156,7 @@ local floating_windows = {
   { title = "^Save As(.*)$" },
   { title = "^Select a File(.*)$" },
 
-  { class = "Bitwarden" },
+  { class = "bitwarden" },
   { class = "GParted" },
   { class = "Localsend_app" },
   { class = "nz.co.mega." },
@@ -191,7 +191,7 @@ for _, match in ipairs(v.messaging_clients) do
 end
 
 local no_share_windows = {
-  { class = "Bitwarden" },
+  { class = "bitwarden" },
 }
 for _, match in ipairs(v.messaging_clients) do
   table.insert(no_share_windows, match)
