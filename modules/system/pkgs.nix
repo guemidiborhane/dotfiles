@@ -19,6 +19,8 @@
           libnotify
           bc
           btop
+          netwatch
+          syswatch
           bandwhich
           lm_sensors
           jq
