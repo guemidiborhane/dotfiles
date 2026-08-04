@@ -165,6 +165,13 @@
                 variant = "destructive";
               }
             ];
+
+            clipboard_enabled = false;
+            mpris.blacklist = [
+              "chromium"
+              "firefox"
+              "mpv"
+            ];
           };
 
           location.auto_locate = true;
@@ -172,7 +179,10 @@
             enabled = true;
             temperature_night = 3500;
           };
-          osd.position = "bottom_center";
+          osd = {
+            position = "bottom_center";
+            kinds.media = false;
+          };
 
           lockscreen_widgets = {
             enabled = false;
@@ -224,6 +234,8 @@
             transition_duration = 500;
           };
 
+          audio.enable_overdrive = true;
+
           widget = {
             clock.format = "%a %d · %I:%M %p";
             bluetooth.color = "secondary";
@@ -233,7 +245,10 @@
               label_min_width = 3;
             };
             ram.display = "text";
-            temp.display = "text";
+            temp = {
+              display = "text";
+              glyph_position = "after";
+            };
             network = {
               show_label = false;
               show_vpn_label = true;
@@ -248,7 +263,10 @@
               show_label = false;
             };
             privacy.hide_inactive = true;
-            tray.drawer = true;
+            tray = {
+              drawer = true;
+              pinned = [ "udiskie" ];
+            };
             audio-switcher.type = "blackbartblues/audio-switcher:widget";
             hypr-screen-mirror.type = "profidev/hypr-screen-mirror:widget";
             special-workspaces = {
