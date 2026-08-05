@@ -142,9 +142,8 @@ disko host="" disk="":
     gum style --foreground 220 "Starting in 5 seconds... (Ctrl+C to abort)"
     sleep 5
 
-    gum spin --show-output --spinner dot --title "Running disko on $DISK..." -- \
-        sudo {{ nix }} run github:nix-community/disko -- \
-            --mode disko --flake .#$RESOLVED
+    sudo {{ nix }} run github:nix-community/disko -- \
+        --mode disko --flake .#$RESOLVED
 
 # Install NixOS
 nixos-install host="":
@@ -204,7 +203,6 @@ remove-host name="":
 update flake="" operation="":
     #!/usr/bin/env bash
     set -euo pipefail
-    just flake
 
     get_inputs() {
         {{ nix }} flake metadata --json 2>/dev/null | jq -r '.locks.nodes.root.inputs | keys[]' || true
@@ -219,8 +217,7 @@ update flake="" operation="":
             return 1
         fi
 
-        gum spin --show-output --spinner dot --title "Updating: $ARGS" -- \
-            {{ nix }} flake update $ARGS
+        {{ nix }} flake update $ARGS
 
         echo
         gum style --foreground 212 "✓ Flake updated successfully"
