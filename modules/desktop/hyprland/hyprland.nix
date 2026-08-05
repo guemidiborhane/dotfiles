@@ -1,4 +1,7 @@
 { self, ... }:
+let
+  package = pkgs: pkgs.hyprland;
+in
 {
   flake-file.inputs.hyprland.url = "github:hyprwm/Hyprland";
   flake = {
@@ -13,7 +16,7 @@
         imports = [ inputs.hyprland.nixosModules.default ];
         programs.hyprland = {
           enable = true;
-          package = pkgs.hyprland;
+          package = package pkgs;
         };
 
         environment.systemPackages = with pkgs; [
@@ -44,9 +47,9 @@
         wayland.systemd.target = "${target}.target";
         wayland.windowManager.hyprland = {
           enable = true;
+          package = package pkgs;
           systemd.enable = false;
           configType = "lua";
-          package = pkgs.hyprland;
           extraConfig = /* lua */ ''
             require("lua")
           '';
