@@ -11,7 +11,7 @@
       gtk =
         let
           theme = {
-            package = pkgs.dracula-theme;
+            package = pkgs.stable.dracula-theme;
             name = "Dracula";
           };
         in

@@ -241,12 +241,12 @@
             bluetooth.color = "secondary";
             control-center.glyph = "user-circle";
             cpu = {
-              display = "text";
+              visualization = "none";
               label_min_width = 3;
             };
-            ram.display = "text";
+            ram.visualization = "none";
             temp = {
-              display = "text";
+              visualization = "none";
               glyph_position = "after";
             };
             network = {
@@ -266,6 +266,7 @@
             tray = {
               drawer = true;
               pinned = [ "udiskie" ];
+              match_adjacent_spacing = true;
             };
             audio-switcher.type = "blackbartblues/audio-switcher:widget";
             hypr-screen-mirror.type = "profidev/hypr-screen-mirror:widget";
