@@ -13,7 +13,7 @@
         coreutils # mktemp, basename, cat
         util-linux # uuidgen
         jq # hyprctl client JSON parsing
-        hyprland # hyprctl
+        config.wayland.windowManager.hyprland.finalPackage
       ];
 
       hydrun = pkgs.stdenv.mkDerivation {
