@@ -6,10 +6,7 @@
 
       virtualisation.libvirtd = {
         enable = true;
-        qemu = {
-          runAsRoot = true;
-          swtpm.enable = true;
-        };
+        qemu.runAsRoot = false;
       };
       programs.virt-manager.enable = true;
     };
