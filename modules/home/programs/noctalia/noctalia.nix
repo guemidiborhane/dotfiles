@@ -15,6 +15,7 @@
       inputs,
       lib,
       config,
+      hardware,
       ...
     }:
     let
@@ -39,7 +40,8 @@
           "caffeine"
           "bluetooth"
           "network"
-        ];
+        ]
+        ++ lib.optional hardware.isLaptop "battery";
         workspaces = [
           "workspaces"
           "special-workspaces"
@@ -114,6 +116,8 @@
             animation.speed = animSpeed;
             panel = {
               open_near_click_control_center = true;
+              session_placement = "floating";
+              session_position = "center";
             };
             screenshot = {
               pipe_command = /* sh */ ''
@@ -128,43 +132,55 @@
               save_to_file = false;
             };
             shadow.direction = "center";
-            session.actions = [
-              {
-                action = "lock";
-                countdown_seconds = 0.0;
-                enabled = true;
-                shortcut = "o";
-                variant = "default";
-              }
-              {
-                action = "logout";
-                countdown_seconds = 0.0;
-                enabled = true;
-                shortcut = "e";
-                variant = "default";
-              }
-              {
-                action = "lock_and_suspend";
-                countdown_seconds = 0.0;
-                enabled = true;
-                shortcut = "s";
-                variant = "default";
-              }
-              {
-                action = "reboot";
-                countdown_seconds = 0.0;
-                enabled = true;
-                shortcut = "r";
-                variant = "default";
-              }
-              {
-                action = "shutdown";
-                countdown_seconds = 0.0;
-                enabled = true;
-                shortcut = "0";
-                variant = "destructive";
-              }
-            ];
+            session = {
+              grid = true;
+              grid_columns = 3;
+              actions = [
+                {
+                  action = "lock";
+                  countdown_seconds = 0.0;
+                  enabled = true;
+                  shortcut = "o";
+                  variant = "default";
+                }
+                {
+                  action = "logout";
+                  countdown_seconds = 0.0;
+                  enabled = true;
+                  shortcut = "e";
+                  variant = "default";
+                }
+                {
+                  action = "lock_and_suspend";
+                  countdown_seconds = 0.0;
+                  enabled = true;
+                  shortcut = "s";
+                  variant = "default";
+                }
+                {
+                  action = "command";
+                  command = "systemctl hibernate";
+                  countdown_seconds = 10.0;
+                  enabled = true;
+                  shortcut = "H";
+                  variant = "default";
+                }
+                {
+                  action = "reboot";
+                  countdown_seconds = 0.0;
+                  enabled = true;
+                  shortcut = "r";
+                  variant = "default";
+                }
+                {
+                  action = "shutdown";
+                  countdown_seconds = 10.0;
+                  enabled = true;
+                  shortcut = "0";
+                  variant = "destructive";
+                }
+              ];
+            };
 
             clipboard_enabled = false;
             mpris.blacklist = [
@@ -172,6 +188,30 @@
               "firefox"
               "mpv"
             ];
+          };
+
+          idle = {
+            behavior_order = [
+              "lock"
+              "screen-off"
+              "lock-and-suspend"
+            ];
+            behavior = {
+              lock = {
+                enabled = true;
+                timeout = 600;
+              };
+
+              screen-off = {
+                enabled = true;
+                timeout = 660;
+              };
+
+              lock-and-suspend = {
+                enabled = hardware.isLaptop;
+                timeout = 900;
+              };
+            };
           };
 
           location.auto_locate = true;
@@ -320,11 +360,10 @@
               "eDP-1" = mkBar {
                 end = [
                   "temp"
+                  "hypr-screen-mirror"
                   "group:status"
-                  "battery"
                   "tray"
                   "notifications"
-                  "hypr-screen-mirror"
                 ];
               };
             };
