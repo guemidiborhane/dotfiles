@@ -58,7 +58,14 @@
         dex.dotfiles = discovered;
 
         home.sessionVariables.PATH = "$PATH:${config.home.homeDirectory}/${scriptsPath}";
-        programs.noctalia.settings.wallpaper.directory = "${config.home.homeDirectory}/${wallpapersPath}";
+        programs.noctalia.settings.wallpaper =
+          let
+            directory = "${config.home.homeDirectory}/${wallpapersPath}";
+          in
+          {
+            inherit directory;
+            default.path = "${directory}/house.jpg";
+          };
       };
     };
 }
