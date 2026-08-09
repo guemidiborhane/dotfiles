@@ -1,0 +1,28 @@
+{
+  "aliases": {
+    "alsa_input.pci-0000_c4_00.6.HiFi__Mic1__source": "Built-in Microphone",
+    "alsa_output.pci-0000_c4_00.1.HiFi__HDMI2__sink": "HDMI",
+    "alsa_output.pci-0000_c4_00.6.HiFi__Speaker__sink": "Built-in Speaker",
+    "bluetooth:41:AA:00:36:F7:9B:input": "Iza M1",
+    "bluetooth:41:AA:00:36:F7:9B:output": "Iza M1"
+  },
+  "hiddenInputs": {},
+  "hiddenOutputs": {
+    "alsa_output.pci-0000_c4_00.1.HiFi__HDMI1__sink": true,
+    "alsa_output.pci-0000_c4_00.1.HiFi__HDMI3__sink": true,
+    "alsa_output.pci-0000_c4_00.1.HiFi__HDMI4__sink": true
+  },
+  "icons": {
+    "bluetooth:41:AA:00:36:F7:9B:input": "tws",
+    "bluetooth:41:AA:00:36:F7:9B:output": "tws"
+  },
+  "knownBluetoothInputs": {
+    "41:AA:00:36:F7:9B": "Baseus Bowie M1",
+    "A4:05:6E:75:AF:2E": "1MORE SonoFlow"
+  },
+  "slots": {
+    "41:AA:00:36:F7:9B": 1,
+    "A4:05:6E:75:AF:2E": 2
+  },
+  "version": 1
+}

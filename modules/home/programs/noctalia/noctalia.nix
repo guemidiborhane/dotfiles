@@ -75,7 +75,6 @@
           "group:status"
           "tray"
           "notifications"
-          "control-center"
         ];
       };
 
@@ -105,6 +104,8 @@
         ./_dracula.nix
       ];
 
+      dex.dotfiles.".local/state/noctalia/plugins/data/blackbartblues/audio-switcher/preferences.json" =
+        ./audio-switcher.json;
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
@@ -134,43 +135,45 @@
             shadow.direction = "center";
             session = {
               grid = true;
-              grid_columns = 3;
+              grid_columns = 2;
               actions = [
                 {
                   action = "lock";
                   countdown_seconds = 0.0;
                   enabled = true;
-                  shortcut = "o";
-                  variant = "default";
+                  shortcut = "l";
+                  variant = "outline";
                 }
                 {
                   action = "logout";
-                  countdown_seconds = 0.0;
+                  countdown_seconds = 10.0;
                   enabled = true;
                   shortcut = "e";
-                  variant = "default";
+                  variant = "destructive";
                 }
                 {
                   action = "lock_and_suspend";
-                  countdown_seconds = 0.0;
+                  countdown_seconds = 3.0;
                   enabled = true;
                   shortcut = "s";
-                  variant = "default";
+                  variant = "secondary";
                 }
                 {
                   action = "command";
                   command = "systemctl hibernate";
                   countdown_seconds = 10.0;
                   enabled = true;
-                  shortcut = "H";
-                  variant = "default";
+                  shortcut = "h";
+                  variant = "destructive";
+                  label = "Hibernate";
+                  glyph = "zzz";
                 }
                 {
                   action = "reboot";
-                  countdown_seconds = 0.0;
+                  countdown_seconds = 10.0;
                   enabled = true;
                   shortcut = "r";
-                  variant = "default";
+                  variant = "destructive";
                 }
                 {
                   action = "shutdown";
@@ -257,7 +260,7 @@
           ];
 
           plugin_settings = {
-            "nzlov/daily-wallpaper".source = "nasa";
+            "nzlov/daily-wallpaper".source = "bing";
             "ycf/mawaqit" = {
               city = "Algiers";
               country = "DZ";
@@ -266,6 +269,9 @@
               tune = true;
               tuneAsr = 1;
               tuneMaghrib = 3;
+            };
+            "blackbartblues/audio-switcher" = {
+              show_percentage = false;
             };
           };
 
@@ -277,17 +283,25 @@
           audio.enable_overdrive = true;
 
           widget = {
-            clock.format = "%a %d · %I:%M %p";
+            clock = {
+              anchor = true;
+              format = "%a %d · %I:%M %p";
+            };
             bluetooth.color = "secondary";
             control-center.glyph = "user-circle";
             cpu = {
               visualization = "none";
               label_min_width = 3;
+              color = "secondary";
             };
-            ram.visualization = "none";
+            ram = {
+              visualization = "none";
+              color = "primary";
+            };
             temp = {
               visualization = "none";
               glyph_position = "after";
+              color = "secondary";
             };
             network = {
               show_label = false;
