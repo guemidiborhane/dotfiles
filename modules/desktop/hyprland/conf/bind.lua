@@ -60,8 +60,8 @@ h.define_submap("W", Meta, "wallpaper", function()
 end)
 
 local special_keys = {
-  MonBrightnessUp = { ipc = "brightness-up", repeating = true },
-  MonBrightnessDown = { ipc = "brightness-down", repeating = true },
+  MonBrightnessUp = { ipc = "brightness-up all", repeating = true },
+  MonBrightnessDown = { ipc = "brightness-down all", repeating = true },
   AudioRaiseVolume = { ipc = "volume-up", repeating = true },
   AudioLowerVolume = { ipc = "volume-down", repeating = true },
   AudioMute = { ipc = "volume-mute", repeating = true },
