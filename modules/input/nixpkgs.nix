@@ -1,15 +1,11 @@
-{ _, ... }:
+{ lib, ... }:
 {
-  flake-file.inputs =
-    let
-      stable = "github:nixos/nixpkgs/nixos-26.05";
-      unstable = "github:nixos/nixpkgs/nixos-unstable";
-    in
-    {
-      nixpkgs-stable.url = stable;
-      nixpkgs-unstable.url = unstable;
+  flake-file.inputs = {
+    nixpkgs.url = lib.mkForce "";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-      nixpkgs.url = unstable;
-      nixpkgs-lib.follows = "nixpkgs";
-    };
+    nixpkgs.follows = "nixpkgs-unstable";
+    nixpkgs-lib.follows = "nixpkgs";
+  };
 }

@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   flake.overlays = {
     # This one brings our custom packages from the 'pkgs' directory
@@ -9,15 +9,12 @@
     # https://nixos.wiki/wiki/Overlays
     modifications = final: prev: { };
 
-    # When applied, the unstable nixpkgs set (declared in the flake inputs) will
-    # be accessible through 'pkgs.unstable'
+    # When applied, the stable nixpkgs set (declared in the flake inputs) will
+    # be accessible through 'pkgs.stable'
     nixpkgs =
       final: prev:
       let
-        config = {
-          inherit (prev.stdenv) system;
-          config.allowUnfree = true;
-        };
+        config = self.dex.helpers.mkNixPkgsConfig prev.stdenv.system { };
       in
       {
         unstable = import inputs.nixpkgs-unstable config;

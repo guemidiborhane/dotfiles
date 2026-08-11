@@ -5,18 +5,26 @@ let
   inherit (dex) defaultSystem;
   inherit (dex) hostModules homeModules;
 
-  mkPkgs =
-    system:
-    import inputs.nixpkgs {
+  mkNixPkgsConfig =
+    system: overrides:
+    {
       inherit system;
-      overlays = builtins.attrValues self.overlays;
 
       config = {
         allowBroken = false;
         allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) self.unfreePackages;
         permittedInsecurePackages = [ ];
       };
-    };
+    }
+    // overrides;
+
+  mkPkgs =
+    system:
+    let
+      overlays = builtins.attrValues self.overlays;
+      config = mkNixPkgsConfig system { inherit overlays; };
+    in
+    import inputs.nixpkgs config;
 
   mkContext = hostOrContext: {
     inherit (dex) metadata secrets;
@@ -59,6 +67,8 @@ let
 in
 {
   flake.dex.helpers = {
+    inherit mkNixPkgsConfig;
+
     mkHost =
       host:
       let
