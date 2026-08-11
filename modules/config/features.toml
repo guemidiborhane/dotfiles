@@ -29,4 +29,3 @@ libvirtd = true
 
 [laptop]
 kanata = true
-libvirtd = true
