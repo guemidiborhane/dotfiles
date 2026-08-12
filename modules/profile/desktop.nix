@@ -1,71 +1,76 @@
 { self, ... }:
 {
-  flake.unfreePackages = [
-    "corefonts"
-    "vista-fonts"
-  ];
+  flake = {
+    unfreePackages = [
+      "corefonts"
+      "vista-fonts" # Calibri
+    ];
 
-  flake.modules.nixos.profiles-desktop =
-    {
-      inputs,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      imports = with self.modules.nixos; [
-        solaar
-        pipewire
-        desktop-hyprland
-        thunar
-        inputs.vicinae.nixosModules.default
-      ];
+    modules = {
+      nixos.profiles-desktop =
+        {
+          inputs,
+          lib,
+          pkgs,
+          ...
+        }:
+        {
+          imports = with self.modules.nixos; [
+            solaar
+            pipewire
+            desktop-hyprland
+            thunar
+            inputs.vicinae.nixosModules.default
+          ];
 
-      services = {
-        printing.enable = true;
-        udisks2.enable = true;
-        gvfs.enable = true;
-      };
+          services = {
+            printing.enable = true;
+            udisks2.enable = true;
+            gvfs.enable = true;
+          };
 
-      hardware.graphics.enable = true;
+          hardware.graphics.enable = true;
 
-      powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+          powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
-      programs = {
-        localsend.enable = true;
-        gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
-      };
+          programs = {
+            localsend.enable = true;
+            gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
+          };
 
-      environment.systemPackages = with pkgs; [
-        bitwarden-desktop
-      ];
+          environment.systemPackages = with pkgs; [
+            bitwarden-desktop
+          ];
 
-      fonts.packages = with pkgs; [
-        nerd-fonts.monaspace
-        nerd-fonts.jetbrains-mono
-        corefonts
-        vista-fonts
-      ];
+          fonts.packages = with pkgs; [
+            nerd-fonts.monaspace
+            nerd-fonts.jetbrains-mono
+            corefonts
+            vista-fonts
+            lexend
+          ];
+        };
+
+      homeManager.profiles-desktop =
+        { pkgs, ... }:
+        {
+          imports = with self.modules.homeManager; [
+            pkgs-desktop
+            desktop-hyprland
+            solaar
+
+            gnome-keyring
+            gnome-polkit
+            udiskie
+
+            zen-browser
+            kitty
+            foot
+            vicinae
+            mpv
+            discord
+          ];
+        };
     };
-
-  flake.modules.homeManager.profiles-desktop =
-    { pkgs, ... }:
-    {
-      imports = with self.modules.homeManager; [
-        pkgs-desktop
-        desktop-hyprland
-        solaar
-
-        gnome-keyring
-        gnome-polkit
-        udiskie
-
-        zen-browser
-        kitty
-        foot
-        vicinae
-        mpv
-        discord
-      ];
-    };
+  };
 }
