@@ -21,37 +21,46 @@
     let
       animSpeed = 2.0;
 
-      mkGroup = id: members: {
-        inherit members id;
+      mkGroup =
+        id: group:
+        {
+          inherit id;
 
-        enabled = true;
-        opacity = 0;
-        padding = 0;
-        radius = 3;
-      };
+          enabled = true;
+          opacity = 0;
+          padding = 0;
+          radius = 3;
+        }
+        // group;
 
-      groupDefs = {
-        clock = [
+      groupDefs = rec {
+        clock.members = [
           "clock"
           "mawaqit"
         ];
-        status = [
+        status.members = [
           "audio-switcher"
           "caffeine"
           "bluetooth"
           "network"
         ]
         ++ lib.optional hardware.isLaptop "battery";
-        workspaces = [
+        workspaces.members = [
           "workspaces"
           "special-workspaces"
         ];
-        sysmon = [
-          "cpu"
+        sysmon.members = [
           "temp"
+          "cpu"
           "ram"
         ];
-        network = [
+        sysmon-tray = {
+          inherit (sysmon) members;
+
+          accordion = true;
+          accordion_direction = "end";
+        };
+        network.members = [
           "network_rx"
           "network_tx"
         ];
@@ -293,6 +302,7 @@
               visualization = "none";
               label_min_width = 3;
               color = "secondary";
+              glyph_position = "after";
             };
             ram = {
               visualization = "none";
@@ -300,7 +310,7 @@
             };
             temp = {
               visualization = "none";
-              glyph_position = "after";
+              glyph_position = "before";
               color = "secondary";
             };
             network = {
@@ -373,7 +383,7 @@
               };
               "eDP-1" = mkBar {
                 end = [
-                  "temp"
+                  "group:sysmon-tray"
                   "hypr-screen-mirror"
                   "group:status"
                   "tray"
