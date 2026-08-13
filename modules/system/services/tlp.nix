@@ -5,6 +5,7 @@
     lib.mkIf (hardware.tlp or false) {
       services.tlp = {
         enable = true;
+        pd.enable = true;
         settings = {
           CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
           CPU_SCALING_GOVERNOR_ON_AC = "performance";

@@ -39,7 +39,8 @@
           "mawaqit"
         ];
         status.members = [
-          "audio-switcher"
+          "power_profile"
+          "audio_switcher"
           "caffeine"
           "bluetooth"
           "network"
@@ -47,14 +48,14 @@
         ++ lib.optional hardware.isLaptop "battery";
         workspaces.members = [
           "workspaces"
-          "special-workspaces"
+          "special_workspaces"
         ];
         sysmon.members = [
           "temp"
           "cpu"
           "ram"
         ];
-        sysmon-tray = {
+        sysmon_tray = {
           inherit (sysmon) members;
 
           accordion = true;
@@ -114,7 +115,7 @@
       ];
 
       dex.dotfiles.".local/state/noctalia/plugins/data/blackbartblues/audio-switcher/preferences.json" =
-        ./audio-switcher.json;
+        ./audio_switcher.json;
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
@@ -236,17 +237,6 @@
             kinds.media = false;
           };
 
-          lockscreen_widgets = {
-            enabled = false;
-            schema_version = 2;
-            widget_order = [ ];
-            grid = {
-              cell_size = 16;
-              major_interval = 4;
-              visible = true;
-            };
-          };
-
           control_center = {
             sidebar = "full";
             shortcuts = map (type: { inherit type; }) [
@@ -332,9 +322,9 @@
               pinned = [ "udiskie" ];
               match_adjacent_spacing = true;
             };
-            audio-switcher.type = "blackbartblues/audio-switcher:widget";
-            hypr-screen-mirror.type = "profidev/hypr-screen-mirror:widget";
-            special-workspaces = {
+            audio_switcher.type = "blackbartblues/audio-switcher:widget";
+            hypr_screen_mirror.type = "profidev/hypr-screen-mirror:widget";
+            special_workspaces = {
               type = "jamesfeeder/special-workspaces:special-workspaces";
               active_style = "ghost";
               capsule_padding = 10;
@@ -361,6 +351,10 @@
               style = "focus_hint";
             };
             battery.display_mode = "graphic";
+            power_profile = {
+              capsule = true;
+              icon_color = "tertiary";
+            };
           };
 
           bar.default = mkBar defaultBar // {
@@ -383,8 +377,8 @@
               };
               "eDP-1" = mkBar {
                 end = [
-                  "group:sysmon-tray"
-                  "hypr-screen-mirror"
+                  "group:sysmon_tray"
+                  "hypr_screen_mirror"
                   "group:status"
                   "tray"
                   "notifications"
