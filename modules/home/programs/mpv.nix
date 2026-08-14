@@ -37,6 +37,7 @@
           v = "cycle sub";
           n = "playlist-next";
           p = "playlist-prev";
+          o = "script-binding webtorrent/toggle-info";
         };
       };
 
