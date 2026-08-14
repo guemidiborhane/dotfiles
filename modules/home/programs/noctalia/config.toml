@@ -1,0 +1,251 @@
+[shell]
+clipboard_enabled = false
+font_family = "MonaspiceAr Nerd Font Propo"
+screen_time_enabled = true
+
+[shell.animation]
+speed = 2.0
+
+[theme]
+source = "custom"
+custom_palette = "dracula"
+
+[audio]
+enable_overdrive = true
+
+[bar.default]
+background_opacity = 0.85
+capsule_radius = 5
+contact_shadow = true
+font_weight = 400
+hover_highlight = false
+margin_edge = 5
+margin_ends = 10
+padding = 10
+radius = 5
+widget_spacing = 10
+
+[control_center]
+sidebar = "full"
+
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "caffeine"
+
+[[control_center.shortcuts]]
+type = "nightlight"
+
+[[control_center.shortcuts]]
+type = "notification"
+
+[[control_center.shortcuts]]
+type = "mic_mute"
+
+[idle]
+behavior_order = ["lock", "screen-off", "lock-and-suspend"]
+
+[idle.behavior.lock]
+enabled = true
+timeout = 600
+
+[idle.behavior.lock-and-suspend]
+timeout = 900
+
+[idle.behavior.screen-off]
+enabled = true
+timeout = 660
+
+[location]
+auto_locate = true
+
+[nightlight]
+enabled = true
+temperature_night = 3500
+
+[osd]
+position = "bottom_center"
+
+[osd.kinds]
+media = false
+
+[plugin_settings."blackbartblues/audio-switcher"]
+show_percentage = false
+
+[plugin_settings."nzlov/daily-wallpaper"]
+source = "bing"
+
+[plugin_settings."ycf/mawaqit"]
+city = "Algiers"
+country = "DZ"
+method = "19"
+panel_placement = "attached"
+tune = true
+tuneAsr = 1
+tuneMaghrib = 3
+
+[plugins]
+enabled = [
+  "blackbartblues/audio-switcher",
+  "nzlov/daily-wallpaper",
+  "profidev/hypr-screen-mirror",
+  "ycf/mawaqit",
+  "jamesfeeder/special-workspaces",
+]
+
+[shell.mpris]
+blacklist = ["chromium", "firefox", "mpv"]
+
+[shell.panel]
+open_near_click_control_center = true
+session_placement = "floating"
+session_position = "center"
+
+[shell.screenshot]
+pipe_to_command = true
+save_to_file = false
+
+[shell.session]
+grid = true
+grid_columns = 2
+
+[[shell.session.actions]]
+action = "lock"
+countdown_seconds = 0.0
+enabled = true
+shortcut = "l"
+variant = "outline"
+
+[[shell.session.actions]]
+action = "logout"
+countdown_seconds = 10.0
+enabled = true
+shortcut = "e"
+variant = "destructive"
+
+[[shell.session.actions]]
+action = "lock_and_suspend"
+countdown_seconds = 3.0
+enabled = true
+shortcut = "s"
+variant = "secondary"
+
+[[shell.session.actions]]
+action = "command"
+command = "systemctl hibernate"
+countdown_seconds = 10.0
+enabled = true
+glyph = "zzz"
+label = "Hibernate"
+shortcut = "h"
+variant = "destructive"
+
+[[shell.session.actions]]
+action = "reboot"
+countdown_seconds = 10.0
+enabled = true
+shortcut = "r"
+variant = "destructive"
+
+[[shell.session.actions]]
+action = "shutdown"
+countdown_seconds = 10.0
+enabled = true
+shortcut = "0"
+variant = "destructive"
+
+[shell.shadow]
+direction = "center"
+
+[wallpaper]
+transition = ["fade"]
+transition_duration = 500
+
+[widget.audio_switcher]
+type = "blackbartblues/audio-switcher:widget"
+
+[widget.battery]
+display_mode = "graphic"
+
+[widget.bluetooth]
+color = "secondary"
+
+[widget.clock]
+anchor = true
+format = "%a %d · %I:%M %p"
+
+[widget.control-center]
+glyph = "user-circle"
+
+[widget.cpu]
+color = "secondary"
+glyph_position = "after"
+label_min_width = 3
+visualization = "none"
+
+[widget.hypr_screen_mirror]
+type = "profidev/hypr-screen-mirror:widget"
+
+[widget.mawaqit]
+dynamicIcon = true
+hidePrayerName = true
+showElapsed = true
+type = "ycf/mawaqit:bar"
+widgetIcon = "moon-stars"
+
+[widget.network]
+show_label = false
+show_vpn_label = true
+vpn_status = "both"
+
+[widget.network_rx]
+display = "text"
+show_label = false
+
+[widget.network_tx]
+display = "text"
+show_label = false
+
+[widget.power_profile]
+capsule = true
+icon_color = "tertiary"
+
+[widget.privacy]
+hide_inactive = true
+
+[widget.ram]
+color = "primary"
+visualization = "none"
+
+[widget.special_workspaces]
+active_style = "ghost"
+capsule_padding = 10
+capsule_radius = 3
+enable_scroll = false
+hide_inactive = true
+type = "jamesfeeder/special-workspaces:special-workspaces"
+
+[widget.taskbar]
+focused_output_only = true
+group_by_workspace = true
+show_active_indicator = false
+
+[widget.temp]
+color = "secondary"
+glyph_position = "before"
+visualization = "none"
+
+[widget.tray]
+drawer = true
+match_adjacent_spacing = true
+pinned = ["udiskie"]
+
+[widget.workspaces]
+focused_output_only = true
+max_label_chars = 2
+scale = 1.5
+style = "focus_hint"
