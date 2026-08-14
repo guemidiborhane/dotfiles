@@ -1,4 +1,4 @@
-{ _, ... }:
+{ _, self, ... }:
 {
   flake-file.inputs.noctalia = {
     url = "github:noctalia-dev/noctalia-shell/cachix";
@@ -16,10 +16,12 @@
       lib,
       config,
       hardware,
+      pkgs,
       ...
     }:
     let
-      animSpeed = 2.0;
+      tomlConfig = read.toml ./config.toml;
+      inherit (self.helpers) read utils;
 
       mkGroup =
         id: group:
@@ -33,7 +35,7 @@
         }
         // group;
 
-      groupDefs = rec {
+      groups = lib.mapAttrs mkGroup rec {
         clock.members = [
           "clock"
           "mawaqit"
@@ -67,13 +69,6 @@
         ];
       };
 
-      groups = lib.mapAttrs mkGroup groupDefs;
-
-      baseCapsuleGroups = [
-        groups.clock
-        groups.workspaces
-      ];
-
       defaultBar = {
         start = [ "group:workspaces" ];
         center = [
@@ -92,301 +87,50 @@
       mkBar =
         bar:
         let
-          moduleLists = [
-            (bar.start or [ ])
-            (bar.center or [ ])
-            (bar.end or [ ])
-          ];
-          groupRefs = lib.filter (lib.hasPrefix groupPrefix) (lib.flatten moduleLists);
-          extra = map (ref: groups."${lib.removePrefix groupPrefix ref}") groupRefs;
+          moduleLists = {
+            start = bar.start or defaultBar.start;
+            center = bar.center or defaultBar.center;
+            end = bar.end or defaultBar.end;
+          };
+
+          groupRefs = lib.filter (lib.hasPrefix groupPrefix) (lib.flatten (lib.attrValues moduleLists));
+          capsule_group = map (ref: groups."${lib.removePrefix groupPrefix ref}") groupRefs;
         in
         {
-          start = bar.start or defaultBar.start;
-          center = bar.center or defaultBar.center;
-          end = bar.end or defaultBar.end;
-
-          capsule_group = baseCapsuleGroups ++ extra;
+          inherit capsule_group;
+          inherit (moduleLists) start center end;
         };
     in
     {
       imports = [
         inputs.noctalia.homeModules.default
-        ./_dracula.nix
       ];
 
-      dex.dotfiles.".local/state/noctalia/plugins/data/blackbartblues/audio-switcher/preferences.json" =
-        ./audio_switcher.json;
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
 
-        settings = {
-          shell = {
-            font_family = "MonaspiceAr Nerd Font Propo";
-            screen_time_enabled = true;
-            animation.speed = animSpeed;
-            panel = {
-              open_near_click_control_center = true;
-              session_placement = "floating";
-              session_position = "center";
-            };
-            screenshot = {
-              pipe_command = /* sh */ ''
-                satty --filename - \
-                      --output-filename "${config.home.homeDirectory}/Pictures/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
-                      --early-exit \
-                      --actions-on-enter save-to-clipboard \
-                      --actions-on-escape exit \
-                      --copy-command 'wl-copy'
-              '';
-              pipe_to_command = true;
-              save_to_file = false;
-            };
-            shadow.direction = "center";
-            session = {
-              grid = true;
-              grid_columns = 2;
-              actions = [
-                {
-                  action = "lock";
-                  countdown_seconds = 0.0;
-                  enabled = true;
-                  shortcut = "l";
-                  variant = "outline";
-                }
-                {
-                  action = "logout";
-                  countdown_seconds = 10.0;
-                  enabled = true;
-                  shortcut = "e";
-                  variant = "destructive";
-                }
-                {
-                  action = "lock_and_suspend";
-                  countdown_seconds = 3.0;
-                  enabled = true;
-                  shortcut = "s";
-                  variant = "secondary";
-                }
-                {
-                  action = "command";
-                  command = "systemctl hibernate";
-                  countdown_seconds = 10.0;
-                  enabled = true;
-                  shortcut = "h";
-                  variant = "destructive";
-                  label = "Hibernate";
-                  glyph = "zzz";
-                }
-                {
-                  action = "reboot";
-                  countdown_seconds = 10.0;
-                  enabled = true;
-                  shortcut = "r";
-                  variant = "destructive";
-                }
-                {
-                  action = "shutdown";
-                  countdown_seconds = 10.0;
-                  enabled = true;
-                  shortcut = "0";
-                  variant = "destructive";
-                }
-              ];
+        customPalettes.dracula.dark = read.json ./dracula.json;
+        settings = utils.deepMerge [
+          tomlConfig
+          {
+            bar.default = mkBar defaultBar // {
+              monitor = lib.mapAttrs (_name: mkBar) (read.toml ./bars.toml);
             };
 
-            clipboard_enabled = false;
-            mpris.blacklist = [
-              "chromium"
-              "firefox"
-              "mpv"
-            ];
-          };
+            idle.behavior.lock-and-suspend.enabled = hardware.isLaptop;
 
-          idle = {
-            behavior_order = [
-              "lock"
-              "screen-off"
-              "lock-and-suspend"
-            ];
-            behavior = {
-              lock = {
-                enabled = true;
-                timeout = 600;
-              };
+            shell.screenshot.pipe_command = /* sh */ ''
+              ${pkgs.satty}/bin/satty --filename - \
+                    --output-filename "${config.home.homeDirectory}/Pictures/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
+                    --early-exit \
+                    --actions-on-enter save-to-clipboard \
+                    --actions-on-escape exit \
+                    --copy-command 'wl-copy'
+            '';
 
-              screen-off = {
-                enabled = true;
-                timeout = 660;
-              };
-
-              lock-and-suspend = {
-                enabled = hardware.isLaptop;
-                timeout = 900;
-              };
-            };
-          };
-
-          location.auto_locate = true;
-          nightlight = {
-            enabled = true;
-            temperature_night = 3500;
-          };
-          osd = {
-            position = "bottom_center";
-            kinds.media = false;
-          };
-
-          control_center = {
-            sidebar = "full";
-            shortcuts = map (type: { inherit type; }) [
-              "wifi"
-              "bluetooth"
-              "caffeine"
-              "nightlight"
-              "notification"
-              "mic_mute"
-            ];
-          };
-
-          plugins.enabled = [
-            "blackbartblues/audio-switcher"
-            "nzlov/daily-wallpaper"
-            "profidev/hypr-screen-mirror"
-            "ycf/mawaqit"
-            "jamesfeeder/special-workspaces"
-            # TODO: port latency-monitor plugin
-          ];
-
-          plugin_settings = {
-            "nzlov/daily-wallpaper".source = "bing";
-            "ycf/mawaqit" = {
-              city = "Algiers";
-              country = "DZ";
-              method = "19";
-              panel_placement = "attached";
-              tune = true;
-              tuneAsr = 1;
-              tuneMaghrib = 3;
-            };
-            "blackbartblues/audio-switcher" = {
-              show_percentage = false;
-            };
-          };
-
-          wallpaper = {
-            transition = [ "fade" ];
-            transition_duration = 500;
-          };
-
-          audio.enable_overdrive = true;
-
-          widget = {
-            clock = {
-              anchor = true;
-              format = "%a %d · %I:%M %p";
-            };
-            bluetooth.color = "secondary";
-            control-center.glyph = "user-circle";
-            cpu = {
-              visualization = "none";
-              label_min_width = 3;
-              color = "secondary";
-              glyph_position = "after";
-            };
-            ram = {
-              visualization = "none";
-              color = "primary";
-            };
-            temp = {
-              visualization = "none";
-              glyph_position = "before";
-              color = "secondary";
-            };
-            network = {
-              show_label = false;
-              show_vpn_label = true;
-              vpn_status = "both";
-            };
-            network_rx = {
-              display = "text";
-              show_label = false;
-            };
-            network_tx = {
-              display = "text";
-              show_label = false;
-            };
-            privacy.hide_inactive = true;
-            tray = {
-              drawer = true;
-              pinned = [ "udiskie" ];
-              match_adjacent_spacing = true;
-            };
-            audio_switcher.type = "blackbartblues/audio-switcher:widget";
-            hypr_screen_mirror.type = "profidev/hypr-screen-mirror:widget";
-            special_workspaces = {
-              type = "jamesfeeder/special-workspaces:special-workspaces";
-              active_style = "ghost";
-              capsule_padding = 10;
-              capsule_radius = 3;
-              enable_scroll = false;
-              hide_inactive = true;
-            };
-            mawaqit = {
-              type = "ycf/mawaqit:bar";
-              widgetIcon = "moon-stars";
-              dynamicIcon = true;
-              hidePrayerName = true;
-              showElapsed = true;
-            };
-            taskbar = {
-              focused_output_only = true;
-              group_by_workspace = true;
-              show_active_indicator = false;
-            };
-            workspaces = {
-              focused_output_only = true;
-              max_label_chars = 2;
-              scale = 1.5;
-              style = "focus_hint";
-            };
-            battery.display_mode = "graphic";
-            power_profile = {
-              capsule = true;
-              icon_color = "tertiary";
-            };
-          };
-
-          bar.default = mkBar defaultBar // {
-            background_opacity = 0.85;
-            capsule_radius = 5;
-            contact_shadow = true;
-            font_weight = 400;
-            hover_highlight = false;
-            margin_edge = 5;
-            margin_ends = 10;
-            padding = 10;
-            radius = 5;
-            widget_spacing = 10;
-            monitor = {
-              "DP-1" = mkBar {
-                end = [ "group:network" ];
-              };
-              "DP-3" = mkBar {
-                end = [ "group:sysmon" ];
-              };
-              "eDP-1" = mkBar {
-                end = [
-                  "group:sysmon_tray"
-                  "hypr_screen_mirror"
-                  "group:status"
-                  "tray"
-                  "notifications"
-                ];
-              };
-            };
-          };
-        };
+          }
+        ];
       };
     };
 }

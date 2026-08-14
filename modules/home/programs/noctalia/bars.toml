@@ -1,0 +1,14 @@
+[eDP-1]
+end = [
+  "group:sysmon_tray",
+  "hypr_screen_mirror",
+  "group:status",
+  "tray",
+  "notifications",
+]
+
+[DP-1]
+end = ["group:network"]
+
+[DP-3]
+end = ["group:sysmon"]
