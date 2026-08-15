@@ -242,7 +242,7 @@ visualization = "none"
 [widget.tray]
 drawer = true
 match_adjacent_spacing = true
-pinned = ["udiskie"]
+pinned = ["NetBird", "udiskie"]
 
 [widget.workspaces]
 focused_output_only = true
