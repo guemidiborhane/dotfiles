@@ -1,7 +1,7 @@
 autoUpdate = false
 autoReboot = false
-zramSwap = false
-zSwap = true
+zramSwap = true
+zSwap = false
 remoteUnlock = false
 kanata = false
 gaming = false
@@ -23,7 +23,6 @@ enable = false
 iface = ""
 
 [desktop]
-zSwap = true
 kanata = true
 libvirtd = true
 
