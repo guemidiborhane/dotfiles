@@ -3,6 +3,8 @@
   flake.modules.nixos.zram-swap =
     { lib, features, ... }:
     lib.mkIf ((features.zramSwap or false) && !(features.zSwap or false)) {
+      boot.tmp.useZram = true;
+
       zramSwap = {
         enable = true;
         priority = 100;
