@@ -42,13 +42,55 @@
             bitwarden-desktop
           ];
 
-          fonts.packages = with pkgs; [
-            nerd-fonts.monaspace
-            nerd-fonts.jetbrains-mono
-            corefonts
-            vista-fonts
-            lexend
-          ];
+          fonts = {
+            enableDefaultPackages = true;
+            fontDir.enable = true;
+            packages = with pkgs; [
+              nerd-fonts.monaspace
+              nerd-fonts.jetbrains-mono
+              cantarell-fonts
+              lexend
+              nerd-fonts.symbols-only
+              noto-fonts-color-emoji
+              noto-fonts
+              noto-fonts-cjk-sans
+            ];
+
+            fontconfig = {
+              # issue: https://github.com/NixOS/nixpkgs/issues/541553
+              # pull: https://github.com/NixOS/nixpkgs/pull/551126
+              defaultFonts = {
+                monospace = [ ];
+                sansSerif = [ ];
+                serif = [ ];
+                emoji = [ ];
+              };
+
+              aliases =
+                let
+                  defaultFonts = {
+                    monospace = [
+                      "JetBrainsMono Nerd Font"
+                      "Symbols Nerd Font Mono"
+                      "Noto Sans Mono"
+                    ];
+                    sans-serif = [
+                      "Cantarell"
+                      "Noto Sans"
+                    ];
+                    serif = [
+                      "Cantarell"
+                      "Noto Sans"
+                    ];
+                    emoji = [ "Noto Color Emoji" ];
+                  };
+                in
+                builtins.mapAttrs (name: value: {
+                  binding = "strong";
+                  prefer = value;
+                }) defaultFonts;
+            };
+          };
         };
 
       homeManager.profiles-desktop =
