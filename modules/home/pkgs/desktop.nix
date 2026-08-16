@@ -13,7 +13,7 @@
         anydesk
         banana-cursor
         bibata-cursors
-        brave
+        brave-origin
         brightnessctl
         dbeaver-bin
         evince
