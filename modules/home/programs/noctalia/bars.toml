@@ -1,3 +1,8 @@
+[default]
+start = ["group:workspaces"]
+center = ["group:clock", "privacy"]
+end = ["group:sysmon", "group:status", "tray", "notifications"]
+
 [eDP-1]
 end = [
   "group:sysmon_tray",

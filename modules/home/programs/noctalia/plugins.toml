@@ -1,0 +1,38 @@
+enabled = [
+  "blackbartblues/audio-switcher",
+  "nzlov/daily-wallpaper",
+  "profidev/hypr-screen-mirror",
+  "ycf/mawaqit",
+  "jamesfeeder/special-workspaces",
+]
+
+plugin_settings."nzlov/daily-wallpaper".source = "bing"
+
+plugin_settings."blackbartblues/audio-switcher".show_percentage = false
+
+widget.audio_switcher.type = "blackbartblues/audio-switcher:widget"
+widget.hypr_screen_mirror.type = "profidev/hypr-screen-mirror:widget"
+
+[plugin_settings."ycf/mawaqit"]
+city = "Algiers"
+country = "DZ"
+method = "19"
+panel_placement = "attached"
+tune = true
+tuneAsr = 1
+tuneMaghrib = 3
+
+[widget.mawaqit]
+dynamicIcon = true
+hidePrayerName = true
+showElapsed = true
+type = "ycf/mawaqit:bar"
+widgetIcon = "moon-stars"
+
+[widget.special_workspaces]
+active_style = "ghost"
+capsule_padding = 10
+capsule_radius = 3
+enable_scroll = false
+hide_inactive = true
+type = "jamesfeeder/special-workspaces:special-workspaces"

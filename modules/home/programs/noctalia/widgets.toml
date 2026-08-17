@@ -1,0 +1,84 @@
+[widget.battery]
+display_mode = "graphic"
+
+[widget.bluetooth]
+color = "secondary"
+
+[widget.clock]
+anchor = true
+format = "%a %d · %I:%M %p"
+
+[widget.control-center]
+glyph = "user-circle"
+
+[widget.cpu]
+color = "secondary"
+glyph_position = "after"
+label_min_width = 3
+visualization = "none"
+
+[widget.network]
+show_label = false
+show_vpn_label = true
+vpn_status = "both"
+
+[widget.network_rx]
+display = "text"
+show_label = false
+
+[widget.network_tx]
+display = "text"
+show_label = false
+
+[widget.power_profile]
+capsule = true
+icon_color = "tertiary"
+
+[widget.privacy]
+hide_inactive = true
+
+[widget.ram]
+color = "primary"
+visualization = "none"
+
+[widget.taskbar]
+focused_output_only = true
+group_by_workspace = true
+show_active_indicator = false
+
+[widget.temp]
+color = "secondary"
+glyph_position = "before"
+visualization = "none"
+
+[widget.tray]
+pinned = ["NetBird", "udiskie"]
+drawer = true
+match_adjacent_spacing = true
+
+[widget.workspaces]
+focused_output_only = true
+max_label_chars = 2
+scale = 1.5
+style = "focus_hint"
+
+[group.workspaces]
+members = ["workspaces", "special_workspaces"]
+
+[group.clock]
+members = ["clock", "mawaqit"]
+
+[group.network]
+members = ["network_rx", "network_tx"]
+
+[group.sysmon]
+members = ["temp", "cpu", "ram"]
+
+[group.status]
+members = [
+  "power_profile",
+  "audio_switcher",
+  "caffeine",
+  "bluetooth",
+  "network",
+]
