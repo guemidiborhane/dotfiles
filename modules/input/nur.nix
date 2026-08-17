@@ -25,7 +25,6 @@
         ];
       };
 
-    unfreePackages = [ "spotify" ];
     modules.homeManager.nur =
       { inputs, pkgs, ... }:
       {
@@ -34,7 +33,6 @@
         ];
 
         home.packages = with pkgs.nur.repos; [
-          nltch.spotify-adblock
           trev.helium
         ];
       };
