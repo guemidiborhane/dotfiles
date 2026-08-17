@@ -1,4 +1,4 @@
-{ _, self, ... }:
+{ self, ... }:
 {
   flake-file.inputs.noctalia = {
     url = "github:noctalia-dev/noctalia-shell/cachix";
@@ -20,8 +20,12 @@
       ...
     }:
     let
-      tomlConfig = read.toml ./config.toml;
       inherit (self.helpers) read utils;
+
+      tomlConfig = read.toml ./config.toml;
+      plugins = read.toml ./plugins.toml;
+      bars = read.toml ./bars.toml;
+      widgets = read.toml ./widgets.toml;
 
       mkGroup =
         id: group:
@@ -35,64 +39,29 @@
         }
         // group;
 
-      groups = lib.mapAttrs mkGroup rec {
-        clock.members = [
-          "clock"
-          "mawaqit"
-        ];
-        status.members = [
-          "power_profile"
-          "audio_switcher"
-          "caffeine"
-          "bluetooth"
-          "network"
-        ]
-        ++ lib.optional hardware.isLaptop "battery";
-        workspaces.members = [
-          "workspaces"
-          "special_workspaces"
-        ];
-        sysmon.members = [
-          "temp"
-          "cpu"
-          "ram"
-        ];
-        sysmon_tray = {
-          inherit (sysmon) members;
+      groups = lib.mapAttrs mkGroup (
+        widgets.group
+        // {
+          status.members = widgets.group.status.members ++ lib.optional hardware.isLaptop "battery";
+          sysmon_tray = {
+            inherit (widgets.group.sysmon) members;
 
-          accordion = true;
-          accordion_direction = "end";
-        };
-        network.members = [
-          "network_rx"
-          "network_tx"
-        ];
-      };
+            accordion = true;
+            accordion_direction = "end";
+          };
+        }
+      );
 
-      defaultBar = {
-        start = [ "group:workspaces" ];
-        center = [
-          "group:clock"
-          "privacy"
-        ];
-        end = [
-          "group:sysmon"
-          "group:status"
-          "tray"
-          "notifications"
-        ];
-      };
-
-      groupPrefix = "group:";
       mkBar =
         bar:
         let
           moduleLists = {
-            start = bar.start or defaultBar.start;
-            center = bar.center or defaultBar.center;
-            end = bar.end or defaultBar.end;
+            start = bar.start or bars.default.start;
+            center = bar.center or bars.default.center;
+            end = bar.end or bars.default.end;
           };
 
+          groupPrefix = "group:";
           groupRefs = lib.filter (lib.hasPrefix groupPrefix) (lib.flatten (lib.attrValues moduleLists));
           capsule_group = map (ref: groups."${lib.removePrefix groupPrefix ref}") groupRefs;
         in
@@ -114,8 +83,29 @@
         settings = utils.deepMerge [
           tomlConfig
           {
-            bar.default = mkBar defaultBar // {
-              monitor = lib.mapAttrs (_name: mkBar) (read.toml ./bars.toml);
+            plugins.enabled = plugins.enabled or [ ];
+            plugin_settings = plugins.plugin_settings or { };
+
+            widget = utils.deepMerge (
+              map (arr: arr.widget or { }) [
+                widgets
+                plugins
+              ]
+            );
+
+            bar.default = mkBar bars.default // {
+              background_opacity = 0.85;
+              capsule_radius = 5;
+              contact_shadow = true;
+              font_weight = 400;
+              hover_highlight = false;
+              radius = 5;
+              margin_edge = 5;
+              margin_ends = 10;
+              padding = 10;
+              widget_spacing = 10;
+
+              monitor = lib.mapAttrs (_name: mkBar) (lib.filterAttrs (name: _value: name != "default") bars);
             };
 
             idle.behavior.lock-and-suspend.enabled = hardware.isLaptop;
@@ -128,7 +118,6 @@
                     --actions-on-escape exit \
                     --copy-command 'wl-copy'
             '';
-
           }
         ];
       };
