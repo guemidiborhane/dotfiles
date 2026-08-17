@@ -1,18 +1,18 @@
 { _, ... }:
 {
-  flake-file.inputs = {
-    solaar.url = "github:Svenum/Solaar-Flake";
-    solaar.inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   flake.modules.nixos.solaar =
     { inputs, ... }:
     {
-      imports = [
-        inputs.solaar.nixosModules.default
-      ];
-
-      services.solaar.enable = true;
+      programs.solaar = {
+        enable = true;
+        userService = {
+          enable = true;
+          extraArgs = [
+            "--tray-icon-size 32"
+            "--restart-on-wake-up"
+          ];
+        };
+      };
     };
 
   flake.modules.homeManager.solaar =

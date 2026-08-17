@@ -15,6 +15,7 @@ dev:
 # Generate flake.nix using flake-file
 flake:
     {{ nix }} run .#write-flake
+    {{ nix }} flake lock
 
 # Show all configured hosts
 list-hosts:
