@@ -64,7 +64,7 @@
           in
           {
             inherit directory;
-            default.path = "${directory}/house.jpg";
+            default.path = "${directory}/wallhaven_p831kp.jpg";
           };
       };
     };
