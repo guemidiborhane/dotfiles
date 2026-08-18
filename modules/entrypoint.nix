@@ -29,6 +29,7 @@
         home-config
         pkgs
         host-profile
+        features
       ]
       ++
         map (module: self.modules.homeManager."${module}")

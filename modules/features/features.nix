@@ -16,4 +16,11 @@
         zswap
       ];
     };
+
+  flake.modules.homeManager.features =
+    { _, ... }:
+    {
+      imports = with self.modules.homeManager; [
+      ];
+    };
 }
