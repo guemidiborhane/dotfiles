@@ -4,6 +4,7 @@
   fetchFromGitHub,
   zip,
   unzip,
+  ...
 }:
 let
   version = "1.1.1";
