@@ -40,6 +40,10 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    openlogi = {
+      url = "github:AprilNEA/OpenLogi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions = {
       url = "github:vicinaehq/extensions";

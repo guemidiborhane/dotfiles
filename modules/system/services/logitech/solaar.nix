@@ -4,7 +4,7 @@
     { inputs, ... }:
     {
       programs.solaar = {
-        enable = true;
+        enable = false;
         userService = {
           enable = true;
           extraArgs = [
