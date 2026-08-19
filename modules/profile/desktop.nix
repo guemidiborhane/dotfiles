@@ -21,6 +21,7 @@
             desktop-hyprland
             thunar
             inputs.vicinae.nixosModules.default
+            openlogi
           ];
 
           services = {

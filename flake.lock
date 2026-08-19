@@ -858,6 +858,26 @@
         "type": "github"
       }
     },
+    "openlogi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786922166,
+        "narHash": "sha256-FzcvKPmfqpyY669aEXof/tw1dEkFCesKzw3P7Zhk7S0=",
+        "owner": "AprilNEA",
+        "repo": "OpenLogi",
+        "rev": "822c6e4181f0118713473bcc524e6a7fbd51f5a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AprilNEA",
+        "repo": "OpenLogi",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -902,6 +922,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "noctalia": "noctalia",
         "nur": "nur",
+        "openlogi": "openlogi",
         "vicinae": "vicinae",
         "vicinae-extensions": "vicinae-extensions",
         "wlctl": "wlctl",
