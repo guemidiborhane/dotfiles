@@ -6,8 +6,8 @@
   ];
 
   flake.modules.nixos.gaming =
-    ctx@{ lib, pkgs, ... }:
-    lib.mkIf (ctx.features.gaming or false) {
+    { pkgs, ... }:
+    {
       hardware.graphics = {
         enable = true;
         enable32Bit = true;

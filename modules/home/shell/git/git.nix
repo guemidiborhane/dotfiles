@@ -35,7 +35,7 @@
             autoSetupRemote = true;
           };
           alias = {
-            st = "status -sb .";
+            st = "status -sb";
             lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --";
             edit = "!git ls-files | fzf-tmux -p --reverse --preview 'bat -p --color=always {}'| xargs -r nvim";
           };

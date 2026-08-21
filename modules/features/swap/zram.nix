@@ -1,14 +1,14 @@
 { _, ... }:
 {
   flake.modules.nixos.zram-swap =
-    { lib, features, ... }:
-    lib.mkIf ((features.zramSwap or false) && !(features.zSwap or false)) {
+    { _, ... }:
+    {
       boot.tmp.useZram = true;
 
       zramSwap = {
         enable = true;
         priority = 100;
-        algorithm = "lz4";
+        algorithm = "zstd";
         memoryPercent = 30;
       };
     };

@@ -1,8 +1,8 @@
 { _, ... }:
 {
   flake.modules.nixos.kanata =
-    { lib, features, ... }:
-    lib.mkIf (features.kanata or false) {
+    { ... }:
+    {
       boot.kernelModules = [ "uinput" ];
 
       hardware.uinput.enable = true;

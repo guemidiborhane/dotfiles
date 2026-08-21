@@ -1,9 +1,11 @@
 { _, ... }:
 {
-  flake.modules.nixos.hardware-bluetooth =
-    ctx@{ lib, pkgs, ... }:
-    lib.mkIf (ctx.hardware.bluetooth or false) {
+  flake.modules.nixos.bluetooth =
+    { pkgs, ... }:
+    {
       hardware.bluetooth.enable = true;
       services.blueman.enable = true;
+
+      environment.systemPackages = [ pkgs.bluetui ];
     };
 }

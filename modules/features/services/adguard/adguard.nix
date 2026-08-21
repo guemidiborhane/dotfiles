@@ -1,11 +1,11 @@
 { _, ... }:
 {
   flake.modules.nixos.adguard =
-    { lib, features, secrets, ... }:
+    { secrets, ... }:
     let
       port = 5353;
     in
-    lib.mkIf (features.adguard or false) {
+    {
       networking.nameservers = [ "127.0.0.1:${toString port}" ];
 
       services.adguardhome = {

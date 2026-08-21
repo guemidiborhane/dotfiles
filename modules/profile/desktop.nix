@@ -7,11 +7,12 @@
     ];
 
     modules = {
-      nixos.profiles-desktop =
+      nixos.desktop-profile =
         {
           inputs,
           lib,
           pkgs,
+          hardware,
           ...
         }:
         {
@@ -33,6 +34,10 @@
           hardware.graphics.enable = true;
 
           powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+
+          services.fprintd.enable = hardware.fingerprint or false;
+          services.libinput.enable = hardware.touchpad or false;
+          hardware.acpilight.enable = hardware.backlight or false;
 
           programs = {
             localsend.enable = true;
@@ -94,7 +99,7 @@
           };
         };
 
-      homeManager.profiles-desktop =
+      homeManager.desktop-profile =
         { pkgs, ... }:
         {
           imports = with self.modules.homeManager; [

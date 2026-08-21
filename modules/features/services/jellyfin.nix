@@ -1,15 +1,14 @@
 { _, ... }:
 {
   flake.modules.nixos.jellyfin =
-    ctx@{ lib, pkgs, ... }:
+    { pkgs, hardware, host, ... }:
     let
       types = {
         nvidia = "nvenc";
         amd = "vaapi";
       };
     in
-    with ctx;
-    lib.mkIf (features.jellyfin or false) {
+    {
       services.jellyfin = {
         enable = true;
         openFirewall = true;

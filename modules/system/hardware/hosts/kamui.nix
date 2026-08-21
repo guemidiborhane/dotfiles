@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.nixos.hardware-kamui =
+  flake.modules.nixos.kamui-hardware =
     {
       inputs,
       config,

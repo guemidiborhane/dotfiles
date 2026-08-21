@@ -6,6 +6,7 @@ fingerprint = false
 tlp = false
 startChargeThreshold = 50
 stopChargeThreshold = 85
+nixos-hardware = ""
 
 [laptop]
 bluetooth = true

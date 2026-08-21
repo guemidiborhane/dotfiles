@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.nixos.networking-resolved =
+  flake.modules.nixos.resolved =
     { _, ... }:
     {
       services.resolved = {

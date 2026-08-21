@@ -2,7 +2,7 @@
 {
   flake.modules.nixos.tlp =
     { lib, hardware, ... }:
-    lib.mkIf (hardware.tlp or false) {
+    {
       services.tlp = {
         enable = true;
         pd.enable = true;

@@ -1,8 +1,8 @@
 { _, ... }:
 {
   flake.modules.nixos.auto-upgrade =
-    { features, lib, ... }:
-    lib.mkIf (features.autoUpdate or false) {
+    { features, ... }:
+    {
       system.autoUpgrade = {
         enable = true;
         allowReboot = features.autoReboot or false;

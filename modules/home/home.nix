@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.homeManager.home-config =
+  flake.modules.homeManager.home =
     { metadata, user, ... }:
     {
       programs.home-manager.enable = true;
