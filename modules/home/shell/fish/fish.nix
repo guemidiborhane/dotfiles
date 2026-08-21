@@ -51,5 +51,6 @@
       dex.dotfiles.".config/fish" = functions // {
         "conf.d" = ./conf;
       };
+      dex.persist.files = [ ".local/share/fish/fish_history" ];
     };
 }

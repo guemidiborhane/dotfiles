@@ -5,12 +5,13 @@ let
 
   getUser =
     username:
-    tomlConfigs.users.${username} or (throw "Unknown user '${username}' referenced in host.users");
+    tomlConfigs.users.${username} or (throw "Unknown user '${username}' referenced in users.toml");
 
-  getHost =
+  getHost' =
     name: host:
     let
       inherit (tomlConfigs) defaults;
+
       cascade =
         key:
         utils.deepMerge [
@@ -33,6 +34,8 @@ let
         isLaptop = host.type == "laptop";
         isDesktop = host.type == "desktop";
         isHeadless = host.type == "headless";
+        isMicroVM = host.type == "vm";
+        isBareMetal = host.type != "vm";
 
         hasAMD = hardwareConfig.cpu == "amd";
         hasIntel = hardwareConfig.cpu == "intel";
@@ -41,8 +44,14 @@ let
       };
 
       users = builtins.mapAttrs (
-        username: overrides: getUser username // overrides // { inherit username; }
-      ) (lib.filterAttrs (username: overrides: overrides.enable or true) config.users);
+        username: overrides:
+        utils.deepMerge [
+          defaults.users
+          (getUser username)
+          overrides
+          { inherit username; }
+        ]
+      ) (lib.filterAttrs (username: user: user.enable or true) config.users);
 
       usersHelpers = {
         forEach = fn: builtins.mapAttrs fn users;
@@ -73,13 +82,21 @@ in
     flake.dex = {
       inherit (tomlConfigs) defaults;
 
+      getHost =
+        name:
+        getHost' name (
+          tomlConfigs.hosts.${name} or (throw "Unknow host '${name}' referenced in hosts.toml")
+        );
+
       metadata = {
         repository = "https://github.com/guemidiborhane/nixos-config";
         stateVersion = "25.11";
         flake = "/etc/nixos";
       };
 
-      hosts = builtins.mapAttrs getHost tomlConfigs.hosts;
+      hosts = builtins.mapAttrs getHost' (
+        lib.filterAttrs (_: host: host.type or null != "vm") tomlConfigs.hosts
+      );
 
       defaultSystem = tomlConfigs.defaults.host.system;
 

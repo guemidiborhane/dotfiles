@@ -14,6 +14,10 @@ jellyfin = false
 adguard = true
 openssh = true
 
+[microvm]
+enable = false
+vms = []
+
 [kernel]
 opti = "x86_64-v3"
 sched = "bore"
@@ -29,3 +33,7 @@ libvirtd = true
 
 [laptop]
 kanata = true
+
+[vm]
+adguard = false
+zram-swap = false

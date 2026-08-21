@@ -5,15 +5,16 @@
     {
       imports = with self.modules.homeManager; [ sesh ];
       home.packages = with pkgs; [ tmux ];
-      dex.dotfiles.".config/tmux" = ./.;
+      dex.dotfiles.".config/tmux" = {
+        "tmux.conf" = ./tmux.conf;
+        "scripts" = ./scripts;
+      };
+      dex.persist.directories = [
+        ".config/tmux/plugins"
+        ".local/share/tmux/resurrect"
+      ];
 
       programs.fish = {
-        shellAliases = {
-          wn = "tn workshop";
-        };
-        shellAbbrs = {
-          tp = "tmux_popup";
-        };
         loginShellInit = /* fish */ ''
           if test $status -eq 0 -a -z "$TMUX" -a -n "$SSH_TTY"
               exec sh -c 'tmux -u new-session -As workshop'
@@ -84,6 +85,8 @@
             '';
           };
         };
+        shellAliases.wn = "tn workshop";
+        shellAbbrs.tp = "tmux_popup";
       };
 
       systemd.user = {

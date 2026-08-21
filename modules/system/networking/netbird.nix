@@ -9,6 +9,8 @@
       };
     in
     {
+      dex.persist.directories = [ "/var/lib/netbird" ];
+
       services.netbird = {
         enable = true;
         clients.default = {
