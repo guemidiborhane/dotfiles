@@ -1,5 +1,8 @@
 { self, lib, ... }:
 let
+  bareMetalGuard = entry: { hardware, ... }: { ${entry} = [ hardware.isBareMetal ]; };
+  microVMGuard = entry: { hardware, ... }: { ${entry} = [ hardware.isMicroVM ]; };
+
   isToggled = arg: (arg.enable or arg) == true;
   scopeGuard = scope: entry: (ctx: { ${entry} = [ (isToggled ctx.${scope}.${entry}) ]; });
   hardwareGuard = entry: scopeGuard "hardware" entry;
@@ -9,6 +12,7 @@ let
   hostProfile = { host, ... }: { "${host.type}-profile" = [ true ]; };
 
   nixosDefaults = [
+    "dex-persist"
     "base-devel"
     "boot"
     "fish"
@@ -28,11 +32,11 @@ let
     "tty-autologin"
     "mount-disks"
 
-    "disko-config"
-    "kernel"
-    "nh"
-    "pkgs"
-    "system-sleep"
+    (bareMetalGuard "disko-config")
+    (bareMetalGuard "kernel")
+    (bareMetalGuard "nh")
+    (bareMetalGuard "pkgs")
+    (bareMetalGuard "system-sleep")
 
     hostHardware
     nvidia
@@ -55,6 +59,8 @@ let
     (featureGuard "kanata")
     (featureGuard "wol")
     (featureGuard "remote-unlock")
+    (featureGuard "microvm")
+    (microVMGuard "impermanence")
   ];
 
   homeDefaults = [
@@ -80,6 +86,9 @@ let
     "tealdeer"
     "zoxide"
     "nur"
+
+    # Features
+    (microVMGuard "impermanence")
   ];
 
   guardImports =

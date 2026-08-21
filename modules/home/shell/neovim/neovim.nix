@@ -11,6 +11,13 @@
       ];
 
       dex.dotfiles.".config/nvim" = ./.;
+      dex.persist = {
+        files = [ ".config/nvim/lazy-lock.json" ];
+        directories = [
+          ".local/share/nvim"
+          ".local/state/nvim"
+        ];
+      };
 
       programs.fish.shellAliases = {
         vf = "fd --type f | fzf-tmux -p --reverse --preview 'bat -p --color=always {}' | xargs -r nvim";

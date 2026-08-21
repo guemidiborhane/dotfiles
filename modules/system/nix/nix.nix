@@ -13,7 +13,7 @@
             "nix-command"
             "flakes"
           ];
-          auto-optimise-store = true;
+          auto-optimise-store = hardware.isBareMetal;
         };
         optimise.automatic = false;
       };

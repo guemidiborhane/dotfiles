@@ -24,12 +24,17 @@ gpu = "amd"
 nixos-hardware = "lenovo-thinkpad-p14s-amd-gen5"
 fingerprint = true
 
+[kamui.features.microvm]
+enable = true
+vms = ["sandbox"]
+
 [kotoamatsukami]
 hostname = "koto"
 type = "desktop"
 description = "5950X Workstation"
 kernel = "cachyos-latest"
 additionalKernels = ["cachyos-lts"]
+kotoamatsukami.users.borhane.email = "guemidiborhane@aina.dz"
 
 [kotoamatsukami.features]
 auto-upgrade = false
@@ -60,5 +65,12 @@ wifi = true
 afe8ba39-fada-43da-ba0a-459498b1b062 = "/run/media/borhane/LACIE"
 4A9DD7D4448B0F0A = "/run/media/borhane/DATA"
 
-[kotoamatsukami.users.borhane]
-email = "guemidiborhane@aina.dz"
+[sandbox]
+type = "vm"
+
+[sandbox.users.borhane]
+modules = []
+
+[[sandbox.shares]]
+host = "/home/borhane/Code/share"
+guest = "/host"
