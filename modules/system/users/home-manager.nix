@@ -5,7 +5,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.nixos.users-home-manager =
+  flake.modules.nixos.home-manager =
     ctx@{ inputs, pkgs, ... }:
     {
       imports = [
@@ -23,7 +23,7 @@
         users = ctx.users.forEach (
           username: user: {
             _module.args = { inherit user; };
-            imports = ctx.homeModules;
+            imports = ctx.homeModules ++ (map (module: self.modules.homeManager.${module}) user.modules);
           }
         );
       };

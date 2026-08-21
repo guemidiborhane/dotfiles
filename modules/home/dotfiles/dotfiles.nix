@@ -7,7 +7,7 @@
 #   - .nix files are excluded automatically
 #   - Paths listed in `dirUnits` are linked as a whole directory
 #     rather than being recursed into file-by-file
-{ self, ... }:
+{ _, ... }:
 {
   flake.modules.homeManager.dotfiles =
     { lib, config, ... }:
@@ -53,7 +53,6 @@
       discovered = filterAttrs (k: _: !(hasSuffix ".nix" k)) (collect dotfilesDir "");
     in
     {
-      imports = [ self.modules.homeManager.dex-dotfiles ];
       config = {
         dex.dotfiles = discovered;
 

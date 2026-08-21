@@ -1,6 +1,6 @@
 { _, ... }:
 {
-  flake.modules.nixos.users-tty-login =
+  flake.modules.nixos.tty-autologin =
     ctx@{ pkgs, lib, ... }:
     {
       systemd.services."getty@tty1" =

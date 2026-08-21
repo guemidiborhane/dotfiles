@@ -3,7 +3,7 @@ kernel = "cachyos-latest"
 defaultUser = "borhane"
 system = "x86_64-linux"
 additionalKernels = []
-modules = ["openssh", "fstrim", "fwupd"]
+modules = ["fstrim", "fwupd"]
 
 [defaults.users.borhane]
 
@@ -21,7 +21,7 @@ disk = "/dev/nvme0n1"
 ram = 32
 cpu = "amd"
 gpu = "amd"
-module = "lenovo-thinkpad-p14s-amd-gen5"
+nixos-hardware = "lenovo-thinkpad-p14s-amd-gen5"
 fingerprint = true
 
 [kotoamatsukami]
@@ -32,8 +32,8 @@ kernel = "cachyos-latest"
 additionalKernels = ["cachyos-lts"]
 
 [kotoamatsukami.features]
-autoUpdate = false
-remoteUnlock = true
+auto-upgrade = false
+remote-unlock = true
 netbirdPort = 51281
 gaming = true
 jellyfin = true
@@ -53,7 +53,7 @@ gpu = "nvidia"
 bluetooth = true
 wifi = true
 
-[kotoamatsukami.hardware.disks]
+[kotoamatsukami.mounts]
 34B1213A561574D4 = "/mnt/2_5"
 75cddeb8-910a-41da-8b8c-269dada60016 = "/mnt/3_5"
 4d80e49e-7786-4543-aa34-7429908d3c8b = "/mnt/320"

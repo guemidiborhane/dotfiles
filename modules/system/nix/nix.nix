@@ -1,16 +1,9 @@
 { self, ... }:
 {
   flake.modules.nixos.nix-config =
-    ctx@{ pkgs, lib, ... }:
+    { pkgs, lib, metadata, hardware, ... }:
     {
-
-      imports = with self.modules.nixos; [
-        nix-substituters
-        nix-index-database
-        like-nix
-      ];
-
-      system.stateVersion = ctx.metadata.stateVersion;
+      system.stateVersion = metadata.stateVersion;
 
       nix = {
         package = lib.mkDefault pkgs.nixVersions.latest;

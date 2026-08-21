@@ -1,13 +1,8 @@
-{ self, ... }:
+{ _, ... }:
 {
   flake.modules.nixos.networking =
     { host, features, ... }:
     {
-      imports = with self.modules.nixos; [
-        networking-netbird
-        networking-resolved
-      ];
-
       networking = {
         hostName = host.hostname;
         firewall = {

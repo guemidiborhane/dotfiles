@@ -1,8 +1,8 @@
 { _, ... }:
 {
-  flake.modules.nixos.hardware-disks =
+  flake.modules.nixos.mount-disks =
     { hardware, lib, ... }:
-    lib.mkIf (hardware ? disks && hardware.disks != [ ]) {
+    {
       fileSystems = lib.mapAttrs' (
         diskId: mountPath:
         lib.nameValuePair mountPath {
@@ -15,6 +15,6 @@
             "x-gvfs-show"
           ];
         }
-      ) hardware.disks;
+      ) (hardware.mounts or { });
     };
 }

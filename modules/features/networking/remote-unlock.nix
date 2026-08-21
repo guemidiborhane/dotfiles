@@ -1,8 +1,8 @@
-{ lib, ... }:
+{ _, ... }:
 {
   flake.modules.nixos.remote-unlock =
-    { features, ... }:
-    lib.mkIf (features.remoteUnlock or false) {
+    { ... }:
+    {
       boot = {
         kernelParams = [ "ip=dhcp" ];
         initrd = {

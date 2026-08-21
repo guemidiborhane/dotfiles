@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.nixos.hardware-kotoamatsukami =
+  flake.modules.nixos.kotoamatsukami-hardware =
     {
       config,
       lib,

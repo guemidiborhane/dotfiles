@@ -1,29 +1,21 @@
 { self, ... }:
 {
-  flake.modules.nixos.profiles-laptop =
+  flake.modules.nixos.laptop-profile =
     { inputs, features, ... }:
     {
-      imports = with self.modules.nixos; [
-        profiles-desktop
-        tlp
-        upower
-        system-sleep
-      ];
+      imports = with self.modules.nixos; [ desktop-profile ];
 
-      powerManagement = {
+      powerManagement.enable = true;
+      services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+      services.upower = {
         enable = true;
-      };
-
-      services.logind.settings.Login = {
-        HandleLidSwitch = "suspend-then-hibernate";
+        criticalPowerAction = "HybridSleep";
       };
     };
 
-  flake.modules.homeManager.profiles-laptop =
+  flake.modules.homeManager.laptop-profile =
     { inputs, ... }:
     {
-      imports = with self.modules.homeManager; [
-        profiles-desktop
-      ];
+      imports = with self.modules.homeManager; [ desktop-profile ];
     };
 }

@@ -1,8 +1,8 @@
-autoUpdate = false
+auto-upgrade = false
 autoReboot = false
-zramSwap = true
-zSwap = false
-remoteUnlock = false
+zram-swap = true
+zswap = false
+remote-unlock = false
 kanata = false
 gaming = false
 allowTCP = []
@@ -12,6 +12,7 @@ virtualbox = false
 podman = true
 jellyfin = false
 adguard = true
+openssh = true
 
 [kernel]
 opti = "x86_64-v3"

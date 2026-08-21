@@ -1,5 +1,5 @@
 [defaults]
-modules = ["dotfiles", "shell"]
+modules = ["dotfiles", "dex"]
 
 [borhane]
 id = 1000
