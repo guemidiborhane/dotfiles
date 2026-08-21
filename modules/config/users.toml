@@ -1,6 +1,10 @@
 [defaults]
 modules = ["dotfiles", "dex"]
 
+[defaults.features.ai]
+opencode = false
+pi-coding-agent = false
+
 [borhane]
 id = 1000
 name = "Borhaneddine GUEMIDI"
