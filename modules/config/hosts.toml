@@ -70,6 +70,8 @@ type = "vm"
 
 [sandbox.users.borhane]
 modules = []
+features.ai.opencode = true
+features.ai.pi-coding-agent = true
 
 [[sandbox.shares]]
 host = "/home/borhane/Code/share"

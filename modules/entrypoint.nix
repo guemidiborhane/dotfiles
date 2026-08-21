@@ -89,6 +89,8 @@ let
 
     # Features
     (microVMGuard "impermanence")
+    (microVMGuard "opencode")
+    (microVMGuard "pi-coding-agent")
   ];
 
   guardImports =
