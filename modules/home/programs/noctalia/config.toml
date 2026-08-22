@@ -56,7 +56,8 @@ enabled = true
 temperature_night = 3500
 
 [osd]
-position = "bottom_center"
+orientation = "vertical"
+position_vertical = "center_left"
 
 [osd.kinds]
 media = false
