@@ -60,7 +60,7 @@ hl.config({
     rounding = gaps,
 
     active_opacity = 1.0,
-    inactive_opacity = 0.95,
+    inactive_opacity = 0.99,
 
     dim_inactive = true,
     dim_strength = 0.1,
@@ -70,7 +70,7 @@ hl.config({
       color = "rgba(1E202966)",
       render_power = 3,
       range = 60,
-      offset = "1 2",
+      offset = { 1, 2 },
       scale = 0.97,
     },
 
