@@ -17,6 +17,8 @@
           history_filter = [
             "^mcli alias set"
             "^echo .* base64 -d"
+            "^clear"
+            "^yay"
           ];
         };
       };
