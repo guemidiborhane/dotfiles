@@ -16,7 +16,6 @@
       lib,
       config,
       hardware,
-      pkgs,
       ...
     }:
     let
@@ -109,15 +108,6 @@
             };
 
             idle.behavior.lock-and-suspend.enabled = hardware.isLaptop;
-
-            shell.screenshot.pipe_command = /* sh */ ''
-              ${pkgs.satty}/bin/satty --filename - \
-                    --output-filename "${config.home.homeDirectory}/Pictures/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
-                    --early-exit \
-                    --actions-on-enter save-to-clipboard \
-                    --actions-on-escape exit \
-                    --copy-command 'wl-copy'
-            '';
           }
         ];
       };

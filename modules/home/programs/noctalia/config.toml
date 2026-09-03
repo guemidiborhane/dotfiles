@@ -71,8 +71,11 @@ session_placement = "floating"
 session_position = "center"
 
 [shell.screenshot]
-pipe_to_command = true
+pipe_to_command = false
 save_to_file = false
+confirm_region = true
+annotate = true
+skip_annotate_on_copy_save = true
 
 [shell.session]
 grid = true

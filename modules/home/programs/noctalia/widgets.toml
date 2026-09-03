@@ -45,6 +45,7 @@ visualization = "none"
 focused_output_only = true
 group_by_workspace = true
 show_active_indicator = false
+inactive_opacity = 0.75
 
 [widget.temp]
 color = "secondary"
