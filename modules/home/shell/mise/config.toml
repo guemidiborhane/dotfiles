@@ -6,4 +6,9 @@ krew = "latest"
 kubectl = "latest"
 kubectx = "latest"
 kubens = "latest"
+node = "lts"
+ruby = "latest"
 usage = "latest"
+
+[settings]
+all_compile = false
