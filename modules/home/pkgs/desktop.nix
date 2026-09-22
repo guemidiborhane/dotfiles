@@ -24,7 +24,7 @@
           gnome-disk-utility
           gparted
           inkscape
-          libreoffice-fresh
+          libreoffice-stable
           libsForQt5.qt5ct
           megasync
           mission-center

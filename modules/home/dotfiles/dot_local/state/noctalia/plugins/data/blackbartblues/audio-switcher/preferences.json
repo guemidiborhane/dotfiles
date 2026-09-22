@@ -17,11 +17,15 @@
     "bluetooth:41:AA:00:36:F7:9B:output": "tws"
   },
   "knownBluetoothInputs": {
+    "41:AA:00:2A:95:42": "Baseus Bowie M1",
     "41:AA:00:36:F7:9B": "Baseus Bowie M1",
+    "98:47:44:A4:FC:89": "soundcore Life Q30",
     "A4:05:6E:75:AF:2E": "1MORE SonoFlow"
   },
   "slots": {
+    "41:AA:00:2A:95:42": 4,
     "41:AA:00:36:F7:9B": 1,
+    "98:47:44:A4:FC:89": 3,
     "A4:05:6E:75:AF:2E": 2
   },
   "version": 1

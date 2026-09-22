@@ -10,6 +10,6 @@
           "secrets"
         ];
       };
-      home.packages = with pkgs; [ gcr ];
+      home.packages = with pkgs; [ gcr_4 ];
     };
 }
