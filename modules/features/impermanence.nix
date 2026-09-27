@@ -39,6 +39,7 @@ in
           host,
           hardware,
           config,
+          lib,
           ...
         }:
         let
@@ -71,7 +72,7 @@ in
               "/var/lib/nixos"
               "/var/lib/systemd/coredump"
             ]
-            ++ (cfg.directories or [ ]);
+            ++ (lib.uniqueStrings (cfg.directories or [ ]));
 
             files = [ "/etc/machine-id" ] ++ (cfg.files or [ ]);
           };
@@ -92,7 +93,7 @@ in
             directories = map (directory: {
               inherit directory;
               mode = "0700";
-            }) ((cfg.directories or [ ]) ++ [ ".ssh" ]);
+            }) ((lib.uniqueStrings (cfg.directories or [ ])) ++ [ ".ssh" ]);
 
             files = cfg.files or [ ];
           };
