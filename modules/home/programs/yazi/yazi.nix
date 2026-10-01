@@ -17,7 +17,7 @@
 
         theme =
           let
-            sep = "█";
+            sep = "";
             separators = {
               open = sep;
               close = sep;
@@ -25,7 +25,10 @@
           in
           {
             flavor.dark = "dracula";
-            indicator.padding = separators;
+            indicator.padding = {
+              open = "█";
+              close = "█";
+            };
             status = {
               sep_left = separators;
               sep_right = separators;
