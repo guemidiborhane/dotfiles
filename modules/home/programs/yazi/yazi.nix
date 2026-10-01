@@ -13,18 +13,6 @@
             sort_dir_first = true;
             sort_reverse = true;
           };
-          plugin.prepend_fetchers = [
-            {
-              url = "*";
-              run = "git";
-              group = "git";
-            }
-            {
-              url = "*/";
-              run = "git";
-              group = "git";
-            }
-          ];
         };
 
         theme =

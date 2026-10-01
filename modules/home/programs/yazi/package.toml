@@ -23,11 +23,6 @@ use = "KKV9/compress"
 rev = "e60e122e"
 hash = "fbaf0adc8efc59555b748d36aab62d40"
 
-[[plugin.deps]]
-use = "yazi-rs/plugins:git"
-rev = "bb758e2f"
-hash = "88e56a64b7ce7c4314427452343fef17"
-
 [[flavor.deps]]
 use = "yazi-rs/flavors:dracula"
 rev = "4770a346"
