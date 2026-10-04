@@ -71,7 +71,8 @@ in
           commands =
             let
               tmuxSessionTerminal =
-                name: "footclient --app-id '${name}-session' -e fish -c 'tmux new-session -As ${name}'";
+                name:
+                "${pkgs.foot}/bin/footclient --app-id '${name}-session' -e fish -c 'tmux new-session -As ${name}'";
             in
             {
               "org.telegram.desktop" = "Telegram";
