@@ -74,12 +74,12 @@ members = ["network_rx", "network_tx"]
 
 [group.sysmon]
 members = ["temp", "cpu", "ram"]
+tray_variant = true
 
-[group.status]
-members = [
-  "power_profile",
-  "audio_switcher",
-  "caffeine",
-  "bluetooth",
-  "network",
-]
+[group.indicators]
+members = ["audio_switcher", "power_profile", "caffeine"]
+tray_variant = true
+tray_dir = "start"
+
+[group.wireless]
+members = ["bluetooth", "network"]

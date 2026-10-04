@@ -36,20 +36,20 @@
           padding = 0;
           radius = 3;
         }
-        // group;
+        // removeAttrs group [ "tray_variant" ];
 
-      groups = lib.mapAttrs mkGroup (
-        widgets.group
-        // {
-          status.members = widgets.group.status.members ++ lib.optional hardware.isLaptop "battery";
-          sysmon_tray = {
-            inherit (widgets.group.sysmon) members;
-
+      trayGroups = lib.mapAttrs' (
+        name: group:
+        lib.nameValuePair "${name}_tray" (
+          group
+          // {
             accordion = true;
-            accordion_direction = "end";
-          };
-        }
-      );
+            accordion_direction = group.tray_dir or "end";
+          }
+        )
+      ) (lib.filterAttrs (_: group: group.tray_variant or false) widgets.group);
+
+      groups = lib.mapAttrs mkGroup (widgets.group // trayGroups);
 
       mkBar =
         bar:
