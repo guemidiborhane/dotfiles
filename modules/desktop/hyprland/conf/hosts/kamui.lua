@@ -22,7 +22,9 @@ M.monitors = {
     mode = "3840x2160@60",
     position = "1536x0",
     scale = 1.5,
+    vrr = 1,
     bitdepth = 10,
+    cm = "edid",
     workspaces = { 1, 2, 4 },
   },
 }
@@ -33,7 +35,6 @@ M.workspace_rules = {
 
 local v = require("lua.vars")
 M.workspaces = {
-  [2] = { on_created_empty = "app:helium" },
   -- named/special
   workshop = { key = "G", on_created_empty = "tmux:workshop" },
   messaging = { key = "D", clients = v.messaging_clients, },
