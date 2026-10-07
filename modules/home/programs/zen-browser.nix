@@ -9,50 +9,22 @@
   };
 
   flake.modules.homeManager.zen-browser =
-    ctx@{ inputs, config, ... }:
+    {
+      inputs,
+      config,
+      secrets,
+      pkgs,
+      ...
+    }:
     {
       imports = [
         inputs.zen-browser.homeModules.default
       ];
 
-      xdg.mimeApps =
-        let
-          associations = builtins.listToAttrs (
-            map
-              (name: {
-                inherit name;
-                value =
-                  let
-                    zen-browser = config.programs.zen-browser.package;
-                  in
-                  zen-browser.meta.desktopFileName;
-              })
-              [
-                "application/x-extension-shtml"
-                "application/x-extension-xhtml"
-                "application/x-extension-html"
-                "application/x-extension-xht"
-                "application/x-extension-htm"
-                "x-scheme-handler/unknown"
-                "x-scheme-handler/mailto"
-                "x-scheme-handler/chrome"
-                "x-scheme-handler/about"
-                "x-scheme-handler/https"
-                "x-scheme-handler/http"
-                "application/xhtml+xml"
-                "application/json"
-                "text/plain"
-                "text/html"
-              ]
-          );
-        in
-        {
-          associations.added = associations;
-          defaultApplications = associations;
-        };
-
       programs.zen-browser = {
         enable = true;
+        setAsDefaultBrowser = true;
+
         policies =
           let
             mkLockedAttrs = builtins.mapAttrs (
@@ -158,6 +130,30 @@
           };
 
         profiles.default = {
+          presets.betterfox.enable = true;
+          presets.arkenfox.enable = true;
+          search = {
+            force = true;
+            default = "ddg";
+            engines = {
+              mynixos = {
+                name = "My NixOS";
+                urls = [
+                  {
+                    template = "https://mynixos.com/search?q={searchTerms}";
+                    params = [
+                      {
+                        name = "query";
+                        value = "searchTerms";
+                      }
+                    ];
+                  }
+                ];
+                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@nx" ];
+              };
+            };
+          };
           settings = {
             "zen.workspaces.continue-where-left-off" = true;
             "zen.workspaces.natural-scroll" = true;
@@ -171,13 +167,11 @@
             "zen.workspaces.open-new-tab-if-last-unpinned-tab-is-closed" = true;
             "zen.folders.owned-tabs-in-folder" = true;
           };
-
           mods = [
             "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs
             "a6335949-4465-4b71-926c-4a52d34bc9c0" # Better Find Bar
             "79dde383-4fe7-404a-a8e6-9be440022542" # Tidy Popup
           ];
-
           spaces = {
             "Personal" = {
               id = "ad97a477-95a8-4504-9eef-0d27cf8ce6b4";
@@ -196,9 +190,8 @@
               };
             };
           };
-
           pinsForce = true;
-          pins = ctx.secrets.zen-browser_pins;
+          pins = secrets.zen-browser_pins;
           keyboardShortcuts = [
             {
               id = "zen-compact-mode-toggle";
