@@ -44,6 +44,16 @@ bind("Grave", Meta, "vic:launch/wm/switch-windows")
 bind("Space", { Control, Shift }, "vic:launch/core/search-emojis")
 bind("H", { Control, Alt }, "vic:launch/clipboard/history")
 
+hl.layer_rule({
+  name = "noctalia",
+  match = {
+    namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+  },
+  no_anim = true,
+  ignore_alpha = 0.5,
+  blur = true,
+  blur_popups = true,
+})
 d:add("noc", function(cmd) return "noctalia msg " .. cmd end)
 bind("Print", nil, "noc:screenshot-region")
 bind("Print", Shift, "noc:screenshot-fullscreen")
