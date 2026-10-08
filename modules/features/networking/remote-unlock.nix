@@ -1,7 +1,7 @@
 { _, ... }:
 {
   flake.modules.nixos.remote-unlock =
-    { ... }:
+    { _, ... }:
     {
       boot = {
         kernelParams = [ "ip=dhcp" ];
