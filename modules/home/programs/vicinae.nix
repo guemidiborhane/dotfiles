@@ -1,7 +1,8 @@
 { _, ... }:
 {
   flake-file.inputs = {
-    vicinae.url = "github:vicinaehq/vicinae";
+    # FIX: remove version pinning after PR: https://github.com/vicinaehq/vicinae/pull/2055
+    vicinae.url = "github:vicinaehq/vicinae/v0.28.2";
 
     vicinae-extensions = {
       url = "github:vicinaehq/extensions";
@@ -15,7 +16,12 @@
   };
 
   flake.modules.homeManager.vicinae =
-    { inputs, pkgs, config, ... }:
+    {
+      inputs,
+      pkgs,
+      config,
+      ...
+    }:
     {
       imports = [
         inputs.vicinae.homeManagerModules.default

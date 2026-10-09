@@ -35,7 +35,6 @@
           ntfs3g
           exfatprogs
           squashfsTools
-          openssl_3
         ]
         ++ (ctx.host.extraPkgs or [ ]);
     };
