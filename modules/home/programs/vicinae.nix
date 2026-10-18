@@ -1,8 +1,8 @@
 { _, ... }:
 {
   flake-file.inputs = {
-    # FIX: remove version pinning after PR: https://github.com/vicinaehq/vicinae/pull/2055
-    vicinae.url = "github:vicinaehq/vicinae/v0.28.2";
+    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae.inputs.nixpkgs.follows = "nixpkgs";
 
     vicinae-extensions = {
       url = "github:vicinaehq/extensions";
