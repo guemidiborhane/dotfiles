@@ -10,9 +10,9 @@
 
       services.adguardhome = {
         enable = true;
-        port = 8053;
 
         settings = {
+          http.address = "127.0.0.1:8053";
           dns = {
             inherit port;
             bind_hosts = [ "127.0.0.1" ];
