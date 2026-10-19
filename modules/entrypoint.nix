@@ -18,7 +18,6 @@ let
     "boot"
     "fish"
     hostProfile
-    "like-nix"
     "locales"
     "neovim"
     "netbird"
