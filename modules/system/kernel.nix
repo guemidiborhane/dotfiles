@@ -2,10 +2,11 @@
 {
   flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   flake = {
-    caches.cachyos-kernel = {
-      url = "https://attic.xuyh0120.win/lantian";
-      key = "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=";
-    };
+    # FIX: re-enable after https://github.com/xddxdd/nix-cachyos-kernel/issues/110 gets closed
+    # caches.cachyos-kernel = {
+    #   url = "https://attic.xuyh0120.win/lantian";
+    #   key = "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=";
+    # };
 
     overlays.cachyos-kernels = final: prev: {
       customKernels = builtins.listToAttrs (
