@@ -78,5 +78,5 @@ features.ai.opencode = true
 features.ai.pi-coding-agent = true
 
 [[sandbox.shares]]
-host = "/home/borhane/Code/share"
-guest = "/host"
+host = "/home/borhane/.config/nixos"
+guest = "/host/nixos"
