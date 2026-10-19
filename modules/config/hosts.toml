@@ -58,7 +58,7 @@ gpu = "nvidia"
 bluetooth = true
 wifi = true
 
-[kotoamatsukami.mounts]
+[kotoamatsukami.hardware.mounts]
 34B1213A561574D4 = "/mnt/2_5"
 75cddeb8-910a-41da-8b8c-269dada60016 = "/mnt/3_5"
 4d80e49e-7786-4543-aa34-7429908d3c8b = "/mnt/320"
