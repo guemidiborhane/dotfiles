@@ -1,11 +1,12 @@
-_: {
+{ self, ... }: {
   flake.modules.homeManager.pi-coding-agent =
-    { lib, user, ... }:
-    lib.mkIf (user.features.ai.pi-coding-agent or false) {
+    { user, ... }:
+    {
+      imports = [ self.modules.homeManager.omniroute ];
       dex.persist.directories = [ ".pi/agent" ];
 
       programs.pi-coding-agent = {
-        enable = true;
+        enable = user.features.ai.pi-coding-agent or false;
         settings = {
           theme = "system";
           enableInstallTelemetry = false;
