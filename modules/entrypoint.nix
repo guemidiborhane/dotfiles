@@ -10,6 +10,7 @@ let
   hostHardware = { host, hardware, ... }: { "${host.name}-hardware" = [ hardware.isBareMetal ]; };
   nvidia = { hardware, ... }: { nvidia = [ hardware.hasNvidia ]; };
   hostProfile = { host, ... }: { "${host.type}-profile" = [ true ]; };
+  nixosHardware = { hardware, ... }: { nixos-hardware = [ (hardware.nixos-hardware != "") ]; };
 
   nixosDefaults = [
     "dex-persist"
@@ -40,7 +41,7 @@ let
 
     hostHardware
     nvidia
-    (hardwareGuard "nixos-hardware")
+    nixosHardware
     (hardwareGuard "tlp")
     (hardwareGuard "bluetooth")
     (hardwareGuard "wifi")
