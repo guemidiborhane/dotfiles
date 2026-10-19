@@ -14,7 +14,7 @@
       ];
 
       home-manager = {
-        useGlobalPkgs = false;
+        useGlobalPkgs = true;
         useUserPackages = true;
         backupCommand = ctx.lib.getExe pkgs.trashy;
 

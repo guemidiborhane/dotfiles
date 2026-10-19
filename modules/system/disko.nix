@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake-file.inputs = {
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -10,7 +9,7 @@
     let
       inherit (ctx) host hardware;
 
-      device = host.disk;
+      device = hardware.disk;
       swapSize = "${toString (hardware.ram + 2)}G";
       vgName = "${host.name}-vg";
     in

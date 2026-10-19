@@ -1,9 +1,8 @@
-{ _, ... }:
-{
+_: {
   flake.modules.nixos.adguard =
     { secrets, ... }:
     let
-      port = 5353;
+      port = 5335;
     in
     {
       networking.nameservers = [ "127.0.0.1:${toString port}" ];

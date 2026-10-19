@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.nixos.netbird =
     { features, secrets, ... }:
     let

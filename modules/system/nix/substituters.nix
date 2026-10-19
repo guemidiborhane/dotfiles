@@ -21,7 +21,7 @@
 
   config = {
     flake.modules.nixos.nix-substituters =
-      { _, ... }:
+      _:
       let
         allCaches = lib.attrValues config.flake.caches;
 

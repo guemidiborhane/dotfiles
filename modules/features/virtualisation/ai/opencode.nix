@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.homeManager.opencode =
     { lib, user, ... }:
     lib.mkIf (user.features.ai.opencode or false) {

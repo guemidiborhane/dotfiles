@@ -18,7 +18,7 @@ let
     };
   };
 
-  optionsModule = { _, ... }: { options.dex.persist = persistEntries; };
+  optionsModule = _: { options.dex.persist = persistEntries; };
 in
 {
 

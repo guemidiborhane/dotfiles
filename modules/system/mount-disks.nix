@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.nixos.mount-disks =
     { hardware, lib, ... }:
     {

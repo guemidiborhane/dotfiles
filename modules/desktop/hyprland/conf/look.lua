@@ -19,7 +19,7 @@ gset("icon-theme", "kora")
 gset("font-name", "Cantarell 11")
 gset("monospace-font-name", "MonaspiceAr Nerd Font Propo 11")
 gset("color-scheme", "prefer-dark")
-gset("accent-color", purple)
+gset("accent-color", "purple")
 
 local cursor = {
   theme = "Banana",

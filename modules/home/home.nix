@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.homeManager.home =
     { metadata, user, ... }:
     {

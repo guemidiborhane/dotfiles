@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.nixos.headless-profile =
     { lib, ... }:
     {
@@ -14,5 +13,5 @@
       hardware.bluetooth.enable = lib.mkForce false;
     };
 
-  flake.modules.homeManager.headless-profile = { _, ... }: { };
+  flake.modules.homeManager.headless-profile = _: { };
 }

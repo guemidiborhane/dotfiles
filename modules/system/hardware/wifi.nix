@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake-file.inputs = {
     wlctl.url = "github:aashish-thapa/wlctl";
     wlctl.inputs.nixpkgs.follows = "nixpkgs";

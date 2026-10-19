@@ -1,11 +1,8 @@
-{ _, ... }:
-{
-  flake.modules.homeManager.delta =
-    { _, ... }:
-    {
-      programs.delta = {
-        enable = true;
-        enableGitIntegration = true;
-      };
+_: {
+  flake.modules.homeManager.delta = _: {
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
+  };
 }

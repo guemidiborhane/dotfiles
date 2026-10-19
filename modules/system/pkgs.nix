@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.unfreePackages = [
     "cuda_nvml_dev" # we need this.
   ];

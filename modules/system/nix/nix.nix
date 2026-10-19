@@ -1,7 +1,13 @@
 { self, ... }:
 {
   flake.modules.nixos.nix-config =
-    { pkgs, lib, metadata, hardware, ... }:
+    {
+      pkgs,
+      lib,
+      metadata,
+      hardware,
+      ...
+    }:
     {
       system.stateVersion = metadata.stateVersion;
 

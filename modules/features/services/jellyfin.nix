@@ -1,7 +1,11 @@
-{ _, ... }:
-{
+_: {
   flake.modules.nixos.jellyfin =
-    { pkgs, hardware, host, ... }:
+    {
+      pkgs,
+      hardware,
+      host,
+      ...
+    }:
     let
       types = {
         nvidia = "nvenc";

@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.nixos.tty-autologin =
     ctx@{ pkgs, lib, ... }:
     {

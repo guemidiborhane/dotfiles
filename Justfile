@@ -91,7 +91,8 @@ install host="" disk="":
     echo
 
     # Show configuration summary
-    tomlq ".\"$RESOLVED\" | {type, disk, ram, cpu, gpu}" {{ hosts_config }}
+    tomlq ".\"$RESOLVED\".hardware | {disk, ram, cpu, gpu}" {{ hosts_config }}
+    tomlq ".\"$RESOLVED\" | {type}" {{ hosts_config }}
     echo
 
     gum confirm "Proceed with installation?" || exit 0
@@ -347,7 +348,7 @@ fmt:
 
 # Validate flake
 check:
-    nix flake check --show-trace
+    {{ nix }} flake check --show-trace
 
 # Enter mise nix-shell
 mise:
@@ -405,7 +406,7 @@ _get-hostname host:
 _get-host-disk host:
     #!/usr/bin/env bash
     RESOLVED=$(just _resolve-host {{ host }})
-    tomlq -r ".\"$RESOLVED\".disk" {{ hosts_config }}
+    tomlq -r ".\"$RESOLVED\".hardware.disk" {{ hosts_config }}
 
 # Helper: Check if host exists
 _host-exists host:

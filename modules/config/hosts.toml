@@ -34,7 +34,7 @@ type = "desktop"
 description = "5950X Workstation"
 kernel = "cachyos-latest"
 additionalKernels = ["cachyos-lts"]
-kotoamatsukami.users.borhane.email = "guemidiborhane@aina.dz"
+users.borhane.email = "guemidiborhane@aina.dz"
 
 [kotoamatsukami.features]
 auto-upgrade = false

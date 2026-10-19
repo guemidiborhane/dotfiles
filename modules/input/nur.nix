@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake-file.inputs = {
     nur.url = "github:nix-community/NUR";
     nur.inputs.nixpkgs.follows = "nixpkgs";
@@ -28,10 +27,6 @@
     modules.homeManager.nur =
       { inputs, pkgs, ... }:
       {
-        imports = [
-          inputs.nur.modules.homeManager.default
-        ];
-
         home.packages = with pkgs.nur.repos; [
           trev.helium
         ];

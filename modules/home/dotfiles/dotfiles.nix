@@ -7,8 +7,7 @@
 #   - .nix files are excluded automatically
 #   - Paths listed in `dirUnits` are linked as a whole directory
 #     rather than being recursed into file-by-file
-{ _, ... }:
-{
+_: {
   flake.modules.homeManager.dotfiles =
     { lib, config, ... }:
     with lib;

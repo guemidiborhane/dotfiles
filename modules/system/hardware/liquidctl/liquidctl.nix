@@ -1,7 +1,12 @@
-{ _, ... }:
-{
+_: {
   flake.modules.nixos.hardware-liquidctl =
-    { lib, hardware, config, pkgs, ... }:
+    {
+      lib,
+      hardware,
+      config,
+      pkgs,
+      ...
+    }:
     let
       cfg = config.services.liquidctl;
       yodaPkg = pkgs.callPackage ./_yoda.nix { };
@@ -52,11 +57,19 @@
                 };
 
                 points = lib.mkOption {
-                  type = lib.types.listOf (lib.types.addCheck (lib.types.listOf lib.types.int) (p: builtins.length p == 2));
+                  type = lib.types.listOf (
+                    lib.types.addCheck (lib.types.listOf lib.types.int) (p: builtins.length p == 2)
+                  );
                   description = "List of [temp, speed] pairs";
                   example = [
-                    [ 20 50 ]
-                    [ 50 100 ]
+                    [
+                      20
+                      50
+                    ]
+                    [
+                      50
+                      100
+                    ]
                   ];
                 };
               };
@@ -68,16 +81,28 @@
               type = "pump";
               sensor = "istats.cpu";
               points = [
-                [ 20 50 ]
-                [ 50 100 ]
+                [
+                  20
+                  50
+                ]
+                [
+                  50
+                  100
+                ]
               ];
             }
             {
               type = "fan";
               sensor = "_internal.liquid";
               points = [
-                [ 20 25 ]
-                [ 34 100 ]
+                [
+                  20
+                  25
+                ]
+                [
+                  34
+                  100
+                ]
               ];
             }
           ];

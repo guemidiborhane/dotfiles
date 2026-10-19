@@ -16,7 +16,7 @@ fi
 
 # Interactive inputs
 gum style --foreground 212 "Host Metadata"
-TYPE=$(gum choose --header "Select type:" "laptop" "desktop" "server" "headless")
+TYPE=$(gum choose --header "Select type:" "laptop" "desktop" "headless")
 DESCRIPTION=$(gum input --placeholder "Description" --value "$NAME")
 HOSTNAME=$(gum input --placeholder "Short hostname (optional, press enter to skip)")
 KERNEL=$(gum input --placeholder "Kernel (optional, press enter for default)")
@@ -116,9 +116,9 @@ if gum confirm "Generate hardware configuration now? (requires root)"; then
 
 	# Wrap in module format
 	cat >"$output_file" <<EOF
-{ _, ... }:
+_:
 {
-  flake.modules.nixos.hardware-$NAME =
+  flake.modules.nixos.$NAME-hardware =
 $(cat "$output_file.tmp" | sed 's/^/    /');
 }
 EOF
@@ -167,7 +167,7 @@ HARDWARE=$(jq -n \
     }')
 
 # Add optional hardware module
-[ -n "$HARDWARE_MODULE" ] && HARDWARE=$(echo "$HARDWARE" | jq --arg m "$HARDWARE_MODULE" '. + {module: $m}')
+[ -n "$HARDWARE_MODULE" ] && HARDWARE=$(echo "$HARDWARE" | jq --arg m "$HARDWARE_MODULE" '. + {"nixos-hardware": $m}')
 
 # Add hardware to host config
 HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson hw "$HARDWARE" '. + {hardware: $hw}')
@@ -183,7 +183,7 @@ if [ "$TYPE" = "laptop" ] && [ "$TLP" = "true" ]; then
             startChargeThreshold: $start,
             stopChargeThreshold: $stop
         }')
-	HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson p "$POWER" '. + {power: $p}')
+	HOST_CONFIG=$(echo "$HOST_CONFIG" | jq --argjson p "$POWER" '.hardware += $p')
 fi
 
 # Update modules/config/hosts.toml

@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake-file.inputs = {
     nixcord.url = "github:4evy/nixcord";
   };

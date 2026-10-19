@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.unfreePackages = [ "ngrok" ];
   flake.modules.homeManager.pkgs-shell =
     { pkgs, ... }:

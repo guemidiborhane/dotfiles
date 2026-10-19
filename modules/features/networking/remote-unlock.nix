@@ -1,24 +1,21 @@
-{ _, ... }:
-{
-  flake.modules.nixos.remote-unlock =
-    { _, ... }:
-    {
-      boot = {
-        kernelParams = [ "ip=dhcp" ];
-        initrd = {
-          availableKernelModules = [ "r8169" ];
-          network = {
+_: {
+  flake.modules.nixos.remote-unlock = _: {
+    boot = {
+      kernelParams = [ "ip=dhcp" ];
+      initrd = {
+        availableKernelModules = [ "r8169" ];
+        network = {
+          enable = true;
+          ssh = {
             enable = true;
-            ssh = {
-              enable = true;
-              port = 22;
-              authorizedKeys = [
-                ''command="systemctl default" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAizWh/D3fQY7CT8onqVH4M0BJ7l5fpBsdCPvx3TsUo/ luks@warden''
-              ];
-              hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-            };
+            port = 22;
+            authorizedKeys = [
+              ''command="systemctl default" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAizWh/D3fQY7CT8onqVH4M0BJ7l5fpBsdCPvx3TsUo/ luks@warden''
+            ];
+            hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
           };
         };
       };
     };
+  };
 }

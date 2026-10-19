@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.homeManager.fastfetch =
     { config, lib, ... }:
     let

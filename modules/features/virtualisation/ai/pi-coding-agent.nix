@@ -1,5 +1,4 @@
-{ _, ... }:
-{
+_: {
   flake.modules.homeManager.pi-coding-agent =
     { lib, user, ... }:
     lib.mkIf (user.features.ai.pi-coding-agent or false) {
