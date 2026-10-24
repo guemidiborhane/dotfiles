@@ -2,7 +2,7 @@
 kernel = "cachyos-latest"
 defaultUser = "borhane"
 system = "x86_64-linux"
-additionalKernels = []
+additionalKernels = ["linux-lts"]
 modules = ["fstrim", "fwupd"]
 
 [defaults.users.borhane]
@@ -11,7 +11,6 @@ modules = ["fstrim", "fwupd"]
 type = "laptop"
 description = "P14s G5 AMD"
 kernel = "cachyos-latest"
-additionalKernels = ["cachyos-lts"]
 
 [kamui.features.kernel]
 opti = "zen4"

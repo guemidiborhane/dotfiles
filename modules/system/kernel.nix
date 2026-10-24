@@ -47,6 +47,7 @@
         kernelName = host.kernel or "";
         availableKernels = {
           linux-latest = pkgs.linuxPackages_latest;
+          linux-lts = pkgs.linuxPackages;
           linux-zen = pkgs.linuxPackages_zen;
 
           cachyos-lts = pkgs.cachyosKernels."linuxPackages-cachyos-lts-lto-${opti}";
