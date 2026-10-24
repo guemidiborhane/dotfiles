@@ -1,6 +1,6 @@
 { self, lib, ... }:
 {
-  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
   flake = {
     # FIX: re-enable after https://github.com/xddxdd/nix-cachyos-kernel/issues/110 gets closed
     # caches.cachyos-kernel = {
