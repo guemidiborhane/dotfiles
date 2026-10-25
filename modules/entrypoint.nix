@@ -61,6 +61,7 @@ let
     (featureGuard "remote-unlock")
     (featureGuard "microvm")
     (microVMGuard "impermanence")
+    (featureGuard "ollama")
   ];
 
   homeDefaults = [

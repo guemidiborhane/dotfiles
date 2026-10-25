@@ -13,6 +13,7 @@ podman = true
 jellyfin = false
 adguard = true
 openssh = true
+ollama = false
 
 [microvm]
 enable = false
