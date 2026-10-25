@@ -40,7 +40,7 @@ local border_colors = {
 }
 
 hl.config({
-  misc = { font_family = "MonaSpiceAr Nerd Font Propo" },
+  misc = { font_family = "MonaspiceAr Nerd Font Propo" },
 
   general = {
     gaps_in = gaps,

@@ -18,6 +18,11 @@
         kernelModules = [ "kvm-amd" ];
         extraModulePackages = [ ];
         kernelParams = [
+          # Exclude small but defective physical RAM regions (identified via
+          # memtest86) that otherwise cause hard crashes. Each memmap=<size>$<addr>
+          # reserves a bad range so the kernel never allocates from it. These are
+          # specific to this machine's RAM; re-run memtest and regenerate if the
+          # modules change.
           "memmap=64K$0x0000000712f10000"
           "memmap=32K$0x000000071b010000"
           "memmap=32K$0x0000000726978000"

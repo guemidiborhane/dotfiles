@@ -35,10 +35,10 @@ If one bricked machine isn't enough for you, follow these steps to spread the pl
 You must inform the `modules/config/hosts.toml` file of its new victim.
 
 ```bash
-just add-host <hostname> <type>
+just add-host <hostname>
 ```
 
-The `<type>` must be one of: `workstation`, `laptop`, or `homeserver`.
+You will be prompted interactively for the host `type`, which must be one of: `laptop`, `desktop`, `headless`, or `vm`.
 
 ## 2. The Partitioning Ritual
 
