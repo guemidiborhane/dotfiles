@@ -13,6 +13,7 @@
           lib,
           pkgs,
           hardware,
+          features,
           ...
         }:
         {
@@ -23,6 +24,17 @@
             thunar
             inputs.vicinae.nixosModules.default
             openlogi
+          ];
+
+          assertions = [
+            {
+              assertion = builtins.elem features.logitech [
+                "solaar"
+                "openlogi"
+                "none"
+              ];
+              message = "features.logitech must be one of \"solaar\", \"openlogi\", or \"none\" (got \"${toString features.logitech}\").";
+            }
           ];
 
           services = {

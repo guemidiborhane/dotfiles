@@ -1,9 +1,10 @@
 _: {
   flake.modules.nixos.solaar =
-    { inputs, ... }:
+    { features, ... }:
     {
       programs.solaar = {
-        enable = false;
+        # Mutually exclusive with openlogi; selected via features.logitech.
+        enable = features.logitech == "solaar";
         userService = {
           enable = true;
           extraArgs = [
@@ -14,13 +15,13 @@ _: {
       };
     };
 
-  flake.modules.homeManager.solaar =
-    { inputs, ... }:
-    {
-      programs.git.settings.filter = {
-        "ignore_solaar_cookie_key" = {
-          clean = "sed '/_config_cookie:/d'";
-        };
+  # The git clean filter is harmless regardless of which Logitech tool is
+  # active, so it is always applied.
+  flake.modules.homeManager.solaar = _: {
+    programs.git.settings.filter = {
+      "ignore_solaar_cookie_key" = {
+        clean = "sed '/_config_cookie:/d'";
       };
     };
+  };
 }

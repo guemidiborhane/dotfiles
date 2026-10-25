@@ -15,6 +15,7 @@ adguard = true
 openssh = true
 ollama = false
 colibri = false
+logitech = "openlogi"
 
 [microvm]
 enable = false
