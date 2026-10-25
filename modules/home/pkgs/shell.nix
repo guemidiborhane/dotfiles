@@ -32,6 +32,7 @@ _: {
         wol
         yq
         zip
+        pagespeed
       ];
     };
 }
