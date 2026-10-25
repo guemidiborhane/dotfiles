@@ -2,7 +2,6 @@
   lib,
   writeShellApplication,
   curl,
-  openssl,
   coreutils,
   gawk,
 }:
@@ -11,13 +10,11 @@ writeShellApplication {
   name = "pagespeed";
 
   # Everything the script calls is put on its PATH from pkgs:
-  #   curl      -> HTTP request + timings
-  #   openssl   -> s_client / x509 for the certificate expiry
-  #   coreutils -> date, cut, timeout
+  #   curl      -> HTTP request + timings + TLS cert chain (%{certs})
+  #   coreutils -> date
   #   gawk      -> float math and formatting
   runtimeInputs = [
     curl
-    openssl
     coreutils
     gawk
   ];
@@ -29,6 +26,7 @@ writeShellApplication {
   meta = {
     description = "Measure website response time and TLS certificate validity";
     mainProgram = "pagespeed";
+    license = lib.licenses.mit;
     platforms = lib.platforms.unix;
   };
 }

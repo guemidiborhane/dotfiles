@@ -71,44 +71,21 @@ if [[ ! "$target_url" =~ ^https?:// ]]; then
 	exit 1
 fi
 
-# Host and port for the certificate check
-rest=${target_url#*://}
-authority=${rest%%[/?#]*}
-authority=${authority##*@}
-host_name=${authority%%:*}
-port=443
-[[ "$authority" == *:* ]] && port=${authority##*:}
-
 if [[ "$json_output" == false ]]; then
 	printf 'Checking %s...\r' "$target_url" >&2
 fi
 
 # ── Request (follows up to 10 redirects) ─────────────────────────────────────
+# A single request yields both the timings and the TLS certificate chain
+# (%{certs}), so no second connection/handshake is needed for the cert check.
+# The seven scalar fields come first; %{certs} is multi-line and goes last.
 curl_status=0
 curl_output=$(
 	curl -s -L --max-redirs 10 -o /dev/null \
 		--connect-timeout 10 --max-time 30 \
-		-w '%{response_code}\n%{time_namelookup}\n%{time_connect}\n%{time_pretransfer}\n%{time_starttransfer}\n%{time_total}\n%{url_effective}\n' \
+		-w '%{response_code}\n%{time_namelookup}\n%{time_connect}\n%{time_pretransfer}\n%{time_starttransfer}\n%{time_total}\n%{url_effective}\n%{certs}' \
 		"$target_url" 2>/dev/null
 ) || curl_status=$?
-
-# ── TLS certificate ──────────────────────────────────────────────────────────
-cert_days=""
-if [[ "$target_url" == https://* ]]; then
-	cert_date=$(
-		timeout 10 openssl s_client -servername "$host_name" -connect "$host_name:$port" </dev/null 2>/dev/null |
-			openssl x509 -noout -enddate 2>/dev/null |
-			cut -d= -f2
-	) || true
-	if [[ -n "$cert_date" ]] && cert_epoch=$(date -d "$cert_date" +%s 2>/dev/null); then
-		diff=$((cert_epoch - $(date +%s)))
-		if ((diff < 0)); then
-			cert_days=$((-((-diff + 86399) / 86400))) # floor for negative values
-		else
-			cert_days=$((diff / 86400))
-		fi
-	fi
-fi
 
 if [[ "$json_output" == false ]]; then
 	printf '\033[2K\r' >&2
@@ -116,8 +93,10 @@ fi
 
 if ((curl_status != 0)); then
 	if [[ "$json_output" == true ]]; then
+		# Emit the error object on stdout so --json consumers can parse it;
+		# the non-zero exit code still signals failure.
 		printf '{"error": "Failed to connect to %s", "details": "Possible reasons: invalid URL, network issue, or timeout"}\n' \
-			"$(json_escape "$target_url")" >&2
+			"$(json_escape "$target_url")"
 	else
 		printf '%sFailed to connect to %s%s\n' "$ERR_RED" "$target_url" "$ERR_RESET" >&2
 		echo "Possible reasons: invalid URL, network issue, or timeout" >&2
@@ -126,17 +105,47 @@ if ((curl_status != 0)); then
 fi
 
 # ── Parse and compute ────────────────────────────────────────────────────────
+# The first seven lines are the scalar -w fields; everything after is the
+# %{certs} block (present only for HTTPS).
 mapfile -t f <<<"$curl_output"
 response_code=$((10#${f[0]}))
 url_effective=${f[6]}
 
-read -r ms_namelookup ms_connect ms_tls ms_server ms_transfer ms_total perf_text < <(
-	awk -v dns="${f[1]}" -v con="${f[2]}" -v pre="${f[3]}" -v st="${f[4]}" -v tot="${f[5]}" 'BEGIN {
-    t = tot * 1000
+# TLS certificate expiry, taken from the leaf cert in %{certs} (the first
+# "Expire date:" line). Empty for plain HTTP, where curl emits no cert block.
+cert_days=""
+cert_date=$(printf '%s\n' "$curl_output" | awk '/^Expire date:/ { sub(/^Expire date:/, ""); print; exit }')
+if [[ -n "$cert_date" ]] && cert_epoch=$(date -d "$cert_date" +%s 2>/dev/null); then
+	diff=$((cert_epoch - $(date +%s)))
+	if ((diff < 0)); then
+		cert_days=$((-((-diff + 86399) / 86400))) # floor for negative values
+	else
+		cert_days=$((diff / 86400))
+	fi
+fi
+
+# A single awk pass computes the per-segment millisecond figures, the overall
+# performance label, and the bar widths (0-30 chars, min 1) for the chart,
+# avoiding a separate awk spawn per row. Note: curl's time_* fields are
+# cumulative from request start, so TCP = connect - namelookup (excludes DNS)
+# keeps the segments summing to the total.
+read -r ms_namelookup ms_connect ms_tls ms_server ms_transfer ms_total perf_text \
+	w_namelookup w_connect w_tls w_server w_transfer < <(
+	awk -v dns="${f[1]}" -v con="${f[2]}" -v pre="${f[3]}" -v st="${f[4]}" -v tot="${f[5]}" '
+  # Bar width proportional to each segment, 0-30 chars, minimum 1.
+  function width(v) { n = (total > 0) ? int(v / total * 30) : 0; return (n < 1) ? 1 : n }
+  BEGIN {
+    total = tot * 1000
     perf = "Excellent"
-    if (t > 1000) perf = "Slow"; else if (t > 500) perf = "Fair"; else if (t > 200) perf = "Good"
-    printf "%.2f %.2f %.2f %.2f %.2f %.2f %s\n",
-      dns * 1000, con * 1000, (pre - con) * 1000, (st - pre) * 1000, (tot - st) * 1000, t, perf
+    if (total > 1000) perf = "Slow"; else if (total > 500) perf = "Fair"; else if (total > 200) perf = "Good"
+    dns_ms = dns * 1000
+    con_ms = (con - dns) * 1000
+    tls_ms = (pre - con) * 1000
+    srv_ms = (st - pre) * 1000
+    xfr_ms = (tot - st) * 1000
+    printf "%.2f %.2f %.2f %.2f %.2f %.2f %s %d %d %d %d %d\n",
+      dns_ms, con_ms, tls_ms, srv_ms, xfr_ms, total, perf,
+      width(dns_ms), width(con_ms), width(tls_ms), width(srv_ms), width(xfr_ms)
   }'
 )
 
@@ -174,9 +183,8 @@ section() {
 }
 
 bar_row() {
-	local label=$1 ms=$2 n bar
-	n=$(awk -v v="$ms" -v t="$ms_total" 'BEGIN { n = (t > 0) ? int(v / t * 30) : 0; if (n < 1) n = 1; print n }')
-	printf -v bar '%*s' "$n" ''
+	local label=$1 ms=$2 width=$3 bar
+	printf -v bar '%*s' "$width" ''
 	printf '%-25s %s%8s ms%s  %s%s%s\n' "$label" "$MAGENTA" "$ms" "$RESET" "$BLUE" "${bar// /█}" "$RESET"
 }
 
@@ -200,8 +208,8 @@ if [[ -n "$cert_days" ]]; then
 fi
 
 section "Timing Breakdown"
-bar_row "DNS Lookup:" "$ms_namelookup"
-bar_row "TCP Connection:" "$ms_connect"
-bar_row "TLS Handshake:" "$ms_tls"
-bar_row "Server Processing:" "$ms_server"
-bar_row "Content Transfer:" "$ms_transfer"
+bar_row "DNS Lookup:" "$ms_namelookup" "$w_namelookup"
+bar_row "TCP Connection:" "$ms_connect" "$w_connect"
+bar_row "TLS Handshake:" "$ms_tls" "$w_tls"
+bar_row "Server Processing:" "$ms_server" "$w_server"
+bar_row "Content Transfer:" "$ms_transfer" "$w_transfer"
