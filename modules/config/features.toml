@@ -1,7 +1,6 @@
 auto-upgrade = false
 autoReboot = false
-zram-swap = true
-zswap = false
+swap = "zram"
 remote-unlock = false
 kanata = false
 gaming = false
@@ -39,4 +38,4 @@ kanata = true
 
 [vm]
 adguard = false
-zram-swap = false
+swap = "none"

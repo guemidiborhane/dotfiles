@@ -5,7 +5,7 @@ _: {
       boot = {
         zswap = {
           enable = true;
-          compressor = "lzo";
+          compressor = "zstd";
           maxPoolPercent = 20;
         };
       };

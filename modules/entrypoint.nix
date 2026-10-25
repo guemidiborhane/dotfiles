@@ -7,6 +7,13 @@ let
   scopeGuard = scope: entry: (ctx: { ${entry} = [ (isToggled ctx.${scope}.${entry}) ]; });
   hardwareGuard = entry: scopeGuard "hardware" entry;
   featureGuard = entry: scopeGuard "features" entry;
+
+  # Selects at most one swap implementation from the `features.swap` string
+  # ("zram" | "zswap" | "none"); the unselected module(s) are guarded off.
+  swapGuard = { features, ... }: {
+    zram-swap = [ (features.swap == "zram") ];
+    zswap = [ (features.swap == "zswap") ];
+  };
   hostHardware = { host, hardware, ... }: { "${host.name}-hardware" = [ hardware.isBareMetal ]; };
   nvidia = { hardware, ... }: { nvidia = [ hardware.hasNvidia ]; };
   hostProfile = { host, ... }: { "${host.type}-profile" = [ true ]; };
@@ -54,8 +61,7 @@ let
     (featureGuard "openssh")
     (featureGuard "podman")
     (featureGuard "virtualbox")
-    (featureGuard "zram-swap")
-    (featureGuard "zswap")
+    swapGuard
     (featureGuard "kanata")
     (featureGuard "wol")
     (featureGuard "remote-unlock")
