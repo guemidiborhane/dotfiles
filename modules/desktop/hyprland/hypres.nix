@@ -10,14 +10,8 @@ _: {
     let
       cfg = config.programs.hypres;
 
-      python = pkgs.python3.withPackages (
-        ps: lib.optionals (lib.versionOlder pkgs.python3.version "3.11") [ ps.tomli ]
-      );
-
-      hypres-bin = pkgs.writeScriptBin "hypres" ''
-        #!${python}/bin/python3
-        ${builtins.readFile ./scripts/hypres.py}
-      '';
+      # The package lives in pkgs/hypres.nix (exposed via self.overlays.packages).
+      hypres-bin = pkgs.hypres;
 
       commandsToml =
         let

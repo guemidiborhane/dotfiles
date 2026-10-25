@@ -16,6 +16,7 @@
           colibri
           vpn
           hydrun
+          hypres
           ;
       };
     };

@@ -12,6 +12,7 @@
       pagespeed = final.callPackage ../pkgs/pagespeed.nix { };
       vpn = final.callPackage ../pkgs/vpn.nix { };
       hydrun = final.callPackage ../pkgs/hydrun.nix { };
+      hypres = final.callPackage ../pkgs/hypres.nix { };
 
       # colibrì rebuilt with the Vulkan backend + staged web dashboard. The
       # flake input is passed through; the package derives upstream's base
