@@ -62,6 +62,7 @@ let
     (featureGuard "microvm")
     (microVMGuard "impermanence")
     (featureGuard "ollama")
+    (featureGuard "colibri")
   ];
 
   homeDefaults = [
