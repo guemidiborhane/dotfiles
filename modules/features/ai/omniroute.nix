@@ -12,8 +12,7 @@ _: {
       home.packages = [ omniroute ];
       systemd.user.services.omniroute = {
         Unit = {
-          Description = "tmux server daemon";
-          Documentation = "man:tmux(1)";
+          Description = "Open Source AI Router";
         };
 
         Service = {

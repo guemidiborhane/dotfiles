@@ -10,6 +10,7 @@ _: {
       types = {
         nvidia = "nvenc";
         amd = "vaapi";
+        intel = "vaapi";
       };
     in
     {
@@ -19,7 +20,7 @@ _: {
 
         hardwareAcceleration = {
           enable = true;
-          type = types.${hardware.gpu};
+          type = types.${hardware.gpu} or "vaapi";
           device = "/dev/dri/renderD128";
         };
       };

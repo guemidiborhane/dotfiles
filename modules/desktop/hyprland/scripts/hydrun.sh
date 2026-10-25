@@ -357,7 +357,7 @@ build_hyprland_batch() {
 generate_hyprland_dispatcher() {
 	cat <<'HYPR_SCRIPT'
 {
-  target_pid=$$$
+  target_pid=$$
 
   for i in {1..50}; do
     if [ -n "$target_pid" ]; then

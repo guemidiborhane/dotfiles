@@ -72,7 +72,7 @@ in
               "/var/lib/nixos"
               "/var/lib/systemd/coredump"
             ]
-            ++ (lib.uniqueStrings (cfg.directories or [ ]));
+            ++ (lib.unique (cfg.directories or [ ]));
 
             files = [ "/etc/machine-id" ] ++ (cfg.files or [ ]);
           };
@@ -93,7 +93,7 @@ in
             directories = map (directory: {
               inherit directory;
               mode = "0700";
-            }) ((lib.uniqueStrings (cfg.directories or [ ])) ++ [ ".ssh" ]);
+            }) ((lib.unique (cfg.directories or [ ])) ++ [ ".ssh" ]);
 
             files = cfg.files or [ ];
           };
