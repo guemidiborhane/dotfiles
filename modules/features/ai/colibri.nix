@@ -37,7 +37,7 @@ _: {
       withVulkan = cfg.vulkan or hasGpu;
 
       # The package (Vulkan rebuild + staged web dashboard) is defined in
-      # pkgs/colibri/colibri.nix and exposed via self.overlays.packages. The
+      # pkgs/colibri.nix and exposed via self.overlays.packages. The
       # module only picks the GPU-appropriate backend for this host.
       colibri = pkgs.colibri.override { inherit withVulkan; };
 
@@ -61,62 +61,69 @@ _: {
       };
       users.groups.colibri = { };
 
-      # systemd.services.colibri = {
-      #   description = "colibrì MoE inference server";
-      #   documentation = [ "https://github.com/JustVugg/colibri/blob/main/docs/AI_SETUP.md" ];
-      #   after = [ "network-online.target" ];
-      #   wants = [ "network-online.target" ];
-      #   wantedBy = [ "multi-user.target" ];
-      #
-      #   environment = {
-      #     COLI_SETUP_HOME = setupHome;
-      #     HOME = setupHome;
-      #   };
-      #
-      #   # `coli start` runs the server the previous `coli setup` configured.
-      #   # It refuses to start if setup has not been run yet, so this service
-      #   # is a no-op until the operator completes the one-time setup above.
-      #   serviceConfig = {
-      #     Type = "simple";
-      #     User = "colibri";
-      #     Group = "colibri";
-      #     ExecStart = "${lib.getExe colibri} start --host ${host} --port ${port} --no-browser";
-      #     ExecStop = "${lib.getExe colibri} stop";
-      #     Restart = "on-failure";
-      #     RestartSec = 5;
-      #
-      #     StateDirectory = "colibri";
-      #     StateDirectoryMode = "0750";
-      #     WorkingDirectory = setupHome;
-      #
-      #     # GPU access: the render node and the Vulkan ICD/driver.
-      #     SupplementaryGroups = lib.mkIf withVulkan [
-      #       "render"
-      #       "video"
-      #     ];
-      #     DeviceAllow = lib.mkIf withVulkan [
-      #       "/dev/dri rw"
-      #       "char-drm rw"
-      #     ];
-      #
-      #     # Hardening — colibri only needs its state dir, the GPU and the network.
-      #     NoNewPrivileges = true;
-      #     PrivateTmp = true;
-      #     ProtectSystem = "strict";
-      #     ProtectHome = true;
-      #     ReadWritePaths = [ setupHome ];
-      #     PrivateDevices = lib.mkDefault (!withVulkan);
-      #     ProtectKernelTunables = true;
-      #     ProtectKernelModules = true;
-      #     ProtectControlGroups = true;
-      #     RestrictAddressFamilies = [
-      #       "AF_INET"
-      #       "AF_INET6"
-      #       "AF_UNIX"
-      #     ];
-      #     RestrictNamespaces = true;
-      #     LockPersonality = true;
-      #   };
-      # };
+      systemd.services.colibri = {
+        description = "colibrì MoE inference server";
+        documentation = [ "https://github.com/JustVugg/colibri/blob/main/docs/AI_SETUP.md" ];
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
+
+        # The one-time `coli setup` (download + consent) cannot run during a
+        # Nix build/activation, so it is done manually (see header). Until it
+        # has written setup.json, this condition keeps the unit *skipped* — not
+        # failed — so the first system activation and every boot before setup
+        # stay clean. Once setup.json exists the service auto-starts on boot.
+        unitConfig.ConditionPathExists = "${setupHome}/setup.json";
+
+        environment = {
+          COLI_SETUP_HOME = setupHome;
+          HOME = setupHome;
+        };
+
+        # `coli start` runs the server the previous `coli setup` configured.
+        # It refuses to start if setup has not been run yet, so this service
+        # is a no-op until the operator completes the one-time setup above.
+        serviceConfig = {
+          Type = "simple";
+          User = "colibri";
+          Group = "colibri";
+          ExecStart = "${lib.getExe colibri} start --host ${host} --port ${port} --no-browser";
+          ExecStop = "${lib.getExe colibri} stop";
+          Restart = "on-failure";
+          RestartSec = 5;
+
+          StateDirectory = "colibri";
+          StateDirectoryMode = "0750";
+          WorkingDirectory = setupHome;
+
+          # GPU access: the render node and the Vulkan ICD/driver.
+          SupplementaryGroups = lib.mkIf withVulkan [
+            "render"
+            "video"
+          ];
+          DeviceAllow = lib.mkIf withVulkan [
+            "/dev/dri rw"
+            "char-drm rw"
+          ];
+
+          # Hardening — colibri only needs its state dir, the GPU and the network.
+          NoNewPrivileges = true;
+          PrivateTmp = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          ReadWritePaths = [ setupHome ];
+          PrivateDevices = lib.mkDefault (!withVulkan);
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectControlGroups = true;
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
+          ];
+          RestrictNamespaces = true;
+          LockPersonality = true;
+        };
+      };
     };
 }
