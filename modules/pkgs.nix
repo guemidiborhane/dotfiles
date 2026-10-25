@@ -10,7 +10,7 @@
     in
     {
       packages = {
-        inherit (pkgs) spotify-adblock pagespeed;
+        inherit (pkgs) spotify-adblock pagespeed colibri;
       };
     };
 }

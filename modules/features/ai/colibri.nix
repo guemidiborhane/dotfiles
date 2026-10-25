@@ -23,7 +23,6 @@ _: {
 
   flake.modules.nixos.colibri =
     {
-      inputs,
       pkgs,
       lib,
       hardware,
@@ -37,77 +36,10 @@ _: {
       # Build the Vulkan backend whenever a GPU is present, unless overridden.
       withVulkan = cfg.vulkan or hasGpu;
 
-      base = inputs.colibri.packages.${pkgs.stdenv.hostPlatform.system}.colibri;
-
-      # Rebuild upstream's derivation with VK=1. `make install` stages the
-      # engines under $out/lib/colibri but NOT the SPIR-V shaders, and the
-      # engines look for them in ./shaders next to the binary — so copy them
-      # there. The Vulkan loader is dlopen'd at runtime (not linked), so it is
-      # added to the wrapped LD_LIBRARY_PATH alongside /run/opengl-driver/lib,
-      # which NixOS populates with the Mesa/driver Vulkan ICD when
-      # hardware.graphics.enable is set.
-      colibriVulkan = base.overrideAttrs (prev: {
-        pname = "colibri-vulkan";
-
-        # glslc lives in shaderc's split `bin` output, not the default `out`.
-        nativeBuildInputs = (prev.nativeBuildInputs or [ ]) ++ [ pkgs.shaderc.bin ];
-        buildInputs = (prev.buildInputs or [ ]) ++ [
-          pkgs.vulkan-headers
-          pkgs.vulkan-loader
-        ];
-
-        buildPhase = ''
-          runHook preBuild
-          make -C c install VK=1 GLSLC=${pkgs.shaderc.bin}/bin/glslc \
-            ARCH=x86-64-v3 \
-            DESTDIR=$out PREFIX= BINDIR=/bin LIBEXECDIR=/lib/colibri
-          # Stage the compiled shaders beside the engines; `make install`
-          # omits them and the default lookup is ./shaders next to the binary.
-          install -d $out/lib/colibri/shaders
-          install -m 644 c/shaders/*.spv $out/lib/colibri/shaders/
-          runHook postBuild
-        '';
-
-        # The engines dlopen libvulkan.so.1 by soname at runtime. Make the
-        # loader + ICD findable: $out/bin/coli (the makeWrapper the base
-        # installPhase created) is re-wrapped so its engine subprocesses
-        # inherit LD_LIBRARY_PATH; the engine's own $out/bin/colibri symlink
-        # resolves to $out/lib/colibri/colibri, so wrap that directly.
-        postFixup = (prev.postFixup or "") + ''
-          wrapProgram $out/bin/coli \
-            --suffix LD_LIBRARY_PATH : "${pkgs.vulkan-loader}/lib:/run/opengl-driver/lib"
-          wrapProgram $out/lib/colibri/colibri \
-            --suffix LD_LIBRARY_PATH : "${pkgs.vulkan-loader}/lib:/run/opengl-driver/lib"
-        '';
-      });
-
-      # The dashboard (web/dist) is a build artifact upstream's derivation
-      # doesn't produce, so `coli setup` tries to fetch it and copy it into
-      # $out at runtime — impossible in the store. Build it here and stage it
-      # at lib/colibri/web/dist, the first path both setup_flow.py and
-      # openai_server.py probe; ensure_web_dist() then returns early.
-      colibriWeb = pkgs.buildNpmPackage {
-        pname = "colibri-web";
-        version = base.version;
-        src = inputs.colibri + "/web";
-        npmDepsHash = "sha256-dSBj0ugEctPY18JWe5ajsVQFy2kWvgLYLzuwIs39HLs="; # replace with the hash from the first build error
-        installPhase = ''
-          runHook preInstall
-          cp -r dist $out
-          runHook postInstall
-        '';
-      };
-
-      withWeb =
-        drv:
-        drv.overrideAttrs (prev: {
-          postInstall = (prev.postInstall or "") + ''
-            install -d $out/lib/colibri/web
-            cp -r ${colibriWeb} $out/lib/colibri/web/dist
-          '';
-        });
-
-      colibri = withWeb (if withVulkan then colibriVulkan else base);
+      # The package (Vulkan rebuild + staged web dashboard) is defined in
+      # pkgs/colibri/colibri.nix and exposed via self.overlays.packages. The
+      # module only picks the GPU-appropriate backend for this host.
+      colibri = pkgs.colibri.override { inherit withVulkan; };
 
       host = cfg.host or "127.0.0.1";
       port = toString (cfg.port or 8000);

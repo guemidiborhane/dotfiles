@@ -9,7 +9,16 @@
     # flake makes no license decision on a consumer's behalf.
     packages = final: _prev: {
       spotify-adblock = final.callPackage ../pkgs/spotify-adblock.nix { };
-      pagespeed = final.callPackage ../pkgs/pagespeed/pagespeed.nix { };
+      pagespeed = final.callPackage ../pkgs/pagespeed.nix { };
+
+      # colibrì rebuilt with the Vulkan backend + staged web dashboard. The
+      # flake input is passed through; the package derives upstream's base
+      # derivation and source tree from it. The module overrides `withVulkan`
+      # based on the host's GPU. See pkgs/colibri.nix and
+      # modules/features/ai/colibri.nix.
+      colibri = final.callPackage ../pkgs/colibri.nix {
+        inherit (inputs) colibri;
+      };
     };
 
     # This one contains whatever you want to overlay
