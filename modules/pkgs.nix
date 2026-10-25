@@ -1,26 +1,16 @@
-{ inputs, self, ... }:
+{ self, ... }:
 {
-  imports = [
-    inputs.flake-parts.flakeModules.easyOverlay
-  ];
-
   perSystem =
-    {
-      config,
-      pkgs,
-      final,
-      ...
-    }:
+    { system, ... }:
     let
-      nixpkgsConfig = self.dex.helpers.mkNixPkgsConfig pkgs.stdenv.system { };
-      nixpkgs = import inputs.nixpkgs nixpkgsConfig;
+      # Build output using *our* nixpkgs (our overlays + our unfree allowlist).
+      # The license-agnostic definition lives in `self.overlays.packages`; this
+      # is just our flake's concrete build of it for `nix build .#<pkg>`.
+      pkgs = self.dex.helpers.mkPkgs system;
     in
     {
-      overlayAttrs = {
-        inherit (config.packages) spotify-adblock pagespeed;
+      packages = {
+        inherit (pkgs) spotify-adblock pagespeed;
       };
-
-      packages.spotify-adblock = pkgs.callPackage ../pkgs/spotify-adblock.nix nixpkgs;
-      packages.pagespeed = final.callPackage ../pkgs/pagespeed/pagespeed.nix { };
     };
 }

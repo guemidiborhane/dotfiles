@@ -66,7 +66,7 @@ let
 in
 {
   flake.dex.helpers = {
-    inherit mkNixPkgsConfig;
+    inherit mkNixPkgsConfig mkPkgs;
 
     mkHost =
       host:
