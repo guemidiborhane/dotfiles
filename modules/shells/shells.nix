@@ -11,7 +11,6 @@ in
           inherit pkgs lib;
           inherit metadata hosts;
         };
-        mise = import ./_mise.nix { inherit pkgs; };
       };
     };
 }
