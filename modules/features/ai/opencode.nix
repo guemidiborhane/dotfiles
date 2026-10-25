@@ -4,6 +4,7 @@
     {
       imports = [ self.modules.homeManager.omniroute ];
       dex.persist.directories = [
+        ".config/opencode"
         ".local/share/opencode"
         ".local/state/opencode"
       ];
