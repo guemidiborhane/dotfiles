@@ -74,7 +74,6 @@ _: {
                   mountOptions = [
                     "defaults"
                     "noatime"
-                    "discard"
                   ];
                 };
               };
