@@ -10,6 +10,7 @@
     packages = final: _prev: {
       spotify-adblock = final.callPackage ../pkgs/spotify-adblock.nix { };
       pagespeed = final.callPackage ../pkgs/pagespeed.nix { };
+      vpn = final.callPackage ../pkgs/vpn.nix { };
 
       # colibrì rebuilt with the Vulkan backend + staged web dashboard. The
       # flake input is passed through; the package derives upstream's base
