@@ -15,6 +15,7 @@
           pagespeed
           colibri
           vpn
+          hydrun
           ;
       };
     };

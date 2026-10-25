@@ -7,37 +7,11 @@ _: {
       ...
     }:
     let
-      pname = "hydrun";
-      runtimeDeps = with pkgs; [
-        coreutils # mktemp, basename, cat
-        util-linux # uuidgen
-        jq # hyprctl client JSON parsing
-        config.wayland.windowManager.hyprland.finalPackage
-      ];
-
-      hydrun = pkgs.stdenv.mkDerivation {
-        inherit pname;
-        version = "0-unstable";
-
-        src = ./scripts/hydrun.sh;
-        dontUnpack = true;
-
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-
-        installPhase = ''
-          runHook preInstall
-          install -Dm755 $src $out/bin/hydrun
-          wrapProgram $out/bin/hydrun \
-            --prefix PATH : ${lib.makeBinPath runtimeDeps} \
-            --set-default HYDRUN_PROG_NAME ${pname}
-          runHook postInstall
-        '';
-
-        meta = {
-          mainProgram = pname;
-          description = "Launch programs as systemd transient units with Hyprland dispatch support";
-          platforms = lib.platforms.linux;
-        };
+      # The package lives in pkgs/hydrun.nix (exposed via self.overlays.packages).
+      # Override hyprctl's provider with this host's exact Hyprland build so the
+      # dispatch actions match the running compositor.
+      hydrun = pkgs.hydrun.override {
+        hyprland = config.wayland.windowManager.hyprland.finalPackage;
       };
     in
     {
