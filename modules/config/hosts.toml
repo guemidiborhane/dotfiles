@@ -32,7 +32,6 @@ hostname = "koto"
 type = "desktop"
 description = "5950X Workstation"
 kernel = "cachyos-latest"
-additionalKernels = ["cachyos-lts"]
 users.borhane.email = "guemidiborhane@aina.dz"
 
 [kotoamatsukami.features]
@@ -41,6 +40,8 @@ remote-unlock = true
 netbirdPort = 51281
 gaming = true
 jellyfin = true
+ollama = true
+colibri = true
 
 [kotoamatsukami.features.kernel]
 opti = "x86_64-v3"
