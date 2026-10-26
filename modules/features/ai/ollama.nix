@@ -1,4 +1,14 @@
 _: {
+  flake.unfreePackages = [
+    "cuda_cudart"
+    "cuda_nvcc"
+    "libnvvm"
+    "cccl"
+    "cuda_crt"
+    "libcublas"
+    "cuda_nvrtc"
+  ];
+
   flake.modules.nixos.ollama =
     {
       lib,

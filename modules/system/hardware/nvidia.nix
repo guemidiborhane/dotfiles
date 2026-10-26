@@ -1,4 +1,9 @@
 _: {
+  flake.unfreePackages = [
+    "nvidia-x11"
+    "nvidia-settings"
+  ];
+
   flake.modules.nixos.nvidia =
     { config, hardware, ... }:
     {
