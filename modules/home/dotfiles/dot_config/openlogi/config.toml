@@ -1,4 +1,4 @@
-schema_version = 8
+schema_version = 10
 selected_device = "unit:87044b39"
 
 [devices."unit:54b00647".identity]
@@ -40,6 +40,9 @@ ui_scale = "normal"
 device_view_mode = "carousel"
 mouse_profile_target = "pointer"
 ui_radius = 0
+low_battery_notifications = true
+lock_key_notifications = true
+animate_desktop_switch = true
 
 [devices."unit:54b00647".identity.model_info.transports]
 usb = false
@@ -63,6 +66,9 @@ report_rate = false
 backlight = true
 easy_switch = true
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = true
 
 [devices."unit:54b00647".links."receiver:247c92fd:slot:2".capabilities]
 buttons = true
@@ -80,6 +86,9 @@ report_rate = false
 backlight = true
 easy_switch = true
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = true
 
 [devices."unit:54b00647".bindings]
 KeyLock = "None"
@@ -131,6 +140,9 @@ report_rate = false
 backlight = false
 easy_switch = false
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
 
 [devices."unit:87044b39".links."receiver:247c92fd:slot:1".capabilities]
 buttons = true
@@ -148,6 +160,9 @@ report_rate = false
 backlight = false
 easy_switch = false
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
 
 [devices."unit:87044b39".bindings]
 DpiToggle = "ToggleSmartShift"

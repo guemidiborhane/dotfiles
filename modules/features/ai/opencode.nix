@@ -10,9 +10,9 @@
       ];
       programs.opencode = {
         enable = user.features.ai.opencode or false;
-        tui = {
+        cli = {
           keybinds.leader = "alt+b";
-          theme = "dracula";
+          theme.name = "dracula";
         };
       };
     };

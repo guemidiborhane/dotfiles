@@ -10,14 +10,9 @@
     in
     {
       packages = {
-        inherit (pkgs)
-          spotify-adblock
-          pagespeed
-          colibri
-          vpn
-          hydrun
-          hypres
-          ;
+        inherit (pkgs) spotify-adblock colibri;
+        inherit (pkgs) pagespeed vpn;
+        inherit (pkgs) hydrun hypres;
       };
     };
 }
