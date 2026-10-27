@@ -57,7 +57,7 @@
     };
     omniroute.url = "github:diegosouzapw/OmniRoute/pull/13076/head";
     openlogi = {
-      url = "github:AprilNEA/OpenLogi";
+      url = "github:AprilNEA/OpenLogi?dir=packaging";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vicinae = {

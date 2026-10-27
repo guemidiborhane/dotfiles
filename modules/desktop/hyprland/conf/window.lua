@@ -173,6 +173,7 @@ local floating_windows = {
   { class = "org.qbittorrent.qBittorrent" },
   { class = "qt(5|6)ct" },
   { class = "solaar" },
+  { class = "org.openlogi.openlogi" },
   { class = "udiskie" },
   { class = "xdg-desktop-portal-gtk" },
   { class = "thunderbird", initial_title = "Write: %(no subject%)" },

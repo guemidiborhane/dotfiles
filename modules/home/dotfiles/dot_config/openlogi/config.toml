@@ -1,0 +1,172 @@
+schema_version = 8
+selected_device = "unit:87044b39"
+
+[devices."unit:54b00647".identity]
+display_name = "MX Keys"
+codename = "MX Keys Wireless Keyboard"
+kind = "keyboard"
+
+[devices."unit:54b00647".identity.model_info]
+entity_count = 3
+unit_id = [
+    0,
+    0,
+    0,
+    0,
+]
+model_ids = [
+    45915,
+    16522,
+    0,
+]
+extended_model_id = 0
+
+[app_settings]
+launch_at_login = false
+check_for_updates = false
+auto_install_updates = false
+update_prompt_seen = true
+show_in_menu_bar = true
+capture_mouse_events = true
+auto_download_assets = true
+asset_source = "automatic"
+thumbwheel_sensitivity = 14
+appearance = "system"
+theme_dark = "Catppuccin Macchiato"
+smooth_scroll = true
+vertical_scroll_sensitivity = 14
+app_icon = "openlogi"
+ui_scale = "normal"
+device_view_mode = "carousel"
+mouse_profile_target = "pointer"
+ui_radius = 0
+
+[devices."unit:54b00647".identity.model_info.transports]
+usb = false
+equad = true
+btle = true
+bluetooth = false
+
+[devices."unit:54b00647".identity.capabilities]
+buttons = true
+pointer = false
+lighting = false
+scroll_inversion = false
+hires_wheel = false
+thumbwheel = false
+haptic_feedback = false
+haptic_panel = false
+dpi_gestures = false
+fn_lock = true
+os_layout = true
+report_rate = false
+backlight = true
+easy_switch = true
+virtual_thumbwheel = false
+
+[devices."unit:54b00647".links."receiver:247c92fd:slot:2".capabilities]
+buttons = true
+pointer = false
+lighting = false
+scroll_inversion = false
+hires_wheel = false
+thumbwheel = false
+haptic_feedback = false
+haptic_panel = false
+dpi_gestures = false
+fn_lock = true
+os_layout = true
+report_rate = false
+backlight = true
+easy_switch = true
+virtual_thumbwheel = false
+
+[devices."unit:54b00647".bindings]
+KeyLock = "None"
+
+[devices."unit:87044b39"]
+dpi = 400
+scroll_resolution = "high"
+smooth_wheel = true
+
+[devices."unit:87044b39".identity]
+display_name = "MX Master 3"
+codename = "Wireless Mouse MX Master 3"
+kind = "mouse"
+
+[devices."unit:87044b39".identity.model_info]
+entity_count = 3
+unit_id = [
+    0,
+    0,
+    0,
+    0,
+]
+model_ids = [
+    45091,
+    16514,
+    0,
+]
+extended_model_id = 0
+
+[devices."unit:87044b39".identity.model_info.transports]
+usb = false
+equad = true
+btle = true
+bluetooth = false
+
+[devices."unit:87044b39".identity.capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
+dpi_gestures = true
+fn_lock = false
+os_layout = false
+report_rate = false
+backlight = false
+easy_switch = false
+virtual_thumbwheel = false
+
+[devices."unit:87044b39".links."receiver:247c92fd:slot:1".capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
+dpi_gestures = true
+fn_lock = false
+os_layout = false
+report_rate = false
+backlight = false
+easy_switch = false
+virtual_thumbwheel = false
+
+[devices."unit:87044b39".bindings]
+DpiToggle = "ToggleSmartShift"
+
+[keyboard]
+
+[devices."unit:87044b39".bindings.GestureButton]
+Up = "MissionControl"
+Down = "ShowDesktop"
+Left = "PrevTab"
+Right = "NextTab"
+Click = "MuteVolume"
+
+[devices."unit:87044b39".smartshift]
+mode = "ratchet"
+auto_disengage = 10
+tunable_torque = 0
+
+[keyboard.bindings]
+f19 = "Screenshot"
+f18 = "LockScreen"
+f14 = "None"

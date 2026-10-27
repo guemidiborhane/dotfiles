@@ -1005,6 +1005,7 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
+        "dir": "packaging",
         "lastModified": 1792295375,
         "narHash": "sha256-0JXdw4NyTLhYIl+Tx3AxvlrM5Oa35bB+65MnW0CvYyY=",
         "owner": "AprilNEA",
@@ -1013,6 +1014,7 @@
         "type": "github"
       },
       "original": {
+        "dir": "packaging",
         "owner": "AprilNEA",
         "repo": "OpenLogi",
         "type": "github"
