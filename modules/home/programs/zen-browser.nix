@@ -151,6 +151,22 @@ _: {
                 icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                 definedAliases = [ "@nx" ];
               };
+
+              yts = {
+                name = "YTS.gg";
+                urls = [
+                  {
+                    template = "https://yts.gg/browse-movies/{searchTerms}/all/all/0/latest/0/all";
+                    params = [
+                      {
+                        name = "query";
+                        value = "searchTerms";
+                      }
+                    ];
+                  }
+                ];
+                definedAliases = [ "@yts" ];
+              };
             };
           };
           settings = {
