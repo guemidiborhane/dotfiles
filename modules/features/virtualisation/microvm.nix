@@ -46,6 +46,13 @@
           inherit (vm.config) name;
 
           IPv4Addr = IPv4s.${name};
+
+          # A physical host may override a VM's resources for its own
+          # deployment via `features.microvm.resources.<vmName>`; fall back to
+          # the VM's own hardware, then to the module defaults.
+          resources = (cfg.resources or { }).${vmName} or { };
+          vcpu = resources.vcpu or vm.hardware.vcpu or 2;
+          ram = resources.ram or vm.hardware.ram or 2;
         in
         lib.nameValuePair vm.config.name {
           inherit pkgs;
@@ -82,8 +89,8 @@
               };
 
               microvm = {
-                vcpu = vm.hardware.vcpu or 2;
-                mem = (vm.hardware.ram or 2) * 1024;
+                inherit vcpu;
+                mem = ram * 1024;
                 vsock.cid = 900 + index;
 
                 # volumes = [
