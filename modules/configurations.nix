@@ -14,10 +14,13 @@ let
         value = helpers.mkHost host;
       };
 
+      # `host.users` carries the `forEach` helper alongside real users (see
+      # modules/dex/dex.nix `usersHelpers`); exclude it so it does not become a
+      # bogus `forEach@<host>` home configuration.
       homes = lib.mapAttrsToList (username: user: {
         name = "${username}@${hostname}";
         value = helpers.mkHome { inherit host user; };
-      }) host.users;
+      }) (builtins.removeAttrs host.users [ "forEach" ]);
     }
   ) dex.hosts;
 
