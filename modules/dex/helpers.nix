@@ -27,7 +27,8 @@ let
     import inputs.nixpkgs config;
 
   mkContext = hostOrContext: {
-    inherit (dex) metadata secrets;
+    inherit (dex) metadata;
+    inherit (self) secrets;
     inherit (hostOrContext) features hardware users;
 
     host =

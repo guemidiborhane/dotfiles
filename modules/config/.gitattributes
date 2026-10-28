@@ -1,0 +1,2 @@
+.gitattributes !filter !diff
+secrets.toml filter=git-crypt diff=git-crypt
