@@ -94,7 +94,7 @@
               mountPoint = share.guest;
             }) (host.shares or [ ]));
 
-          hypervisor = "qemu";
+          hypervisor = "crosvm";
         };
       };
 
