@@ -55,16 +55,14 @@
         microvm = {
           # Enable writable nix store overlay so nix-daemon works.
           # This is required for home-manager activation.
-          # Uses tmpfs by default (ephemeral), which is fine since we
-          # don't build anything in the VM.
+          #
+          # Backed by tmpfs (the default) so the overlay's upper layer is
+          # ephemeral: overlayfs whiteouts from large rebuilds vanish on
+          # reboot instead of persisting on a disk image and masking store
+          # paths the next boot needs (which made the VM unbootable). We
+          # don't build anything in the VM, so transient activation writes
+          # are all this ever holds.
           writableStoreOverlay = "/nix/.rw-store";
-          volumes = [
-            {
-              mountPoint = "/nix/.rw-store";
-              image = "store.img";
-              size = 16384;
-            }
-          ];
 
           shares =
             let
