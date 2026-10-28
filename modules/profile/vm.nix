@@ -1,5 +1,15 @@
-{ self, ... }:
+{ self, lib, ... }:
 {
+  flake.dex.rules = [
+    (
+      { hardware, ... }:
+      lib.optionals hardware.isMicroVM (
+        lib.optional (!(hardware ? vcpu)) "microvm host must set hardware.vcpu."
+        ++ lib.optional (!(hardware ? ram)) "microvm host must set hardware.ram."
+      )
+    )
+  ];
+
   flake.modules = {
     nixos.vm-profile =
       {

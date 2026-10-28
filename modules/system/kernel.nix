@@ -1,6 +1,101 @@
 { self, lib, ... }:
+let
+  # Closed domains for the kernel fields this module consumes. They live here,
+  # beside the code that indexes them, because `kernel` is consumed in a single
+  # module (see the colocation rule in modules/dex/dex.nix `flake.dex.rules`).
+  #
+  # Enums are constrained to what nix-cachyos-kernel actually packages for this
+  # repo's usage, not the full mkCachyKernel arg domains:
+  #   opti  -> prebuilt `linuxPackages-cachyos-*-lto-${opti}` (no v1/native)
+  #   sched -> packaged `linux-cachyos-${sched}` config variants (no bare rt)
+  #   lto   -> mkCachyKernel `lto` arg
+  validKernelOpti = [
+    "x86_64-v2"
+    "x86_64-v3"
+    "x86_64-v4"
+    "zen4"
+  ];
+  validKernelSched = [
+    "eevdf"
+    "bore"
+    "bmq"
+    "rt-bore"
+  ];
+  validKernelLto = [
+    "none"
+    "thin"
+    "full"
+  ];
+  # Valid keys of `availableKernels` below; both `host.kernel` and each
+  # `host.additionalKernels` entry index into it.
+  validKernels = [
+    "linux-latest"
+    "linux-lts"
+    "linux-zen"
+    "cachyos-lts"
+    "cachyos-latest"
+    "cachyos-custom"
+  ];
+
+  enumError =
+    {
+      field,
+      value,
+      valid,
+    }:
+    lib.optional (value != null && value != "" && !(builtins.elem value valid)) (
+      "${field} must be one of [ ${lib.concatStringsSep ", " valid} ] (got \"${toString value}\")."
+    );
+
+  membershipErrors =
+    {
+      field,
+      values,
+      valid,
+    }:
+    map (v: "${field} references unknown \"${v}\".") (
+      builtins.filter (v: !(builtins.elem v valid)) values
+    );
+in
 {
   flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+
+  # Validate the kernel fields over each host's cascaded context, so the
+  # effective merged value (defaults + per-host override) is what gets checked.
+  flake.dex.rules = [
+    (
+      { config, features, ... }:
+      let
+        kernel = features.kernel or { };
+      in
+      (enumError {
+        field = "features.kernel.opti";
+        value = kernel.opti or null;
+        valid = validKernelOpti;
+      })
+      ++ (enumError {
+        field = "features.kernel.sched";
+        value = kernel.sched or null;
+        valid = validKernelSched;
+      })
+      ++ (enumError {
+        field = "features.kernel.lto";
+        value = kernel.lto or null;
+        valid = validKernelLto;
+      })
+      ++ (enumError {
+        field = "kernel";
+        value = config.kernel or null;
+        valid = validKernels;
+      })
+      ++ (membershipErrors {
+        field = "additionalKernels";
+        values = config.additionalKernels or [ ];
+        valid = validKernels;
+      })
+    )
+  ];
+
   flake = {
     # FIX: re-enable after https://github.com/xddxdd/nix-cachyos-kernel/issues/110 gets closed
     # caches.cachyos-kernel = {
