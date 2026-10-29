@@ -353,11 +353,18 @@ build_hyprland_batch() {
 }
 
 # Generate the Hyprland dispatch background job as a string
-# We need to track the actual process PID, not bash wrapper PID
+# We need to track the actual process PID, not bash wrapper PID.
+#
+# This text is executed via `systemd-run ... -- bash -c "<wrapper>"`, so it
+# passes through systemd's command-line parser first, where `$$` is the escape
+# for a literal `$`. We therefore write `$$$`: systemd collapses it to `$$`,
+# which bash then expands to the wrapper PID. Using `$$` here would reach bash
+# as a literal `$`, leaving target_pid empty and breaking Hyprland dispatch
+# (e.g. workspace moves). Do NOT "simplify" this to `$$`.
 generate_hyprland_dispatcher() {
 	cat <<'HYPR_SCRIPT'
 {
-  target_pid=$$
+  target_pid=$$$
 
   for i in {1..50}; do
     if [ -n "$target_pid" ]; then
