@@ -54,10 +54,35 @@
       mkBar =
         bar:
         let
+          resolve =
+            modules:
+            lib.filter (m: m != null) (
+              map (
+                raw:
+                let
+                  parts = lib.splitString ":" raw;
+                  isGroup = lib.head parts == "group";
+                  idLen = if isGroup then 2 else 1;
+                  moduleId = lib.concatStringsSep ":" (lib.take idLen parts);
+                  rest = lib.drop idLen parts;
+                  name = lib.head rest;
+                  cond = hardware.${name} or (throw "Unknown condition '${name}' in bar module '${raw}'");
+                in
+                if rest == [ ] then
+                  raw
+                else if !lib.isBool cond then
+                  throw "Condition '${name}' in bar module '${raw}' is not a boolean hardware helper"
+                else if cond then
+                  moduleId
+                else
+                  null
+              ) modules
+            );
+
           moduleLists = {
-            start = bar.start or bars.default.start;
-            center = bar.center or bars.default.center;
-            end = bar.end or bars.default.end;
+            start = resolve (bar.start or bars.default.start);
+            center = resolve (bar.center or bars.default.center);
+            end = resolve (bar.end or bars.default.end);
           };
 
           groupPrefix = "group:";

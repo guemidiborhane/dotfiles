@@ -5,6 +5,7 @@ end = [
   "group:sysmon",
   "group:indicators",
   "group:wireless",
+  "battery:isLaptop",
   "tray",
   "notifications",
 ]
