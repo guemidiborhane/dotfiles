@@ -33,6 +33,7 @@ _: {
         yq
         zip
         pagespeed
+        vpn
       ];
     };
 }

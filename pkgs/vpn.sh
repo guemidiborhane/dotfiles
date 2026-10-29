@@ -21,11 +21,25 @@ dmenu_cmd() {
   ${DMENU_CMD:-dmenu} -p "$1"
 }
 
+# Check whether pkexec is actually usable. Merely being on PATH is not enough:
+# pkexec refuses to run ("pkexec must be setuid root") unless its binary is
+# setuid root. On NixOS, `command -v pkexec` often resolves to the non-setuid
+# store binary while the setuid wrapper is absent (it is now opt-in via
+# security.polkit.enablePkexecWrapper), so verify the resolved binary is owned
+# by root with the setuid bit before trusting it.
+pkexec_usable() {
+  pkexec_bin="$(command -v pkexec 2>/dev/null)" || return 1
+  [ -n "$pkexec_bin" ] || return 1
+  # Resolve symlinks so we inspect the real binary's permissions.
+  pkexec_bin="$(readlink -f "$pkexec_bin" 2>/dev/null || echo "$pkexec_bin")"
+  [ -u "$pkexec_bin" ] && [ "$(stat -c '%u' "$pkexec_bin" 2>/dev/null)" = "0" ]
+}
+
 # Privilege escalation wrapper
 run_privileged() {
   if [ "$(id -u)" -eq 0 ]; then
     "$@"
-  elif command -v pkexec >/dev/null 2>&1; then
+  elif pkexec_usable; then
     pkexec "$@"
   elif command -v doas >/dev/null 2>&1; then
     doas "$@"
@@ -39,7 +53,7 @@ run_privileged() {
 
 # Check if running with privileges
 has_privileges() {
-  [ "$(id -u)" -eq 0 ] || command -v pkexec >/dev/null 2>&1 || command -v doas >/dev/null 2>&1 || command -v sudo >/dev/null 2>&1
+  [ "$(id -u)" -eq 0 ] || pkexec_usable || command -v doas >/dev/null 2>&1 || command -v sudo >/dev/null 2>&1
 }
 
 # Detect VPN type from config/interface name
@@ -169,7 +183,9 @@ $iface:wireguard"
 
   # OpenVPN processes (system)
   if command -v pgrep >/dev/null 2>&1; then
-    pgrep -f "openvpn.*--config" 2>/dev/null | while read -r pid; do
+    # `pgrep` exits non-zero when nothing matches; tolerate it so the pipeline
+    # does not trip `set -o errexit -o pipefail` when no OpenVPN is running.
+    { pgrep -f "openvpn.*--config" 2>/dev/null || true; } | while read -r pid; do
       conf=$(ps -p "$pid" -o args= 2>/dev/null | sed -n 's/.*--config[= ]\([^ ]*\).*/\1/p')
       if [ -n "$conf" ]; then
         name=$(basename "$conf" .conf)
@@ -224,7 +240,13 @@ netbird:netbird"
     fi
   fi
 
-  echo "$active" | sort -u
+  # Print active entries (one "name:type" per line), de-duplicated. Guard the
+  # pipeline so an empty active set (nothing connected) still exits 0 under
+  # `set -o errexit -o pipefail` instead of propagating a non-zero status.
+  if [ -n "$active" ]; then
+    echo "$active" | sort -u
+  fi
+  return 0
 }
 
 # Get IP address for a VPN interface
@@ -417,6 +439,69 @@ vpn_reconnect() {
   vpn_disconnect "$name" "$type" 2>/dev/null || true
   sleep 1
   vpn_connect "$name" "$type"
+}
+
+# Resolve an ACTIVE vpn by the name the user typed, printing its "iface:type"
+# entry (e.g. "wt0:netbird") or nothing. Handles the netbird indirection: the
+# friendly label "netbird" maps to whatever interface it is actually running on.
+resolve_active() {
+  want="$1"
+  active="$(get_active_vpns)"
+
+  # grep exits non-zero on no match; `|| true` keeps the pipeline from tripping
+  # `set -o errexit -o pipefail`. An empty result is a valid "not active" answer.
+  if [ "$want" = "netbird" ]; then
+    { echo "$active" | grep ':netbird$' || true; } | head -n1
+    return 0
+  fi
+
+  { echo "$active" | grep -E "^${want}:" || true; } | head -n1
+  return 0
+}
+
+# Connect by name, bypassing the interactive selector. Resolves the type from
+# config dirs (so inactive configs work), errors on unknown names, and exits
+# early if the VPN is already active.
+connect_by_name() {
+  name="$1"
+  type="$(detect_vpn_type "$name")" || true
+
+  # detect_vpn_type prints the literal "unknown" (not an empty string) when it
+  # cannot classify the name, so guard against both.
+  if [ -z "$type" ] || [ "$type" = "unknown" ]; then
+    echo "Error: unknown VPN '$name' (see: vpn list)" >&2
+    return 1
+  fi
+
+  if [ -n "$(resolve_active "$name")" ]; then
+    echo "Already connected: $name"
+    return 0
+  fi
+
+  vpn_connect "$name" "$type"
+}
+
+# Disconnect by name, bypassing the selector. Operates on the active set; if the
+# VPN is not active there is nothing to do (benign early exit).
+disconnect_by_name() {
+  entry="$(resolve_active "$1")"
+  if [ -z "$entry" ]; then
+    echo "Not connected: $1"
+    return 0
+  fi
+  vpn_disconnect "${entry%%:*}" "${entry#*:}"
+}
+
+# Reconnect by name, bypassing the selector. If the VPN is not currently active,
+# fall back to a plain connect with a warning.
+reconnect_by_name() {
+  entry="$(resolve_active "$1")"
+  if [ -z "$entry" ]; then
+    echo "Warning: '$1' is not active; connecting instead." >&2
+    connect_by_name "$1"
+    return $?
+  fi
+  vpn_reconnect "${entry%%:*}" "${entry#*:}"
 }
 
 # Output JSON for waybar
@@ -616,13 +701,25 @@ active)
   get_active_vpns
   ;;
 connect | c)
-  interactive_menu connect
+  if [ -n "${2:-}" ]; then
+    connect_by_name "$2"
+  else
+    interactive_menu connect
+  fi
   ;;
 disconnect | d)
-  interactive_menu disconnect
+  if [ -n "${2:-}" ]; then
+    disconnect_by_name "$2"
+  else
+    interactive_menu disconnect
+  fi
   ;;
 reconnect | r)
-  interactive_menu reconnect
+  if [ -n "${2:-}" ]; then
+    reconnect_by_name "$2"
+  else
+    interactive_menu reconnect
+  fi
   ;;
 waybar | monitor)
   # Waybar monitor mode - watch for VPN changes and output JSON

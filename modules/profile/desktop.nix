@@ -58,7 +58,6 @@
 
           environment.systemPackages = with pkgs; [
             bitwarden-desktop
-            vpn
           ];
 
           fonts = {
