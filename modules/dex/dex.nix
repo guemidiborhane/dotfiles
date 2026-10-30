@@ -63,6 +63,7 @@ let
         hardware = hardwareConfig // hardwareHelpers;
         features = cascade "features";
         users = users // usersHelpers;
+        secrets = self.secrets;
       };
     in
     self.dex.validate ctx;
@@ -91,9 +92,9 @@ in
               context.
 
               Each rule is a function `ctx -> [ errorString ]` where `ctx` is the
-              per-host context `{ name, config, hardware, features, users }`. A
-              rule returns the list of violation messages it found (empty when
-              satisfied).
+              per-host context `{ name, config, hardware, features, users,
+              secrets }`. A rule returns the list of violation messages it found
+              (empty when satisfied).
 
               Rules are colocated with the module they constrain and aggregated
               by `flake.dex.validate`, which throws if any rule reports an error.

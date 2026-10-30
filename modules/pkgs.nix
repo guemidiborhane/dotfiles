@@ -13,6 +13,7 @@
         inherit (pkgs) spotify-adblock colibri;
         inherit (pkgs) pagespeed vpn;
         inherit (pkgs) hydrun hypres;
+        inherit (pkgs) silo;
       };
     };
 }

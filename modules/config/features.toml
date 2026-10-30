@@ -29,6 +29,9 @@ lto = "thin"
 enable = false
 iface = ""
 
+[silo]
+enable = false
+
 [desktop]
 kanata = true
 libvirtd = true

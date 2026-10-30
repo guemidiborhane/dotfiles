@@ -57,6 +57,7 @@ let
     (featureGuard "auto-upgrade")
     (featureGuard "gaming")
     (featureGuard "jellyfin")
+    (featureGuard "silo")
     (featureGuard "libvirtd")
     (featureGuard "openssh")
     (featureGuard "podman")
