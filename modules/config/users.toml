@@ -13,5 +13,6 @@ extraGroups = ["uinput", "libvirtd"]
 shell = "fish"
 authorizedKeys = [
   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBf7j2Y+EiXT2hmQGljnfUIWLeOOiZ9INuyQWZHwuenN personal@vault",
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG5T3kCzk89GDSD4IUU1dGs+aNjGZJl6HHumAVJDqto5 termux@s24u",
 ]
 signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhxTeNtI20T8uDHETzBIBcDNcM0UbW6pamh3z6zJSIG signing@vault"
