@@ -58,8 +58,6 @@ let
     );
 in
 {
-  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
-
   # Validate the kernel fields over each host's cascaded context, so the
   # effective merged value (defaults + per-host override) is what gets checked.
   flake.dex.rules = [
@@ -96,12 +94,13 @@ in
     )
   ];
 
+  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
   flake = {
-    # FIX: re-enable after https://github.com/xddxdd/nix-cachyos-kernel/issues/110 gets closed
-    # caches.cachyos-kernel = {
-    #   url = "https://attic.xuyh0120.win/lantian";
-    #   key = "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=";
-    # };
+    caches.cachyos-kernel = {
+      url = "https://cache.lantian.pub/lantian";
+      key = "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ=";
+    };
 
     overlays.cachyos-kernels = final: prev: {
       customKernels = builtins.listToAttrs (
