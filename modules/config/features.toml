@@ -16,10 +16,6 @@ ollama = false
 colibri = false
 logitech = "openlogi"
 
-[microvm]
-enable = false
-vms = []
-
 [kernel]
 opti = "x86_64-v3"
 sched = "bore"

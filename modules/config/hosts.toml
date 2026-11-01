@@ -23,9 +23,13 @@ gpu = "amd"
 nixos-hardware = "lenovo-thinkpad-p14s-amd-gen5"
 fingerprint = true
 
-[kamui.features.microvm]
-enable = true
-vms = ["sandbox"]
+[[kamui.features.microvm.sandbox.shares]]
+host = "/home/borhane/.config/nixos"
+guest = "/host/nixos"
+
+[[kamui.features.microvm.sandbox.shares]]
+host = "/home/borhane/Code/share"
+guest = "/home/borhane/c"
 
 [kotoamatsukami]
 hostname = "koto"
@@ -76,11 +80,3 @@ ram = 16
 modules = []
 features.ai.opencode = true
 features.ai.pi-coding-agent = true
-
-[[sandbox.shares]]
-host = "/home/borhane/.config/nixos"
-guest = "/host/nixos"
-
-[[sandbox.shares]]
-host = "/home/borhane/Code/share"
-guest = "/home/borhane/c"

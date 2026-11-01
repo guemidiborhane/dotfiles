@@ -8,6 +8,19 @@ let
   hardwareGuard = entry: scopeGuard "hardware" entry;
   featureGuard = entry: scopeGuard "features" entry;
 
+  # The microvm host capability is enabled whenever the host declares at least
+  # one VM as a key under `features.microvm` (every key but the reserved ones is
+  # a VM name). Mirrors how a host's VMs are derived from attrset keys.
+  microvmGuard =
+    { features, ... }:
+    let
+      mv = features.microvm or { };
+      vmNames = builtins.removeAttrs mv [ "externalInterface" ];
+    in
+    {
+      microvm = [ (vmNames != { }) ];
+    };
+
   # Selects at most one swap implementation from the `features.swap` string
   # ("zram" | "zswap" | "none"); the unselected module(s) are guarded off.
   swapGuard = { features, ... }: {
@@ -66,7 +79,7 @@ let
     (featureGuard "kanata")
     (featureGuard "wol")
     (featureGuard "remote-unlock")
-    (featureGuard "microvm")
+    microvmGuard
     (microVMGuard "impermanence")
     (featureGuard "ollama")
     (featureGuard "colibri")

@@ -1,54 +1,5 @@
-{ self, lib, ... }:
+{ self, ... }:
 {
-  flake.dex.rules = [
-    # A microVM host must declare its own resources.
-    (
-      { hardware, ... }:
-      lib.optionals hardware.isMicroVM (
-        lib.optional (!(hardware ? vcpu)) "microvm host must set hardware.vcpu."
-        ++ lib.optional (!(hardware ? ram)) "microvm host must set hardware.ram."
-      )
-    )
-    # A physical host's VMs must fit within its RAM. Each VM's effective ram
-    # (a `features.microvm.resources.<vm>` override, else the VM's own
-    # hardware.ram) must not exceed the host's ram, and the VMs must not
-    # collectively overcommit it.
-    (
-      { features, hardware, ... }:
-      let
-        mv = features.microvm or { };
-      in
-      lib.optionals ((mv.enable or false) && (hardware ? ram)) (
-        let
-          hostRam = hardware.ram;
-          resources = mv.resources or { };
-          vmRam =
-            vmName:
-            let
-              vm = self.dex.getHost vmName;
-            in
-            resources.${vmName}.ram or vm.hardware.ram or 2;
-
-          perVM = lib.concatMap (
-            vmName:
-            let
-              ram = vmRam vmName;
-            in
-            lib.optional (
-              ram > hostRam
-            ) "microvm '${vmName}' ram (${toString ram}) exceeds host ram (${toString hostRam})."
-          ) (mv.vms or [ ]);
-
-          total = lib.foldl' (acc: vmName: acc + vmRam vmName) 0 (mv.vms or [ ]);
-          overcommit = lib.optional (total > hostRam) (
-            "microvm ram overcommits host: VMs total ${toString total} > host ram ${toString hostRam}."
-          );
-        in
-        perVM ++ overcommit
-      )
-    )
-  ];
-
   flake.modules = {
     nixos.vm-profile =
       {
@@ -113,33 +64,10 @@
           # are all this ever holds.
           writableStoreOverlay = "/nix/.rw-store";
 
-          shares =
-            let
-              pathToShareKey =
-                path:
-                let
-                  str = toString path;
-                  cleaned = lib.removeSuffix "/" (lib.removePrefix "/" str);
-                in
-                lib.toLower (lib.replaceStrings [ "/" ] [ "_" ] cleaned);
-            in
-            [
-              {
-                proto = "virtiofs";
-                tag = "ro-store";
-                readOnly = true;
-                # a host's /nix/store will be picked up so that no
-                # squashfs/erofs will be built for it.
-                source = "/nix/store";
-                mountPoint = "/nix/.ro-store";
-              }
-            ]
-            ++ (map (share: {
-              proto = "virtiofs";
-              tag = pathToShareKey share.host;
-              source = share.host;
-              mountPoint = share.guest;
-            }) (host.shares or [ ]));
+          # `microvm.shares` (ro-store, VM default shares, and per-host
+          # overrides) are assembled on the deploying host in
+          # modules/features/virtualisation/microvm.nix, where the host's
+          # `features.microvm.<vmName>.shares` is in scope.
 
           hypervisor = "crosvm";
         };

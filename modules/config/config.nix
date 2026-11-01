@@ -51,8 +51,6 @@ let
   nixosModuleNames = builtins.attrNames self.modules.nixos;
   homeModuleNames = builtins.attrNames self.modules.homeManager;
 
-  vmHostNames = lib.filterAttrs (_: h: (h.type or null) == "vm") hosts;
-
   # An unset enum is `null` (absent) or "" (explicit "none/unset"); both skip the
   # check so hosts that legitimately omit a field (e.g. gpu on headless) pass.
   enumError =
@@ -132,17 +130,6 @@ let
           }
         ) (host.users or { })
       ))
-      ++ (
-        let
-          mv = features.microvm or { };
-        in
-        lib.optionals (mv.enable or false) (membershipErrors {
-          inherit ctx;
-          field = "features.microvm.vms";
-          values = mv.vms or [ ];
-          valid = builtins.attrNames vmHostNames;
-        })
-      )
     ) hosts
   );
 
