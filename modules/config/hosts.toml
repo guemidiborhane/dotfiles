@@ -42,10 +42,8 @@ users.borhane.email = "guemidiborhane@aina.dz"
 auto-upgrade = false
 remote-unlock = true
 netbirdPort = 51281
-gaming = true
-jellyfin = true
+silo = true
 ollama = true
-colibri = true
 
 [kotoamatsukami.features.kernel]
 opti = "x86_64-v3"
