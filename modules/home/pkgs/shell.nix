@@ -9,11 +9,9 @@ _: {
         ffmpeg
         gum
         htop
-        iftop
         inxi
         iperf3
         jq
-        net-tools
         ngrok
         nixfmt
         parallel
@@ -24,7 +22,6 @@ _: {
         rsync
         s-tui
         sendme
-        speedtest-cli
         steam-run
         stress-ng
         tidy-viewer

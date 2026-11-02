@@ -104,7 +104,7 @@ hl.config({
       font_size = 14,
       text_color = foreground,
       gaps_in = 0,
-      gaps_out = gaps * -1,
+      gaps_out = 0,
       gradient_rounding = gaps,
       keep_upper_gap = false,
       indicator_height = 0,

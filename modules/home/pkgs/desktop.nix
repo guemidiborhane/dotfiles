@@ -15,7 +15,6 @@ _: {
           bibata-cursors
           brave-origin
           brightnessctl
-          dbeaver-bin
           evince
           ffmpegthumbnailer
           gimp
@@ -27,7 +26,6 @@ _: {
           libsForQt5.qt5ct
           megasync
           mission-center
-          networkmanagerapplet
           obs-studio
           pulseaudio
           qbittorrent
@@ -38,10 +36,9 @@ _: {
           telegram-desktop
           thunderbird
           tor-browser
-          viewnior
+          imv
           wiremix
           xarchiver
-          yaak
           spotify-adblock
         ];
       };
