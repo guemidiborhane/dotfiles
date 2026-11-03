@@ -11,7 +11,11 @@ _: {
       cfg = config.programs.hypres;
 
       # The package lives in pkgs/hypres.nix (exposed via self.overlays.packages).
-      hypres-bin = pkgs.hypres;
+      # Override hyprctl's provider with this host's exact Hyprland build so the
+      # dispatch actions match the running compositor.
+      hypres-bin = pkgs.hypres.override {
+        hyprland = config.wayland.windowManager.hyprland.finalPackage;
+      };
 
       commandsToml =
         let

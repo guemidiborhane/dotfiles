@@ -90,14 +90,15 @@ def save_session(quiet: bool = False) -> dict:
 
     session_clients = []
     for c in clients:
-        ws_id   = c["workspace"]["id"]
         ws_name = c["workspace"]["name"]
-        if ws_id == 0:                      # id 0 = unmanaged / no workspace
+        # hyprctl only reports workspace.id for regular workspaces; special
+        # workspaces (special:scratch, special:terminal …) are keyed by name.
+        is_special = ws_name.startswith("special:")
+        ws_id = c["workspace"].get("id", 0)
+        if not is_special and ws_id == 0:   # id 0 = unmanaged / no workspace
             continue
         if not c["class"]:                  # transient/unclassed — skip
             continue
-        # Negative IDs are special workspaces (special:scratch, special:terminal …)
-        is_special = ws_id < 0 or ws_name.startswith("special:")
         session_clients.append({
             "class":          c["class"],
             "initialClass":   c.get("initialClass", c["class"]),
@@ -117,9 +118,11 @@ def save_session(quiet: bool = False) -> dict:
             "address":        c["address"],
         })
 
-    # Regular workspaces first, then special workspaces. Within each group: ws id → x → y
+    # Regular workspaces first, then special. Special share id 0 now, so cluster
+    # them by name. Within each group: ws id/name → x → y
     session_clients.sort(key=lambda c: (
         1 if c["is_special"] else 0,
+        c["workspace_name"] if c["is_special"] else "",
         c["workspace_id"],
         c["at"][0],
         c["at"][1],
@@ -135,7 +138,8 @@ def save_session(quiet: bool = False) -> dict:
                 "name":    ws["name"],
                 "monitor": ws["monitor"],
             }
-            for ws in workspaces if ws["id"] > 0
+            # special workspaces have no id and are excluded anyway
+            for ws in workspaces if ws.get("id", 0) > 0
         ],
         "monitors": [
             {
@@ -386,8 +390,14 @@ def restore_session(dry_run: bool = False, skip_running: bool = True) -> None:
     if skip_running and not dry_run:
         current = hyprctl_json(["clients"])
         for c in current:
-            if c["workspace"]["id"] != 0:
-                key = (c["class"].lower(), c["workspace"]["id"])
+            # special workspaces have no id; mirror the save side's 0 default
+            # so dedup keys match. shortcut: distinct special workspaces of the
+            # same class collapse to one bucket; split by name if that bites.
+            ws = c["workspace"]
+            is_special = ws["name"].startswith("special:")
+            ws_id = ws.get("id", 0)
+            if ws_id != 0 or is_special:
+                key = (c["class"].lower(), ws_id)
                 already_running[key] = already_running.get(key, 0) + 1
 
     for idx, client in enumerate(clients):
@@ -475,15 +485,24 @@ def cmd_info() -> None:
     print(f"Session snapshot: {ts:%Y-%m-%d %H:%M:%S}")
     print(f"Clients: {len(session['clients'])}\n")
 
-    ws_groups: dict[int, list] = defaultdict(list)
-    for c in session["clients"]:
-        ws_groups[c["workspace_id"]].append(c)
+    # Special workspaces all share workspace_id 0, so group them by name.
+    def group_key(c):
+        return c["workspace_name"] if c.get("is_special") else c["workspace_id"]
 
-    for ws_id in sorted(ws_groups, key=lambda i: (1 if i < 0 else 0, i)):
-        sample = ws_groups[ws_id][0]
-        ws_label = sample["workspace_name"] if sample.get("is_special") else f"workspace {ws_id}"
+    ws_groups: dict = defaultdict(list)
+    for c in session["clients"]:
+        ws_groups[group_key(c)].append(c)
+
+    # Special workspaces (str keys) first in insertion order, then regular by id.
+    order = {k: i for i, k in enumerate(ws_groups)}
+    def sort_key(k):
+        return (0, order[k], 0) if isinstance(k, str) else (1, 0, k)
+
+    for key in sorted(ws_groups, key=sort_key):
+        sample = ws_groups[key][0]
+        ws_label = sample["workspace_name"] if sample.get("is_special") else f"workspace {key}"
         print(f"  {ws_label}:")
-        for c in ws_groups[ws_id]:
+        for c in ws_groups[key]:
             has_cmd    = "✓" if (c["class"].lower() in commands or c["class"] in commands) else "✗"
             geo        = f"{c['size'][0]}x{c['size'][1]}@{c['at'][0]},{c['at'][1]}"
             flags = " ".join(filter(None, [
@@ -516,7 +535,10 @@ def cmd_status() -> None:
     ts = datetime.datetime.fromtimestamp(session["timestamp"])
 
     saved_classes   = [c["class"] for c in session["clients"]]
-    running_classes = [c["class"] for c in current if c["workspace"]["id"] != 0]
+    running_classes = [
+        c["class"] for c in current
+        if c["workspace"].get("id", 0) != 0 or c["workspace"]["name"].startswith("special:")
+    ]
 
     saved_counts   = defaultdict(int)
     running_counts = defaultdict(int)
