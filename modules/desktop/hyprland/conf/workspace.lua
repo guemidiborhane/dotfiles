@@ -33,7 +33,7 @@ local function smart_focus(workspace, close_all)
   return function()
     local active = hl.get_active_special_workspace()
     local is_special = string.match(tostring(workspace), special_prefix)
-    local function special_dispatcher(name) return hl.dsp.workspace.toggle_special(name:gsub(special_prefix, "")) end
+    local function special_dispatcher(name) return hl.dsp.workspace.toggle_special((name:gsub(special_prefix, ""))) end
 
     if active and not (active.name == workspace) then
       -- close whatever special is open
