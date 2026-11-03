@@ -26,6 +26,7 @@ M.monitors = {
     bitdepth = 10,
     cm = "edid",
     workspaces = { 1, 2, 4 },
+    supports_hdr = -1,
   },
 }
 
