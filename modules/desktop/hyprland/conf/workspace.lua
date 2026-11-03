@@ -58,9 +58,10 @@ local function workspace_rules(name, mod, i)
   local workspace = string.gsub(tostring(name), special_prefix, "")
   local opts = workspaces[tonumber(workspace) or workspace]
   local key = (opts and opts.key) or i or workspace
+  local alt = (mod == Meta) and Alt or Meta
 
   bind(key, mod, smart_focus(name, true))
-  bind(key, { mod, Alt }, smart_focus(name, false))
+  bind(key, { mod, alt }, smart_focus(name, false))
   bind(key, { mod, Shift }, hl.dsp.window.move({ workspace = name, follow = true }))
   bind(key, { mod, Control }, hl.dsp.window.move({ workspace = name, follow = false }))
 
