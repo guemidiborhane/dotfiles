@@ -24,7 +24,6 @@ _: {
           cat = "bat --no-pager";
           clear = "command clear && fish_greeting";
           zid = "eza -D | xargs -I {} zoxide add {}";
-          fast = "bunx -- fast-cli --single-line";
           which = "type -a";
           gzip = "pigz";
           tv = "tidy-viewer";
