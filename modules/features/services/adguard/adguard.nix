@@ -1,20 +1,47 @@
-_: {
-  flake.modules.nixos.adguard =
-    { secrets, ... }:
-    let
-      port = 5335;
-    in
-    {
-      networking.nameservers = [ "127.0.0.1:${toString port}" ];
+{ self, ... }:
+let
+  port = 5335;
+  httpPort = 8053;
+in
+{
+  flake.dex.apps.adguard = {
+    module = self.modules.nixos.adguard-service;
+    ports = [
+      {
+        host = port;
+        guest = port;
+        proto = "both";
+      }
+      {
+        host = httpPort;
+        guest = httpPort;
+      }
+    ];
+    # The host resolver must point at the container, not the guest's own
+    # loopback. Done host-side because the guest cannot set it for the host.
+    host =
+      { guestAddress, ... }:
+      {
+        networking.nameservers = [ "${guestAddress}:${toString port}" ];
+      };
+    # adguard is itself the host's resolver, so it must not take the generator's
+    # default (dial the host) — that would loop back into adguard. Use a raw
+    # public resolver for the guest's own system lookups; adguard's DoH upstreams
+    # bootstrap independently via bootstrap_dns.
+    guest.networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
+  };
 
+  flake.modules.nixos.adguard-service =
+    { lib, secrets, ... }:
+    {
       services.adguardhome = {
         enable = true;
 
         settings = {
-          http.address = "127.0.0.1:8053";
+          http.address = "0.0.0.0:${toString httpPort}";
           dns = {
             inherit port;
-            bind_hosts = [ "127.0.0.1" ];
+            bind_hosts = lib.mkForce [ "0.0.0.0" ];
 
             upstream_mode = "parallel";
             upstream_dns = [

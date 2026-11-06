@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ self, lib, ... }:
 {
   # Validation for silo, colocated with the module (see modules/dex/dex.nix
   # `flake.dex.rules`). The module is imported when features.silo.enable is set
@@ -37,13 +37,45 @@
   # This module builds the native server (pkgs/silo.nix) and provisions its
   # datastores: PostgreSQL with the pgvector extension and Redis.
   #
-  # Configurable via features.silo: enable, port, jellyfinPort. Everything else
-  # is fixed below; the SECRET_KEY comes from secrets.silo.secretKey.
-  flake.modules.nixos.silo =
+  # Configurable via features.silo: enable, port, jellyfinPort, uid, gid.
+  # Everything else is fixed below; the SECRET_KEY comes from
+  # secrets.silo.secretKey.
+  flake.dex.apps.silo = {
+    module = self.modules.nixos.silo-service;
+    external = true;
+    # Pass the host GPU into the container for hardware transcoding (NVENC on
+    # koto). The generator binds /dev/dri, /run/opengl-driver and the device
+    # nodes; the -service body adds the NVIDIA userspace (nvidia-smi) silo's
+    # hw_accel=auto needs to verify the backend.
+    gpu = true;
+    ports = [
+      { host = 8090; }
+      { host = 8096; }
+    ];
+    # Silo's app data and its PostgreSQL cluster both survive container
+    # rebuilds. postgres keeps its default /var/lib/postgresql dataDir inside the
+    # container (a custom dataDir nested under /var/lib/silo fights the service's
+    # ProtectSystem=strict sandbox); on the host its cluster lives at
+    # /var/lib/silo-postgresql so it's clearly silo's, not a host postgres.
+    state = {
+      "/var/lib/silo" = "/var/lib/silo";
+      "/var/lib/silo-postgresql" = "/var/lib/postgresql";
+    };
+    # Media lives on the host disks declared in hardware.mounts. Mount each at
+    # the same path inside the container, so silo serves it. Read-write because
+    # silo reads and writes its .nfo metadata sidecars next to the media.
+    mountsReadOnly = false;
+    mounts =
+      ctx: lib.mapAttrs' (_uuid: path: lib.nameValuePair path path) (ctx.hardware.mounts or { });
+  };
+
+  flake.modules.nixos.silo-service =
     {
       pkgs,
+      lib,
       secrets,
       features,
+      hardware,
       ...
     }:
     let
@@ -54,6 +86,12 @@
       port = cfg.port or 8090;
       jellyfinPort = cfg.jellyfinPort or 8096;
       audiobookshelfPort = 13378;
+
+      # silo must run as the owner of the media/.nfo files on disk (nspawn maps
+      # uids 1:1). Defaults to the uid/gid silo used on bare metal; override per
+      # host via features.silo.{uid,gid} if the media is owned differently.
+      uid = cfg.uid or 990;
+      gid = cfg.gid or 984;
 
       dataDir = "/var/lib/silo";
 
@@ -68,14 +106,25 @@
       redisUrl = "redis://127.0.0.1:${toString redisPort}/0";
     in
     {
-      environment.systemPackages = [ silo ];
+      # silo's hw_accel=auto probes for nvidia-smi to verify the NVIDIA backend
+      # (the driver libs come from the host's /run/opengl-driver, bound in by the
+      # generator). Only add it on NVIDIA hosts; elsewhere DRI/VAAPI is enough.
+      environment.systemPackages = [
+        silo
+      ]
+      ++ lib.optional hardware.hasNvidia pkgs.linuxPackages.nvidia_x11.bin;
 
+      # Pin silo to the uid/gid that owns the media/.nfo files on disk (set via
+      # features.silo.{uid,gid}); nspawn maps uids 1:1 so the on-disk owner must
+      # match. Without this silo gets a dynamic uid and can't read its 600-mode
+      # sidecar files.
       users.users.silo = {
         isSystemUser = true;
+        inherit uid;
         group = "silo";
         home = dataDir;
       };
-      users.groups.silo = { };
+      users.groups.silo.gid = gid;
 
       services.postgresql = {
         enable = true;

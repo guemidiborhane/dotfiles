@@ -1,4 +1,5 @@
-_: {
+{ self, ... }:
+{
   flake.unfreePackages = [
     "cuda_cudart"
     "cuda_nvcc"
@@ -9,7 +10,15 @@ _: {
     "cuda_nvrtc"
   ];
 
-  flake.modules.nixos.ollama =
+  flake.dex.apps.ollama = {
+    module = self.modules.nixos.ollama-service;
+    gpu = true;
+    ports = [ { host = 11434; } ];
+    # Pulled models (many GB) survive container rebuilds.
+    state."/var/lib/ollama" = "/var/lib/ollama";
+  };
+
+  flake.modules.nixos.ollama-service =
     {
       lib,
       pkgs,
@@ -42,6 +51,10 @@ _: {
       services.ollama = {
         enable = true;
         inherit package;
+
+        # Listen on the container's namespace address so the host's
+        # forwardPorts (NAT) can reach it; loopback would not be routable.
+        host = "0.0.0.0";
 
         rocmOverrideGfx = lib.mkIf (hardware.hasAMDGPU && gfxOverride != "") gfxOverride;
 

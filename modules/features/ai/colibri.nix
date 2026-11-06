@@ -1,4 +1,5 @@
-_: {
+{ self, ... }:
+{
   # colibrì — run large MoE models in pure C, experts streamed from disk.
   # https://github.com/JustVugg/colibri
   #
@@ -42,7 +43,19 @@ _: {
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.nixos.colibri =
+  flake.dex.apps.colibri = {
+    module = self.modules.nixos.colibri-service;
+    gpu = true;
+    # Forward whatever port the service is configured to serve on. The service
+    # binds 0.0.0.0 by default (see colibri-service), so NAT reaches it.
+    ports = features: [ { host = (features.colibri.port or 8000); } ];
+    # setup.json + the 19GB+ model download survive container rebuilds; the
+    # one-time `colibri-setup` now runs inside the container
+    # (`nixos-container run colibri -- colibri-setup --model <id>`).
+    state."/var/lib/colibri" = "/var/lib/colibri";
+  };
+
+  flake.modules.nixos.colibri-service =
     {
       pkgs,
       lib,
@@ -69,7 +82,7 @@ _: {
       # whatever `coli setup` recorded in setup.json, so these values are the
       # single source of truth — applied by the setup wrapper and re-applied on
       # every service start (ExecStartPre), which makes them declarative.
-      host = cfg.host or "127.0.0.1";
+      host = cfg.host or "0.0.0.0";
       port = toString (cfg.port or 8000);
 
       # The backend `coli setup` must pin. On a GPU host leaving this to `auto`

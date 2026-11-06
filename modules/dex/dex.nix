@@ -84,6 +84,17 @@ in
           # while still declaring list-merging sub-options such as `rules`.
           freeformType = lib.types.attrsOf lib.types.raw;
 
+          # Service container specs, merged across modules. Each value is a
+          # free attrset consumed by modules/dex/apps.nix; `raw` lets specs hold
+          # functions (e.g. `host`, `module`) without the module system touching
+          # them, while `attrsOf` still merges keys contributed by different
+          # service modules.
+          options.apps = lib.mkOption {
+            type = lib.types.attrsOf lib.types.raw;
+            default = { };
+            description = "Services run inside isolated NixOS containers (see modules/dex/apps.nix).";
+          };
+
           options.rules = lib.mkOption {
             type = lib.types.listOf (lib.types.functionTo (lib.types.listOf lib.types.str));
             default = [ ];
