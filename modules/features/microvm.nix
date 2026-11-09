@@ -60,8 +60,8 @@
       )
     )
     # Every key under `features.microvm` (minus reserved keys) must reference a
-    # host of type "vm", and each of that VM's shares must declare both `host`
-    # and `guest`.
+    # host of type "vm", and each of that VM's shares must be a [host, guest]
+    # tuple.
     (
       { name, features, ... }:
       let
@@ -84,8 +84,9 @@
           lib.concatLists (
             lib.imap0 (
               i: share:
-              lib.optional (!(share ? host) || !(share ? guest))
-                "host '${name}': features.microvm.${vmName}.shares[${toString i}] must set both 'host' and 'guest'."
+              lib.optional (
+                !(builtins.isList share) || builtins.length share != 2
+              ) "host '${name}': features.microvm.${vmName}.shares[${toString i}] must be a [host, guest] tuple."
             ) (mv.${vmName}.shares or [ ])
           )
         ) vmNames;
@@ -165,12 +166,13 @@
           ram = resources.ram or vm.hardware.ram or 2;
 
           # Shares the VM declares as its own defaults, overlaid with the
-          # deploying host's shares. A host share replaces a VM default with the
-          # same `guest` mount point (host wins); the rest are unioned.
+          # deploying host's shares. Each share is a [host, guest] tuple; a host
+          # share replaces a VM default with the same guest mount point (host
+          # wins), the rest are unioned.
           vmShares = vm.config.shares or [ ];
           hostShares = override.shares or [ ];
           mergedShares = builtins.attrValues (
-            builtins.listToAttrs (map (s: lib.nameValuePair s.guest s) (vmShares ++ hostShares))
+            builtins.listToAttrs (map (s: lib.nameValuePair (builtins.elemAt s 1) s) (vmShares ++ hostShares))
           );
 
           shares = [
@@ -186,9 +188,9 @@
           ]
           ++ (map (share: {
             proto = "virtiofs";
-            tag = pathToShareKey share.host;
-            source = share.host;
-            mountPoint = share.guest;
+            tag = pathToShareKey (builtins.elemAt share 0);
+            source = builtins.elemAt share 0;
+            mountPoint = builtins.elemAt share 1;
           }) mergedShares);
         in
         lib.nameValuePair vm.config.name {

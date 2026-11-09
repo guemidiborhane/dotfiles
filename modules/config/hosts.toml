@@ -40,13 +40,12 @@ sensors = [
   ["hwmon", "/sys/class/hwmon", "acpitz", [1]],
 ]
 
-[[kamui.features.microvm.sandbox.shares]]
-host = "/home/borhane/.config/nixos"
-guest = "/host/nixos"
-
-[[kamui.features.microvm.sandbox.shares]]
-host = "/home/borhane/Code/share"
-guest = "/home/borhane/c"
+[kamui.features.microvm.sandbox]
+# [host, guest] share tuples.
+shares = [
+  ["/home/borhane/.config/nixos", "/host/nixos"],
+  ["/home/borhane/Code/share", "/home/borhane/c"],
+]
 
 [kotoamatsukami]
 hostname = "koto"
@@ -81,17 +80,18 @@ cpu = "amd"
 gpu = "nvidia"
 bluetooth = true
 wifi = true
+# [uuid, path] mount tuples.
+mounts = [
+  ["34B1213A561574D4", "/mnt/2_5"],
+  ["75cddeb8-910a-41da-8b8c-269dada60016", "/mnt/3_5"],
+  ["4d80e49e-7786-4543-aa34-7429908d3c8b", "/mnt/320"],
+  ["afe8ba39-fada-43da-ba0a-459498b1b062", "/mnt/LACIE"],
+  ["4A9DD7D4448B0F0A", "/mnt/DATA"],
+]
 
 [kotoamatsukami.hardware.fan]
 # [temp, speed]
 speeds = [[0, 0], [40, 0], [50, 25], [60, 40], [70, 60], [85, 100]]
-
-[kotoamatsukami.hardware.mounts]
-34B1213A561574D4 = "/mnt/2_5"
-75cddeb8-910a-41da-8b8c-269dada60016 = "/mnt/3_5"
-4d80e49e-7786-4543-aa34-7429908d3c8b = "/mnt/320"
-afe8ba39-fada-43da-ba0a-459498b1b062 = "/mnt/LACIE"
-4A9DD7D4448B0F0A = "/mnt/DATA"
 
 [sandbox]
 type = "vm"

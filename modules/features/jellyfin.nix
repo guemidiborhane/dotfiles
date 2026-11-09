@@ -10,7 +10,11 @@
     ];
     # Media lives on the host disks declared in hardware.mounts; mount each at
     # the same path inside the container (read-only) so jellyfin serves it.
-    mounts = ctx: lib.mapAttrs' (_uuid: path: lib.nameValuePair path path) (ctx.hardware.mounts or { });
+    mounts =
+      ctx:
+      builtins.listToAttrs (
+        map (m: lib.nameValuePair (builtins.elemAt m 1) (builtins.elemAt m 1)) (ctx.hardware.mounts or [ ])
+      );
   };
 
   flake.modules.nixos.jellyfin-service =
