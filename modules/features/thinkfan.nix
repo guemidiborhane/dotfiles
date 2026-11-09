@@ -1,109 +1,77 @@
 _: {
-  flake.modules.nixos.hardware-thinkfan = _: {
-    services.thinkfan = {
-      enable = true;
+  flake.modules.nixos.thinkfan =
+    {
+      lib,
+      hardware,
+      features,
+      ...
+    }:
+    let
+      inherit (hardware.fan) band speeds;
 
-      # Sensors configuration
-      sensors = [
+      # [type, path, name, indices?] tuples -> thinkfan sensor attrsets.
+      # name "" means path-only (tpacpi); omit it so thinkfan matches by query alone.
+      sensors = map (
+        s:
+        let
+          name = builtins.elemAt s 2;
+        in
         {
-          type = "tpacpi";
-          query = "/proc/acpi/ibm/thermal";
-          indices = [
-            1
-            2
-            3
-            4
-          ];
+          type = builtins.elemAt s 0;
+          query = builtins.elemAt s 1;
+          indices = if builtins.length s > 3 then builtins.elemAt s 3 else [ 1 ];
         }
-        {
-          type = "hwmon";
-          query = "/sys/class/hwmon";
-          name = "amdgpu";
-          indices = [ 1 ];
-        }
-        {
-          type = "hwmon";
-          query = "/sys/class/hwmon";
-          name = "k10temp";
-          indices = [ 1 ];
-        }
-        {
-          type = "hwmon";
-          query = "/sys/class/hwmon";
-          name = "thinkpad";
-          indices = [
-            1
-            3
-            6
-            7
-          ];
-          max_errors = 10;
-        }
-        {
-          type = "hwmon";
-          query = "/sys/class/hwmon";
-          name = "nvme";
-          indices = [ 1 ];
-        }
-        {
-          type = "hwmon";
-          query = "/sys/class/hwmon";
-          name = "acpitz";
-          indices = [ 1 ];
-        }
-      ];
+        // lib.optionalAttrs (name != "") { inherit name; }
+      ) features.thinkfan.sensors;
 
-      # Fan configuration
-      fans = [
-        {
-          type = "tpacpi";
-          query = "/proc/acpi/ibm/fan";
-        }
-      ];
+      curve = speeds;
+      lowestTemp = builtins.elemAt (builtins.head curve) 0;
+      highestTemp = builtins.elemAt (lib.last curve) 0;
 
-      # Fan speed levels [LEVEL, LOW, HIGH]
+      # Middle levels are derived from the shared [temp, speed] curve as
+      # [speed, temp-band, temp+band]. The fan-off floor and full-speed ceiling
+      # frame the curve: the floor rides just below the first point and the
+      # ceiling caps at thinkfan's sentinel 32767.
+      midLevels = map (
+        p:
+        let
+          temp = builtins.elemAt p 0;
+          speed = builtins.elemAt p 1;
+        in
+        [
+          speed
+          (temp - band)
+          (temp + band)
+        ]
+      ) curve;
+
       levels = [
         [
           0
-          0
-          55
+          (lowestTemp - band)
+          lowestTemp
         ]
-        [
-          1
-          50
-          62
-        ]
-        [
-          2
-          57
-          68
-        ]
-        [
-          3
-          63
-          74
-        ]
-        [
-          4
-          69
-          79
-        ]
-        [
-          5
-          74
-          84
-        ]
-        [
-          6
-          79
-          89
-        ]
+      ]
+      ++ midLevels
+      ++ [
         [
           "level full-speed"
-          85
+          highestTemp
           32767
         ]
       ];
+    in
+    {
+      services.thinkfan = {
+        enable = true;
+        inherit sensors levels;
+
+        fans = [
+          {
+            type = "tpacpi";
+            query = "/proc/acpi/ibm/fan";
+          }
+        ];
+      };
     };
-  };
 }

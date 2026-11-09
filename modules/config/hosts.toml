@@ -23,6 +23,23 @@ gpu = "amd"
 nixos-hardware = "lenovo-thinkpad-p14s-amd-gen5"
 fingerprint = true
 
+[kamui.hardware.fan]
+# band widens each [temp, speed] point into a thinkfan level [speed, temp-band, temp+band];
+band = 6
+speeds = [[56, 1], [63, 2], [69, 3], [74, 4], [79, 5], [84, 6]]
+
+[kamui.features.thinkfan]
+enable = true
+# [type, path, name, indices?] tuples; name "" for path-only sensors (tpacpi).
+sensors = [
+  ["tpacpi", "/proc/acpi/ibm/thermal", "", [1, 2, 3, 4]],
+  ["hwmon", "/sys/class/hwmon", "amdgpu", [1]],
+  ["hwmon", "/sys/class/hwmon", "k10temp", [1]],
+  ["hwmon", "/sys/class/hwmon", "thinkpad", [1, 3, 6, 7]],
+  ["hwmon", "/sys/class/hwmon", "nvme", [1]],
+  ["hwmon", "/sys/class/hwmon", "acpitz", [1]],
+]
+
 [[kamui.features.microvm.sandbox.shares]]
 host = "/home/borhane/.config/nixos"
 guest = "/host/nixos"
@@ -45,6 +62,11 @@ netbirdPort = 51281
 silo = true
 ollama = true
 
+[kotoamatsukami.features.liquidctl]
+enable = true
+match = "H115i"
+sensor = "k10temp.tctl"
+
 [kotoamatsukami.features.kernel]
 opti = "x86_64-v3"
 
@@ -59,6 +81,10 @@ cpu = "amd"
 gpu = "nvidia"
 bluetooth = true
 wifi = true
+
+[kotoamatsukami.hardware.fan]
+# [temp, speed]
+speeds = [[0, 0], [40, 0], [50, 25], [60, 40], [70, 60], [85, 100]]
 
 [kotoamatsukami.hardware.mounts]
 34B1213A561574D4 = "/mnt/2_5"

@@ -1,17 +1,14 @@
-{ self, ... }:
-{
+_: {
   flake.modules.nixos.kotoamatsukami-hardware =
     {
       config,
       lib,
       modulesPath,
-      hardware,
       ...
     }:
     {
       imports = [
         (modulesPath + "/installer/scan/not-detected.nix")
-        self.modules.nixos.hardware-liquidctl
       ];
 
       boot = {
@@ -53,24 +50,5 @@
 
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
       hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-      services.liquidctl = {
-        enable = true;
-        match = "H115i";
-        curves = [
-          {
-            type = "fan";
-            sensor = "k10temp.tctl";
-            # temp speed
-            points = [
-              [ 0 0 ]
-              [ 40 0 ]
-              [ 50 25 ]
-              [ 60 40 ]
-              [ 70 60 ]
-              [ 85 100 ]
-            ];
-          }
-        ];
-      };
     };
 }

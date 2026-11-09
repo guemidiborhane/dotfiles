@@ -28,6 +28,15 @@ iface = ""
 [silo]
 enable = false
 
+[liquidctl]
+enable = false
+match = ""
+sensor = ""
+
+[thinkfan]
+enable = false
+sensors = []
+
 [desktop]
 kanata = true
 libvirtd = true

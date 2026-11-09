@@ -78,6 +78,8 @@ let
     (featureGuard "virtualbox")
     swapGuard
     (featureGuard "kanata")
+    (featureGuard "liquidctl")
+    (featureGuard "thinkfan")
     (featureGuard "wol")
     (featureGuard "remote-unlock")
     microvmGuard
