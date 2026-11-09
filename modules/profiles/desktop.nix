@@ -115,7 +115,7 @@
         { pkgs, ... }:
         {
           imports = with self.modules.homeManager; [
-            pkgs-desktop
+            desktop-apps
             desktop-hyprland
             solaar
 

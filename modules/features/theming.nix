@@ -1,5 +1,5 @@
 _: {
-  flake.modules.homeManager.desktop-common =
+  flake.modules.homeManager.theming =
     {
       config,
       lib,

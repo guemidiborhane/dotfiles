@@ -29,4 +29,16 @@
       };
     };
 
+  flake.modules.homeManager.home-manager =
+    { metadata, user, ... }:
+    {
+      programs.home-manager.enable = true;
+      home = {
+        inherit (metadata) stateVersion;
+
+        enableNixpkgsReleaseCheck = true;
+        username = "${user.username}";
+        homeDirectory = "/home/${user.username}";
+      };
+    };
 }

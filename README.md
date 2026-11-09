@@ -42,7 +42,7 @@ All machines share:
 * **Keyboard:** Kanata with home row mods (my wrists will thank me eventually)
 * **Despair:** Uniformly distributed across all hardware
 
-Each machine has a hardware configuration file (in `modules/system/hardware/hosts/$name.nix`) that was generated once and will never be touched again unless something catastrophically breaks.
+Each machine has a hardware configuration file (in `modules/hosts/$name/hardware.nix`) that was generated once and will never be touched again unless something catastrophically breaks.
 
 ## SOFTWARE STACK
 

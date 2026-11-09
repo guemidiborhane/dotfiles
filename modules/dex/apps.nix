@@ -2,7 +2,7 @@
 let
   # Private /24 for the service containers. Each app gets two addresses from a
   # deterministic index (host side .<2n>, guest side .<2n+1>), mirroring how
-  # modules/features/virtualisation/microvm.nix assigns VM IPs by index. IP
+  # modules/features/microvm.nix assigns VM IPs by index. IP
   # stability across edits does not matter: the host reaches a container by its
   # forwarded ports on 127.0.0.1, not by a fixed guest address.
   subnet = "10.231.7";

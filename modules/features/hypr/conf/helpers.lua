@@ -2,17 +2,6 @@ local d = require("lua.dsp")
 
 local M = {}
 
-function M.get_hostname()
-  local f = io.popen("/usr/bin/env hostname")
-  if not f then return end
-
-  local hostname = f:read("*a") or ""
-  f:close()
-  hostname = string.gsub(hostname, "\n$", "")
-
-  return hostname
-end
-
 function M.get_active_or_special_workspace()
   local active_special = hl.get_active_special_workspace()
   local active = active_special or hl.get_active_workspace()
@@ -44,7 +33,7 @@ function M.define_submap(key, mod, name, func)
 end
 
 function M.get_host()
-  local host = require("lua.hosts." .. M.get_hostname())
+  local host = require("host")
   host.env = host.env or {}
   host.monitors = host.monitors or {}
   host.workspace_rules = host.workspace_rules or {}

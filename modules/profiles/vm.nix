@@ -66,7 +66,7 @@
 
           # `microvm.shares` (ro-store, VM default shares, and per-host
           # overrides) are assembled on the deploying host in
-          # modules/features/virtualisation/microvm.nix, where the host's
+          # modules/features/microvm.nix, where the host's
           # `features.microvm.<vmName>.shares` is in scope.
 
           hypervisor = "crosvm";

@@ -36,7 +36,7 @@ in
         imports = with self.modules.homeManager; [
           inputs.hyprland.homeManagerModules.default
 
-          desktop-common
+          theming
           noctalia
 
           hypower
@@ -58,6 +58,7 @@ in
         dex.dotfiles = {
           ".config/hypr" = {
             "lua" = ./conf;
+            "host.lua" = ../../hosts/${host.name}/hyprland.lua;
             "xdph.conf" = ./xdph.conf;
           };
         };

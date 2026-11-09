@@ -1,5 +1,4 @@
-{ self, ... }:
-{
+_: {
   flake.modules.nixos.nix-config =
     {
       pkgs,

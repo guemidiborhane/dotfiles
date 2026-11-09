@@ -3,7 +3,8 @@ set -euo pipefail
 
 CONFIG_FILE="$1"
 RESOLVED="$2"
-HARDWARE_FILE="modules/system/hardware/hosts/$RESOLVED.nix"
+HOST_DIR="modules/hosts/$RESOLVED"
+HARDWARE_FILE="$HOST_DIR/hardware.nix"
 SCRIPTS_DIR="$(dirname "$0")"
 REPO_ROOT="$(cd "$SCRIPTS_DIR/.." && pwd)"
 
@@ -16,15 +17,15 @@ tomlq ".\"$RESOLVED\"" "$CONFIG_FILE"
 echo
 
 gum style --foreground 196 "⚠ This will:"
-echo "  • Delete $HARDWARE_FILE"
+echo "  • Delete $HOST_DIR"
 echo "  • Remove configuration from $CONFIG_FILE"
 echo
 
 gum confirm "Are you sure you want to remove '$RESOLVED'?" || exit 0
 
 # Remove directory
-if [ -f "$HARDWARE_FILE" ]; then
-	gum spin --spinner dot --title "Removing host directory..." -- rm "$HARDWARE_FILE"
+if [ -d "$HOST_DIR" ]; then
+	gum spin --spinner dot --title "Removing host directory..." -- rm -rf "$HOST_DIR"
 fi
 
 # Remove from modules/config/hosts.toml

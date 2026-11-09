@@ -89,7 +89,7 @@ let
     hostProfile
     "dex-dotfiles"
     "dex-persist"
-    "home"
+    "home-manager"
     "pkgs-shell"
     "git"
     "fish"

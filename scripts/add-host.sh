@@ -110,7 +110,8 @@ gum confirm "Create this host?" || exit 0
 
 # Generate hardware config
 if gum confirm "Generate hardware configuration now? (requires root)"; then
-	output_file="modules/system/hardware/hosts/$NAME.nix"
+	output_file="modules/hosts/$NAME/hardware.nix"
+	mkdir -p "modules/hosts/$NAME"
 	gum spin --spinner dot --title "Generating hardware configuration..." -- \
 		sudo nixos-generate-config --show-hardware-config --no-filesystems --root /tmp >"$output_file.tmp"
 
@@ -126,7 +127,7 @@ EOF
 	nix fmt "$output_file" 2>/dev/null || true
 else
 	gum style --foreground 220 "⚠ Remember to generate hardware config later with:"
-	gum style --foreground 242 "   sudo nixos-generate-config --show-hardware-config --no-filesystems > modules/system/hardware/hosts/$NAME.nix"
+	gum style --foreground 242 "   sudo nixos-generate-config --show-hardware-config --no-filesystems > modules/hosts/$NAME/hardware.nix"
 fi
 
 # Build JSON configuration

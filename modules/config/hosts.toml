@@ -71,8 +71,8 @@ afe8ba39-fada-43da-ba0a-459498b1b062 = "/mnt/LACIE"
 type = "vm"
 
 [sandbox.hardware]
-vcpu = 8
-ram = 16
+vcpu = 4
+ram = 8
 
 [sandbox.users.borhane]
 modules = []
