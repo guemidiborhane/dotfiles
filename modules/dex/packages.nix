@@ -13,8 +13,7 @@ in
   # One overlay carrying every declared package, replacing the hand-written
   # `flake.overlays.packages`. License-agnostic: `final` is the consumer's
   # nixpkgs, so unfree deps are governed by the consumer's own allowUnfree.
-  flake.overlays.packages =
-    final: _prev: lib.mapAttrs (_: fn: final.callPackage fn { }) packages;
+  flake.overlays.packages = final: _prev: lib.mapAttrs (_: fn: final.callPackage fn { }) packages;
 
   # `nix build .#<name>` outputs, built with *our* nixpkgs (our overlays +
   # unfree allowlist), mirroring the old central packages.nix.

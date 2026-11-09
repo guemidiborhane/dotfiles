@@ -13,21 +13,25 @@ let
   # — it is read directly from `self.dex.apps`, the way `helpers`/`getHost` are.
   rawApps = self.dex.apps or { };
   # Fill optional keys so the generator can read them unconditionally.
-  apps = builtins.mapAttrs (_: spec: {
-    ports = [ ];
-    gpu = false;
-    state = { };
-    mounts = { };
-    # Media/host mounts are read-only by default. Set false for a service that
-    # must write back next to the media (e.g. silo's .nfo sidecars).
-    mountsReadOnly = true;
-    guest = { };
-    host = _: { };
-    # When true, open the app's forwarded ports on the host firewall so other
-    # LAN machines can reach the service via the host's address. Default off,
-    # so host-local services (adguard, ollama) are not exposed.
-    external = false;
-  } // spec) rawApps;
+  apps = builtins.mapAttrs (
+    _: spec:
+    {
+      ports = [ ];
+      gpu = false;
+      state = { };
+      mounts = { };
+      # Media/host mounts are read-only by default. Set false for a service that
+      # must write back next to the media (e.g. silo's .nfo sidecars).
+      mountsReadOnly = true;
+      guest = { };
+      host = _: { };
+      # When true, open the app's forwarded ports on the host firewall so other
+      # LAN machines can reach the service via the host's address. Default off,
+      # so host-local services (adguard, ollama) are not exposed.
+      external = false;
+    }
+    // spec
+  ) rawApps;
   appNames = lib.naturalSort (builtins.attrNames apps);
 
   addr = index: offset: "${subnet}.${toString (index * 2 + offset)}";
@@ -58,24 +62,46 @@ let
       "/run/opengl-driver" = { };
     }
     // lib.optionalAttrs hardware.hasNvidia (
-      lib.genAttrs nvidiaNodes (_: { isReadOnly = false; })
+      lib.genAttrs nvidiaNodes (_: {
+        isReadOnly = false;
+      })
     );
   gpuAllowedDevices =
     hardware:
     [
-      { node = "/dev/dri/renderD128"; modifier = "rw"; }
-      { node = "/dev/dri/card0"; modifier = "rw"; }
+      {
+        node = "/dev/dri/renderD128";
+        modifier = "rw";
+      }
+      {
+        node = "/dev/dri/card0";
+        modifier = "rw";
+      }
     ]
-    ++ lib.optionals hardware.hasNvidia (map (node: { inherit node; modifier = "rw"; }) nvidiaNodes);
+    ++ lib.optionals hardware.hasNvidia (
+      map (node: {
+        inherit node;
+        modifier = "rw";
+      }) nvidiaNodes
+    );
 
   # A spec's `ports` is either a literal list or a function of the host's
   # `features` (so a forwarded port can track e.g. `features.colibri.port`).
-  resolvePorts = spec: features: if builtins.isFunction spec.ports then spec.ports features else spec.ports;
+  resolvePorts =
+    spec: features: if builtins.isFunction spec.ports then spec.ports features else spec.ports;
 
   # A port's `proto` ("tcp" | "udp" | "both", default tcp) expanded to the
   # concrete protocols to emit a rule for. Shared so the forward and DNAT rule
   # builders cannot drift (a mismatch would leave a DNAT add without a stop).
-  protosOf = p: if (p.proto or "tcp") == "both" then [ "tcp" "udp" ] else [ (p.proto or "tcp") ];
+  protosOf =
+    p:
+    if (p.proto or "tcp") == "both" then
+      [
+        "tcp"
+        "udp"
+      ]
+    else
+      [ (p.proto or "tcp") ];
 
   # `mounts`/`state` may each be a literal `{ host = guest; }` map or a function
   # of the host `ctx` (so e.g. media mounts can be derived from
@@ -137,7 +163,9 @@ let
   # when its spec proto is that proto or "both".
   forwardedPortsByProto =
     ports: proto:
-    lib.concatMap (p: lib.optional ((p.proto or "tcp") == proto || (p.proto or "tcp") == "both") p.host) ports;
+    lib.concatMap (
+      p: lib.optional ((p.proto or "tcp") == proto || (p.proto or "tcp") == "both") p.host
+    ) ports;
 
   mkBindMounts =
     spec: ctx:
@@ -192,9 +220,7 @@ let
         allowedUDPPorts = [ 53 ];
       };
 
-      networking.firewall.extraCommands = loopbackDnatRules guestAddress (
-        resolvePorts spec ctx.features
-      );
+      networking.firewall.extraCommands = loopbackDnatRules guestAddress (resolvePorts spec ctx.features);
       networking.firewall.extraStopCommands = loopbackDnatStopRules guestAddress (
         resolvePorts spec ctx.features
       );
@@ -224,7 +250,10 @@ let
           # Likewise `imports`, not `//`: `spec.guest` may also set
           # `networking.*`, which `//` would shallow-merge over the fields set
           # here.
-          imports = [ spec.module spec.guest ];
+          imports = [
+            spec.module
+            spec.guest
+          ];
 
           # Forward the host module args the service modules expect.
           _module.args = {
@@ -277,9 +306,23 @@ in
     lib.imap0 (
       index: name:
       lib.nameValuePair name (
-        { features, hardware, pkgs, secrets, host, config, ... }:
+        {
+          features,
+          hardware,
+          pkgs,
+          secrets,
+          host,
+          config,
+          ...
+        }:
         mkContainerModule index name apps.${name} {
-          inherit features hardware pkgs secrets host;
+          inherit
+            features
+            hardware
+            pkgs
+            secrets
+            host
+            ;
           hostStateVersion = config.system.stateVersion;
         }
       )
@@ -293,11 +336,15 @@ in
     (
       { features, ... }:
       let
-        enabled = builtins.filter (name: (features.${name}.enable or features.${name} or false) == true) appNames;
+        enabled = builtins.filter (
+          name: (features.${name}.enable or features.${name} or false) == true
+        ) appNames;
         allPorts = lib.concatMap (name: map (p: p.host) (resolvePorts apps.${name} features)) enabled;
         dups = lib.subtractLists (lib.unique allPorts) allPorts;
       in
-      lib.optional (dups != [ ]) "dex.apps: enabled containers share forwarded host ports ${toString dups}."
+      lib.optional (
+        dups != [ ]
+      ) "dex.apps: enabled containers share forwarded host ports ${toString dups}."
     )
   ];
 }

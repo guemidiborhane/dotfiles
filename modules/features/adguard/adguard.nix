@@ -28,7 +28,10 @@ in
     # default (dial the host) — that would loop back into adguard. Use a raw
     # public resolver for the guest's own system lookups; adguard's DoH upstreams
     # bootstrap independently via bootstrap_dns.
-    guest.networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
+    guest.networking.nameservers = [
+      "9.9.9.9"
+      "1.1.1.1"
+    ];
   };
 
   flake.modules.nixos.adguard-service =

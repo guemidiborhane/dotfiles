@@ -74,7 +74,9 @@
 
         vmRefErrors = lib.concatMap (
           vmName:
-          lib.optional (!(isVM vmName)) "host '${name}': features.microvm references unknown VM \"${vmName}\"."
+          lib.optional (
+            !(isVM vmName)
+          ) "host '${name}': features.microvm references unknown VM \"${vmName}\"."
         ) vmNames;
 
         shareErrors = lib.concatMap (
@@ -82,9 +84,8 @@
           lib.concatLists (
             lib.imap0 (
               i: share:
-              lib.optional (
-                !(share ? host) || !(share ? guest)
-              ) "host '${name}': features.microvm.${vmName}.shares[${toString i}] must set both 'host' and 'guest'."
+              lib.optional (!(share ? host) || !(share ? guest))
+                "host '${name}': features.microvm.${vmName}.shares[${toString i}] must set both 'host' and 'guest'."
             ) (mv.${vmName}.shares or [ ])
           )
         ) vmNames;

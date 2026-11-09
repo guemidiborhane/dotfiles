@@ -65,8 +65,7 @@
     # the same path inside the container, so silo serves it. Read-write because
     # silo reads and writes its .nfo metadata sidecars next to the media.
     mountsReadOnly = false;
-    mounts =
-      ctx: lib.mapAttrs' (_uuid: path: lib.nameValuePair path path) (ctx.hardware.mounts or { });
+    mounts = ctx: lib.mapAttrs' (_uuid: path: lib.nameValuePair path path) (ctx.hardware.mounts or { });
   };
 
   flake.modules.nixos.silo-service =
