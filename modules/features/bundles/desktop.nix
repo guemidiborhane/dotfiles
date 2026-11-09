@@ -6,7 +6,7 @@ _: {
       "teamviewer"
       "spotify"
     ];
-    modules.homeManager.pkgs-desktop =
+    modules.homeManager.desktop-apps =
       { pkgs, ... }:
       {
         home.packages = with pkgs; [

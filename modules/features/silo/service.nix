@@ -34,7 +34,7 @@
   # unrecoverable, so store `secrets.silo.secretKey` OUTSIDE the database
   # backup.
   #
-  # This module builds the native server (pkgs/silo.nix) and provisions its
+  # This module builds the native server (./silo.nix) and provisions its
   # datastores: PostgreSQL with the pgvector extension and Redis.
   #
   # Configurable via features.silo: enable, port, jellyfinPort, uid, gid.

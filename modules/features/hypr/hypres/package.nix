@@ -1,3 +1,5 @@
+_: {
+  flake.dex.packages.hypres =
 {
   lib,
   stdenv,
@@ -44,4 +46,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };
+}
+;
 }

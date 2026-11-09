@@ -1,3 +1,5 @@
+_: {
+  flake.dex.packages.spotify-adblock =
 {
   spotify,
   rustPlatform,
@@ -54,3 +56,5 @@ spotify.overrideAttrs (old: {
     rm $out/share/spotify/Apps/xpui-snapshot.js
   '';
 })
+;
+}

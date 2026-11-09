@@ -95,6 +95,16 @@ in
             description = "Services run inside isolated NixOS containers (see modules/dex/apps.nix).";
           };
 
+          # Flake packages, merged across modules. Each value is a spec
+          # `{ src; args ? {}; expose ? true; }` consumed by modules/dex/packages.nix,
+          # which turns it into both an overlay entry and a `nix build` output.
+          # `raw` lets specs hold functions/paths without the module system touching them.
+          options.packages = lib.mkOption {
+            type = lib.types.attrsOf lib.types.raw;
+            default = { };
+            description = "Flake packages colocated with their modules (see modules/dex/packages.nix).";
+          };
+
           options.rules = lib.mkOption {
             type = lib.types.listOf (lib.types.functionTo (lib.types.listOf lib.types.str));
             default = [ ];

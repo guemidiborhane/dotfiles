@@ -1,3 +1,5 @@
+_: {
+  flake.dex.packages.vpn =
 {
   lib,
   symlinkJoin,
@@ -115,4 +117,6 @@ symlinkJoin {
     completion
   ];
   inherit (vpn) meta;
+}
+;
 }

@@ -35,14 +35,9 @@
   #
   # Setup must run through THIS package's wrapped `coli` (which `colibri-setup`
   # uses): the wrapper exposes the Vulkan loader and ICD to the Python GPU probe
-  # (see pkgs/colibri.nix). A bare upstream `coli`, or a stripped environment,
+  # (see ./colibri.nix). A bare upstream `coli`, or a stripped environment,
   # makes the probe report "no Vulkan GPU answered" and fall back to the CPU
   # even though the card is present.
-  flake-file.inputs.colibri = {
-    url = "github:JustVugg/colibri";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   flake.dex.apps.colibri = {
     module = self.modules.nixos.colibri-service;
     gpu = true;
@@ -71,7 +66,7 @@
       withVulkan = cfg.vulkan or hasGpu;
 
       # The package (Vulkan rebuild + staged web dashboard) is defined in
-      # pkgs/colibri.nix and exposed via self.overlays.packages. The
+      # ./colibri.nix and exposed via self.overlays.packages. The
       # module only picks the GPU-appropriate backend for this host.
       colibri = pkgs.colibri.override { inherit withVulkan; };
 
@@ -155,7 +150,7 @@
 
         # No LD_LIBRARY_PATH / XDG_DATA_DIRS here: the `coli` launcher is wrapped
         # in the package to carry the Vulkan loader and the ICD search path (see
-        # pkgs/colibri.nix), so both this service and a manual `coli setup` get
+        # ./colibri.nix), so both this service and a manual `coli setup` get
         # the same GPU environment. Setting them here too would only duplicate
         # what the wrapper already prepends.
         environment = {

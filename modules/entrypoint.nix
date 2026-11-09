@@ -51,11 +51,12 @@ let
     "home-manager"
     "tty-autologin"
     "mount-disks"
+    "packages"
 
     (bareMetalGuard "disko-config")
     (bareMetalGuard "kernel")
     (bareMetalGuard "nh")
-    (bareMetalGuard "pkgs")
+    (bareMetalGuard "extra-packages")
     (bareMetalGuard "system-sleep")
 
     hostHardware
@@ -90,7 +91,7 @@ let
     "dex-dotfiles"
     "dex-persist"
     "home-manager"
-    "pkgs-shell"
+    "shell-tools"
     "git"
     "fish"
     "bat"

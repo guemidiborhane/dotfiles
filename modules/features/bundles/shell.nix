@@ -1,6 +1,6 @@
 _: {
   flake.unfreePackages = [ "ngrok" ];
-  flake.modules.homeManager.pkgs-shell =
+  flake.modules.homeManager.shell-tools =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

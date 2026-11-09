@@ -7,7 +7,7 @@ _: {
       ...
     }:
     let
-      # The package lives in pkgs/hydrun.nix (exposed via self.overlays.packages).
+      # The package lives in ./hydrun.nix (exposed via self.overlays.packages).
       # Override hyprctl's provider with this host's exact Hyprland build so the
       # dispatch actions match the running compositor.
       hydrun = pkgs.hydrun.override {

@@ -1,3 +1,5 @@
+_: {
+  flake.dex.packages.silo =
 {
   lib,
   stdenv,
@@ -25,7 +27,7 @@
 # compatibility UI; that is deliberately omitted to keep the build pure.
 #
 # Runtime needs PostgreSQL (with pgvector) and optionally Redis — provisioned by
-# modules/features/services/silo.nix. ffmpeg (jellyfin-ffmpeg) is wrapped onto
+# modules/features/silo.nix. ffmpeg (jellyfin-ffmpeg) is wrapped onto
 # PATH for transcoding.
 #
 # When bumping `version`/`rev`, set `src.hash`, `frontend.pnpmDeps.hash` and
@@ -135,4 +137,6 @@ buildGoModule {
     mainProgram = "silo";
     platforms = lib.platforms.linux;
   };
+}
+;
 }

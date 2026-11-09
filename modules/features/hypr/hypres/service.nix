@@ -10,7 +10,7 @@ _: {
     let
       cfg = config.programs.hypres;
 
-      # The package lives in pkgs/hypres.nix (exposed via self.overlays.packages).
+      # The package lives in ./hypres.nix (exposed via self.overlays.packages).
       # Override hyprctl's provider with this host's exact Hyprland build so the
       # dispatch actions match the running compositor.
       hypres-bin = pkgs.hypres.override {
