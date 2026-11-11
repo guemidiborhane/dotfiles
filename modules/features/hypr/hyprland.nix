@@ -58,7 +58,6 @@ in
         dex.dotfiles = {
           ".config/hypr" = {
             "lua" = ./conf;
-            "host.lua" = ../../hosts/${host.name}/hyprland.lua;
             "xdph.conf" = ./xdph.conf;
           };
         };
