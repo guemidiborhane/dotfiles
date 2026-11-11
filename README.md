@@ -44,6 +44,8 @@ All machines share:
 
 Each machine has a hardware configuration file (in `modules/hosts/$name/hardware.nix`) that was generated once and will never be touched again unless something catastrophically breaks.
 
+Host-specific dotfiles live in `modules/hosts/$name/dotfiles/`, laid out like `$HOME` (stow convention: `dot_foo` → `.foo`) and are auto-mapped through `dex.dotfiles` — no manual paths anywhere.
+
 ## SOFTWARE STACK
 
 * **Window Manager**: Hyprland. Because why use a stable desktop when you can have windows that slide around like they are on ice?

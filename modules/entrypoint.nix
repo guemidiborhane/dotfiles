@@ -90,6 +90,7 @@ let
 
   homeDefaults = [
     hostProfile
+    "host-dotfiles"
     "dex-dotfiles"
     "dex-persist"
     "home-manager"
