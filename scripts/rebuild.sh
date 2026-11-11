@@ -26,6 +26,6 @@ fi
 
 echo "Rebuilding with extracted substituters..."
 
-nh os "$operation" "$(realpath /etc/nixos)" --ask -- \
+nh os "$operation" "$(realpath /etc/nixos)" --ask --keep-going -- \
 	--option extra-substituters "$URLS" \
 	--option extra-trusted-public-keys "$KEYS"
