@@ -12,8 +12,6 @@ _: {
           rustup
           libnotify
           bc
-          netwatch
-          syswatch
           bandwhich
           lm_sensors
           config.boot.kernelPackages.cpupower
