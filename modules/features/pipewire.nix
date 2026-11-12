@@ -10,7 +10,6 @@ _: {
       alsa.support32Bit = true;
       pulse.enable = true;
       wireplumber.enable = true;
-      jack.enable = true;
 
       wireplumber.extraConfig."10-audio-priority" = {
         "monitor.alsa.rules" = [

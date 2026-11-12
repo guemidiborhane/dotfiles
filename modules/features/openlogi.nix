@@ -1,17 +1,8 @@
 {
-  flake-file.inputs.openlogi = {
-    url = "github:AprilNEA/OpenLogi?dir=packaging";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   flake.modules.nixos.openlogi =
-    { inputs, features, ... }:
+    { inputs, features, pkgs, ... }:
     {
-      imports = [ inputs.openlogi.nixosModules.default ];
-      programs.openlogi = {
-        # Mutually exclusive with solaar; selected via features.logitech.
-        enable = features.logitech == "openlogi";
-        launchAtLogin = true;
-      };
+      # Mutually exclusive with solaar; selected via features.logitech.
+      programs.openlogi.enable = features.logitech == "openlogi";
     };
 }
