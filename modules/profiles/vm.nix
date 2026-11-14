@@ -13,7 +13,7 @@
       {
         imports = with self.modules.nixos; [ headless-profile ];
 
-        boot.kernelPackages = pkgs.linuxPackages_zen;
+        boot.kernelPackages = pkgs.linuxPackages_latest;
 
         # Disable firewall for faster boot and less hassle;
         # we are behind a layer of NAT anyway.
